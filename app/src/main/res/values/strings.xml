@@ -1,0 +1,41 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">DR channels</string>
+    <string name="cantChangeChannel">Unable to change channel.</string>
+    <string name="lists">Lists</string>
+    <string name="channelAction">Action</string>
+    <string name="startOverAction">Start over</string>
+    <string name="upcomingTransmission">Upcoming transmission</string>
+    <string name="no_connection">No connection</string>
+    <string name="drtv_input_label" translatable="false">DR TV channels</string>
+    <string name="channels_configured" translatable="false">DR TV channels configured</string>
+
+    <!-- ExoPlayer -->
+    <string name="video">Video</string>
+    <string name="audio">Audio</string>
+    <string name="text">Text</string>
+    <string name="retry">Retry</string>
+    <string name="storage_permission_denied">Permission to access storage was denied</string>
+    <string name="error_drm_not_supported">Protected content not supported on API levels below 18</string>
+    <string name="error_drm_unsupported_scheme">This device does not support the required DRM scheme</string>
+    <string name="error_drm_unknown">An unknown DRM error occurred</string>
+    <string name="unexpected_intent_action">Unexpected intent action: <xliff:g id="action">%1$s</xliff:g></string>
+    <string name="error_no_decoder">This device does not provide a decoder for <xliff:g id="mime_type">%1$s</xliff:g></string>
+    <string name="error_no_secure_decoder">This device does not provide a secure decoder for <xliff:g id="mime_type">%1$s</xliff:g></string>
+    <string name="error_querying_decoders">Unable to query device decoders</string>
+    <string name="error_instantiating_decoder">Unable to instantiate decoder <xliff:g id="decoder_name">%1$s</xliff:g></string>
+    <string name="error_unsupported_video">Media includes video tracks, but none are playable by this device</string>
+    <string name="error_unsupported_audio">Media includes audio tracks, but none are playable by this device</string>
+    <string name="selection_disabled">Disabled</string>
+    <string name="selection_default">Default</string>
+    <string name="selection_default_none">Default (none)</string>
+    <string name="enable_random_adaptation">Enable random adaptation</string>
+    <string name="remote_control">Remote Control</string>
+    <string name="login_title">Login</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="login_button">Login</string>
+    <string name="on">on</string>
+    <string name="all">All</string>
+    <string name="live">LIVE</string>
+    <string name="next">Next</string>
+</resources>

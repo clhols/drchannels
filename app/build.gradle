@@ -1,0 +1,95 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.github.triplet.play'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    flavorDimensions "app"
+
+    if(project.hasProperty("devBuild")) {
+        aaptOptions.cruncherEnabled = false
+    }
+
+    defaultConfig {
+        applicationId "dk.youtec.drchannels"
+        minSdkVersion 21
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode getVersionCodeTimestamp()
+        versionName "0.1"
+
+        vectorDrawables.useSupportLibrary = true
+
+        resConfigs "en", "da"
+    }
+
+    signingConfigs {
+        release
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.release
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+}
+
+dependencies {
+    implementation project(':drapi')
+    implementation project(':tv-library')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+    implementation 'com.google.android.exoplayer:exoplayer:r2.5.1'
+
+    implementation 'org.jetbrains.anko:anko-sdk15:0.10.1'
+    implementation 'com.github.bumptech.glide:glide:4.2.0'
+    implementation "com.github.bumptech.glide:okhttp3-integration:4.2.0"
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation "com.android.support:design:$supportLibVersion"
+    implementation "com.android.support:support-v4:$supportLibVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.google.android.gms:play-services-gcm:$playServicesVersion"
+
+    implementation 'android.arch.lifecycle:extensions:1.0.0'
+    implementation 'android.arch.lifecycle:reactivestreams:1.0.0'
+    annotationProcessor 'android.arch.lifecycle:compiler:1.0.0'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.2'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+}
+
+play {
+    jsonFile = project.file('youtec.json')
+
+    track = 'production' // 'production', 'beta' or 'alpha'
+}
+
+def releasePropertiesFile = rootProject.file("release.properties")
+if (releasePropertiesFile.exists()) {
+    def props = new Properties()
+    props.load(new FileInputStream(rootProject.file("release.properties")))
+    android.signingConfigs.release.storeFile rootProject.file(System.properties['user.home'] + props.keyStore)
+    android.signingConfigs.release.storePassword props.keyStorePassword
+    android.signingConfigs.release.keyAlias props.keyAlias
+    android.signingConfigs.release.keyPassword props.keyAliasPassword
+}
+
+static def getVersionCodeTimestamp() {
+    //if(project.hasProperty("devBuild")) return 1
+
+    def date = new Date()
+    def formattedDate = date.format('yyMMddHHmm')
+    def code = formattedDate.toInteger()
+    return code
+}

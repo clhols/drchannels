@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">DR kanaler</string>
+    <string name="cantChangeChannel">Kan ikke skifte kanal.</string>
+    <string name="lists">Lister</string>
+    <string name="startOverAction">Start forfra</string>
+    <string name="no_connection">Ingen forbindelse</string>
+    <string name="audio">Lyd</string>
+    <string name="enable_random_adaptation">Slå tilfældig tilpasning til</string>
+    <string name="error_drm_not_supported">Beskyttet indhold ikke understøttet under API 18</string>
+    <string name="error_drm_unknown">Ukendt DRM fejl opstod</string>
+    <string name="error_drm_unsupported_scheme">Denne enhed understøtter ikke det påkrævede DRM skema</string>
+    <string name="error_instantiating_decoder">Kan ikke oprette dekoder <xliff:g id="decoder_name">%1$s</xliff:g></string>
+    <string name="error_no_decoder">Denne enhed kan ikke dekode <xliff:g id="mime_type">%1$s</xliff:g></string>
+    <string name="error_no_secure_decoder">Denne enhed har ikke en sikker dekoder til <xliff:g id="mime_type">%1$s</xliff:g></string>
+    <string name="error_querying_decoders">Kan ikke finde dekodere</string>
+    <string name="error_unsupported_audio">Enheden kan ikke spille nogen af lydkilderne</string>
+    <string name="error_unsupported_video">Enheden kan ikke spille nogen af videokilderne</string>
+    <string name="retry">Prøv igen</string>
+    <string name="selection_default">Standard</string>
+    <string name="selection_default_none">Standard (ingen)</string>
+    <string name="selection_disabled">Slå fra</string>
+    <string name="storage_permission_denied">Ingen afgang til at gemme filer</string>
+    <string name="text">Tekst</string>
+    <string name="unexpected_intent_action">Uventet intent handling: <xliff:g id="action">%1$s</xliff:g></string>
+    <string name="video">Video</string>
+    <string name="upcomingTransmission">Kommende transmission</string>
+    <string name="on">på</string>
+    <string name="all">Alle</string>
+    <string name="live">LIVE</string>
+    <string name="next">Næste</string>
+</resources>

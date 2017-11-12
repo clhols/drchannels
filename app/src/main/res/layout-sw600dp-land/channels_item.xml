@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:nextFocusRight="@id/more"
+    tools:layout_height="300dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/channelHeaderBackground"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/activity_horizontal_margin">
+
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:paddingBottom="4dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="4dp"
+                    android:scaleType="fitStart"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/channelName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="12dp"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="6dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="6dp"
+                    android:text=""
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="4dp"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="4dp" />
+
+                <ImageButton
+                    android:id="@+id/more"
+                    android:nextFocusLeft="@id/item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    app:srcCompat="@drawable/ic_more_horiz_black_24dp" />
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:progressDrawable="@drawable/progress_horizontal_no_background" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/nowDescription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:paddingBottom="12dp"
+            android:paddingEnd="12dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="12dp"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="6dp"
+            android:text=""
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/nextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="marquee"
+            android:fontFamily="arial"
+            android:paddingBottom="12dp"
+            android:paddingEnd="12dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="12dp"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:singleLine="true"
+            android:text=""
+            android:textAllCaps="true"
+            android:textColor="@color/nextText"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <dk.youtec.zapr.ui.view.AspectImageView
+        android:id="@+id/image"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart" />
+</LinearLayout>

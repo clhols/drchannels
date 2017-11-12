@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="channelHeaderBackground">#424242</color>
+    <color name="liveProgramHeaderBackground">#616161</color>
+    <color name="liveText">@color/colorAccent</color>
+</resources>
