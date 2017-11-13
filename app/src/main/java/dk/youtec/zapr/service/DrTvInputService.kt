@@ -41,6 +41,7 @@ class DrTvInputSessionImpl(
 ) : BaseTvInputService.Session(context, inputId), Player.EventListener {
     private val tag = DrTvInputSessionImpl::class.java.simpleName
     private val mainHandler = Handler()
+    private val unknownType = -1
 
     private val defaultBandwidthMeter = DefaultBandwidthMeter()
     private val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(defaultBandwidthMeter))
@@ -136,48 +137,39 @@ class DrTvInputSessionImpl(
 
         Log.d(tag, "onPlayerStateChanged $playWhenReady with state $playbackState")
 
-        player?.tvPlayerCallbacks?.forEach { callback ->
-            if (playWhenReady && playbackState == Player.STATE_ENDED) {
-                callback.onCompleted()
-            } else if (playWhenReady && playbackState == Player.STATE_READY) {
-                callback.onStarted()
-            } else if(playbackState == Player.STATE_IDLE) {
-                callback.onPaused()
-            }
-        }
-
         if (playWhenReady && playbackState == Player.STATE_READY) {
             val tracks = ArrayList<TvTrackInfo>()
 
-            //TODO: Build all tracks, not just the selected
             val trackSelections = player!!.currentTrackSelections.all.filter { it != null }
             trackSelections.forEach { trackSelection ->
 
                 val trackType = getTrackType(trackSelection)
-                val format = trackSelection.selectedFormat
+                if (trackType != unknownType) {
+                    val format = trackSelection.selectedFormat
 
-                val builder = TvTrackInfo.Builder(trackType, format.id)
+                    val builder = TvTrackInfo.Builder(trackType, format.id)
 
-                if (trackType == TvTrackInfo.TYPE_VIDEO) {
-                    if (format.width != Format.NO_VALUE) {
-                        builder.setVideoWidth(format.width)
-                    } else if (format.width != Format.NO_VALUE) {
-                        builder.setVideoWidth(format.width)
+                    if (trackType == TvTrackInfo.TYPE_VIDEO) {
+                        if (format.width != Format.NO_VALUE) {
+                            builder.setVideoWidth(format.width)
+                        } else if (format.width != Format.NO_VALUE) {
+                            builder.setVideoWidth(format.width)
+                        }
+                        if (format.height != Format.NO_VALUE) {
+                            builder.setVideoHeight(format.height)
+                        } else if (format.height != Format.NO_VALUE) {
+                            builder.setVideoHeight(format.height)
+                        }
+                    } else if (trackType == TvTrackInfo.TYPE_AUDIO) {
+                        builder.setAudioChannelCount(format.channelCount)
+                        builder.setAudioSampleRate(format.sampleRate)
+                        builder.setLanguage(format.language)
+                    } else if (trackType == TvTrackInfo.TYPE_SUBTITLE) {
+                        builder.setLanguage(format.language)
                     }
-                    if (format.height != Format.NO_VALUE) {
-                        builder.setVideoHeight(format.height)
-                    } else if (format.height != Format.NO_VALUE) {
-                        builder.setVideoHeight(format.height)
-                    }
-                } else if (trackType == TvTrackInfo.TYPE_AUDIO) {
-                    builder.setAudioChannelCount(format.channelCount)
-                    builder.setAudioSampleRate(format.sampleRate)
-                    builder.setLanguage(format.language)
-                } else if (trackType == TvTrackInfo.TYPE_SUBTITLE) {
-                    builder.setLanguage(format.language)
+
+                    tracks.add(builder.build())
                 }
-
-                tracks.add(builder.build())
             }
             notifyTracksChanged(tracks)
 
@@ -188,7 +180,7 @@ class DrTvInputSessionImpl(
 
             notifyTrackSelected(TvTrackInfo.TYPE_AUDIO, audioId)
             notifyTrackSelected(TvTrackInfo.TYPE_VIDEO, videoId)
-            notifyTrackSelected(TvTrackInfo.TYPE_SUBTITLE, textId)
+            //notifyTrackSelected(TvTrackInfo.TYPE_SUBTITLE, textId)
             notifyVideoAvailable()
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 Math.abs(player!!.playbackParameters.speed - 1) < 0.1 &&
@@ -205,7 +197,7 @@ class DrTvInputSessionImpl(
         if (mimeType.contains("video/")) {
             return TvTrackInfo.TYPE_VIDEO
         }
-        return TvTrackInfo.TYPE_SUBTITLE
+        return unknownType
     }
 
     override fun onSetCaptionEnabled(enabled: Boolean) {

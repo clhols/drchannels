@@ -13,8 +13,6 @@ open class TvExoPlayer(
         loadControl: LoadControl
 ) : SimpleExoPlayer(renderersFactory, trackSelector, loadControl), TvPlayer {
 
-    val tvPlayerCallbacks: MutableList<TvPlayer.Callback> = mutableListOf()
-
     override fun setSurface(surface: Surface?) {
         setVideoSurface(surface)
     }
@@ -27,16 +25,11 @@ open class TvExoPlayer(
         playWhenReady = true
     }
 
-    //Used by TvInputService
     override fun registerCallback(callback: TvPlayer.Callback?) {
-        if(callback != null) {
-            tvPlayerCallbacks.add(callback)
-        }
+        //Not used
     }
 
     override fun unregisterCallback(callback: TvPlayer.Callback?) {
-        if(callback != null) {
-            tvPlayerCallbacks.remove(callback)
-        }
+        //Not used
     }
 }
