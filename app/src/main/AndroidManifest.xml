@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dk.youtec.zapr">
+    package="dk.youtec.drchannels">
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -37,7 +37,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.MainActivity"
+            android:name="dk.youtec.drchannels.ui.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,32 +47,32 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.ProgramsActivity">
+        <activity android:name="dk.youtec.drchannels.ui.ProgramsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name=".ui.PlayerActivity"
+            android:name="dk.youtec.drchannels.ui.PlayerActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Player" />
 
         <!-- Launched by the TV app before it uses DrTvInputService. This registers channels and sets up SampleJobService to provide program information in the background. -->
-        <activity android:name=".ui.DrTvInputSetupActivity">
+        <activity android:name="dk.youtec.drchannels.ui.DrTvInputSetupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
         <service
-            android:name=".service.DrTvEpgJobService"
+            android:name="dk.youtec.drchannels.service.DrTvEpgJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:exported="true" />
 
         <service
-            android:name=".service.DrTvInputService"
+            android:name="dk.youtec.drchannels.service.DrTvInputService"
             android:label="@string/drtv_input_label"
             android:permission="android.permission.BIND_TV_INPUT">
             <!-- Required filter used by the system to launch our account service. -->

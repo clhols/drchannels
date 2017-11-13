@@ -9,7 +9,7 @@ import java.util.*
 const val API_VERSION = "1.4"
 const val API_URL = "https://www.dr.dk/mu-online/api/$API_VERSION/"
 
-interface DrMuApi {
+internal interface DrMuApi {
     @GET("page/tv/front")
     fun getPageTvFront(): Call<PageTvFrontResponse>
 
@@ -20,8 +20,32 @@ interface DrMuApi {
     fun getManifest(@Path("uri") uri: String): Call<Manifest>
 
     @GET("schedule/{id}") // Date format yyyy-MM-dd HH:MM:ss
-    fun getSchedule(@Path("id") id: String, @Query("broadcastdate")  date: String): Call<Schedule>
+    fun getSchedule(@Path("id") id: String, @Query("broadcastdate") date: String): Call<Schedule>
+
+    @GET("search/tv/programcards-latest-episode-with-asset/series-title/{query}")
+    fun search(@Path("query") query: String): Call<SearchResult>
 }
+
+data class SearchResult(
+        val Title: String,
+        val Subtitle: String,
+        val Description: String,
+        val IsRepremiere: Boolean,
+        val BundleType: String,
+        val ThemeType: String,
+        val Slug: String,
+        val Items: List<ProgramCard>,
+        val Paging: MuPaging,
+        val TotalSize: Int,
+        val BackgroundImageUri: String,
+        val SiteUrl: String)
+
+data class MuPaging(
+        val Title: String,
+        val Source: String,
+        val Next: String,
+        val Previous: String,
+        val TotalSize: Int)
 
 data class Schedule(
         val Broadcasts: List<MuScheduleBroadcast>,
