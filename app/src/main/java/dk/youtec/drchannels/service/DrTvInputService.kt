@@ -174,12 +174,9 @@ class DrTvInputSessionImpl(
             notifyTracksChanged(tracks)
 
             val selectedFormats = trackSelections.map { it.selectedFormat }
-            val audioId = selectedFormats.firstOrNull { it.sampleMimeType.contains("audio/") }?.id ?: "0"
-            val videoId = selectedFormats.firstOrNull { it.sampleMimeType.contains("video/") }?.id ?: "0"
-            val textId = "0"
 
-            notifyTrackSelected(TvTrackInfo.TYPE_AUDIO, audioId)
-            notifyTrackSelected(TvTrackInfo.TYPE_VIDEO, videoId)
+            notifyTrackSelected(TvTrackInfo.TYPE_AUDIO, getAudioId(selectedFormats))
+            notifyTrackSelected(TvTrackInfo.TYPE_VIDEO, getVideoId(selectedFormats))
             //notifyTrackSelected(TvTrackInfo.TYPE_SUBTITLE, textId)
             notifyVideoAvailable()
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
@@ -236,6 +233,13 @@ class DrTvInputSessionImpl(
     override fun onTimelineChanged(timeline: Timeline?, manifest: Any?) {
         Log.i(tag, "onTimelineChanged $timeline $manifest")
     }
+
+    private fun getVideoId(selectedFormats: List<Format>) =
+            selectedFormats.firstOrNull { it.sampleMimeType.contains("video/") }?.id ?: "0"
+
+    private fun getAudioId(selectedFormats: List<Format>) =
+            selectedFormats.firstOrNull { it.sampleMimeType.contains("audio/") }?.id ?: "0"
+
 
     private fun buildDataSourceFactory(useBandwidthMeter: Boolean): DataSource.Factory {
         return DefaultDataSourceFactory(
