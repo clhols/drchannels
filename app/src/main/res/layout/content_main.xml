@@ -16,7 +16,7 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
         android:visibility="gone"
-        tools:context="dk.youtec.zapr.ui.MainActivity"
+        tools:context="dk.youtec.drchannels.ui.MainActivity"
         tools:showIn="@layout/activity_main" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

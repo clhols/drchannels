@@ -104,7 +104,7 @@
         tools:layout_constraintTop_creator="1"
         tools:text="Some very long description text that can't fit within text view" />
 
-    <dk.youtec.zapr.ui.view.AspectImageView
+    <dk.youtec.drchannels.ui.view.AspectImageView
         android:id="@+id/image"
         android:layout_width="180dp"
         android:layout_height="wrap_content"

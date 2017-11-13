@@ -132,7 +132,7 @@
             android:textSize="10sp" />
     </LinearLayout>
 
-    <dk.youtec.zapr.ui.view.AspectImageView
+    <dk.youtec.drchannels.ui.view.AspectImageView
         android:id="@+id/image"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
