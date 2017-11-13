@@ -9,7 +9,7 @@ import java.util.*
 const val API_VERSION = "1.4"
 const val API_URL = "https://www.dr.dk/mu-online/api/$API_VERSION/"
 
-interface DrMuApi {
+internal interface DrMuApi {
     @GET("page/tv/front")
     fun getPageTvFront(): Call<PageTvFrontResponse>
 
