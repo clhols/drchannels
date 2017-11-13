@@ -35,4 +35,9 @@ class DrMuRepository {
         val response: Response<Schedule> = service.getSchedule(id, date).execute()
         return response.body()
     }
+
+    fun search(query: String): SearchResult? {
+        val response: Response<SearchResult> = service.search(query).execute()
+        return response.body()
+    }
 }

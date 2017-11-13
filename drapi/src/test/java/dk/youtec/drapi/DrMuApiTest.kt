@@ -27,8 +27,8 @@ class DrMuApiTest {
 
         Assert.assertEquals(expectedChannelIds, channelIds)
 
-        println("Primary asset uri ${channels[0].Now.ProgramCard.PrimaryAsset?.Uri}")
-        println("Date ${SimpleDateFormat("dd-MM-yyyy HH:mm").format(channels[0].Now.StartTime)}")
+        println("Primary asset uri ${channels[0].Now?.ProgramCard?.PrimaryAsset?.Uri}")
+        println("Date ${SimpleDateFormat("dd-MM-yyyy HH:mm").format(channels[0].Now?.StartTime)}")
     }
 
     @Test
@@ -65,5 +65,20 @@ class DrMuApiTest {
         val schedule = response.body()
 
         Assert.assertEquals(schedule?.ChannelSlug, "dr1")
+    }
+
+    @Test
+    fun testSearch() {
+        val retrofit = Retrofit.Builder()
+                .baseUrl(API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+        val service = retrofit.create<DrMuApi>(DrMuApi::class.java)
+
+        val response: Response<SearchResult> = service.search("bonderøven").execute()
+        val searchResult = response.body()
+
+        Assert.assertEquals(searchResult?.Items?.first()?.SeriesSlug, "bonderoeven-tv")
     }
 }
