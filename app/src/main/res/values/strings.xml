@@ -6,8 +6,11 @@
     <string name="startOverAction">Start over</string>
     <string name="upcomingTransmission">Upcoming transmission</string>
     <string name="no_connection">No connection</string>
-    <string name="drtv_input_label" translatable="false">DR TV channels</string>
-    <string name="channels_configured" translatable="false">DR TV channels configured</string>
+    <string name="drtv_input_label">DR TV channels</string>
+    <string name="channels_configured">DR TV channels configured</string>
+    <string name="loading">Loading...</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_setup_channels">Unable to configure channels</string>
 
     <!-- ExoPlayer -->
     <string name="video">Video</string>
@@ -29,11 +32,6 @@
     <string name="selection_default">Default</string>
     <string name="selection_default_none">Default (none)</string>
     <string name="enable_random_adaptation">Enable random adaptation</string>
-    <string name="remote_control">Remote Control</string>
-    <string name="login_title">Login</string>
-    <string name="email">E-mail</string>
-    <string name="password">Password</string>
-    <string name="login_button">Login</string>
     <string name="on">on</string>
     <string name="all">All</string>
     <string name="live">LIVE</string>

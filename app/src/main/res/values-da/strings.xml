@@ -29,4 +29,10 @@
     <string name="all">Alle</string>
     <string name="live">LIVE</string>
     <string name="next">Næste</string>
+    <string name="channelAction">Handling</string>
+    <string name="drtv_input_label">DR TV kanaler</string>
+    <string name="channels_configured">DR TV kanaler konfigureret</string>
+    <string name="loading">Henter...</string>
+    <string name="cancel">Annuller</string>
+    <string name="error_setup_channels">Fejl ved kanalkonfigurering</string>
 </resources>

@@ -86,6 +86,13 @@
                 android:resource="@xml/drtvinputservice" />
         </service>
 
+        <!-- This receiver is for sync job schedule well after reboot. -->
+        <receiver android:name="dk.youtec.drchannels.service.DrTvBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
