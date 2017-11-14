@@ -8,9 +8,11 @@ import com.google.android.media.tv.companionlibrary.model.InternalProviderData
 import com.google.android.media.tv.companionlibrary.model.Program
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
+import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drchannels.backend.streamingUrl
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 /**
  * EpgSyncJobService that periodically runs to update channels and programs.
@@ -58,60 +60,75 @@ class DrTvEpgJobService : EpgSyncJobService() {
             endMs: Long
     ): List<Program> {
 
-        val date = SimpleDateFormat("yyyy-MM-dd HH:MM:ss", Locale.GERMAN).format(Date(startMs))
-        val schedule = api.getSchedule(channel.networkAffiliation, date)
-        if (schedule != null) {
-            val programs = mutableListOf<Program>()
-            schedule.Broadcasts.forEach { broadcast ->
+        val programs = mutableListOf<Program>()
 
-                val program = with(Program.Builder()) {
+        //Get two days of broadcasts
+        val todaysBroadcasts = getBroadcasts(channel, Date(startMs))
+        val tomorrowsBroadcasts = getBroadcasts(channel, Date(startMs + TimeUnit.DAYS.toMillis(1)))
 
-                    setChannelId(channel.id)
-                    setTitle(broadcast.Title)
-                    setDescription(broadcast.Description)
-                    setStartTimeUtcMillis(broadcast.StartTime.time)
-                    setEndTimeUtcMillis(broadcast.EndTime.time)
-
-                    if (broadcast.OnlineGenreText?.isNotBlank() == true) {
-                        setBroadcastGenres(arrayOf(broadcast.OnlineGenreText))
-                    }
-
-                    setEpisodeTitle(broadcast.ProgramCard.Subtitle)
-                    setSeasonTitle(broadcast.ProgramCard.SeasonTitle)
-                    setSeasonNumber(broadcast.ProgramCard.SeasonNumber)
-                    setPosterArtUri(broadcast.ProgramCard.PrimaryImageUri)
-
-                    //Channel uri
-                    setInternalProviderData(InternalProviderData().apply {
-                        videoType = TvContractUtils.SOURCE_TYPE_HLS
-                        videoUrl = channel.internalProviderData.videoUrl
-                    })
-
-                    if (broadcast.ProgramCardHasPrimaryAsset) {
-                        broadcast.ProgramCard.PrimaryAsset?.let { primaryAsset ->
-
-                            setRecordingProhibited(true/*!primaryAsset.Downloadable*/)
-
-                            //Program uri
-                            /*
-                            api.getManifest(primaryAsset.Uri)?.Links?.firstOrNull { it.Target == "HLS" }?.Uri?.let { playbackUri ->
-                                setInternalProviderData(InternalProviderData().apply {
-                                    videoType = TvContractUtils.SOURCE_TYPE_HLS
-                                    videoUrl = playbackUri
-                                })
-                            }
-                            */
-                        }
-                    }
-                    build()
-                }
-
-                programs.add(program)
-            }
-
-            return programs
+        //Adjust the end time of the last of todays broadcasts to avoid gaps or overlaps in the schedule.
+        if (todaysBroadcasts.isNotEmpty() && tomorrowsBroadcasts.isNotEmpty()) {
+            val lastBroadcast = todaysBroadcasts.last()
+            val firstBroadcast = tomorrowsBroadcasts.first()
+            lastBroadcast.EndTime.time = firstBroadcast.StartTime.time
         }
 
-        return emptyList()
+        val broadcasts = todaysBroadcasts + tomorrowsBroadcasts
+        broadcasts.forEach { broadcast ->
+
+            val program = with(Program.Builder()) {
+
+                setChannelId(channel.id)
+                setTitle(broadcast.Title)
+                setDescription(broadcast.Description)
+                setStartTimeUtcMillis(broadcast.StartTime.time)
+                setEndTimeUtcMillis(Math.min(broadcast.EndTime.time, endMs))
+
+                if (broadcast.OnlineGenreText?.isNotBlank() == true) {
+                    setBroadcastGenres(arrayOf(broadcast.OnlineGenreText))
+                }
+
+                setEpisodeTitle(broadcast.ProgramCard.Subtitle)
+                setSeasonTitle(broadcast.ProgramCard.SeasonTitle)
+                setSeasonNumber(broadcast.ProgramCard.SeasonNumber)
+                setPosterArtUri(broadcast.ProgramCard.PrimaryImageUri)
+
+                //Channel uri
+                setInternalProviderData(InternalProviderData().apply {
+                    videoType = TvContractUtils.SOURCE_TYPE_HLS
+                    videoUrl = channel.internalProviderData.videoUrl
+                })
+
+                setRecordingProhibited(true)
+
+                if (broadcast.ProgramCardHasPrimaryAsset) {
+                    broadcast.ProgramCard.PrimaryAsset?.let { primaryAsset ->
+
+                        //setRecordingProhibited(!primaryAsset.Downloadable)
+
+                        //Program uri
+                        /*
+                        api.getManifest(primaryAsset.Uri)?.Links?.firstOrNull { it.Target == "HLS" }?.Uri?.let { playbackUri ->
+                            setInternalProviderData(InternalProviderData().apply {
+                                videoType = TvContractUtils.SOURCE_TYPE_HLS
+                                videoUrl = playbackUri
+                            })
+                        }
+                        */
+                    }
+                }
+                build()
+            }
+
+            programs.add(program)
+        }
+
+        return programs
+    }
+
+    private fun getBroadcasts(channel: Channel, date: Date): List<MuScheduleBroadcast> {
+        val dateString = SimpleDateFormat("yyyy-MM-dd HH:MM:ss", Locale.GERMAN).format(date)
+        val schedule = api.getSchedule(channel.networkAffiliation, dateString)
+        return schedule?.Broadcasts ?: emptyList()
     }
 }

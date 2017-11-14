@@ -39,7 +39,7 @@ class DrTvInputSetupFragment: ChannelSetupFragment() {
         EpgSyncJobService.requestImmediateSync(
                 activity,
                 inputId,
-                TimeUnit.DAYS.toMillis(1),
+                TimeUnit.DAYS.toMillis(6),
                 ComponentName(activity, DrTvEpgJobService::class.java)
         )
     }
@@ -54,7 +54,7 @@ class DrTvInputSetupFragment: ChannelSetupFragment() {
                 inputId,
                 ComponentName(activity, DrTvEpgJobService::class.java),
                 TimeUnit.HOURS.toMillis(12),
-                TimeUnit.DAYS.toMillis(1))
+                TimeUnit.DAYS.toMillis(6))
 
         if (scanErrorReason != null) {
             activity.setResult(Activity.RESULT_CANCELED)

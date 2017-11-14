@@ -29,7 +29,7 @@ class DrTvBootReceiver : BroadcastReceiver() {
                         inputId,
                         ComponentName(context, DrTvEpgJobService::class.java),
                         TimeUnit.HOURS.toMillis(12),
-                        TimeUnit.DAYS.toMillis(1))
+                        TimeUnit.DAYS.toMillis(6))
             }
             return
         }
