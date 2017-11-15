@@ -72,7 +72,7 @@ dependencies {
 play {
     jsonFile = project.file('youtec.json')
 
-    track = 'production' // 'production', 'beta' or 'alpha'
+    track = 'alpha' // 'production', 'beta' or 'alpha'
 }
 
 def releasePropertiesFile = rootProject.file("release.properties")
