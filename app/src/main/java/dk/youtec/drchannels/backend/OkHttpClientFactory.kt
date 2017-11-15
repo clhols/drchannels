@@ -15,8 +15,7 @@ import okhttp3.Response
 object OkHttpClientFactory {
 
     private val TAG = OkHttpClientFactory::class.java.simpleName
-    private val OK_HTTP_CACHE_DIR = "dk.youtec.drchannels.okhttp.cache"
-    private val SIZE_OF_CACHE = (32 * 1024 * 1024).toLong() // 32 MiB
+    private val SIZE_OF_CACHE = (10 * 1024 * 1024).toLong()
     private var client: OkHttpClient? = null
 
     /**
@@ -31,7 +30,7 @@ object OkHttpClientFactory {
      * @return singleTon instance of the OkHttpClient.
      */
     fun getInstance(context: Context): OkHttpClient {
-        if (client == null) {
+        return if (client == null) {
             val builder = OkHttpClient.Builder()
             builder.connectTimeout(30, TimeUnit.SECONDS)
             builder.writeTimeout(30, TimeUnit.SECONDS)
@@ -39,18 +38,18 @@ object OkHttpClientFactory {
 
             builder.addNetworkInterceptor(LoggingInterceptor())
 
-            //enableCache(context, builder, OK_HTTP_CACHE_DIR)
+            enableCache(context, builder)
 
             client = builder.build()
-            return client as OkHttpClient
+            client as OkHttpClient
         } else {
-            return client as OkHttpClient
+            client as OkHttpClient
         }
     }
 
-    private fun enableCache(context: Context, builder: OkHttpClient.Builder, nameOfCacheDir: String) {
+    private fun enableCache(context: Context, builder: OkHttpClient.Builder) {
         try {
-            val cacheDirectory = File(context.cacheDir.absolutePath, nameOfCacheDir)
+            val cacheDirectory = File(context.cacheDir.absolutePath, "okhttp")
             val responseCache = Cache(cacheDirectory, SIZE_OF_CACHE)
             builder.cache(responseCache)
         } catch (e: Exception) {

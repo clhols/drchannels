@@ -1,11 +1,12 @@
 package dk.youtec.drchannels.backend
 
+import android.content.Context
 import dk.youtec.drapi.*
 import io.reactivex.Observable
 import java.io.IOException
 
-class DrMuReactiveRepository {
-    private var api = DrMuRepository()
+class DrMuReactiveRepository(context: Context) {
+    private var api = DrMuRepository(OkHttpClientFactory.getInstance(context))
 
     fun getPageTvFrontObservable(): Observable<PageTvFrontResponse> {
         return Observable.create<PageTvFrontResponse> { subscriber ->

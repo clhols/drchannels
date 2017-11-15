@@ -1,7 +1,8 @@
 package dk.youtec.drchannels.viewmodel
 
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import android.support.annotation.MainThread
 import android.util.Log
 import dk.youtec.drapi.MuNowNext
@@ -10,8 +11,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
-class ChannelsViewModel : ViewModel() {
-    private val api = DrMuReactiveRepository()
+class ChannelsViewModel(application: Application) : AndroidViewModel(application) {
+    private val api = DrMuReactiveRepository(getApplication())
     //private val handler = Handler()
     //private var updateRunnable = Runnable { updateAsync() }
 

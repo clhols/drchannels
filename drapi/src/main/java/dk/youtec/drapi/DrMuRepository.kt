@@ -1,17 +1,21 @@
 package dk.youtec.drapi
 
+import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class DrMuRepository {
+
+class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
     private var service: DrMuApi
 
     init {
-        val retrofit = Retrofit.Builder()
-                .baseUrl(API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+        val retrofit = with(Retrofit.Builder()) {
+            baseUrl(API_URL)
+            addConverterFactory(GsonConverterFactory.create())
+            client?.let { client(it) }
+            build()
+        }
 
         service = retrofit.create<DrMuApi>(DrMuApi::class.java)
     }

@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
 
     private val LISTS_GROUP = 1
 
-    private val api by lazy { DrMuReactiveRepository() }
+    private val api by lazy { DrMuReactiveRepository(this) }
     private val recyclerView by lazy { find<RecyclerView>(R.id.recycler_view) }
     private val emptyState by lazy { find<ViewGroup>(R.id.empty_state) }
     private val swipeRefresh by lazy { find<SwipeRefreshLayout>(R.id.swipe_refresh) }
