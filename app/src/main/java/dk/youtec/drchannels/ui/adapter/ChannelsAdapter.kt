@@ -40,7 +40,7 @@ class ChannelsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val channel = channels[position]
-        val now = channel.Now!!
+        val now = channel.Now ?: return
 
         holder.channelName.text = channel.ChannelSlug.toUpperCase()
         holder.title.text = now.Title
