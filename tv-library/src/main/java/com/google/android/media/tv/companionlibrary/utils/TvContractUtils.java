@@ -39,6 +39,7 @@ import com.google.android.media.tv.companionlibrary.model.Program;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -422,10 +423,10 @@ public class TvContractUtils {
     }
 
     private static class InsertLogosTask extends AsyncTask<Map<Uri, String>, Void, Void> {
-        private final Context mContext;
+        private final WeakReference<Context> mContext;
 
         InsertLogosTask(Context context) {
-            mContext = context;
+            mContext = new WeakReference<>(context);
         }
 
         @Override
@@ -433,7 +434,10 @@ public class TvContractUtils {
             for (Map<Uri, String> logos : logosList) {
                 for (Uri uri : logos.keySet()) {
                     try {
-                        insertUrl(mContext, uri, new URL(logos.get(uri)));
+                        Context context = mContext.get();
+                        if(context != null) {
+                            insertUrl(context, uri, new URL(logos.get(uri)));
+                        }
                     } catch (MalformedURLException e) {
                         Log.e(TAG, "Can't load " + logos.get(uri), e);
                     }

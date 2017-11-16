@@ -16,6 +16,7 @@
 
 package com.google.android.media.tv.companionlibrary.model;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.media.tv.TvContentRating;
@@ -349,6 +350,7 @@ public final class Program implements Comparable<Program> {
      * TV Input Framework database.
      * @hide
      */
+    @SuppressLint("WrongConstant")
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues();
         if (mId != INVALID_LONG_VALUE) {

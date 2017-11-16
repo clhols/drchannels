@@ -15,6 +15,7 @@
  */
 package com.google.android.media.tv.companionlibrary.model;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -423,6 +424,7 @@ public class RecordedProgram {
      * into the TV Input Framework database.
      * @hide
      */
+    @SuppressLint("WrongConstant")
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues();
         if (mId != INVALID_INT_VALUE) {

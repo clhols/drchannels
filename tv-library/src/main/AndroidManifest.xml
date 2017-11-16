@@ -15,5 +15,17 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.google.android.media.tv.companionlibrary">
+
+    <!-- Required to update or read existing channel and program information in TvProvider. -->
+    <uses-permission android:name="com.android.providers.tv.permission.READ_EPG_DATA" />
+
+    <!-- Required to update channel and program information in TvProvider. -->
+    <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA" />
+
+    <!-- Required to sync EPG data after reboot. For details,
+    please see {@link JobInfo.Builder#setPersisted}-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <application/>
+
 </manifest>

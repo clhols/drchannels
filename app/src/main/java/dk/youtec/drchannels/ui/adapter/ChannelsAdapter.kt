@@ -3,6 +3,7 @@ package dk.youtec.drchannels.ui.adapter
 import android.content.Context
 import android.support.annotation.LayoutRes
 import android.support.annotation.MainThread
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -68,7 +69,10 @@ class ChannelsAdapter(
         if (now.OnlineGenreText == "Sport") {
             //Sport genre
             holder.genre.setImageResource(R.drawable.ic_genre_dot_black);
-            holder.genre.setColorFilter(holder.itemView.resources.getColor(android.R.color.holo_blue_dark))
+            holder.genre.setColorFilter(
+                    ContextCompat.getColor(
+                            holder.itemView.context,
+                            android.R.color.holo_blue_dark))
         }
 
         //holder.mTimeLeft.text = "(" + (channel.now.endTime - System.currentTimeMillis()) / 60 + " min left)"

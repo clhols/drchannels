@@ -168,10 +168,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
 
+        /*
         val listsMenu = menu.findItem(R.id.menu_favourite_lists)
         val subMenu = listsMenu.subMenu
-
-        /*
         for ((key, name) in favouriteLists) {
             subMenu.add(LISTS_GROUP, key, Menu.NONE, name)
         }

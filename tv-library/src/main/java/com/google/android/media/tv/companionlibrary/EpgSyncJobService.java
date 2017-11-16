@@ -16,20 +16,25 @@
 
 package com.google.android.media.tv.companionlibrary;
 
+import android.annotation.SuppressLint;
 import android.app.job.JobInfo;
 import android.app.job.JobParameters;
 import android.app.job.JobScheduler;
 import android.app.job.JobService;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.OperationApplicationException;
 import android.media.tv.TvContract;
 import android.media.tv.TvInputInfo;
+import android.media.tv.TvInputService;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.PersistableBundle;
 import android.os.RemoteException;
 import android.support.annotation.VisibleForTesting;
@@ -302,8 +307,8 @@ public abstract class EpgSyncJobService extends JobService {
     /**
      * Manually requests a job to run now.
      *
-     * To check the current status of the sync, register a {@link android.content.BroadcastReceiver}
-     * with an {@link android.content.IntentFilter} which checks for the action
+     * To check the current status of the sync, register a {@link BroadcastReceiver}
+     * with an {@link IntentFilter} which checks for the action
      * {@link #ACTION_SYNC_STATUS_CHANGED}.
      * <p />
      * The sync status is an extra parameter in the {@link Intent} with key
@@ -311,7 +316,7 @@ public abstract class EpgSyncJobService extends JobService {
      * {@link #SYNC_FINISHED}.
      * <p />
      * Check that the value of {@link #BUNDLE_KEY_INPUT_ID} matches your
-     * {@link android.media.tv.TvInputService}. If you're calling this from your setup activity,
+     * {@link TvInputService}. If you're calling this from your setup activity,
      * you can get the extra parameter {@link TvInputInfo#EXTRA_INPUT_ID}.
      * <p />
      * @param context Application's context.
@@ -327,8 +332,10 @@ public abstract class EpgSyncJobService extends JobService {
             throw new IllegalArgumentException("This class does not extend EpgSyncJobService");
         }
         PersistableBundle persistableBundle = new PersistableBundle();
-        persistableBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        persistableBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            persistableBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+            persistableBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+        }
         persistableBundle.putString(EpgSyncJobService.BUNDLE_KEY_INPUT_ID, inputId);
         persistableBundle.putLong(EpgSyncJobService.BUNDLE_KEY_SYNC_PERIOD, syncDuration);
         JobInfo.Builder builder = new JobInfo.Builder(REQUEST_SYNC_JOB_ID, jobServiceComponent);
@@ -356,6 +363,7 @@ public abstract class EpgSyncJobService extends JobService {
     /**
      * @hide
      */
+    @SuppressLint("StaticFieldLeak")
     public class EpgSyncTask extends AsyncTask<Void, Void, Void> {
         private final JobParameters params;
         private String mInputId;

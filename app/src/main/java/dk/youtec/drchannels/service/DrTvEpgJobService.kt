@@ -101,6 +101,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
                 setRecordingProhibited(true)
 
+                /*
                 if (broadcast.ProgramCardHasPrimaryAsset) {
                     broadcast.ProgramCard.PrimaryAsset?.let { primaryAsset ->
 
@@ -117,6 +118,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
                         */
                     }
                 }
+                */
                 build()
             }
 
