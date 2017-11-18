@@ -4,27 +4,29 @@ import android.content.Context
 import android.support.annotation.LayoutRes
 import android.support.annotation.MainThread
 import android.support.v4.content.ContextCompat
+import android.support.v7.util.DiffUtil
+import android.support.v7.util.ListUpdateCallback
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import dk.youtec.drchannels.backend.*
-import dk.youtec.drchannels.R
-import org.jetbrains.anko.*
-import java.text.SimpleDateFormat
-import java.util.*
-import android.support.v7.util.DiffUtil
-import android.support.v7.util.ListUpdateCallback
-import android.util.Log
-import android.widget.ImageButton
-import android.widget.ProgressBar
 import com.bumptech.glide.request.RequestOptions
 import dk.youtec.drapi.MuNowNext
+import dk.youtec.drchannels.R
+import dk.youtec.drchannels.backend.TAG
 import dk.youtec.drchannels.model.ChannelsDiffCallback
 import dk.youtec.drchannels.ui.view.AspectImageView
+import org.jetbrains.anko.find
+import org.jetbrains.anko.image
+import org.jetbrains.anko.selector
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View =
         LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
@@ -65,28 +67,32 @@ class ChannelsAdapter(
         holder.progress.progress = percentage.toInt()
 
         //Genre icon
-        holder.genre.setImageResource(0)
-        if (now.OnlineGenreText == "Sport") {
-            //Sport genre
-            holder.genre.setImageResource(R.drawable.ic_genre_dot_black);
-            holder.genre.setColorFilter(
-                    ContextCompat.getColor(
-                            holder.itemView.context,
-                            android.R.color.holo_blue_dark))
+        holder.genre.apply {
+            setImageResource(0)
+            if (now.OnlineGenreText == "Sport") {
+                //Sport genre
+                setImageResource(R.drawable.ic_genre_dot_black);
+                setColorFilter(
+                        ContextCompat.getColor(
+                                context,
+                                android.R.color.holo_blue_dark))
+            }
         }
 
         //holder.mTimeLeft.text = "(" + (channel.now.endTime - System.currentTimeMillis()) / 60 + " min left)"
 
-        if (!now.ProgramCard.PrimaryImageUri.isEmpty() && showDetails) {
-            holder.image.visibility = View.VISIBLE
-            Glide.with(holder.image.context)
-                    .load(now.ProgramCard.PrimaryImageUri)
-                    .apply(RequestOptions()
-                            .placeholder(R.drawable.image_placeholder))
-                    .into(holder.image)
-        } else {
-            holder.image.visibility = View.GONE
-            holder.image.image = null
+        holder.image.apply {
+            if (!now.ProgramCard.PrimaryImageUri.isEmpty() && showDetails) {
+                visibility = View.VISIBLE
+                Glide.with(context)
+                        .load(now.ProgramCard.PrimaryImageUri)
+                        .apply(RequestOptions()
+                                .placeholder(R.drawable.image_placeholder))
+                        .into(this)
+            } else {
+                visibility = View.GONE
+                image = null
+            }
         }
 
         /*
@@ -156,7 +162,6 @@ class ChannelsAdapter(
     override fun getItemCount(): Int = channels.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val TAG = ViewHolder::class.java.simpleName
         val channelName: TextView = itemView.find(R.id.channelName)
         val title: TextView = itemView.findViewById(R.id.title)
         val progress: ProgressBar = itemView.findViewById(R.id.progress)

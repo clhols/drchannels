@@ -16,24 +16,30 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
-import dk.youtec.drchannels.R
-import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
-import org.jetbrains.anko.*
 import dk.youtec.drapi.MuNowNext
+import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
+import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
 import dk.youtec.drchannels.viewmodel.ChannelsViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.contentView
+import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelClickListener {
 
-    private val TAG = MainActivity::class.java.simpleName
+    private val tag = MainActivity::class.java.simpleName
 
-    private val LISTS_GROUP = 1
+    private val listsGroup = 1
 
     private val api by lazy { DrMuReactiveRepository(this) }
     private val recyclerView by lazy { find<RecyclerView>(R.id.recycler_view) }
@@ -150,7 +156,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
      */
     @MainThread
     private fun load() {
-        Log.d(TAG, "Updating data")
+        Log.d(tag, "Updating data")
         viewModel.updateAsync()
     }
 
@@ -172,7 +178,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
         val listsMenu = menu.findItem(R.id.menu_favourite_lists)
         val subMenu = listsMenu.subMenu
         for ((key, name) in favouriteLists) {
-            subMenu.add(LISTS_GROUP, key, Menu.NONE, name)
+            subMenu.add(listsGroup, key, Menu.NONE, name)
         }
         listsMenu.isVisible = favouriteLists.isNotEmpty()
         */
@@ -181,7 +187,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.groupId == LISTS_GROUP) {
+        if (item.groupId == listsGroup) {
             load()
         }
 
@@ -223,7 +229,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
 
                                 },
                                 onError = { e ->
-                                    Log.e(TAG, e.message, e)
+                                    Log.e(tag, e.message, e)
                                     toast(
                                             if (e.message != null
                                                     && e.message != "Success") e.message!!
@@ -250,7 +256,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
                                         }
                                     },
                                     onError = { e ->
-                                        Log.e(TAG, e.message, e)
+                                        Log.e(tag, e.message, e)
                                         toast(
                                                 if (e.message != null
                                                         && e.message != "Success") e.message!!

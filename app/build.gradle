@@ -88,8 +88,5 @@ if (releasePropertiesFile.exists()) {
 static def getVersionCodeTimestamp() {
     //if(project.hasProperty("devBuild")) return 1
 
-    def date = new Date()
-    def formattedDate = date.format('yyMMddHHmm')
-    def code = formattedDate.toInteger()
-    return code
+    return new Date().format('yyMMddHHmm').toInteger()
 }

@@ -1,7 +1,10 @@
 package dk.youtec.drchannels.service
 
 import android.content.Context
-import android.media.tv.*
+import android.media.tv.TvContentRating
+import android.media.tv.TvInputManager
+import android.media.tv.TvInputService
+import android.media.tv.TvTrackInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -28,18 +31,21 @@ import com.google.android.exoplayer2.util.Util
 import com.google.android.media.tv.companionlibrary.BaseTvInputService
 import com.google.android.media.tv.companionlibrary.TvPlayer
 import com.google.android.media.tv.companionlibrary.model.Channel
+import com.google.android.media.tv.companionlibrary.model.InternalProviderData
 import com.google.android.media.tv.companionlibrary.model.Program
 import com.google.android.media.tv.companionlibrary.model.RecordedProgram
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.log.EventLogger
 import dk.youtec.drchannels.player.TvExoPlayer
-import java.util.ArrayList
+import java.util.*
 
 class DrTvInputService : BaseTvInputService() {
     override fun onCreateSession(inputId: String): TvInputService.Session {
-        val session = DrTvInputSessionImpl(this, inputId)
-        session.setOverlayViewEnabled(true)
+        val session = DrTvInputSessionImpl(this, inputId).apply {
+            setOverlayViewEnabled(true)
+        }
+
         return super.sessionCreated(session)
     }
 
@@ -63,8 +69,8 @@ class DrTvInputSessionImpl(
 
     private var player: TvExoPlayer? = null
 
-    private fun initPlayer(uri: Uri, type: Int) {
-        Log.d(tag, "Loading uri " + uri.toString())
+    private fun initPlayer(providerData: InternalProviderData) {
+        Log.d(tag, "Loading providerData " + providerData.toString())
 
         val drmSessionManager = null
         val renderersFactory = DefaultRenderersFactory(
@@ -74,16 +80,14 @@ class DrTvInputSessionImpl(
 
         releasePlayer()
 
-        player = TvExoPlayer(renderersFactory, trackSelector, DefaultLoadControl())
-        player!!.addListener(this)
-        player!!.addListener(eventLogger)
-        player!!.setAudioDebugListener(eventLogger)
-        player!!.setVideoDebugListener(eventLogger)
-        player!!.setMetadataOutput(eventLogger)
-
-        val mediaSource: MediaSource = buildMediaSource(uri)
-
-        player!!.prepare(mediaSource, true, false)
+        player = TvExoPlayer(renderersFactory, trackSelector, DefaultLoadControl()).apply {
+            addListener(this@DrTvInputSessionImpl)
+            addListener(eventLogger)
+            setAudioDebugListener(eventLogger)
+            setVideoDebugListener(eventLogger)
+            setMetadataOutput(eventLogger)
+            prepare(buildMediaSource(Uri.parse(providerData.videoUrl)), true, false)
+        }
     }
 
     override fun onPlayProgram(program: Program?, startPosMs: Long): Boolean {
@@ -92,16 +96,13 @@ class DrTvInputSessionImpl(
             return false
         }
 
-        val type = program.internalProviderData.videoType
-        val uri = Uri.parse(program.internalProviderData.videoUrl)
-
-        initPlayer(uri, type)
+        initPlayer(program.internalProviderData)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             notifyTimeShiftStatusChanged(TvInputManager.TIME_SHIFT_STATUS_AVAILABLE)
         }
 
-        player!!.playWhenReady = true
+        player?.playWhenReady = true
 
         return true
     }
@@ -113,10 +114,7 @@ class DrTvInputSessionImpl(
             return false
         }
 
-        val type = recordedProgram.internalProviderData.videoType
-        val uri = Uri.parse(recordedProgram.internalProviderData.videoUrl)
-
-        initPlayer(uri, type)
+        initPlayer(recordedProgram.internalProviderData)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             notifyTimeShiftStatusChanged(TvInputManager.TIME_SHIFT_STATUS_AVAILABLE)
@@ -124,7 +122,7 @@ class DrTvInputSessionImpl(
 
         onSetStreamVolume(1.0f)
 
-        player!!.playWhenReady = true
+        player?.playWhenReady = true
 
         return true
     }
@@ -151,10 +149,12 @@ class DrTvInputSessionImpl(
     }
 
     private fun releasePlayer() {
-        player?.removeListener(this)
-        player?.setSurface(null)
-        player?.stop()
-        player?.release()
+        player?.apply {
+            removeListener(this@DrTvInputSessionImpl)
+            setSurface(null)
+            stop()
+            release()
+        }
         player = null
     }
 

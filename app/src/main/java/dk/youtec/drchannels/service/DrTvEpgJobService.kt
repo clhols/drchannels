@@ -35,9 +35,10 @@ class DrTvEpgJobService : EpgSyncJobService() {
         val channelList = ArrayList<Channel>()
 
         drTvChannels.forEachIndexed { index, channel ->
-            val internalProviderData = InternalProviderData()
-            internalProviderData.videoUrl = channel.streamingUrl
-            internalProviderData.videoType = TvContractUtils.SOURCE_TYPE_HLS
+            val internalProviderData = InternalProviderData().apply {
+                videoUrl = channel.streamingUrl
+                videoType = TvContractUtils.SOURCE_TYPE_HLS
+            }
 
             channelList.add(Channel.Builder()
                     .setNetworkAffiliation(channel.Slug)
