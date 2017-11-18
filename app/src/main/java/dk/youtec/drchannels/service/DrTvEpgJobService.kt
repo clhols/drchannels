@@ -80,7 +80,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
                 setChannelId(channel.id)
                 setTitle(broadcast.Title)
-                if(broadcast.Subtitle.isNotEmpty()) {
+                if (broadcast.Subtitle.isNotEmpty()) {
                     setDescription(broadcast.Subtitle)
                 } else {
                     setDescription(broadcast.Description)
@@ -98,7 +98,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
                 setSeasonNumber(broadcast.ProgramCard.SeasonNumber)
                 setPosterArtUri(broadcast.ProgramCard.PrimaryImageUri)
 
-                if(broadcast.VideoHD && broadcast.VideoWidescreen) {
+                if (broadcast.VideoHD && broadcast.VideoWidescreen) {
                     setVideoHeight(720)
                     setVideoWidth(1280)
                 }
@@ -108,36 +108,34 @@ class DrTvEpgJobService : EpgSyncJobService() {
                     videoUrl = channel.internalProviderData.videoUrl
                 }
 
-                setRecordingProhibited(broadcast.ProgramCard.PrimaryAsset?.Downloadable != true)
+                setRecordingProhibited(broadcast.ProgramCard.PrimaryAsset == null)
 
-                if (broadcast.ProgramCardHasPrimaryAsset) {
-                    broadcast.ProgramCard.PrimaryAsset?.let { primaryAsset ->
+                broadcast.ProgramCard.PrimaryAsset?.let { primaryAsset ->
 
-                        val onDemandInfo = broadcast.ProgramCard.OnDemandInfo
-                        if(onDemandInfo != null) {
-                            providerData.put("endPublish", onDemandInfo.EndPublish.time)
+                    val onDemandInfo = broadcast.ProgramCard.OnDemandInfo
+                    if (onDemandInfo != null) {
+                        providerData.put("endPublish", onDemandInfo.EndPublish.time)
+                    }
+
+                    providerData.put("assetUri", primaryAsset.Uri)
+
+                    if (primaryAsset.Downloadable) {
+                        /*
+                        val manifestResponse = api.getManifest(primaryAsset.Uri)
+                        manifestResponse?.Links
+                                ?.asSequence()
+                                ?.firstOrNull { it.Target == "HLS" }
+                                ?.Uri?.let { playbackUrl ->
+                            providerData.put("playbackUrl", playbackUrl)
                         }
-
-                        if(primaryAsset.Downloadable) {
-                            providerData.put("assetUri", primaryAsset.Uri)
-
-                            /*
-                            val manifestResponse = api.getManifest(primaryAsset.Uri)
-                            manifestResponse?.Links
-                                    ?.asSequence()
-                                    ?.firstOrNull { it.Target == "HLS" }
-                                    ?.Uri?.let { playbackUrl ->
-                                providerData.put("playbackUrl", playbackUrl)
-                            }
-                            manifestResponse?.Links
-                                    ?.asSequence()
-                                    ?.sortedByDescending { it.Bitrate }
-                                    ?.firstOrNull { it.Target == "Download" }
-                                    ?.Uri?.let { downloadUrl ->
-                                providerData.put("downloadUrl", downloadUrl)
-                            }
-                            */
+                        manifestResponse?.Links
+                                ?.asSequence()
+                                ?.sortedByDescending { it.Bitrate }
+                                ?.firstOrNull { it.Target == "Download" }
+                                ?.Uri?.let { downloadUrl ->
+                            providerData.put("downloadUrl", downloadUrl)
                         }
+                        */
                     }
                 }
 

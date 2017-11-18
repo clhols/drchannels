@@ -122,6 +122,8 @@ class DrTvInputSessionImpl(
             notifyTimeShiftStatusChanged(TvInputManager.TIME_SHIFT_STATUS_AVAILABLE)
         }
 
+        onSetStreamVolume(1.0f)
+
         player!!.playWhenReady = true
 
         return true
@@ -210,7 +212,7 @@ class DrTvInputSessionImpl(
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 Math.abs(player!!.playbackParameters.speed - 1) < 0.1 &&
                 playWhenReady && playbackState == Player.STATE_BUFFERING) {
-            //notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_BUFFERING)
+            notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_BUFFERING)
         }
     }
 
