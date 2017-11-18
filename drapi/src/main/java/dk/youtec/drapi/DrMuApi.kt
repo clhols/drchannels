@@ -164,7 +164,8 @@ data class Link(
         val Uri: String,
         val EncryptedUri: String,
         val FileFormat: String,
-        val Target: String)
+        val Target: String,
+        val Bitrate: Int)
 
 data class Subtitle(
         val Language: String,
