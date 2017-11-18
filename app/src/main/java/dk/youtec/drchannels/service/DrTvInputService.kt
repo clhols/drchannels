@@ -1,28 +1,37 @@
 package dk.youtec.drchannels.service
 
 import android.content.Context
-import android.media.tv.TvContentRating
-import android.media.tv.TvInputManager
-import android.media.tv.TvInputService
-import android.media.tv.TvTrackInfo
+import android.media.tv.*
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.support.annotation.RequiresApi
+import android.text.TextUtils
 import android.util.Log
 import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
+import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.TrackGroupArray
+import com.google.android.exoplayer2.source.dash.DashMediaSource
+import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
+import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource
+import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelection
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.upstream.*
+import com.google.android.exoplayer2.util.Util
 import com.google.android.media.tv.companionlibrary.BaseTvInputService
 import com.google.android.media.tv.companionlibrary.TvPlayer
+import com.google.android.media.tv.companionlibrary.model.Channel
 import com.google.android.media.tv.companionlibrary.model.Program
 import com.google.android.media.tv.companionlibrary.model.RecordedProgram
+import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
+import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.log.EventLogger
 import dk.youtec.drchannels.player.TvExoPlayer
 import java.util.ArrayList
@@ -33,6 +42,10 @@ class DrTvInputService : BaseTvInputService() {
         session.setOverlayViewEnabled(true)
         return super.sessionCreated(session)
     }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun onCreateRecordingSession(inputId: String): TvInputService.RecordingSession =
+            DrTvInputRecordingSessionImpl(this, inputId)
 }
 
 class DrTvInputSessionImpl(
@@ -50,11 +63,8 @@ class DrTvInputSessionImpl(
 
     private var player: TvExoPlayer? = null
 
-    override fun onPlayProgram(program: Program?, startPosMs: Long): Boolean {
-        if (program == null) {
-            notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_TUNING)
-            return false
-        }
+    private fun initPlayer(uri: Uri, type: Int) {
+        Log.d(tag, "Loading uri " + uri.toString())
 
         val drmSessionManager = null
         val renderersFactory = DefaultRenderersFactory(
@@ -71,24 +81,42 @@ class DrTvInputSessionImpl(
         player!!.setVideoDebugListener(eventLogger)
         player!!.setMetadataOutput(eventLogger)
 
+        val mediaSource: MediaSource = buildMediaSource(uri)
+
+        player!!.prepare(mediaSource, true, false)
+    }
+
+    override fun onPlayProgram(program: Program?, startPosMs: Long): Boolean {
+        if (program == null) {
+            notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_TUNING)
+            return false
+        }
+
         val type = program.internalProviderData.videoType
         val uri = Uri.parse(program.internalProviderData.videoUrl)
 
-        val mediaSource: MediaSource
-        if (type == C.TYPE_HLS) {
-            mediaSource = HlsMediaSource(uri, mediaDataSourceFactory, mainHandler, eventLogger)
-        } else {
-            throw IllegalStateException("Unsupported type: " + type)
+        initPlayer(uri, type)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            notifyTimeShiftStatusChanged(TvInputManager.TIME_SHIFT_STATUS_AVAILABLE)
         }
 
-        player!!.prepare(mediaSource, true, false)
+        player!!.playWhenReady = true
 
-        /*
-        if (startPosMs > 0) {
-            Log.d(tag, "Seek to " + startPosMs)
-            player!!.seekTo(startPosMs)
+        return true
+    }
+
+    override fun onPlayRecordedProgram(recordedProgram: RecordedProgram?): Boolean {
+        Log.i(tag, "onPlayRecordedProgram $recordedProgram")
+        if (recordedProgram == null) {
+            notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_TUNING)
+            return false
         }
-        */
+
+        val type = recordedProgram.internalProviderData.videoType
+        val uri = Uri.parse(recordedProgram.internalProviderData.videoUrl)
+
+        initPlayer(uri, type)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             notifyTimeShiftStatusChanged(TvInputManager.TIME_SHIFT_STATUS_AVAILABLE)
@@ -182,7 +210,7 @@ class DrTvInputSessionImpl(
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 Math.abs(player!!.playbackParameters.speed - 1) < 0.1 &&
                 playWhenReady && playbackState == Player.STATE_BUFFERING) {
-            notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_BUFFERING)
+            //notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_BUFFERING)
         }
     }
 
@@ -199,11 +227,6 @@ class DrTvInputSessionImpl(
 
     override fun onSetCaptionEnabled(enabled: Boolean) {
         Log.i(tag, "onSetCaptionEnabled $enabled")
-    }
-
-    override fun onPlayRecordedProgram(recordedProgram: RecordedProgram?): Boolean {
-        Log.i(tag, "onPlayRecordedProgram $recordedProgram")
-        return false
     }
 
     override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters?) {
@@ -240,6 +263,24 @@ class DrTvInputSessionImpl(
     private fun getAudioId(selectedFormats: List<Format>) =
             selectedFormats.firstOrNull { it.sampleMimeType.contains("audio/") }?.id ?: "0"
 
+    private fun buildMediaSource(uri: Uri, overrideExtension: String = ""): MediaSource {
+        val type = if (TextUtils.isEmpty(overrideExtension))
+            Util.inferContentType(uri)
+        else
+            Util.inferContentType("." + overrideExtension)
+        when (type) {
+            C.TYPE_SS -> return SsMediaSource(uri, buildDataSourceFactory(false),
+                    DefaultSsChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger)
+            C.TYPE_DASH -> return DashMediaSource(uri, buildDataSourceFactory(false),
+                    DefaultDashChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger)
+            C.TYPE_HLS -> return HlsMediaSource(uri, mediaDataSourceFactory, mainHandler, eventLogger)
+            C.TYPE_OTHER -> return ExtractorMediaSource(uri, mediaDataSourceFactory, DefaultExtractorsFactory(),
+                    mainHandler, eventLogger)
+            else -> {
+                throw IllegalStateException("Unsupported type: " + type)
+            }
+        }
+    }
 
     private fun buildDataSourceFactory(useBandwidthMeter: Boolean): DataSource.Factory {
         return DefaultDataSourceFactory(
@@ -253,4 +294,97 @@ class DrTvInputSessionImpl(
                 "Drchannels/" + " (Linux;Android " + Build.VERSION.RELEASE + ") ",
                 if (useBandwidthMeter) defaultBandwidthMeter else null)
     }
+}
+
+@RequiresApi(api = Build.VERSION_CODES.N)
+class DrTvInputRecordingSessionImpl(
+        context: Context,
+        private val inputId: String
+) : BaseTvInputService.RecordingSession(context, inputId) {
+    private val tag = DrTvInputRecordingSessionImpl::class.java.simpleName
+
+    override fun onTune(uri: Uri) {
+        super.onTune(uri)
+
+        Log.d(tag, "Tune recording session to " + uri)
+        // By default, the number of tuners for this service is one. When a channel is being
+        // recorded, no other channel from this TvInputService will be accessible. Developers
+        // should call notifyError(TvInputManager.RECORDING_ERROR_RESOURCE_BUSY) to alert
+        // the framework that this recording cannot be completed.
+        // Developers can update the tuner count in xml/richtvinputservice or programmatically
+        // by adding it to TvInputInfo.updateTvInputInfo.
+        notifyTuned(uri)
+    }
+
+    override fun onStartRecording(uri: Uri?) {
+        super.onStartRecording(uri)
+        Log.d(tag, "onStartRecording")
+    }
+
+    override fun onRelease() {
+        Log.d(tag, "onRelease")
+    }
+
+    override fun onStopRecording(programToRecord: Program) {
+        Log.d(tag, "onStopRecording, programToRecord=" + programToRecord)
+
+        // In this sample app, since all of the content is VOD, the video URL is stored.
+        // If the video was live, the start and stop times should be noted using
+        // RecordedProgram.Builder.setStartTimeUtcMillis and .setEndTimeUtcMillis.
+        // The recordingstart time will be saved in the InternalProviderData.
+        // Additionally, the stream should be recorded and saved as
+        // a new file.
+
+        val internalProviderData = programToRecord.internalProviderData
+
+        var playbackUrl = ""
+        var downloadUrl = ""
+
+        val assetUri = programToRecord.internalProviderData!!.get("assetUri") as String
+        val manifestResponse = DrMuRepository().getManifest(assetUri)
+        manifestResponse?.Links
+                ?.asSequence()
+                ?.firstOrNull { it.Target == "HLS" }
+                ?.Uri?.let {
+            playbackUrl = it
+        }
+        manifestResponse?.Links
+                ?.asSequence()
+                ?.sortedByDescending { it.Bitrate }
+                ?.firstOrNull { it.Target == "Download" }
+                ?.Uri?.let {
+            downloadUrl = it
+        }
+
+        if(playbackUrl.isNotEmpty()) {
+            internalProviderData.videoUrl = playbackUrl
+            internalProviderData.videoType = TvContractUtils.SOURCE_TYPE_HLS
+        } else {
+            internalProviderData.videoUrl = downloadUrl
+            internalProviderData.videoType = TvContractUtils.SOURCE_TYPE_INVALID
+        }
+
+        internalProviderData.setRecordingStartTime(programToRecord.startTimeUtcMillis)
+
+        val recordedProgram = RecordedProgram.Builder(programToRecord)
+                .setInputId(inputId)
+                .setRecordingDataUri(internalProviderData.videoUrl)
+                .setRecordingDurationMillis(programToRecord.endTimeUtcMillis - programToRecord.startTimeUtcMillis)
+                .setInternalProviderData(internalProviderData)
+                .build()
+
+        Log.d(tag, "onStopRecording, recorded=" + recordedProgram)
+
+        notifyRecordingStopped(recordedProgram)
+    }
+
+    override fun onStopRecordingChannel(channelToRecord: Channel?) {
+        Log.d(tag, "onStopRecordingChannel")
+
+        // Program sources in this sample always include program info, so execution here
+        // indicates an error.
+        notifyError(TvInputManager.RECORDING_ERROR_UNKNOWN)
+        return
+    }
+
 }

@@ -103,32 +103,42 @@ class DrTvEpgJobService : EpgSyncJobService() {
                     setVideoWidth(1280)
                 }
 
-                //Channel uri
-                setInternalProviderData(InternalProviderData().apply {
+                val providerData = InternalProviderData().apply {
                     videoType = TvContractUtils.SOURCE_TYPE_HLS
                     videoUrl = channel.internalProviderData.videoUrl
-                })
+                }
 
-                setRecordingProhibited(true)
+                setRecordingProhibited(broadcast.ProgramCard.PrimaryAsset?.Downloadable != true)
 
-                /*
                 if (broadcast.ProgramCardHasPrimaryAsset) {
                     broadcast.ProgramCard.PrimaryAsset?.let { primaryAsset ->
 
-                        //setRecordingProhibited(!primaryAsset.Downloadable)
+                        if(primaryAsset.Downloadable) {
+                            providerData.put("assetUri", primaryAsset.Uri)
 
-                        //Program uri
-                        /*
-                        api.getManifest(primaryAsset.Uri)?.Links?.firstOrNull { it.Target == "HLS" }?.Uri?.let { playbackUri ->
-                            setInternalProviderData(InternalProviderData().apply {
-                                videoType = TvContractUtils.SOURCE_TYPE_HLS
-                                videoUrl = playbackUri
-                            })
+                            /*
+                            val manifestResponse = api.getManifest(primaryAsset.Uri)
+                            manifestResponse?.Links
+                                    ?.asSequence()
+                                    ?.firstOrNull { it.Target == "HLS" }
+                                    ?.Uri?.let { playbackUrl ->
+                                providerData.put("playbackUrl", playbackUrl)
+                            }
+                            manifestResponse?.Links
+                                    ?.asSequence()
+                                    ?.sortedByDescending { it.Bitrate }
+                                    ?.firstOrNull { it.Target == "Download" }
+                                    ?.Uri?.let { downloadUrl ->
+                                providerData.put("downloadUrl", downloadUrl)
+                            }
+                            */
                         }
-                        */
                     }
                 }
-                */
+
+                //Channel uri and downloadable url
+                setInternalProviderData(providerData)
+
                 build()
             }
 
