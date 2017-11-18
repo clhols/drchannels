@@ -341,6 +341,7 @@ class DrTvInputRecordingSessionImpl(
         var downloadUrl = ""
 
         val assetUri = programToRecord.internalProviderData!!.get("assetUri") as String
+        val endPublish = programToRecord.internalProviderData!!.get("endPublish") as String?
         val manifestResponse = DrMuRepository().getManifest(assetUri)
         manifestResponse?.Links
                 ?.asSequence()
@@ -356,7 +357,7 @@ class DrTvInputRecordingSessionImpl(
             downloadUrl = it
         }
 
-        if(playbackUrl.isNotEmpty()) {
+        if (playbackUrl.isNotEmpty()) {
             internalProviderData.videoUrl = playbackUrl
             internalProviderData.videoType = TvContractUtils.SOURCE_TYPE_HLS
         } else {
@@ -366,12 +367,16 @@ class DrTvInputRecordingSessionImpl(
 
         internalProviderData.setRecordingStartTime(programToRecord.startTimeUtcMillis)
 
-        val recordedProgram = RecordedProgram.Builder(programToRecord)
-                .setInputId(inputId)
-                .setRecordingDataUri(internalProviderData.videoUrl)
-                .setRecordingDurationMillis(programToRecord.endTimeUtcMillis - programToRecord.startTimeUtcMillis)
-                .setInternalProviderData(internalProviderData)
-                .build()
+        val recordedProgram = with(RecordedProgram.Builder(programToRecord)) {
+            setInputId(inputId)
+            setRecordingDataUri(internalProviderData.videoUrl)
+            setRecordingDurationMillis(programToRecord.endTimeUtcMillis - programToRecord.startTimeUtcMillis)
+            if (endPublish != null && endPublish.isNotEmpty()) {
+                setRecordingExpireTimeUtcMillis(endPublish.toLong())
+            }
+            setInternalProviderData(internalProviderData)
+            build()
+        }
 
         Log.d(tag, "onStopRecording, recorded=" + recordedProgram)
 

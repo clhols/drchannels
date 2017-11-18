@@ -113,6 +113,11 @@ class DrTvEpgJobService : EpgSyncJobService() {
                 if (broadcast.ProgramCardHasPrimaryAsset) {
                     broadcast.ProgramCard.PrimaryAsset?.let { primaryAsset ->
 
+                        val onDemandInfo = broadcast.ProgramCard.OnDemandInfo
+                        if(onDemandInfo != null) {
+                            providerData.put("endPublish", onDemandInfo.EndPublish.time)
+                        }
+
                         if(primaryAsset.Downloadable) {
                             providerData.put("assetUri", primaryAsset.Uri)
 

@@ -131,7 +131,7 @@ data class ProgramCard(
         val AssetTargetTypes: String,
         val PrimaryBroadcastStartTime: Date,
         val SortDateTime: Date,
-        val OnDemandInfo: Info,
+        val OnDemandInfo: Info?,
         val Slug: String,
         val Urn: String,
         val PrimaryImageUri: String,
