@@ -80,7 +80,12 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
                 setChannelId(channel.id)
                 setTitle(broadcast.Title)
-                setDescription(broadcast.Description)
+                if(broadcast.Subtitle.isNotEmpty()) {
+                    setDescription(broadcast.Subtitle)
+                } else {
+                    setDescription(broadcast.Description)
+                }
+                setLongDescription(broadcast.Description)
                 setStartTimeUtcMillis(broadcast.StartTime.time)
                 setEndTimeUtcMillis(Math.min(broadcast.EndTime.time, endMs))
 
@@ -92,6 +97,11 @@ class DrTvEpgJobService : EpgSyncJobService() {
                 setSeasonTitle(broadcast.ProgramCard.SeasonTitle)
                 setSeasonNumber(broadcast.ProgramCard.SeasonNumber)
                 setPosterArtUri(broadcast.ProgramCard.PrimaryImageUri)
+
+                if(broadcast.VideoHD && broadcast.VideoWidescreen) {
+                    setVideoHeight(720)
+                    setVideoWidth(1280)
+                }
 
                 //Channel uri
                 setInternalProviderData(InternalProviderData().apply {
