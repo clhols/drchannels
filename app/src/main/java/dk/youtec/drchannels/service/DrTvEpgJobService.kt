@@ -95,8 +95,12 @@ class DrTvEpgJobService : EpgSyncJobService() {
                 }
 
                 setEpisodeTitle(broadcast.ProgramCard.Subtitle)
+                setEpisodeNumber(" ", 0)
+
                 setSeasonTitle(broadcast.ProgramCard.SeasonTitle)
-                setSeasonNumber(broadcast.ProgramCard.SeasonNumber)
+                if (broadcast.ProgramCard.SeasonNumber > 0) {
+                    setSeasonNumber(broadcast.ProgramCard.SeasonNumber)
+                }
                 setPosterArtUri(broadcast.ProgramCard.PrimaryImageUri)
 
                 if (broadcast.VideoHD && broadcast.VideoWidescreen) {

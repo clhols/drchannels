@@ -122,7 +122,7 @@ data class ProgramCard(
         val SeasonTitle: String,
         val SeasonSlug: String,
         val SeasonUrn: String,
-        val SeasonNumber: Int,
+        val SeasonNumber: Int = 0,
         val PrePremiere: Boolean,
         val ExpiresSoon: Boolean,
         val OnlineGenreText: String,
