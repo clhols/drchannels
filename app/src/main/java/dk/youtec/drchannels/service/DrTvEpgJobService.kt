@@ -95,7 +95,6 @@ class DrTvEpgJobService : EpgSyncJobService() {
                 }
 
                 setEpisodeTitle(broadcast.ProgramCard.Subtitle)
-                setEpisodeNumber(" ", 0)
 
                 setSeasonTitle(broadcast.ProgramCard.SeasonTitle)
                 if (broadcast.ProgramCard.SeasonNumber > 0) {
