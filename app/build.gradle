@@ -47,6 +47,8 @@ dependencies {
     implementation project(':tv-library')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.19.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.19.3"
 
     implementation 'com.google.android.exoplayer:exoplayer:r2.5.1'
 

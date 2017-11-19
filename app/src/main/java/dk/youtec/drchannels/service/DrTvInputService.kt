@@ -38,6 +38,10 @@ import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.log.EventLogger
 import dk.youtec.drchannels.player.TvExoPlayer
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.run
 import java.util.*
 
 class DrTvInputService : BaseTvInputService() {
@@ -270,13 +274,14 @@ class DrTvInputSessionImpl(
             Util.inferContentType(uri)
         else
             Util.inferContentType("." + overrideExtension)
-        when (type) {
-            C.TYPE_SS -> return SsMediaSource(uri, buildDataSourceFactory(false),
+
+        return when (type) {
+            C.TYPE_SS -> SsMediaSource(uri, buildDataSourceFactory(false),
                     DefaultSsChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger)
-            C.TYPE_DASH -> return DashMediaSource(uri, buildDataSourceFactory(false),
+            C.TYPE_DASH -> DashMediaSource(uri, buildDataSourceFactory(false),
                     DefaultDashChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger)
-            C.TYPE_HLS -> return HlsMediaSource(uri, mediaDataSourceFactory, mainHandler, eventLogger)
-            C.TYPE_OTHER -> return ExtractorMediaSource(uri, mediaDataSourceFactory, DefaultExtractorsFactory(),
+            C.TYPE_HLS -> HlsMediaSource(uri, mediaDataSourceFactory, mainHandler, eventLogger)
+            C.TYPE_OTHER -> ExtractorMediaSource(uri, mediaDataSourceFactory, DefaultExtractorsFactory(),
                     mainHandler, eventLogger)
             else -> {
                 throw IllegalStateException("Unsupported type: " + type)
@@ -337,27 +342,34 @@ class DrTvInputRecordingSessionImpl(
         // Additionally, the stream should be recorded and saved as
         // a new file.
 
+        launch(UI) {
+            val recordedProgram = getRecordedProgram(programToRecord)
+
+            Log.d(tag, "onStopRecording, recorded=" + recordedProgram)
+
+            notifyRecordingStopped(recordedProgram)
+        }
+    }
+
+    suspend private fun getRecordedProgram(
+            programToRecord: Program
+    ): RecordedProgram? = run(CommonPool) {
+
         val internalProviderData = programToRecord.internalProviderData
+        val assetUri = internalProviderData.get("assetUri") as String
+        val endPublish = internalProviderData.get("endPublish") as String?
 
-        var playbackUrl = ""
-        var downloadUrl = ""
-
-        val assetUri = programToRecord.internalProviderData!!.get("assetUri") as String
-        val endPublish = programToRecord.internalProviderData!!.get("endPublish") as String?
         val manifestResponse = DrMuRepository().getManifest(assetUri)
-        manifestResponse?.Links
+        val playbackUrl = manifestResponse?.Links
                 ?.asSequence()
                 ?.firstOrNull { it.Target == "HLS" }
-                ?.Uri?.let {
-            playbackUrl = it
-        }
-        manifestResponse?.Links
+                ?.Uri ?: ""
+
+        val downloadUrl = manifestResponse?.Links
                 ?.asSequence()
                 ?.sortedByDescending { it.Bitrate }
                 ?.firstOrNull { it.Target == "Download" }
-                ?.Uri?.let {
-            downloadUrl = it
-        }
+                ?.Uri ?: ""
 
         if (playbackUrl.isNotEmpty()) {
             internalProviderData.videoUrl = playbackUrl
@@ -369,7 +381,7 @@ class DrTvInputRecordingSessionImpl(
 
         internalProviderData.setRecordingStartTime(programToRecord.startTimeUtcMillis)
 
-        val recordedProgram = with(RecordedProgram.Builder(programToRecord)) {
+        with(RecordedProgram.Builder(programToRecord)) {
             setInputId(inputId)
             setRecordingDataUri(internalProviderData.videoUrl)
             setRecordingDurationMillis(programToRecord.endTimeUtcMillis - programToRecord.startTimeUtcMillis)
@@ -379,10 +391,6 @@ class DrTvInputRecordingSessionImpl(
             setInternalProviderData(internalProviderData)
             build()
         }
-
-        Log.d(tag, "onStopRecording, recorded=" + recordedProgram)
-
-        notifyRecordingStopped(recordedProgram)
     }
 
     override fun onStopRecordingChannel(channelToRecord: Channel?) {
