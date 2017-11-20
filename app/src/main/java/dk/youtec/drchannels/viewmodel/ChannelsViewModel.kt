@@ -2,7 +2,8 @@ package dk.youtec.drchannels.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.LiveData
+import android.content.Context
 import android.support.annotation.MainThread
 import android.util.Log
 import dk.youtec.drapi.MuNowNext
@@ -10,49 +11,48 @@ import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
+import java.util.concurrent.TimeUnit
 
 class ChannelsViewModel(application: Application) : AndroidViewModel(application) {
-    private val api = DrMuReactiveRepository(getApplication())
-    //private val handler = Handler()
-    //private var updateRunnable = Runnable { updateAsync() }
+    val channels: ChannelsLiveData = ChannelsLiveData(application)
+}
 
-    val channels: MutableLiveData<List<MuNowNext>> = MutableLiveData()
+class ChannelsLiveData(context: Context): LiveData<List<MuNowNext>>() {
+    private val api = DrMuReactiveRepository(context)
+    private var refreshJob: Job? = null
+
+    init {
+        load()
+    }
 
     @MainThread
-    fun updateAsync() {
+    fun load() {
         api.getPageTvFrontObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onNext = { pageTvFront ->
-                            channels.value = pageTvFront.Live
+                            value = pageTvFront.Live
                         },
                         onError = { e ->
                             Log.e(javaClass.simpleName, e.message, e)
                         })
     }
 
-    /*
-    private fun scheduleNextUpdate(epgResult: EpgResult) {
-        //Trigger next updateAsync delayed
-        val time = if (epgResult.updateNextInSec > 0) epgResult.updateNextInSec * 1000 else 60000
-        handler.removeCallbacks(updateRunnable)
-        handler.postDelayed(updateRunnable, time)
-
-        //Log the time
-        val localDateFormat = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-        val nextTime = localDateFormat.format(Date(System.currentTimeMillis() + time))
-        Log.d(javaClass.simpleName, "Next updateAsync at " + nextTime)
+    override fun onActive() {
+        refreshJob = launch(UI) {
+            while (true) {
+                delay(30, TimeUnit.SECONDS)
+                load()
+            }
+        }
     }
 
-    fun cancelNextUpdate() {
-        handler.removeCallbacks(updateRunnable)
+    override fun onInactive() {
+        refreshJob?.cancel()
     }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        cancelNextUpdate()
-    }
-    */
 }

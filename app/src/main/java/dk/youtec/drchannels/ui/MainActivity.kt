@@ -7,7 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.MainThread
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
@@ -17,7 +16,6 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
@@ -70,7 +68,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         swipeRefresh.setOnRefreshListener {
-            load()
+            viewModel.channels.load()
         }
 
         viewModel = ViewModelProviders.of(this)
@@ -133,31 +131,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
         setSupportActionBar(toolbar)
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        load()
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        //viewModel.cancelNextUpdate()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
 
         disposables.clear()
-    }
-
-    /**
-     * Log in and retrieve channel data.
-     */
-    @MainThread
-    private fun load() {
-        Log.d(tag, "Updating data")
-        viewModel.updateAsync()
     }
 
     fun setEmptyState(show: Boolean) {
@@ -184,14 +161,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
         */
 
         return false
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.groupId == listsGroup) {
-            load()
-        }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun loadGenres() {
