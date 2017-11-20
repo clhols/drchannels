@@ -25,10 +25,6 @@ class ChannelsLiveData(context: Context): LiveData<List<MuNowNext>>() {
     private val api = DrMuReactiveRepository(context)
     private var refreshJob: Job? = null
 
-    init {
-        load()
-    }
-
     @MainThread
     fun load() {
         Log.v(javaClass.simpleName, "Loading channel data")
