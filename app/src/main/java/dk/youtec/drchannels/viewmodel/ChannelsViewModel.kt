@@ -31,6 +31,7 @@ class ChannelsLiveData(context: Context): LiveData<List<MuNowNext>>() {
 
     @MainThread
     fun load() {
+        Log.v(javaClass.simpleName, "Loading channel data")
         api.getPageTvFrontObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -46,8 +47,8 @@ class ChannelsLiveData(context: Context): LiveData<List<MuNowNext>>() {
     override fun onActive() {
         refreshJob = launch(UI) {
             while (true) {
-                delay(30, TimeUnit.SECONDS)
                 load()
+                delay(30, TimeUnit.SECONDS)
             }
         }
     }
