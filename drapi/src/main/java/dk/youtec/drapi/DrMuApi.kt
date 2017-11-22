@@ -22,6 +22,12 @@ internal interface DrMuApi {
     @GET("schedule/{id}") // Date format yyyy-MM-dd HH:MM:ss
     fun getSchedule(@Path("id") id: String, @Query("broadcastdate") date: String): Call<Schedule>
 
+    @GET("schedule/nownext/{id}")
+    fun getScheduleNowNext(@Path("id") id: String): Call<MuNowNext>
+
+    @GET("schedule/nownext-for-all-active-dr-tv-channels")
+    fun getScheduleNowNext(): Call<List<MuNowNext>>
+
     @GET("search/tv/programcards-latest-episode-with-asset/series-title/{query}")
     fun search(@Path("query") query: String): Call<SearchResult>
 }

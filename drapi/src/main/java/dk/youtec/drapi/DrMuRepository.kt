@@ -35,6 +35,16 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
         return response.body()
     }
 
+    fun getScheduleNowNext(): List<MuNowNext> {
+        val response: Response<List<MuNowNext>> = service.getScheduleNowNext().execute()
+        return response.body() ?: emptyList()
+    }
+
+    fun getScheduleNowNext(id: String): MuNowNext? {
+        val response: Response<MuNowNext> = service.getScheduleNowNext(id).execute()
+        return response.body()
+    }
+
     fun getSchedule(id: String, date: String): Schedule? {
         val response: Response<Schedule> = service.getSchedule(id, date).execute()
         return response.body()

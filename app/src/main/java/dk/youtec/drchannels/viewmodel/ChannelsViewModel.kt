@@ -28,10 +28,10 @@ class ChannelsLiveData(context: Context): LiveData<List<MuNowNext>>() {
     @MainThread
     fun load() {
         Log.v(javaClass.simpleName, "Loading channel data")
-        api.getPageTvFrontObservable()
+        api.getScheduleNowNextObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map { it.Live.filter { it.Now != null } }
+                .map { it.filter { it.Now != null } }
                 .subscribeBy(
                         onNext = { newNextList ->
                             value = newNextList
