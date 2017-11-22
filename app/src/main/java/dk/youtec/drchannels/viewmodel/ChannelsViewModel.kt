@@ -31,9 +31,10 @@ class ChannelsLiveData(context: Context): LiveData<List<MuNowNext>>() {
         api.getPageTvFrontObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .map { it.Live.filter { it.Now != null } }
                 .subscribeBy(
-                        onNext = { pageTvFront ->
-                            value = pageTvFront.Live
+                        onNext = { newNextList ->
+                            value = newNextList
                         },
                         onError = { e ->
                             Log.e(javaClass.simpleName, e.message, e)

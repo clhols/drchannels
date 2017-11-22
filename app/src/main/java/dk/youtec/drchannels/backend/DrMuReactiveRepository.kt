@@ -3,7 +3,6 @@ package dk.youtec.drchannels.backend
 import android.content.Context
 import dk.youtec.drapi.*
 import io.reactivex.Observable
-import java.io.IOException
 
 class DrMuReactiveRepository(context: Context) {
     private var api = DrMuRepository(OkHttpClientFactory.getInstance(context))
@@ -17,7 +16,7 @@ class DrMuReactiveRepository(context: Context) {
             } else {
                 subscriber.onError(DrMuException("Missing page tv front response"))
             }
-        }
+        }.retry(3)
     }
 
     fun getAllActiveDrTvChannelsObservable(): Observable<List<Channel>> {
@@ -25,7 +24,7 @@ class DrMuReactiveRepository(context: Context) {
             val channels = api.getAllActiveDrTvChannels()
             subscriber.onNext(channels)
             subscriber.onComplete()
-        }
+        }.retry(3)
     }
 
     fun getManifestObservable(uri: String): Observable<Manifest> {
@@ -35,9 +34,9 @@ class DrMuReactiveRepository(context: Context) {
                 subscriber.onNext(manifest)
                 subscriber.onComplete()
             } else {
-                subscriber.onError(IOException("Missing response"))
+                subscriber.onError(DrMuException("Missing response"))
             }
-        }
+        }.retry(3)
     }
 }
 

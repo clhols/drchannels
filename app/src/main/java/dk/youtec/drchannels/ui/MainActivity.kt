@@ -77,7 +77,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
         viewModel.channels.observe(
                 this,
                 android.arch.lifecycle.Observer<List<MuNowNext>> { channels ->
-                    handleChannelsChanged(channels)
+                    if(channels != null) {
+                        handleChannelsChanged(channels)
+                    }
                 })
 
         //Schedule task
@@ -106,8 +108,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
     /**
      * Called when a change has been observed on channels in ChannelsViewModel
      */
-    private fun handleChannelsChanged(channels: List<MuNowNext>?) {
-        if (channels != null && !isFinishing) {
+    private fun handleChannelsChanged(channels: List<MuNowNext>) {
+        if (!isFinishing) {
             if (adapter != null) {
                 progressBar.visibility = View.GONE
                 swipeRefresh.isRefreshing = false
@@ -118,7 +120,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
 
                 adapter = ChannelsAdapter(
                         this@MainActivity.contentView,
-                        channels.filter { it.Now != null },
+                        channels,
                         this@MainActivity)
                 recyclerView.adapter = adapter
             }
@@ -186,16 +188,15 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
         disposables.add(
                 api.getAllActiveDrTvChannelsObservable()
                         .subscribeOn(Schedulers.io())
+                        .map { it.first { it.Slug == name } }
+                        .map { it.StreamingServers.first { it.LinkType == "HLS" } }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
-                                onNext = { channels ->
-                                    val channel = channels.first { it.Slug == name }
-                                    val server = channel.StreamingServers.first { it.LinkType == "HLS" }
+                                onNext = { server ->
                                     val stream = server.Qualities.sortedByDescending { it.Kbps }.first().Streams.first().Stream
                                     val playbackUri = "${server.Server}/$stream"
                                     val intent = buildIntent(this@MainActivity, playbackUri)
                                     startActivity(intent)
-
                                 },
                                 onError = { e ->
                                     Log.e(tag, e.message, e)
