@@ -38,6 +38,9 @@ class DrMuReactiveRepository(context: Context) {
         }.retry(3)
     }
 
+    /**
+     * @param uri Uri from a [PrimaryAsset] from a [ProgramCard]
+     */
     fun getManifestObservable(uri: String): Observable<Manifest> {
         return Observable.create<Manifest> { subscriber ->
             try {
@@ -54,6 +57,10 @@ class DrMuReactiveRepository(context: Context) {
         }.retry(3)
     }
 
+    /**
+     * @param id Channel id from [Channel.Slug]
+     * @param date Day to load schedule from
+     */
     fun getScheduleObservable(id: String, date: Date): Observable<Schedule> {
         return Observable.create<Schedule> { subscriber ->
             try {
@@ -85,6 +92,9 @@ class DrMuReactiveRepository(context: Context) {
         }.retry(3)
     }
 
+    /**
+     * @param id Channel id from [Channel.Slug]
+     */
     fun getScheduleNowNextObservable(id: String): Observable<MuNowNext> {
         return Observable.create<MuNowNext> { subscriber ->
             try {
