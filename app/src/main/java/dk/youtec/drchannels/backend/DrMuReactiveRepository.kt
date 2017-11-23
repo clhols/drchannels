@@ -1,6 +1,7 @@
 package dk.youtec.drchannels.backend
 
 import android.content.Context
+import android.util.Log
 import dk.youtec.drapi.*
 import io.reactivex.Observable
 import java.io.IOException
@@ -23,7 +24,7 @@ class DrMuReactiveRepository(context: Context) {
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
             }
-        }.retry(3)
+        }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
 
     fun getAllActiveDrTvChannelsObservable(): Observable<List<Channel>> {
@@ -35,7 +36,7 @@ class DrMuReactiveRepository(context: Context) {
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
             }
-        }.retry(3)
+        }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
 
     /**
@@ -54,7 +55,7 @@ class DrMuReactiveRepository(context: Context) {
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
             }
-        }.retry(3)
+        }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
 
     /**
@@ -77,7 +78,7 @@ class DrMuReactiveRepository(context: Context) {
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
             }
-        }.retry(3)
+        }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
 
     fun getScheduleNowNextObservable(): Observable<List<MuNowNext>> {
@@ -89,7 +90,7 @@ class DrMuReactiveRepository(context: Context) {
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
             }
-        }.retry(3)
+        }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
 
     /**
@@ -108,7 +109,7 @@ class DrMuReactiveRepository(context: Context) {
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
             }
-        }.retry(3)
+        }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
 }
 

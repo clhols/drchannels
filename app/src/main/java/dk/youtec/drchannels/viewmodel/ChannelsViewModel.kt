@@ -4,53 +4,57 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.content.Context
-import android.support.annotation.MainThread
 import android.util.Log
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
 import java.util.concurrent.TimeUnit
+import io.reactivex.Observable
 
 class ChannelsViewModel(application: Application) : AndroidViewModel(application) {
     val channels: ChannelsLiveData = ChannelsLiveData(application)
+
+    override fun onCleared() {
+        channels.dispose()
+    }
 }
 
-class ChannelsLiveData(context: Context): LiveData<List<MuNowNext>>() {
+class ChannelsLiveData(context: Context) : LiveData<List<MuNowNext>>() {
     private val api = DrMuReactiveRepository(context)
-    private var refreshJob: Job? = null
+    private var subscription: Disposable? = null
 
-    @MainThread
-    fun load() {
-        Log.v(javaClass.simpleName, "Loading channel data")
-        api.getScheduleNowNextObservable()
-                .subscribeOn(Schedulers.io())
+    /**
+     * Subscribe to an internal observable that trigger the network request
+     */
+    fun subscribe() {
+        Log.v(javaClass.simpleName, "Subscribing for channel data")
+
+        dispose()
+
+        subscription = Observable.interval(0, 30, TimeUnit.SECONDS, Schedulers.io())
+                .switchMap { api.getScheduleNowNextObservable() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { it.filter { it.Now != null } }
-                .subscribeBy(
-                        onNext = { newNextList ->
-                            value = newNextList
-                        },
-                        onError = { e ->
-                            Log.e(javaClass.simpleName, e.message, e)
-                        })
+                .doOnNext { Log.v(javaClass.simpleName, "Got channel data") }
+                .subscribe({ value = it })
     }
 
-    override fun onActive() {
-        refreshJob = launch(UI) {
-            while (true) {
-                load()
-                delay(30, TimeUnit.SECONDS)
-            }
+    /**
+     * Disposes the current subscription
+     */
+    fun dispose() {
+        if (subscription?.isDisposed == false) {
+            subscription?.dispose()
         }
     }
 
+    override fun onActive() {
+        subscribe()
+    }
+
     override fun onInactive() {
-        refreshJob?.cancel()
+        dispose()
     }
 }

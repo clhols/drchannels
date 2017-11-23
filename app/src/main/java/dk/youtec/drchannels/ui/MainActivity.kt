@@ -14,7 +14,6 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         swipeRefresh.setOnRefreshListener {
-            viewModel.channels.load()
+            viewModel.channels.subscribe()
         }
 
         viewModel = ViewModelProviders.of(this)
@@ -199,7 +198,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
                                     startActivity(intent)
                                 },
                                 onError = { e ->
-                                    Log.e(tag, e.message, e)
                                     toast(
                                             if (e.message != null
                                                     && e.message != "Success") e.message!!
@@ -226,7 +224,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
                                         }
                                     },
                                     onError = { e ->
-                                        Log.e(tag, e.message, e)
                                         toast(
                                                 if (e.message != null
                                                         && e.message != "Success") e.message!!
