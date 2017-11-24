@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class DrMuReactiveRepository(context: Context) {
-    private var api = DrMuRepository(OkHttpClientFactory.getInstance(context))
+    private val api = DrMuRepository(OkHttpClientFactory.getInstance(context))
 
     fun getPageTvFrontObservable(): Observable<PageTvFrontResponse> {
         return Observable.create<PageTvFrontResponse> { subscriber ->

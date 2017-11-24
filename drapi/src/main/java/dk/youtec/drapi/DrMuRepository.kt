@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Implements a Java API for https://www.dr.dk/mu-online/Help/1.4
  */
 class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
-    private var service: DrMuApi
+    private val service: DrMuApi
 
     init {
         val retrofit = with(Retrofit.Builder()) {
