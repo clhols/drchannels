@@ -83,10 +83,9 @@ class DrTvEpgJobService : EpgSyncJobService() {
                 setTitle(broadcast.Title)
                 if (broadcast.Subtitle.isNotEmpty()) {
                     setDescription(broadcast.Subtitle)
-                } else {
-                    setDescription(broadcast.Description)
                 }
                 setLongDescription(broadcast.Description)
+
                 setStartTimeUtcMillis(broadcast.StartTime.time)
                 setEndTimeUtcMillis(Math.min(broadcast.EndTime.time, endMs))
 
