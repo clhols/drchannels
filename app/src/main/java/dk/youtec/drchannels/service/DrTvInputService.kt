@@ -246,6 +246,8 @@ class DrTvInputSessionImpl(
 
     override fun onPlayerError(error: ExoPlaybackException?) {
         Log.e(tag, error?.message ?: "Unknown error", error)
+
+        notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_UNKNOWN)
     }
 
     override fun onLoadingChanged(isLoading: Boolean) {
