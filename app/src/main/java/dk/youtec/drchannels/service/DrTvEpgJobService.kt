@@ -72,6 +72,11 @@ class DrTvEpgJobService : EpgSyncJobService() {
             val lastBroadcast = todaysBroadcasts.last()
             val firstBroadcast = tomorrowsBroadcasts.first()
             lastBroadcast.EndTime.time = firstBroadcast.StartTime.time
+
+            // If the first broadcast eliminates the last, then remove the last.
+            if (lastBroadcast.StartTime.time >= lastBroadcast.EndTime.time) {
+                todaysBroadcasts.removeAt(todaysBroadcasts.lastIndex)
+            }
         }
 
         val broadcasts = todaysBroadcasts + tomorrowsBroadcasts
@@ -154,9 +159,9 @@ class DrTvEpgJobService : EpgSyncJobService() {
         return programs
     }
 
-    private fun getBroadcasts(channel: Channel, date: Date): List<MuScheduleBroadcast> {
+    private fun getBroadcasts(channel: Channel, date: Date): MutableList<MuScheduleBroadcast> {
         val dateString = SimpleDateFormat("yyyy-MM-dd HH:MM:ss", Locale.GERMAN).format(date)
         val schedule = api.getSchedule(channel.networkAffiliation, dateString)
-        return schedule?.Broadcasts ?: emptyList()
+        return schedule?.Broadcasts?.toMutableList() ?: mutableListOf()
     }
 }
