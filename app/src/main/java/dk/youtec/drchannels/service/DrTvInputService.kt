@@ -393,7 +393,7 @@ class DrTvInputRecordingSessionImpl(
 
                 val dateString = SimpleDateFormat("dd-HH-yyyy HH:MM", Locale.GERMAN)
                         .format(Date(endPublish.toLong()))
-                setLongDescription(programToRecord.longDescription + "\nExpires $dateString")
+                setShortDescription((programToRecord.description ?: "") + "\nExpires $dateString")
             }
             setInternalProviderData(internalProviderData)
             build()
