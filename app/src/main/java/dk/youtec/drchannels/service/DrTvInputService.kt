@@ -42,6 +42,7 @@ import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.run
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DrTvInputService : BaseTvInputService() {
@@ -387,6 +388,10 @@ class DrTvInputRecordingSessionImpl(
             setRecordingDurationMillis(programToRecord.endTimeUtcMillis - programToRecord.startTimeUtcMillis)
             if (endPublish != null && endPublish.isNotEmpty()) {
                 setRecordingExpireTimeUtcMillis(endPublish.toLong())
+
+                val dateString = SimpleDateFormat("dd-HH-yyyy HH:MM", Locale.GERMAN)
+                        .format(Date(endPublish.toLong()))
+                setLongDescription(programToRecord.longDescription + "\nExpires $dateString")
             }
             setInternalProviderData(internalProviderData)
             build()
