@@ -86,8 +86,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
                 setChannelId(channel.id)
                 setTitle(broadcast.Title)
-                setDescription(broadcast.Subtitle)
-                setLongDescription(broadcast.Description)
+                setDescription(broadcast.Description)
 
                 setStartTimeUtcMillis(broadcast.StartTime.time)
                 setEndTimeUtcMillis(Math.min(broadcast.EndTime.time, endMs))
@@ -96,7 +95,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
                     setBroadcastGenres(arrayOf(broadcast.OnlineGenreText))
                 }
 
-                setEpisodeTitle(broadcast.ProgramCard.Subtitle)
+                setEpisodeTitle(broadcast.Subtitle)
 
                 setSeasonTitle(broadcast.ProgramCard.SeasonTitle)
                 if (broadcast.ProgramCard.SeasonNumber > 0) {
