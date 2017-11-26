@@ -86,9 +86,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
                 setChannelId(channel.id)
                 setTitle(broadcast.Title)
-                if (broadcast.Subtitle.isNotEmpty()) {
-                    setDescription(broadcast.Subtitle)
-                }
+                setDescription(broadcast.Subtitle)
                 setLongDescription(broadcast.Description)
 
                 setStartTimeUtcMillis(broadcast.StartTime.time)
