@@ -25,9 +25,9 @@ allprojects {
     }
 }
 
-extra["kotlinVersion"] = "1.2.0"
-extra["compileSdkVersion"] = 27
-extra["targetSdkVersion"] = 27
-extra["buildToolsVersion"] = "27.0.0"
-extra["supportLibVersion"] = "27.0.2"
-extra["playServicesVersion"] = "11.6.0"
+val kotlinVersion by extra("1.2.0")
+val compileSdkVersion by extra(27)
+val targetSdkVersion by extra(27)
+val buildToolsVersion by extra("27.0.0")
+val supportLibVersion by extra("27.0.2")
+val playServicesVersion by extra("11.6.0")
