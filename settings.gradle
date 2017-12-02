@@ -1,4 +1,1 @@
-include ':app', ':drapi'
-//include ':exoplayer-lib'
-//include ':exoplayer-library'
-include ':tv-library'
+include ':app', ':drapi', ':tv-library'
