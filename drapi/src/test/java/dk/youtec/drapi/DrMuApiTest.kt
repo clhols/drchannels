@@ -46,7 +46,9 @@ class DrMuApiTest {
         val channelIds = channels?.map { it.Slug } ?: emptyList()
         val expectedChannelIds = listOf("dr1", "dr2", "dr3", "dr-k", "dr-ramasjang", "dr-ultra")
 
-        Assert.assertEquals(expectedChannelIds, channelIds)
+        Assert.assertTrue(
+                "Didn't find all the following channels $expectedChannelIds"
+                , channelIds.containsAll(expectedChannelIds))
     }
 
     @Test
