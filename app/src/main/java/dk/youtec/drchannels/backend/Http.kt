@@ -2,7 +2,6 @@ package dk.youtec.drchannels.backend
 
 import android.content.Context
 import android.util.Log
-import dk.youtec.drchannels.backend.exception.HttpException
 import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
@@ -50,3 +49,5 @@ fun getHttpResponse(context: Context, urlAddress: String): Response {
 fun closeResponse(response: Response?) {
     response?.body()?.close()
 }
+
+class HttpException(val code: Int, httpMessage: String) : IOException(httpMessage)
