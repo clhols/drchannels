@@ -25,7 +25,7 @@ allprojects {
     }
 }
 
-val kotlinVersion by extra("1.2.0")
+val kotlinVersion by extra("1.2.10")
 val compileSdkVersion by extra(27)
 val targetSdkVersion by extra(27)
 val buildToolsVersion by extra("27.0.2")
