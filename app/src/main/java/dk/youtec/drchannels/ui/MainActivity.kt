@@ -247,7 +247,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
 
     override fun showChannel(context: Context, channel: MuNowNext) {
         val intent = Intent(context, ProgramsActivity::class.java).apply {
-            putExtra(ProgramsActivity.CHANNEL_NAME, channel.Channel)
+            putExtra(ProgramsActivity.CHANNEL_NAME, channel.ChannelSlug.toUpperCase())
             putExtra(ProgramsActivity.CHANNEL_ID, channel.ChannelSlug)
         }
 

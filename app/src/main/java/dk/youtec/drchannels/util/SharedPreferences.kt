@@ -12,6 +12,7 @@ inline fun Context.putPreference(
 }
 
 object SharedPreferences {
+    const val REMOTE_CONTROL_MODE = "remoteControlMode"
 
     fun getString(context: Context, key: String, default: String = ""): String =
             context.defaultSharedPreferences.getString(key, default)
@@ -39,4 +40,6 @@ object SharedPreferences {
                 .putBoolean(key, value)
                 .apply()
     }
+
+
 }

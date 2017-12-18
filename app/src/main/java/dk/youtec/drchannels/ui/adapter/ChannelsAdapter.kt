@@ -174,7 +174,6 @@ class ChannelsAdapter(
         val nextTitle: TextView = itemView.findViewById(R.id.nextTitle)
 
         init {
-            more.visibility = View.GONE
             more.setOnClickListener {
                 listener.showChannel(it.context, channels[adapterPosition])
             }
