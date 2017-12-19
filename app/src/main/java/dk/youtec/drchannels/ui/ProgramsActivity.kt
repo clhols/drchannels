@@ -1,7 +1,7 @@
 package dk.youtec.drchannels.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -11,11 +11,14 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
-import dk.youtec.drchannels.ui.adapter.*
+import dk.youtec.drchannels.ui.adapter.ProgramAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.*
+import org.jetbrains.anko.displayMetrics
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 import java.util.*
 
 class ProgramsActivity : AppCompatActivity() {
@@ -64,7 +67,7 @@ class ProgramsActivity : AppCompatActivity() {
                                         val time = System.currentTimeMillis()
                                         it.StartTime.time <= time && it.EndTime.time >= time
                                     }
-                                    recyclerView.adapter = ProgramAdapter(this@ProgramsActivity, id, programs, api)
+                                    recyclerView.adapter = ProgramAdapter(this@ProgramsActivity, programs, api)
                                     (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(currentIndex, displayMetrics.heightPixels / 6)
                                 }
                             },

@@ -13,26 +13,25 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import dk.youtec.drapi.MuScheduleBroadcast
+import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
-import org.jetbrains.anko.*
-import java.text.SimpleDateFormat
-import java.util.*
+import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.ui.view.AspectImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.find
+import org.jetbrains.anko.image
 import org.jetbrains.anko.toast
-import dk.youtec.drchannels.backend.DrMuReactiveRepository
-import dk.youtec.drapi.*
+import java.text.SimpleDateFormat
+import java.util.*
 
-
-class ProgramAdapter(val context: Context, val channelSID: String, val programs: Schedule, val api: DrMuReactiveRepository) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>() {
+class ProgramAdapter(val context: Context, val programs: Schedule, val api: DrMuReactiveRepository) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>() {
 
     private var mColorMatrixColorFilter: ColorMatrixColorFilter
     private var mResources: Resources
-
 
     init {
         val matrix = ColorMatrix()
@@ -87,10 +86,8 @@ class ProgramAdapter(val context: Context, val channelSID: String, val programs:
             }
         }
 
-
-
         //Set view enabled state
-        holder.mEnabled = true
+        holder.mEnabled = program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() ?: false
         holder.itemView.isClickable = holder.mEnabled
         holder.itemView.isEnabled = holder.mEnabled
         holder.mTitle.isEnabled = holder.mEnabled
@@ -145,7 +142,7 @@ class ProgramAdapter(val context: Context, val channelSID: String, val programs:
 
             when {
                 program.StartTime.time < System.currentTimeMillis() -> playProgram(program)
-                program.IsRerun -> playProgram(program)
+                program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() == true -> playProgram(program)
                 else -> it.context.toast(it.context.getString(R.string.upcomingTransmission))
             }
         }
@@ -191,7 +188,4 @@ class ProgramAdapter(val context: Context, val channelSID: String, val programs:
         }
         return intent
     }
-
-
-
 }
