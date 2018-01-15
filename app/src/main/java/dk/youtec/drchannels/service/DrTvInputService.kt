@@ -90,7 +90,7 @@ class DrTvInputSessionImpl(
             addListener(eventLogger)
             setAudioDebugListener(eventLogger)
             setVideoDebugListener(eventLogger)
-            setMetadataOutput(eventLogger)
+            addMetadataOutput(eventLogger)
             prepare(buildMediaSource(Uri.parse(providerData.videoUrl)), true, false)
         }
     }
