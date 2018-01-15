@@ -97,12 +97,11 @@
                 android:progressDrawable="@drawable/progress_horizontal_no_background" />
         </LinearLayout>
 
-        <TextView
+        <dk.youtec.drchannels.ui.view.AutoMaxLinesTextView
             android:id="@+id/nowDescription"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
-            android:paddingBottom="12dp"
             android:paddingEnd="12dp"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="12dp"
