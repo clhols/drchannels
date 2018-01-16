@@ -66,7 +66,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.20")
 
-    implementation("com.google.android.exoplayer:exoplayer:r2.5.4")
+    implementation("com.google.android.exoplayer:exoplayer:2.6.1")
 
     implementation("org.jetbrains.anko:anko-sdk15:0.10.3")
     implementation("com.github.bumptech.glide:glide:4.4.0")

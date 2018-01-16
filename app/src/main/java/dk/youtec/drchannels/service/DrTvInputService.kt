@@ -63,6 +63,7 @@ class DrTvInputSessionImpl(
         private val context: Context,
         inputId: String
 ) : BaseTvInputService.Session(context, inputId), Player.EventListener {
+
     private val tag = DrTvInputSessionImpl::class.java.simpleName
     private val mainHandler = Handler()
     private val unknownType = -1
@@ -88,8 +89,8 @@ class DrTvInputSessionImpl(
         player = TvExoPlayer(renderersFactory, trackSelector, DefaultLoadControl()).apply {
             addListener(this@DrTvInputSessionImpl)
             addListener(eventLogger)
-            setAudioDebugListener(eventLogger)
-            setVideoDebugListener(eventLogger)
+            addAudioDebugListener(eventLogger)
+            addVideoDebugListener(eventLogger)
             addMetadataOutput(eventLogger)
             prepare(buildMediaSource(Uri.parse(providerData.videoUrl)), true, false)
         }
@@ -232,6 +233,14 @@ class DrTvInputSessionImpl(
         return unknownType
     }
 
+    override fun onSeekProcessed() {
+        Log.i(tag, "onSeekProcessed")
+    }
+
+    override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
+        Log.i(tag, "onShuffleModeEnabledChanged $shuffleModeEnabled")
+    }
+
     override fun onSetCaptionEnabled(enabled: Boolean) {
         Log.i(tag, "onSetCaptionEnabled $enabled")
     }
@@ -254,8 +263,8 @@ class DrTvInputSessionImpl(
         Log.i(tag, "onLoadingChanged $isLoading")
     }
 
-    override fun onPositionDiscontinuity() {
-        Log.i(tag, "onPositionDiscontinuity")
+    override fun onPositionDiscontinuity(reason: Int) {
+        Log.i(tag, "onPositionDiscontinuity $reason")
     }
 
     override fun onRepeatModeChanged(repeatMode: Int) {
@@ -285,7 +294,7 @@ class DrTvInputSessionImpl(
                     DefaultDashChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger)
             C.TYPE_HLS -> HlsMediaSource(uri, mediaDataSourceFactory, mainHandler, eventLogger)
             C.TYPE_OTHER -> ExtractorMediaSource(uri, mediaDataSourceFactory, DefaultExtractorsFactory(),
-                    mainHandler, eventLogger)
+                    mainHandler, null)
             else -> {
                 throw IllegalStateException("Unsupported type: " + type)
             }

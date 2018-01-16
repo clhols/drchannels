@@ -25,6 +25,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,29 +36,30 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.C.ContentType;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
-import com.google.android.exoplayer2.Player.EventListener;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.drm.DefaultDrmSessionManager;
 import com.google.android.exoplayer2.drm.DrmSessionManager;
 import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
 import com.google.android.exoplayer2.drm.FrameworkMediaDrm;
 import com.google.android.exoplayer2.drm.HttpMediaDrmCallback;
 import com.google.android.exoplayer2.drm.UnsupportedDrmException;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer.DecoderInitializationException;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil.DecoderQueryException;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.MediaSourceEventListener;
 import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.source.ads.AdsLoader;
+import com.google.android.exoplayer2.source.ads.AdsMediaSource;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
@@ -77,8 +79,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.Util;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
+
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -90,12 +91,13 @@ import dk.youtec.drchannels.log.EventLogger;
 /**
  * An activity that plays media using {@link SimpleExoPlayer}.
  */
-public class PlayerActivity extends Activity implements OnClickListener, EventListener,
+public class PlayerActivity extends Activity implements OnClickListener,
         PlaybackControlView.VisibilityListener {
 
-    public static final String DRM_SCHEME_UUID_EXTRA = "drm_scheme_uuid";
+    public static final String DRM_SCHEME_EXTRA = "drm_scheme";
     public static final String DRM_LICENSE_URL = "drm_license_url";
     public static final String DRM_KEY_REQUEST_PROPERTIES = "drm_key_request_properties";
+    public static final String DRM_MULTI_SESSION = "drm_multi_session";
     public static final String PREFER_EXTENSION_DECODERS = "prefer_extension_decoders";
 
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
@@ -106,6 +108,9 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
     public static final String URI_LIST_EXTRA = "uri_list";
     public static final String EXTENSION_LIST_EXTRA = "extension_list";
     public static final String AD_TAG_URI_EXTRA = "ad_tag_uri";
+
+    // For backwards compatibility.
+    private static final String DRM_SCHEME_UUID_EXTRA = "drm_scheme_uuid";
 
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
@@ -137,9 +142,9 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
 
     // Fields used only for ad playback. The ads loader is loaded via reflection.
 
-    private Object imaAdsLoader; // com.google.android.exoplayer2.ext.ima.ImaAdsLoader
+    private AdsLoader adsLoader;
     private Uri loadedAdTagUri;
-    private ViewGroup adOverlayViewGroup;
+    private ViewGroup adUiViewGroup;
 
     // Activity lifecycle
 
@@ -157,12 +162,12 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
         setContentView(R.layout.player_activity);
         View rootView = findViewById(R.id.root);
         rootView.setOnClickListener(this);
-        debugRootView = (LinearLayout) findViewById(R.id.controls_root);
-        debugTextView = (TextView) findViewById(R.id.debug_text_view);
-        retryButton = (Button) findViewById(R.id.retry_button);
+        debugRootView = findViewById(R.id.controls_root);
+        debugTextView = findViewById(R.id.debug_text_view);
+        retryButton = findViewById(R.id.retry_button);
         retryButton.setOnClickListener(this);
 
-        simpleExoPlayerView = (SimpleExoPlayerView) findViewById(R.id.player_view);
+        simpleExoPlayerView = findViewById(R.id.player_view);
         simpleExoPlayerView.setControllerVisibilityListener(this);
         simpleExoPlayerView.requestFocus();
     }
@@ -186,7 +191,7 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
     @Override
     public void onResume() {
         super.onResume();
-        if ((Util.SDK_INT <= 23 || player == null)) {
+        if (Util.SDK_INT <= 23 || player == null) {
             initializePlayer();
         }
     }
@@ -228,8 +233,8 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        // If the event was not handled then see if the player view can handle it.
-        return super.dispatchKeyEvent(event) || simpleExoPlayerView.dispatchKeyEvent(event);
+        // See whether the player view wants to handle media or DPAD keys events.
+        return simpleExoPlayerView.dispatchKeyEvent(event) || super.dispatchKeyEvent(event);
     }
 
     // OnClickListener methods
@@ -241,8 +246,8 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
         } else if (view.getParent() == debugRootView) {
             MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
             if (mappedTrackInfo != null) {
-                trackSelectionHelper.showSelectionDialog(this, ((Button) view).getText(),
-                        trackSelector.getCurrentMappedTrackInfo(), (int) view.getTag());
+                trackSelectionHelper.showSelectionDialog(
+                        this, ((Button) view).getText(), mappedTrackInfo, (int) view.getTag());
             }
         }
     }
@@ -267,19 +272,21 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
             lastSeenTrackGroupArray = null;
             eventLogger = new EventLogger(trackSelector);
 
-            UUID drmSchemeUuid = intent.hasExtra(DRM_SCHEME_UUID_EXTRA)
-                    ? UUID.fromString(intent.getStringExtra(DRM_SCHEME_UUID_EXTRA)) : null;
             DrmSessionManager<FrameworkMediaCrypto> drmSessionManager = null;
-            if (drmSchemeUuid != null) {
+            if (intent.hasExtra(DRM_SCHEME_EXTRA) || intent.hasExtra(DRM_SCHEME_UUID_EXTRA)) {
                 String drmLicenseUrl = intent.getStringExtra(DRM_LICENSE_URL);
                 String[] keyRequestPropertiesArray = intent.getStringArrayExtra(DRM_KEY_REQUEST_PROPERTIES);
+                boolean multiSession = intent.getBooleanExtra(DRM_MULTI_SESSION, false);
                 int errorStringId = R.string.error_drm_unknown;
                 if (Util.SDK_INT < 18) {
                     errorStringId = R.string.error_drm_not_supported;
                 } else {
                     try {
+                        String drmSchemeExtra = intent.hasExtra(DRM_SCHEME_EXTRA) ? DRM_SCHEME_EXTRA
+                                : DRM_SCHEME_UUID_EXTRA;
+                        UUID drmSchemeUuid = UUID.fromString(intent.getStringExtra(drmSchemeExtra));
                         drmSessionManager = buildDrmSessionManagerV18(drmSchemeUuid, drmLicenseUrl,
-                                keyRequestPropertiesArray);
+                                keyRequestPropertiesArray, multiSession);
                     } catch (UnsupportedDrmException e) {
                         errorStringId = e.reason == UnsupportedDrmException.REASON_UNSUPPORTED_SCHEME
                                 ? R.string.error_drm_unsupported_scheme : R.string.error_drm_unknown;
@@ -301,11 +308,11 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
                     drmSessionManager, extensionRendererMode);
 
             player = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector);
-            player.addListener(this);
+            player.addListener(new PlayerEventListener());
             player.addListener(eventLogger);
-            player.setAudioDebugListener(eventLogger);
-            player.setVideoDebugListener(eventLogger);
-            player.setMetadataOutput(eventLogger);
+            player.addMetadataOutput(eventLogger);
+            player.addAudioDebugListener(eventLogger);
+            player.addVideoDebugListener(eventLogger);
 
             simpleExoPlayerView.setPlayer(player);
             player.setPlayWhenReady(shouldAutoPlay);
@@ -338,7 +345,7 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
         }
         MediaSource[] mediaSources = new MediaSource[uris.length];
         for (int i = 0; i < uris.length; i++) {
-            mediaSources[i] = buildMediaSource(uris[i], extensions[i]);
+            mediaSources[i] = buildMediaSource(uris[i], extensions[i], mainHandler, eventLogger);
         }
         MediaSource mediaSource = mediaSources.length == 1 ? mediaSources[0]
                 : new ConcatenatingMediaSource(mediaSources);
@@ -366,21 +373,30 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
         updateButtonVisibilities();
     }
 
-    private MediaSource buildMediaSource(Uri uri, String overrideExtension) {
-        int type = TextUtils.isEmpty(overrideExtension) ? Util.inferContentType(uri)
+    private MediaSource buildMediaSource(
+            Uri uri,
+            String overrideExtension,
+            @Nullable Handler handler,
+            @Nullable MediaSourceEventListener listener) {
+        @ContentType int type = TextUtils.isEmpty(overrideExtension) ? Util.inferContentType(uri)
                 : Util.inferContentType("." + overrideExtension);
         switch (type) {
-            case C.TYPE_SS:
-                return new SsMediaSource(uri, buildDataSourceFactory(false),
-                        new DefaultSsChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger);
             case C.TYPE_DASH:
-                return new DashMediaSource(uri, buildDataSourceFactory(false),
-                        new DefaultDashChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger);
+                return new DashMediaSource.Factory(
+                        new DefaultDashChunkSource.Factory(mediaDataSourceFactory),
+                        buildDataSourceFactory(false))
+                        .createMediaSource(uri, handler, listener);
+            case C.TYPE_SS:
+                return new SsMediaSource.Factory(
+                        new DefaultSsChunkSource.Factory(mediaDataSourceFactory),
+                        buildDataSourceFactory(false))
+                        .createMediaSource(uri, handler, listener);
             case C.TYPE_HLS:
-                return new HlsMediaSource(uri, mediaDataSourceFactory, mainHandler, eventLogger);
+                return new HlsMediaSource.Factory(mediaDataSourceFactory)
+                        .createMediaSource(uri, handler, listener);
             case C.TYPE_OTHER:
-                return new ExtractorMediaSource(uri, mediaDataSourceFactory, new DefaultExtractorsFactory(),
-                        mainHandler, eventLogger);
+                return new ExtractorMediaSource.Factory(mediaDataSourceFactory)
+                        .createMediaSource(uri, handler, listener);
             default: {
                 throw new IllegalStateException("Unsupported type: " + type);
             }
@@ -388,7 +404,8 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
     }
 
     private DrmSessionManager<FrameworkMediaCrypto> buildDrmSessionManagerV18(UUID uuid,
-                                                                              String licenseUrl, String[] keyRequestPropertiesArray) throws UnsupportedDrmException {
+                                                                              String licenseUrl, String[] keyRequestPropertiesArray, boolean multiSession)
+            throws UnsupportedDrmException {
         HttpMediaDrmCallback drmCallback = new HttpMediaDrmCallback(licenseUrl,
                 buildHttpDataSourceFactory(false));
         if (keyRequestPropertiesArray != null) {
@@ -398,7 +415,7 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
             }
         }
         return new DefaultDrmSessionManager<>(uuid, FrameworkMediaDrm.newInstance(uuid), drmCallback,
-                null, mainHandler, eventLogger);
+                null, mainHandler, eventLogger, multiSession);
     }
 
     private void releasePlayer() {
@@ -465,133 +482,37 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
         // Load the extension source using reflection so the demo app doesn't have to depend on it.
         // The ads loader is reused for multiple playbacks, so that ad playback can resume.
         Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
-        if (imaAdsLoader == null) {
-            imaAdsLoader = loaderClass.getConstructor(Context.class, Uri.class)
+        if (adsLoader == null) {
+            adsLoader = (AdsLoader) loaderClass.getConstructor(Context.class, Uri.class)
                     .newInstance(this, adTagUri);
-            adOverlayViewGroup = new FrameLayout(this);
+            adUiViewGroup = new FrameLayout(this);
             // The demo app has a non-null overlay frame layout.
-            simpleExoPlayerView.getOverlayFrameLayout().addView(adOverlayViewGroup);
+            simpleExoPlayerView.getOverlayFrameLayout().addView(adUiViewGroup);
         }
-        Class<?> sourceClass =
-                Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsMediaSource");
-        Constructor<?> constructor = sourceClass.getConstructor(MediaSource.class,
-                DataSource.Factory.class, loaderClass, ViewGroup.class);
-        return (MediaSource) constructor.newInstance(mediaSource, mediaDataSourceFactory, imaAdsLoader,
-                adOverlayViewGroup);
+        AdsMediaSource.MediaSourceFactory adMediaSourceFactory =
+                new AdsMediaSource.MediaSourceFactory() {
+                    @Override
+                    public MediaSource createMediaSource(
+                            Uri uri, @Nullable Handler handler, @Nullable MediaSourceEventListener listener) {
+                        return PlayerActivity.this.buildMediaSource(
+                                uri, /* overrideExtension= */ null, handler, listener);
+                    }
+
+                    @Override
+                    public int[] getSupportedTypes() {
+                        return new int[]{C.TYPE_DASH, C.TYPE_SS, C.TYPE_HLS, C.TYPE_OTHER};
+                    }
+                };
+        return new AdsMediaSource(
+                mediaSource, adMediaSourceFactory, adsLoader, adUiViewGroup, mainHandler, eventLogger);
     }
 
     private void releaseAdsLoader() {
-        if (imaAdsLoader != null) {
-            try {
-                Class<?> loaderClass = Class.forName("com.google.android.exoplayer2.ext.ima.ImaAdsLoader");
-                Method releaseMethod = loaderClass.getMethod("release");
-                releaseMethod.invoke(imaAdsLoader);
-            } catch (Exception e) {
-                // Should never happen.
-                throw new IllegalStateException(e);
-            }
-            imaAdsLoader = null;
+        if (adsLoader != null) {
+            adsLoader.release();
+            adsLoader = null;
             loadedAdTagUri = null;
             simpleExoPlayerView.getOverlayFrameLayout().removeAllViews();
-        }
-    }
-
-    // Player.EventListener implementation
-
-    @Override
-    public void onLoadingChanged(boolean isLoading) {
-        // Do nothing.
-    }
-
-    @Override
-    public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-        if (playbackState == Player.STATE_ENDED) {
-            showControls();
-        }
-        updateButtonVisibilities();
-    }
-
-    @Override
-    public void onRepeatModeChanged(int repeatMode) {
-        // Do nothing.
-    }
-
-    @Override
-    public void onPositionDiscontinuity() {
-        if (inErrorState) {
-            // This will only occur if the user has performed a seek whilst in the error state. Update the
-            // resume position so that if the user then retries, playback will resume from the position to
-            // which they seeked.
-            updateResumePosition();
-        }
-    }
-
-    @Override
-    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-        // Do nothing.
-    }
-
-    @Override
-    public void onTimelineChanged(Timeline timeline, Object manifest) {
-        // Do nothing.
-    }
-
-    @Override
-    public void onPlayerError(ExoPlaybackException e) {
-        String errorString = null;
-        if (e.type == ExoPlaybackException.TYPE_RENDERER) {
-            Exception cause = e.getRendererException();
-            if (cause instanceof DecoderInitializationException) {
-                // Special case for decoder initialization failures.
-                DecoderInitializationException decoderInitializationException =
-                        (DecoderInitializationException) cause;
-                if (decoderInitializationException.decoderName == null) {
-                    if (decoderInitializationException.getCause() instanceof DecoderQueryException) {
-                        errorString = getString(R.string.error_querying_decoders);
-                    } else if (decoderInitializationException.secureDecoderRequired) {
-                        errorString = getString(R.string.error_no_secure_decoder,
-                                decoderInitializationException.mimeType);
-                    } else {
-                        errorString = getString(R.string.error_no_decoder,
-                                decoderInitializationException.mimeType);
-                    }
-                } else {
-                    errorString = getString(R.string.error_instantiating_decoder,
-                            decoderInitializationException.decoderName);
-                }
-            }
-        }
-        if (errorString != null) {
-            showToast(errorString);
-        }
-        inErrorState = true;
-        if (isBehindLiveWindow(e)) {
-            clearResumePosition();
-            initializePlayer();
-        } else {
-            updateResumePosition();
-            updateButtonVisibilities();
-            showControls();
-        }
-    }
-
-    @Override
-    @SuppressWarnings("ReferenceEquality")
-    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-        updateButtonVisibilities();
-        if (trackGroups != lastSeenTrackGroupArray) {
-            MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
-            if (mappedTrackInfo != null) {
-                if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_VIDEO)
-                        == MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
-                    showToast(R.string.error_unsupported_video);
-                }
-                if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_AUDIO)
-                        == MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
-                    showToast(R.string.error_unsupported_audio);
-                }
-            }
-            lastSeenTrackGroupArray = trackGroups;
         }
     }
 
@@ -662,6 +583,87 @@ public class PlayerActivity extends Activity implements OnClickListener, EventLi
             cause = cause.getCause();
         }
         return false;
+    }
+
+    private class PlayerEventListener extends Player.DefaultEventListener {
+
+        @Override
+        public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+            if (playbackState == Player.STATE_ENDED) {
+                showControls();
+            }
+            updateButtonVisibilities();
+        }
+
+        @Override
+        public void onPositionDiscontinuity(@Player.DiscontinuityReason int reason) {
+            if (inErrorState) {
+                // This will only occur if the user has performed a seek whilst in the error state. Update
+                // the resume position so that if the user then retries, playback will resume from the
+                // position to which they seeked.
+                updateResumePosition();
+            }
+        }
+
+        @Override
+        public void onPlayerError(ExoPlaybackException e) {
+            String errorString = null;
+            if (e.type == ExoPlaybackException.TYPE_RENDERER) {
+                Exception cause = e.getRendererException();
+                if (cause instanceof DecoderInitializationException) {
+                    // Special case for decoder initialization failures.
+                    DecoderInitializationException decoderInitializationException =
+                            (DecoderInitializationException) cause;
+                    if (decoderInitializationException.decoderName == null) {
+                        if (decoderInitializationException.getCause() instanceof DecoderQueryException) {
+                            errorString = getString(R.string.error_querying_decoders);
+                        } else if (decoderInitializationException.secureDecoderRequired) {
+                            errorString = getString(R.string.error_no_secure_decoder,
+                                    decoderInitializationException.mimeType);
+                        } else {
+                            errorString = getString(R.string.error_no_decoder,
+                                    decoderInitializationException.mimeType);
+                        }
+                    } else {
+                        errorString = getString(R.string.error_instantiating_decoder,
+                                decoderInitializationException.decoderName);
+                    }
+                }
+            }
+            if (errorString != null) {
+                showToast(errorString);
+            }
+            inErrorState = true;
+            if (isBehindLiveWindow(e)) {
+                clearResumePosition();
+                initializePlayer();
+            } else {
+                updateResumePosition();
+                updateButtonVisibilities();
+                showControls();
+            }
+        }
+
+        @Override
+        @SuppressWarnings("ReferenceEquality")
+        public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+            updateButtonVisibilities();
+            if (trackGroups != lastSeenTrackGroupArray) {
+                MappedTrackInfo mappedTrackInfo = trackSelector.getCurrentMappedTrackInfo();
+                if (mappedTrackInfo != null) {
+                    if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_VIDEO)
+                            == MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
+                        showToast(R.string.error_unsupported_video);
+                    }
+                    if (mappedTrackInfo.getTrackTypeRendererSupport(C.TRACK_TYPE_AUDIO)
+                            == MappedTrackInfo.RENDERER_SUPPORT_UNSUPPORTED_TRACKS) {
+                        showToast(R.string.error_unsupported_audio);
+                    }
+                }
+                lastSeenTrackGroupArray = trackGroups;
+            }
+        }
+
     }
 
 }
