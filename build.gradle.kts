@@ -11,7 +11,7 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:3.0.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.10")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.20")
         classpath("com.github.triplet.gradle:play-publisher:1.2.0")
         classpath("com.novoda:bintray-release:0.3.4")
     }
@@ -25,7 +25,7 @@ allprojects {
     }
 }
 
-val kotlinVersion by extra("1.2.10")
+val kotlinVersion by extra("1.2.20")
 val compileSdkVersion by extra(27)
 val targetSdkVersion by extra(27)
 val buildToolsVersion by extra("27.0.2")
