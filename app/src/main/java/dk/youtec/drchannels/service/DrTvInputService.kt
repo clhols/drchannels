@@ -86,6 +86,9 @@ class DrTvInputSessionImpl(
 
         releasePlayer()
 
+        // Enable tunneling if supported by the current media and device configuration.
+        trackSelector.setTunnelingAudioSessionId(C.generateAudioSessionIdV21(context))
+
         player = TvExoPlayer(renderersFactory, trackSelector, DefaultLoadControl()).apply {
             addListener(this@DrTvInputSessionImpl)
             addListener(eventLogger)
