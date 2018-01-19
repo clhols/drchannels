@@ -66,14 +66,14 @@ dependencies {
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.20")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.20")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.21.2")
 
     implementation("com.google.android.exoplayer:exoplayer:2.6.1")
 
-    implementation("org.jetbrains.anko:anko-sdk15:0.10.3")
-    implementation("com.github.bumptech.glide:glide:4.4.0")
-    implementation("com.github.bumptech.glide:okhttp3-integration:4.4.0")
+    implementation("org.jetbrains.anko:anko-sdk15:0.10.4")
+    implementation("com.github.bumptech.glide:glide:4.5.0")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.5.0")
     implementation("com.squareup.okhttp3:okhttp:3.9.1")
     implementation("com.android.support:design:$supportLibVersion")
     implementation("com.android.support:support-v4:$supportLibVersion")
@@ -85,7 +85,7 @@ dependencies {
     implementation("android.arch.lifecycle:reactivestreams:1.0.0")
     annotationProcessor("android.arch.lifecycle:compiler:1.0.0")
 
-    implementation("io.reactivex.rxjava2:rxjava:2.1.7")
+    implementation("io.reactivex.rxjava2:rxjava:2.1.8")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
 }
