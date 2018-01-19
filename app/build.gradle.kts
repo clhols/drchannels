@@ -41,9 +41,12 @@ android {
         }
 
         buildTypes {
+            getByName("debug") {
+                applicationIdSuffix = ".debug"
+            }
             getByName("release") {
                 isMinifyEnabled = false
-                proguardFiles("proguard-rules.pro")
+                proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
 
                 signingConfig = signingConfigs["release"]
             }
