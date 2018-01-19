@@ -22,30 +22,35 @@ import dk.youtec.drchannels.ui.view.AspectImageView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.find
+import kotlinx.android.synthetic.main.program_item.view.*
 import org.jetbrains.anko.image
 import org.jetbrains.anko.toast
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ProgramAdapter(val context: Context, val programs: Schedule, val api: DrMuReactiveRepository) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>() {
+class ProgramAdapter(
+        val context: Context,
+        val programs: Schedule,
+        val api: DrMuReactiveRepository
+) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>() {
 
-    private var mColorMatrixColorFilter: ColorMatrixColorFilter
-    private var mResources: Resources
+    private var colorMatrixColorFilter: ColorMatrixColorFilter
+    private var resources: Resources
 
     init {
-        val matrix = ColorMatrix()
-        matrix.setSaturation(0f)
-        mColorMatrixColorFilter = ColorMatrixColorFilter(matrix)
-        mResources = context.resources
+        val matrix = ColorMatrix().apply {
+            setSaturation(0f)
+        }
+        colorMatrixColorFilter = ColorMatrixColorFilter(matrix)
+        resources = context.resources
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val program = programs.Broadcasts.get(position)
 
         //Title and description
-        holder.mTitle.text = program.Title
-        holder.mNowDescription.text = program.Description
+        holder.title.text = program.Title
+        holder.nowDescription.text = program.Description
 
         //Time
         val localDateFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
@@ -55,7 +60,7 @@ class ProgramAdapter(val context: Context, val programs: Schedule, val api: DrMu
         val startTime = localTimeFormat.format(program.StartTime)
         val endTime = localTimeFormat.format(program.EndTime)
 
-        holder.mTime.text = buildString {
+        holder.time.text = buildString {
             append(startDate)
             append(" ")
             append(startTime)
@@ -65,14 +70,14 @@ class ProgramAdapter(val context: Context, val programs: Schedule, val api: DrMu
 
         //Header color
         if(program.StartTime.time < System.currentTimeMillis() && System.currentTimeMillis() <= program.EndTime.time) {
-            holder.mLive.visibility = View.VISIBLE
-            //holder.mHeader.setBackgroundColor(mResources.getColor(R.color.liveProgramHeaderBackground))
+            holder.live.visibility = View.VISIBLE
+            //holder.header.setBackgroundColor(mResources.getColor(R.color.liveProgramHeaderBackground))
         } else {
-            holder.mLive.visibility = View.GONE
-            //holder.mHeader.setBackgroundColor(mResources.getColor(R.color.channelHeaderBackground))
+            holder.live.visibility = View.GONE
+            //holder.header.setBackgroundColor(mResources.getColor(R.color.channelHeaderBackground))
         }
 
-        holder.mImage.apply {
+        holder.image.apply {
             if (!program.ProgramCard.PrimaryImageUri.isEmpty()) {
                 visibility = View.VISIBLE
                 Glide.with(context)
@@ -87,13 +92,15 @@ class ProgramAdapter(val context: Context, val programs: Schedule, val api: DrMu
         }
 
         //Set view enabled state
-        holder.mEnabled = program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() ?: false
-        holder.itemView.isClickable = holder.mEnabled
-        holder.itemView.isEnabled = holder.mEnabled
-        holder.mTitle.isEnabled = holder.mEnabled
-        holder.mNowDescription.isEnabled = holder.mEnabled
-        holder.mTime.isEnabled = holder.mEnabled
-        holder.mImage.colorFilter = if (holder.mEnabled) null else mColorMatrixColorFilter
+        with(holder) {
+            enabled = program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() ?: false
+            itemView.isClickable = enabled
+            itemView.isEnabled = enabled
+            title.isEnabled = enabled
+            nowDescription.isEnabled = enabled
+            time.isEnabled = enabled
+            image.colorFilter = if (enabled) null else colorMatrixColorFilter
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
@@ -113,28 +120,21 @@ class ProgramAdapter(val context: Context, val programs: Schedule, val api: DrMu
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var mHeader: View
-        var mTitle: TextView
-        var mNowDescription: TextView
-        var mImage: ImageView
-        var mTime: TextView
-        var mGenre: ImageView
-        var mLive: TextView
-        var mEnabled: Boolean = false
+        var header: View = itemView.programHeader
+        var title: TextView = itemView.title
+        var nowDescription: TextView = itemView.nowDescription
+        var image: ImageView = itemView.image
+        var time: TextView = itemView.time
+        var genre: ImageView = itemView.genre
+        var live: TextView = itemView.live
+        var enabled: Boolean = false
 
         init {
             itemView.setOnClickListener {
                 handleClick(it)
             }
-            mHeader = itemView.findViewById(R.id.programHeader)
-            mTitle = itemView.findViewById(R.id.title)
-            mNowDescription = itemView.findViewById(R.id.nowDescription)
-            mImage = itemView.findViewById(R.id.image)
-            mTime = itemView.find(R.id.time)
-            mGenre = itemView.find(R.id.genre)
-            mLive = itemView.find(R.id.live)
 
-            (mImage as AspectImageView).setAspectRatio(292, 189)
+            (image as AspectImageView).setAspectRatio(292, 189)
         }
 
         private fun handleClick(it: View) {
@@ -180,12 +180,10 @@ class ProgramAdapter(val context: Context, val programs: Schedule, val api: DrMu
     fun buildIntent(context: Context, uri: String): Intent {
         val preferExtensionDecoders = false
 
-        val intent = Intent(context, PlayerActivity::class.java)
-        with(intent) {
+        return Intent(context, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS, preferExtensionDecoders)
-            setData(Uri.parse(uri))
+            data = Uri.parse(uri)
         }
-        return intent
     }
 }

@@ -7,17 +7,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ProgressBar
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
@@ -27,22 +22,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.empty_state.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.contentView
-import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelClickListener {
-
-    private val tag = MainActivity::class.java.simpleName
-
-    private val listsGroup = 1
-
     private val api by lazy { DrMuReactiveRepository(this) }
-    private val recyclerView by lazy { find<RecyclerView>(R.id.recycler_view) }
-    private val emptyState by lazy { find<ViewGroup>(R.id.empty_state) }
-    private val swipeRefresh by lazy { find<SwipeRefreshLayout>(R.id.swipe_refresh) }
-    private val progressBar by lazy { find<ProgressBar>(R.id.progressBar) }
 
     private lateinit var viewModel: ChannelsViewModel
     private var adapter: ChannelsAdapter? = null
@@ -127,7 +115,6 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
     }
 
     private fun initToolbar() {
-        val toolbar = find<Toolbar>(R.id.toolbar)
         toolbar.title = ""
         setSupportActionBar(toolbar)
     }

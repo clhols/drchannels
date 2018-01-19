@@ -57,7 +57,7 @@ import java.util.Locale;
 /**
  * Logs player events using {@link Log}.
  */
-/* package */ public final class EventLogger
+public final class EventLogger
         implements Player.EventListener,
         MetadataOutput,
         AudioRendererEventListener,

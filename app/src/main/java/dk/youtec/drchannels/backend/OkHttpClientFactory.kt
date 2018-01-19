@@ -15,7 +15,7 @@ import okhttp3.Response
 object OkHttpClientFactory {
 
     private val TAG = OkHttpClientFactory::class.java.simpleName
-    private val SIZE_OF_CACHE = (10 * 1024 * 1024).toLong()
+    private const val SIZE_OF_CACHE: Long = 10 * 1024 * 1024
     private var client: OkHttpClient? = null
 
     /**
@@ -74,15 +74,12 @@ object OkHttpClientFactory {
         override fun intercept(chain: Interceptor.Chain): Response {
             val request = chain.request()
 
-            val t1 = System.nanoTime()
-            //L.v(TAG, String.format("Sending request %s on %s%n%s", request.url(), chain.connection(), request.headers()));
+            val startTime = System.nanoTime()
             Log.v(TAG, String.format("Sending request %s", request.url()))
 
             val response = chain.proceed(request)
 
-            val t2 = System.nanoTime()
-            //L.v(TAG, String.format("Received response for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, response.headers()));
-            Log.v(TAG, String.format("Received response for %s in %.1fms%n", response.request().url(), (t2 - t1) / 1e6))
+            Log.v(TAG, String.format("Received response for %s in %.1fms%n", response.request().url(), (System.nanoTime() - startTime) / 1e6))
 
             return response
         }

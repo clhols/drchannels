@@ -4,32 +4,25 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ProgramAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_programs.*
 import org.jetbrains.anko.displayMetrics
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 import java.util.*
 
 class ProgramsActivity : AppCompatActivity() {
     private val api by lazy { DrMuReactiveRepository(this) }
-    private val recyclerView by lazy { find<RecyclerView>(R.id.recycler_view) }
-    private val toolbarTitle by lazy { find<TextView>(R.id.toolbar_title) }
-    private val progressBar by lazy { find<ProgressBar>(R.id.progressBar) }
 
     companion object {
-        val CHANNEL_NAME = "extra_channel_name"
-        val CHANNEL_ID = "extra_channel_id"
+        const val CHANNEL_NAME = "extra_channel_name"
+        const val CHANNEL_ID = "extra_channel_id"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +30,6 @@ class ProgramsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_programs)
 
         //Setup toolbar
-        val toolbar = find<Toolbar>(R.id.toolbar)
         toolbar.title = ""
         toolbarTitle.text = intent.extras.get(CHANNEL_NAME) as String
         setSupportActionBar(toolbar)
