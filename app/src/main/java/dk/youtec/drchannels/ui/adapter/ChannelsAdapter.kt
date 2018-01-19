@@ -22,7 +22,7 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.TAG
 import dk.youtec.drchannels.model.ChannelsDiffCallback
 import dk.youtec.drchannels.ui.view.AspectImageView
-import org.jetbrains.anko.find
+import kotlinx.android.synthetic.main.channels_item.view.*
 import org.jetbrains.anko.image
 import org.jetbrains.anko.selector
 import java.text.SimpleDateFormat
@@ -162,16 +162,16 @@ class ChannelsAdapter(
     override fun getItemCount(): Int = channels.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val channelName: TextView = itemView.find(R.id.channelName)
-        val title: TextView = itemView.findViewById(R.id.title)
-        val progress: ProgressBar = itemView.findViewById(R.id.progress)
-        val nowDescription: TextView = itemView.findViewById(R.id.nowDescription)
-        val image: ImageView = itemView.findViewById(R.id.image)
-        val logo: ImageView = itemView.findViewById(R.id.logo)
-        val time: TextView = itemView.findViewById(R.id.time)
-        val genre: ImageView = itemView.findViewById(R.id.genre)
-        val more: ImageButton = itemView.findViewById(R.id.more)
-        val nextTitle: TextView = itemView.findViewById(R.id.nextTitle)
+        val channelName: TextView = itemView.channelName
+        val title: TextView = itemView.title
+        val progress: ProgressBar = itemView.progress
+        val nowDescription: TextView = itemView.nowDescription
+        val image: ImageView = itemView.image
+        val logo: ImageView = itemView.logo
+        val time: TextView = itemView.time
+        val genre: ImageView = itemView.genre
+        val more: ImageButton = itemView.more
+        val nextTitle: TextView = itemView.nextTitle
 
         init {
             more.setOnClickListener {

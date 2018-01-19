@@ -9,9 +9,13 @@ buildscript {
         mavenCentral()
         google()
     }
+
+    val kotlinVersion by extra("1.2.20")
+
     dependencies {
         classpath("com.android.tools.build:gradle:3.0.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.20")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath("org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion")
         classpath("com.github.triplet.gradle:play-publisher:1.2.0")
         classpath("com.novoda:bintray-release:0.3.4")
     }

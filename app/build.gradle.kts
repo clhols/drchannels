@@ -7,6 +7,7 @@ import java.util.*
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kotlin-android-extensions")
     id("com.github.triplet.play")
 }
 
