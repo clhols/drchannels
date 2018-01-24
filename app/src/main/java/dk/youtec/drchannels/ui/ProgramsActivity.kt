@@ -13,7 +13,6 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_programs.*
 import org.jetbrains.anko.displayMetrics
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import java.util.*
 
@@ -44,33 +43,33 @@ class ProgramsActivity : AppCompatActivity() {
         loadPrograms()
     }
 
-    fun loadPrograms() {
+    private fun loadPrograms() {
         progressBar.visibility = View.VISIBLE
-        doAsync {
-            val id = intent.extras.get(CHANNEL_ID) as String
-            api.getScheduleObservable(id, Date())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeBy(
-                            onNext = { programs ->
-                                progressBar.visibility = View.GONE
-                                if (programs != null) {
-                                    val currentIndex = programs.Broadcasts.indexOfFirst {
-                                        val time = System.currentTimeMillis()
-                                        it.StartTime.time <= time && it.EndTime.time >= time
-                                    }
-                                    recyclerView.adapter = ProgramAdapter(this@ProgramsActivity, programs, api)
-                                    (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(currentIndex, displayMetrics.heightPixels / 6)
+
+        val id = intent.extras.get(CHANNEL_ID) as String
+        api.getScheduleObservable(id, Date())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                        onNext = { programs ->
+                            progressBar.visibility = View.GONE
+                            if (programs != null) {
+                                val currentIndex = programs.Broadcasts.indexOfFirst {
+                                    val time = System.currentTimeMillis()
+                                    it.StartTime.time <= time && it.EndTime.time >= time
                                 }
-                            },
-                            onError = { e ->
-                                toast(
+                                recyclerView.adapter = ProgramAdapter(this@ProgramsActivity, programs, api)
+                                (recyclerView.layoutManager as LinearLayoutManager)
+                                        .scrollToPositionWithOffset(currentIndex, displayMetrics.heightPixels / 6)
+                            }
+                        },
+                        onError = { e ->
+                            toast(
                                     if (e.message != null
                                             && e.message != "Success") e.message!!
                                     else getString(R.string.cantChangeChannel))
-                            }
-                    )
-        }
+                        }
+                )
     }
 
     override fun onBackPressed() {
