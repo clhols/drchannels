@@ -2,15 +2,13 @@ package dk.youtec.drchannels.backend
 
 import android.content.Context
 import android.util.Log
-
-import java.io.File
-import java.io.IOException
-import java.util.concurrent.TimeUnit
-
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import java.io.File
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 object OkHttpClientFactory {
 
@@ -75,11 +73,13 @@ object OkHttpClientFactory {
             val request = chain.request()
 
             val startTime = System.nanoTime()
-            Log.v(TAG, String.format("Sending request %s", request.url()))
+            Log.v(TAG, "Sending request ${request.url()}")
 
             val response = chain.proceed(request)
 
-            Log.v(TAG, String.format("Received response for %s in %.1fms%n", response.request().url(), (System.nanoTime() - startTime) / 1e6))
+            Log.v(TAG, String.format(
+                    "Received response for ${response.request().url()} in %.1fms%n",
+                    (System.nanoTime() - startTime) / 1e6))
 
             return response
         }
