@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("com.squareup.okhttp3:okhttp:3.9.0")
+    implementation("com.squareup.okhttp3:okhttp:3.9.1")
     implementation("com.squareup.retrofit2:retrofit:2.3.0")
     implementation("com.squareup.retrofit2:converter-gson:2.3.0")
 
