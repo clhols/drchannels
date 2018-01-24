@@ -79,9 +79,8 @@ dependencies {
     implementation("com.android.support.constraint:constraint-layout:1.0.2")
     implementation("com.google.android.gms:play-services-gcm:$playServicesVersion")
 
-    implementation("android.arch.lifecycle:extensions:1.0.0")
-    implementation("android.arch.lifecycle:reactivestreams:1.0.0")
-    annotationProcessor("android.arch.lifecycle:compiler:1.0.0")
+    implementation("android.arch.lifecycle:extensions:1.1.0")
+    annotationProcessor("android.arch.lifecycle:compiler:1.1.0")
 
     implementation("io.reactivex.rxjava2:rxjava:2.1.8")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
