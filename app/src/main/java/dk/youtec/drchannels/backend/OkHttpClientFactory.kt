@@ -78,7 +78,8 @@ object OkHttpClientFactory {
             val response = chain.proceed(request)
 
             Log.v(TAG, String.format(
-                    "Received response for ${response.request().url()} in %.1fms%n",
+                    "Received response for %s in %.1fms%n",
+                    response.request().url(),
                     (System.nanoTime() - startTime) / 1e6))
 
             return response
