@@ -6,13 +6,14 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import androidx.content.systemService
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService
 import java.util.concurrent.TimeUnit
 
 class DrTvBootReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
-        val jobScheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        val jobScheduler: JobScheduler = context.systemService()
 
         // If there are not pending jobs. Create a sync job and schedule it.
         val pendingJobs = jobScheduler.allPendingJobs
