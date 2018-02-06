@@ -13,7 +13,7 @@ buildscript {
     val kotlinVersion by extra("1.2.21")
 
     dependencies {
-        classpath("com.android.tools.build:gradle:3.0.1")
+        classpath("com.android.tools.build:gradle:3.1.0-beta1")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("org.jetbrains.kotlin:kotlin-android-extensions:$kotlinVersion")
         classpath("com.github.triplet.gradle:play-publisher:1.2.0")
@@ -32,6 +32,6 @@ allprojects {
 val kotlinVersion by extra("1.2.21")
 val compileSdkVersion by extra(27)
 val targetSdkVersion by extra(27)
-val buildToolsVersion by extra("27.0.2")
+val buildToolsVersion by extra("27.0.3")
 val supportLibVersion by extra("27.0.2")
 val playServicesVersion by extra("11.8.0")

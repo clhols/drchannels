@@ -61,6 +61,10 @@ android {
     }
 }
 
+kapt {
+    useBuildCache = true
+}
+
 dependencies {
     val kotlinVersion: String by rootProject.extra
     val supportLibVersion: String by rootProject.extra
