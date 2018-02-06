@@ -86,6 +86,7 @@ dependencies {
     implementation("com.android.support:support-v4:$supportLibVersion")
     implementation("com.android.support:recyclerview-v7:$supportLibVersion")
     implementation("com.android.support.constraint:constraint-layout:1.0.2")
+    implementation("androidx.core:core-ktx:0.1")
     implementation("com.google.android.gms:play-services-gcm:$playServicesVersion")
 
     implementation("android.arch.lifecycle:extensions:1.1.0")

@@ -1,19 +1,17 @@
 package dk.youtec.drchannels.util
 
 import android.content.Context
+import androidx.content.edit
 import org.jetbrains.anko.defaultSharedPreferences
 
 inline fun Context.putPreference(
         block: android.content.SharedPreferences.Editor.() -> android.content.SharedPreferences.Editor) {
-    defaultSharedPreferences
-            .edit()
-            .block()
-            .apply()
+    defaultSharedPreferences.edit {
+        block()
+    }
 }
 
 object SharedPreferences {
-    const val REMOTE_CONTROL_MODE = "remoteControlMode"
-
     fun getString(context: Context, key: String, default: String = ""): String =
             context.defaultSharedPreferences.getString(key, default)
 
