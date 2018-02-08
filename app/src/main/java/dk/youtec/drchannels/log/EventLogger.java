@@ -340,7 +340,7 @@ public final class EventLogger
             long mediaStartTimeMs,
             long mediaEndTimeMs,
             long elapsedRealtimeMs) {
-        // Do nothing.
+        //Log.d(TAG, "Track format " + trackFormat.toString() + ", " + trackSelectionReason);
     }
 
     @Override
