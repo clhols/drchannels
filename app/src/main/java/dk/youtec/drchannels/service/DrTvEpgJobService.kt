@@ -67,7 +67,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
         val todaysBroadcasts = getBroadcasts(channel, Date(startMs))
         val tomorrowsBroadcasts = getBroadcasts(channel, Date(startMs + TimeUnit.DAYS.toMillis(1)))
 
-        //Adjust the end time of the last of todays broadcasts to avoid gaps or overlaps in the schedule.
+        //Adjust the end time of the last of today's broadcasts to avoid gaps or overlaps in the schedule.
         if (todaysBroadcasts.isNotEmpty() && tomorrowsBroadcasts.isNotEmpty()) {
             val lastBroadcast = todaysBroadcasts.last()
             val firstBroadcast = tomorrowsBroadcasts.first()
