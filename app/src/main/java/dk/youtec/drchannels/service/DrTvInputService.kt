@@ -23,6 +23,8 @@ import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.DEFAULT_BUFFERED_FRACTION_TO_LIVE_EDGE_FOR_QUALITY_INCREASE
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.DEFAULT_MAX_DURATION_FOR_QUALITY_DECREASE_MS
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelection
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
@@ -69,7 +71,14 @@ class DrTvInputSessionImpl(
     private val unknownType = -1
 
     private val defaultBandwidthMeter = DefaultBandwidthMeter()
-    private val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(defaultBandwidthMeter))
+    private val adaptiveTrackSelection = AdaptiveTrackSelection.Factory(defaultBandwidthMeter,
+            2000000,
+            5000,
+            DEFAULT_MAX_DURATION_FOR_QUALITY_DECREASE_MS,
+            5000,
+            0.8f,
+            DEFAULT_BUFFERED_FRACTION_TO_LIVE_EDGE_FOR_QUALITY_INCREASE)
+    private val trackSelector = DefaultTrackSelector(adaptiveTrackSelection)
     private val eventLogger = EventLogger(trackSelector)
     private val mediaDataSourceFactory: DataSource.Factory = buildDataSourceFactory(true)
 
