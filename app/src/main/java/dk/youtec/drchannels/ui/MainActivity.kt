@@ -106,9 +106,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
                 setEmptyState(false)
 
                 adapter = ChannelsAdapter(
-                        this@MainActivity.contentView,
+                        contentView,
                         channels,
-                        this@MainActivity)
+                        this)
                 recyclerView.adapter = adapter
             }
         }

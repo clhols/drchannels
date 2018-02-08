@@ -237,23 +237,23 @@ class DrTvInputSessionImpl(
     }
 
     override fun onSeekProcessed() {
-        Log.i(tag, "onSeekProcessed")
+        Log.d(tag, "onSeekProcessed")
     }
 
     override fun onShuffleModeEnabledChanged(shuffleModeEnabled: Boolean) {
-        Log.i(tag, "onShuffleModeEnabledChanged $shuffleModeEnabled")
+        Log.d(tag, "onShuffleModeEnabledChanged $shuffleModeEnabled")
     }
 
     override fun onSetCaptionEnabled(enabled: Boolean) {
-        Log.i(tag, "onSetCaptionEnabled $enabled")
+        Log.d(tag, "onSetCaptionEnabled $enabled")
     }
 
     override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters?) {
-        Log.i(tag, "onPlaybackParametersChanged $playbackParameters")
+        Log.d(tag, "onPlaybackParametersChanged $playbackParameters")
     }
 
     override fun onTracksChanged(trackGroups: TrackGroupArray?, trackSelections: TrackSelectionArray?) {
-        Log.i(tag, "onTracksChanged $trackSelections")
+        Log.d(tag, "onTracksChanged $trackSelections")
     }
 
     override fun onPlayerError(error: ExoPlaybackException?) {
@@ -263,11 +263,11 @@ class DrTvInputSessionImpl(
     }
 
     override fun onLoadingChanged(isLoading: Boolean) {
-        Log.i(tag, "onLoadingChanged $isLoading")
+        Log.d(tag, "onLoadingChanged $isLoading")
     }
 
     override fun onPositionDiscontinuity(reason: Int) {
-        Log.i(tag, "onPositionDiscontinuity $reason")
+        Log.d(tag, "onPositionDiscontinuity $reason")
     }
 
     override fun onRepeatModeChanged(repeatMode: Int) {
@@ -275,7 +275,7 @@ class DrTvInputSessionImpl(
     }
 
     override fun onTimelineChanged(timeline: Timeline?, manifest: Any?) {
-        Log.i(tag, "onTimelineChanged $timeline $manifest")
+        Log.d(tag, "onTimelineChanged $timeline $manifest")
     }
 
     private fun getVideoId(selectedFormats: List<Format>) =
@@ -313,7 +313,7 @@ class DrTvInputSessionImpl(
 
     private fun buildHttpDataSourceFactory(useBandwidthMeter: Boolean): HttpDataSource.Factory {
         return DefaultHttpDataSourceFactory(
-                "Drchannels/" + " (Linux;Android " + Build.VERSION.RELEASE + ") ",
+                "${context.packageName} / (Linux;Android ${Build.VERSION.RELEASE}) ",
                 if (useBandwidthMeter) defaultBandwidthMeter else null)
     }
 }

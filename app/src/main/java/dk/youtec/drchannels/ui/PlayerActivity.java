@@ -462,6 +462,7 @@ public class PlayerActivity extends Activity implements OnClickListener,
      * @return A new HttpDataSource factory.
      */
     private HttpDataSource.Factory buildHttpDataSourceFactory(boolean useBandwidthMeter) {
+        String name = getPackageName();
         String version = "";
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -469,7 +470,7 @@ public class PlayerActivity extends Activity implements OnClickListener,
         } catch (PackageManager.NameNotFoundException e) {
         }
 
-        return new DefaultHttpDataSourceFactory("Drchannels/" + version + " (Linux;Android " + Build.VERSION.RELEASE + ") ", useBandwidthMeter ? BANDWIDTH_METER : null);
+        return new DefaultHttpDataSourceFactory(name + "/" + version + " (Linux;Android " + Build.VERSION.RELEASE + ") ", useBandwidthMeter ? BANDWIDTH_METER : null);
     }
 
     /**
