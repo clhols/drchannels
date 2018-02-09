@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ProgramAdapter
@@ -52,24 +53,28 @@ class ProgramsActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
                         onNext = { programs ->
-                            progressBar.visibility = View.GONE
-                            if (programs != null) {
-                                val currentIndex = programs.Broadcasts.indexOfFirst {
-                                    val time = System.currentTimeMillis()
-                                    it.StartTime.time <= time && it.EndTime.time >= time
-                                }
-                                recyclerView.adapter = ProgramAdapter(this@ProgramsActivity, programs, api)
-                                (recyclerView.layoutManager as LinearLayoutManager)
-                                        .scrollToPositionWithOffset(currentIndex, displayMetrics.heightPixels / 6)
-                            }
+                            onScheduleLoaded(programs)
                         },
                         onError = { e ->
-                            toast(
-                                    if (e.message != null
-                                            && e.message != "Success") e.message!!
-                                    else getString(R.string.cantChangeChannel))
+                            onScheduleError(e)
                         }
                 )
+    }
+
+    private fun onScheduleLoaded(programs: Schedule) {
+        progressBar.visibility = View.GONE
+        val currentIndex = programs.Broadcasts.indexOfFirst {
+            val time = System.currentTimeMillis()
+            it.StartTime.time <= time && it.EndTime.time >= time
+        }
+        recyclerView.adapter = ProgramAdapter(this, programs, api)
+        (recyclerView.layoutManager as LinearLayoutManager)
+                .scrollToPositionWithOffset(currentIndex, displayMetrics.heightPixels / 6)
+    }
+
+    private fun onScheduleError(e: Throwable) {
+        toast(if (e.message != null && e.message != "Success") e.message!!
+        else getString(R.string.cantChangeChannel))
     }
 
     override fun onBackPressed() {
