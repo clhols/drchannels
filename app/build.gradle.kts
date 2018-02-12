@@ -92,9 +92,9 @@ dependencies {
     implementation("android.arch.lifecycle:extensions:1.1.0")
     annotationProcessor("android.arch.lifecycle:compiler:1.1.0")
 
-    implementation("io.reactivex.rxjava2:rxjava:2.1.8")
+    implementation("io.reactivex.rxjava2:rxjava:2.1.9")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
-    implementation("io.reactivex.rxjava2:rxandroid:2.0.1")
+    implementation("io.reactivex.rxjava2:rxandroid:2.0.2")
 }
 
 play {
