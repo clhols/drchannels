@@ -21,7 +21,7 @@ android {
 
     flavorDimensions("app")
 
-    if(project.hasProperty("devBuild")) {
+    if (project.hasProperty("devBuild")) {
         aaptOptions.cruncherEnabled = false
     }
 
@@ -105,9 +105,7 @@ play {
 
 val releasePropertiesFile: File = rootProject.file("release.properties")
 if (releasePropertiesFile.exists()) {
-    val props = Properties().apply {
-        load(releasePropertiesFile.inputStream())
-    }
+    val props = Properties().apply { load(releasePropertiesFile.inputStream()) }
 
     with(android.signingConfigs["release"]) {
         storeFile = rootProject.file(System.getProperty("user.home") + props.getProperty("keyStore"))
