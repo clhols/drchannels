@@ -43,7 +43,7 @@ import dk.youtec.drchannels.player.TvExoPlayer
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.run
+import kotlinx.coroutines.experimental.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -359,7 +359,7 @@ class DrTvInputRecordingSessionImpl(
     override fun onStopRecording(programToRecord: Program) {
         Log.d(tag, "onStopRecording, programToRecord=" + programToRecord)
 
-        // In this sample app, since all of the content is VOD, the video URL is stored.
+        // In this drchannels app, since all of the content is VOD, the video URL is stored.
         // If the video was live, the start and stop times should be noted using
         // RecordedProgram.Builder.setStartTimeUtcMillis and .setEndTimeUtcMillis.
         // The recordingstart time will be saved in the InternalProviderData.
@@ -375,9 +375,9 @@ class DrTvInputRecordingSessionImpl(
         }
     }
 
-    suspend private fun getRecordedProgram(
+    private suspend fun getRecordedProgram(
             programToRecord: Program
-    ): RecordedProgram? = run(CommonPool) {
+    ): RecordedProgram? = withContext(CommonPool) {
 
         val internalProviderData = programToRecord.internalProviderData
         val assetUri = internalProviderData.get("assetUri") as String
