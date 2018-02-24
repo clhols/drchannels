@@ -123,7 +123,7 @@ public final class EventLogger
     }
 
     @Override
-    public void onTimelineChanged(Timeline timeline, Object manifest) {
+    public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {
         int periodCount = timeline.getPeriodCount();
         int windowCount = timeline.getWindowCount();
         Log.d(TAG, "sourceInfo [periodCount=" + periodCount + ", windowCount=" + windowCount);
@@ -381,6 +381,11 @@ public final class EventLogger
     @Override
     public void onAdLoadError(IOException error) {
         printInternalError("adLoadError", error);
+    }
+
+    @Override
+    public void onInternalAdLoadError(RuntimeException error) {
+        printInternalError("onInternalAdLoadError", error);
     }
 
     @Override
