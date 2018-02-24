@@ -79,9 +79,9 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer:2.7.0")
 
     implementation("org.jetbrains.anko:anko-sdk15:0.10.4")
-    implementation("com.github.bumptech.glide:glide:4.5.0")
-    implementation("com.github.bumptech.glide:okhttp3-integration:4.5.0")
-    implementation("com.squareup.okhttp3:okhttp:3.9.1")
+    implementation("com.github.bumptech.glide:glide:4.6.1")
+    implementation("com.github.bumptech.glide:okhttp3-integration:4.6.1")
+    implementation("com.squareup.okhttp3:okhttp:3.10.0")
     implementation("com.android.support:design:$supportLibVersion")
     implementation("com.android.support:support-v4:$supportLibVersion")
     implementation("com.android.support:recyclerview-v7:$supportLibVersion")
