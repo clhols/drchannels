@@ -73,8 +73,8 @@ dependencies {
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.21.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.3")
 
     implementation("com.google.android.exoplayer:exoplayer:2.7.0")
 
@@ -92,7 +92,7 @@ dependencies {
     implementation("android.arch.lifecycle:extensions:1.1.0")
     annotationProcessor("android.arch.lifecycle:compiler:1.1.0")
 
-    implementation("io.reactivex.rxjava2:rxjava:2.1.9")
+    implementation("io.reactivex.rxjava2:rxjava:2.1.10")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.0.2")
 }
