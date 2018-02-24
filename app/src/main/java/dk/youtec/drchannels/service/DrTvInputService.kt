@@ -23,12 +23,12 @@ import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.DEFAULT_BUFFERED_FRACTION_TO_LIVE_EDGE_FOR_QUALITY_INCREASE
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.DEFAULT_MAX_DURATION_FOR_QUALITY_DECREASE_MS
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.*
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelection
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.upstream.*
+import com.google.android.exoplayer2.util.Clock
 import com.google.android.exoplayer2.util.Util
 import com.google.android.media.tv.companionlibrary.BaseTvInputService
 import com.google.android.media.tv.companionlibrary.TvPlayer
@@ -77,7 +77,9 @@ class DrTvInputSessionImpl(
             DEFAULT_MAX_DURATION_FOR_QUALITY_DECREASE_MS,
             5000,
             0.8f,
-            DEFAULT_BUFFERED_FRACTION_TO_LIVE_EDGE_FOR_QUALITY_INCREASE)
+            DEFAULT_BUFFERED_FRACTION_TO_LIVE_EDGE_FOR_QUALITY_INCREASE,
+            DEFAULT_MIN_TIME_BETWEEN_BUFFER_REEVALUTATION_MS,
+            Clock.DEFAULT)
     private val trackSelector = DefaultTrackSelector(adaptiveTrackSelection)
     private val eventLogger = EventLogger(trackSelector)
     private val mediaDataSourceFactory: DataSource.Factory = buildDataSourceFactory(true)
@@ -283,8 +285,8 @@ class DrTvInputSessionImpl(
         Log.i(tag, "onRepeatModeChanged $repeatMode")
     }
 
-    override fun onTimelineChanged(timeline: Timeline?, manifest: Any?) {
-        Log.d(tag, "onTimelineChanged $timeline $manifest")
+    override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
+        Log.d(tag, "onTimelineChanged $timeline $manifest $reason")
     }
 
     private fun getVideoId(selectedFormats: List<Format>) =
