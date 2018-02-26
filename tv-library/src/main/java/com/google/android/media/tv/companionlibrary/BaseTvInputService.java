@@ -348,6 +348,7 @@ public abstract class BaseTvInputService extends TvInputService {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 PlaybackParams normalParams = new PlaybackParams();
                 normalParams.setSpeed(1);
+                normalParams.setPitch(1);
                 onTimeShiftSetPlaybackParams(normalParams);
             }
         }
