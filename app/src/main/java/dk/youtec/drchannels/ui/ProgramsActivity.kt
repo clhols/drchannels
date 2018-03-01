@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
+import androidx.view.isVisible
 import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
@@ -45,7 +45,7 @@ class ProgramsActivity : AppCompatActivity() {
     }
 
     private fun loadPrograms() {
-        progressBar.visibility = View.VISIBLE
+        progressBar.isVisible = true
 
         val id = intent.extras.get(CHANNEL_ID) as String
         api.getScheduleObservable(id, Date())
@@ -62,7 +62,7 @@ class ProgramsActivity : AppCompatActivity() {
     }
 
     private fun onScheduleLoaded(programs: Schedule) {
-        progressBar.visibility = View.GONE
+        progressBar.isVisible = false
         val currentIndex = programs.Broadcasts.indexOfFirst {
             val time = System.currentTimeMillis()
             it.StartTime.time <= time && it.EndTime.time >= time
