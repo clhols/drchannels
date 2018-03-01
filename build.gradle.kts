@@ -10,7 +10,7 @@ buildscript {
         google()
     }
 
-    val kotlinVersion by extra("1.2.21")
+    val kotlinVersion by extra("1.2.30")
 
     dependencies {
         classpath("com.android.tools.build:gradle:3.2+")
@@ -29,7 +29,7 @@ allprojects {
     }
 }
 
-val kotlinVersion by extra("1.2.21")
+val kotlinVersion by extra("1.2.30")
 val compileSdkVersion by extra(27)
 val targetSdkVersion by extra(27)
 val buildToolsVersion by extra("27.0.3")
