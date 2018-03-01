@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
-import android.view.View
+import androidx.view.isVisible
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
         viewModel.channels.observe(
                 this,
                 android.arch.lifecycle.Observer<List<MuNowNext>> { channels ->
-                    if(channels != null) {
+                    if (channels != null) {
                         handleChannelsChanged(channels)
                     }
                 })
@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
     private fun handleChannelsChanged(channels: List<MuNowNext>) {
         if (!isFinishing) {
             if (adapter != null) {
-                progressBar.visibility = View.GONE
+                progressBar.isVisible = false
                 swipeRefresh.isRefreshing = false
 
                 adapter?.updateList(channels)
@@ -126,13 +126,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
     }
 
     private fun setEmptyState(show: Boolean) {
-        if (show) {
-            emptyState.visibility = View.VISIBLE
-            recyclerView.visibility = View.GONE
-        } else {
-            emptyState.visibility = View.GONE
-            recyclerView.visibility = View.VISIBLE
-        }
+        emptyState.isVisible = show
+        recyclerView.isVisible = !show
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
