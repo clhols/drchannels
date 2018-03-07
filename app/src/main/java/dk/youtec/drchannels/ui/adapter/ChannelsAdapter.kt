@@ -132,6 +132,7 @@ class ChannelsAdapter(
         channels = newList
 
         diffResult.dispatchUpdatesTo(object : ListUpdateCallback {
+
             override fun onInserted(position: Int, count: Int) {
             }
 
@@ -141,7 +142,7 @@ class ChannelsAdapter(
             override fun onMoved(fromPosition: Int, toPosition: Int) {
             }
 
-            override fun onChanged(position: Int, count: Int, payload: Any) {
+            override fun onChanged(position: Int, count: Int, payload: Any?) {
                 if (position < newList.size) {
                     val (_, channelName, now, _) = newList[position]
 
