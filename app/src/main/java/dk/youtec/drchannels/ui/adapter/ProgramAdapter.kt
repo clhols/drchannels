@@ -30,7 +30,7 @@ import java.util.*
 
 class ProgramAdapter(
         val context: Context,
-        val programs: Schedule,
+        val schedule: Schedule,
         val api: DrMuReactiveRepository
 ) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>() {
 
@@ -46,7 +46,7 @@ class ProgramAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val program = programs.Broadcasts.get(position)
+        val program = schedule.Broadcasts[position]
 
         //Title and description
         holder.title.text = program.Title
@@ -116,7 +116,7 @@ class ProgramAdapter(
     }
 
     override fun getItemCount(): Int {
-        return programs.Broadcasts.size
+        return schedule.Broadcasts.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -138,7 +138,7 @@ class ProgramAdapter(
         }
 
         private fun handleClick(it: View) {
-            val program = programs.Broadcasts[adapterPosition]
+            val program = schedule.Broadcasts[adapterPosition]
 
             when {
                 program.StartTime.time < System.currentTimeMillis() -> playProgram(program)
