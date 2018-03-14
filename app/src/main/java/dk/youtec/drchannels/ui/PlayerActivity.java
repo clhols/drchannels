@@ -16,10 +16,12 @@
 package dk.youtec.drchannels.ui;
 
 import android.app.Activity;
+import android.app.PictureInPictureParams;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Rational;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -114,6 +117,7 @@ public class PlayerActivity extends Activity implements OnClickListener,
 
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
+
     static {
         DEFAULT_COOKIE_MANAGER = new CookieManager();
         DEFAULT_COOKIE_MANAGER.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
@@ -147,6 +151,21 @@ public class PlayerActivity extends Activity implements OnClickListener,
     private ViewGroup adUiViewGroup;
 
     // Activity lifecycle
+
+    @Override
+    protected void onUserLeaveHint() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            PictureInPictureParams pictureInPictureParams = new PictureInPictureParams.Builder()
+                    .setAspectRatio(new Rational(16, 9))
+                    .build();
+            enterPictureInPictureMode(pictureInPictureParams);
+        }
+    }
+
+    @Override
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
+        simpleExoPlayerView.setUseController(!isInPictureInPictureMode);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -446,7 +465,7 @@ public class PlayerActivity extends Activity implements OnClickListener,
      * Returns a new DataSource factory.
      *
      * @param useBandwidthMeter Whether to set {@link #BANDWIDTH_METER} as a listener to the new
-     *     DataSource factory.
+     *                          DataSource factory.
      * @return A new DataSource factory.
      */
     private DataSource.Factory buildDataSourceFactory(boolean useBandwidthMeter) {
@@ -458,7 +477,7 @@ public class PlayerActivity extends Activity implements OnClickListener,
      * Returns a new HttpDataSource factory.
      *
      * @param useBandwidthMeter Whether to set {@link #BANDWIDTH_METER} as a listener to the new
-     *     DataSource factory.
+     *                          DataSource factory.
      * @return A new HttpDataSource factory.
      */
     private HttpDataSource.Factory buildHttpDataSourceFactory(boolean useBandwidthMeter) {
@@ -477,7 +496,7 @@ public class PlayerActivity extends Activity implements OnClickListener,
      * Returns an ads media source, reusing the ads loader if one exists.
      *
      * @throws Exception Thrown if it was not possible to create an ads media source, for example, due
-     *     to a missing dependency.
+     *                   to a missing dependency.
      */
     private MediaSource createAdsMediaSource(MediaSource mediaSource, Uri adTagUri) throws Exception {
         // Load the extension source using reflection so the demo app doesn't have to depend on it.
