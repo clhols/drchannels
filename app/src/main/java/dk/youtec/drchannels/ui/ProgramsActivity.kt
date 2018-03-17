@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import androidx.view.isVisible
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
@@ -23,8 +25,14 @@ import java.util.Calendar.DATE
 
 class ProgramsActivity : AppCompatActivity() {
     private val api by lazy { DrMuReactiveRepository(this) }
+    private var selectedGenre: String = ""
+    private var genres: Set<String> = setOf()
+    private lateinit var programAdapter: ProgramAdapter
 
     companion object {
+        const val CATEGORY_GROUP = 1
+        const val CATEGORY_ALL = 100
+
         const val CHANNEL_NAME = "extra_channel_name"
         const val CHANNEL_ID = "extra_channel_id"
     }
@@ -84,13 +92,19 @@ class ProgramsActivity : AppCompatActivity() {
 
     private fun onScheduleLoaded(schedule: Schedule) {
         progressBar.isVisible = false
-        val currentIndex = schedule.Broadcasts.indexOfFirst {
-            val time = System.currentTimeMillis()
-            it.StartTime.time <= time && it.EndTime.time >= time
-        }
-        recyclerView.adapter = ProgramAdapter(this, schedule, api)
+
+        genres = schedule.Broadcasts
+                .map { it.OnlineGenreText ?: "" }
+                .filter { it.isNotBlank() == true }
+                .toSet()
+        invalidateOptionsMenu()
+
+        programAdapter = ProgramAdapter(this, schedule, api)
+        recyclerView.adapter = programAdapter
         (recyclerView.layoutManager as LinearLayoutManager)
-                .scrollToPositionWithOffset(currentIndex, displayMetrics.heightPixels / 6)
+                .scrollToPositionWithOffset(schedule.Broadcasts.indexOfFirst {
+                    it.EndTime.time >= System.currentTimeMillis()
+                }, displayMetrics.heightPixels / 6)
     }
 
     private fun onScheduleError(e: Throwable) {
@@ -103,6 +117,63 @@ class ProgramsActivity : AppCompatActivity() {
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        super.onCreateOptionsMenu(menu)
+
+        menuInflater.inflate(R.menu.menu_programs, menu)
+
+        val filterMenu = menu.findItem(R.id.menu_filter)
+        val subMenu = filterMenu.subMenu
+        val allItem = subMenu.add(CATEGORY_GROUP, CATEGORY_ALL, Menu.NONE, getString(R.string.all))
+        if (selectedGenre == "") {
+            allItem.isChecked = true
+        }
+
+        for (genre in genres) {
+            val item = subMenu.add(CATEGORY_GROUP, Menu.NONE, Menu.NONE, genre)
+            if (selectedGenre == genre) {
+                item.isChecked = true
+            }
+        }
+
+        subMenu.setGroupCheckable(CATEGORY_GROUP, true, true)
+
+        return genres.isNotEmpty()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.groupId == CATEGORY_GROUP) {
+            item.isChecked = true
+
+            when (CATEGORY_ALL) {
+                item.itemId -> {
+                    selectGenre("")
+                }
+                else -> {
+                    selectGenre(item.title.toString())
+                }
+            }
+
+            return true
+        }
+        return false
+    }
+
+    private fun selectGenre(genre: String) {
+        selectedGenre = genre
+        programAdapter.setGenreFilter(genre)
+        val broadcasts = programAdapter.broadcasts
+        val index = broadcasts.indexOfFirst {
+            it.EndTime.time >= System.currentTimeMillis()
+        }
+        if (index >= 0) {
+            recyclerView.smoothScrollToPosition(index)
+        } else {
+            recyclerView.smoothScrollToPosition(broadcasts.size - 1)
+        }
+    }
+
 }
 
 inline fun calendar(block: Calendar.() -> Unit = {}): Calendar = Calendar.getInstance().apply(block)
