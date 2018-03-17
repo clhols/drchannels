@@ -44,6 +44,7 @@ class ProgramsActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        recyclerView.requestFocus()
 
         loadPrograms()
     }
