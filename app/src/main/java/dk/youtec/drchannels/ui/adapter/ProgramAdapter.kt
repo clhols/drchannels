@@ -30,13 +30,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ProgramAdapter(
-        val context: Context,
-        val schedule: Schedule,
-        val api: DrMuReactiveRepository
+        private val context: Context,
+        private val schedule: Schedule,
+        private val api: DrMuReactiveRepository
 ) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>() {
 
     private var colorMatrixColorFilter: ColorMatrixColorFilter
     private var resources: Resources
+    private var genreFilter: String = ""
+    var broadcasts: List<MuScheduleBroadcast> = schedule.Broadcasts
 
     init {
         val matrix = ColorMatrix().apply {
@@ -47,7 +49,7 @@ class ProgramAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val program = schedule.Broadcasts[position]
+        val program = broadcasts[position]
 
         //Title and description
         holder.title.text = program.Title
@@ -70,24 +72,19 @@ class ProgramAdapter(
         }
 
         //Header color
-        if (program.StartTime.time < System.currentTimeMillis() && System.currentTimeMillis() <= program.EndTime.time) {
-            holder.live.visibility = View.VISIBLE
-            //holder.header.setBackgroundColor(mResources.getColor(R.color.liveProgramHeaderBackground))
-        } else {
-            holder.live.visibility = View.GONE
-            //holder.header.setBackgroundColor(mResources.getColor(R.color.channelHeaderBackground))
-        }
+        holder.live.isVisible = program.StartTime.time < System.currentTimeMillis()
+                && System.currentTimeMillis() <= program.EndTime.time
 
         holder.image.apply {
             if (!program.ProgramCard.PrimaryImageUri.isEmpty()) {
-                visibility = View.VISIBLE
+                isVisible = true
                 Glide.with(context)
                         .load(program.ProgramCard.PrimaryImageUri)
                         .apply(RequestOptions()
                                 .placeholder(R.drawable.image_placeholder))
                         .into(this)
             } else {
-                visibility = View.GONE
+                isVisible = false
                 image = null
             }
         }
@@ -108,9 +105,7 @@ class ProgramAdapter(
         return ViewHolder(parent.inflate(R.layout.program_item))
     }
 
-    override fun getItemCount(): Int {
-        return schedule.Broadcasts.size
-    }
+    override fun getItemCount(): Int = broadcasts.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val header: View = itemView.programHeader
@@ -142,7 +137,7 @@ class ProgramAdapter(
         }
 
         private fun handleClick(it: View) {
-            val program = schedule.Broadcasts[adapterPosition]
+            val program = broadcasts[adapterPosition]
 
             when {
                 program.StartTime.time < System.currentTimeMillis() -> playProgram(program)
@@ -152,7 +147,6 @@ class ProgramAdapter(
         }
 
         private fun playProgram(program: MuScheduleBroadcast) {
-
             val uri = program.ProgramCard.PrimaryAsset?.Uri
             if (uri != null) {
                 api.getManifestObservable(uri)
@@ -189,5 +183,15 @@ class ProgramAdapter(
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS, preferExtensionDecoders)
             data = Uri.parse(uri)
         }
+    }
+
+    fun setGenreFilter(genre: String = "") {
+        genreFilter = genre
+        broadcasts = if (genreFilter.isNotBlank()) {
+            schedule.Broadcasts.filter { it.OnlineGenreText == genreFilter }
+        } else {
+            schedule.Broadcasts
+        }
+        notifyDataSetChanged()
     }
 }
