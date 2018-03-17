@@ -70,7 +70,7 @@ class ProgramAdapter(
         }
 
         //Header color
-        if(program.StartTime.time < System.currentTimeMillis() && System.currentTimeMillis() <= program.EndTime.time) {
+        if (program.StartTime.time < System.currentTimeMillis() && System.currentTimeMillis() <= program.EndTime.time) {
             holder.live.visibility = View.VISIBLE
             //holder.header.setBackgroundColor(mResources.getColor(R.color.liveProgramHeaderBackground))
         } else {
@@ -95,14 +95,6 @@ class ProgramAdapter(
         //Set view enabled state
         with(holder) {
             enabled = program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() ?: false
-            itemView.isClickable = enabled
-            itemView.isFocusable = enabled
-            itemView.isEnabled = enabled
-            title.isEnabled = enabled
-            nowDescription.isVisible = enabled
-            image.isVisible = enabled
-            time.isEnabled = enabled
-            image.colorFilter = if (enabled) null else colorMatrixColorFilter
         }
     }
 
@@ -123,14 +115,25 @@ class ProgramAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var header: View = itemView.programHeader
-        var title: TextView = itemView.title
-        var nowDescription: TextView = itemView.nowDescription
-        var image: ImageView = itemView.image
-        var time: TextView = itemView.time
-        var genre: ImageView = itemView.genre
-        var live: TextView = itemView.live
+        val header: View = itemView.programHeader
+        val title: TextView = itemView.title
+        val nowDescription: TextView = itemView.nowDescription
+        val image: ImageView = itemView.image
+        val time: TextView = itemView.time
+        val genre: ImageView = itemView.genre
+        val live: TextView = itemView.live
         var enabled: Boolean = false
+            set(value) {
+                itemView.isClickable = enabled
+                itemView.isFocusable = enabled
+                itemView.isEnabled = enabled
+                title.isEnabled = enabled
+                nowDescription.isVisible = enabled
+                image.isVisible = enabled
+                time.isEnabled = enabled
+                image.colorFilter = if (enabled) null else colorMatrixColorFilter
+            }
+
 
         init {
             itemView.setOnClickListener {
