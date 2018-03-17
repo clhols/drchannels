@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.youtec.drapi.MuScheduleBroadcast
@@ -95,9 +96,11 @@ class ProgramAdapter(
         with(holder) {
             enabled = program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() ?: false
             itemView.isClickable = enabled
+            itemView.isFocusable = enabled
             itemView.isEnabled = enabled
             title.isEnabled = enabled
-            nowDescription.isEnabled = enabled
+            nowDescription.isVisible = enabled
+            image.isVisible = enabled
             time.isEnabled = enabled
             image.colorFilter = if (enabled) null else colorMatrixColorFilter
         }
