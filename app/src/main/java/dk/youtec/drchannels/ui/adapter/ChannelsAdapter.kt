@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
@@ -87,7 +88,8 @@ class ChannelsAdapter(
                 Glide.with(context)
                         .load(now.ProgramCard.PrimaryImageUri)
                         .apply(RequestOptions()
-                                .placeholder(R.drawable.image_placeholder))
+                                .placeholder(R.drawable.image_placeholder)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL))
                         .into(this)
             } else {
                 visibility = View.GONE
