@@ -93,9 +93,7 @@ class ProgramAdapter(
         }
 
         //Set view enabled state
-        with(holder) {
-            enabled = program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() ?: false
-        }
+        holder.enabled = program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() ?: false
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
@@ -124,16 +122,16 @@ class ProgramAdapter(
         val live: TextView = itemView.live
         var enabled: Boolean = false
             set(value) {
-                itemView.isClickable = enabled
-                itemView.isFocusable = enabled
-                itemView.isEnabled = enabled
-                title.isEnabled = enabled
-                nowDescription.isVisible = enabled
-                image.isVisible = enabled
-                time.isEnabled = enabled
-                image.colorFilter = if (enabled) null else colorMatrixColorFilter
+                field = value
+                itemView.isClickable = value
+                itemView.isFocusable = value
+                itemView.isEnabled = value
+                title.isEnabled = value
+                nowDescription.isVisible = value
+                image.isVisible = value
+                time.isEnabled = value
+                image.colorFilter = if (value) null else colorMatrixColorFilter
             }
-
 
         init {
             itemView.setOnClickListener {
