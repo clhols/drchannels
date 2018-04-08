@@ -7,6 +7,7 @@ import java.util.*
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kotlin-kapt")
     id("kotlin-android-extensions")
     id("com.github.triplet.play")
 }
@@ -89,8 +90,8 @@ dependencies {
     implementation("androidx.core:core-ktx:0.2")
     implementation("com.google.android.gms:play-services-gcm:$playServicesVersion")
 
-    implementation("android.arch.lifecycle:extensions:1.1.0")
-    annotationProcessor("android.arch.lifecycle:compiler:1.1.0")
+    implementation("android.arch.lifecycle:extensions:1.1.1")
+    kapt("android.arch.lifecycle:compiler:1.1.1")
 
     implementation("io.reactivex.rxjava2:rxjava:2.1.10")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
