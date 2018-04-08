@@ -6,7 +6,7 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import androidx.view.isVisible
+import androidx.core.view.isVisible
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R

@@ -6,7 +6,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.content.systemService
+import androidx.core.content.systemService
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService
 import java.util.concurrent.TimeUnit
 
