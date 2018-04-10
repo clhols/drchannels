@@ -5,9 +5,9 @@ import org.gradle.kotlin.dsl.repositories
 
 buildscript {
     repositories {
-        jcenter()
         mavenCentral()
         google()
+        jcenter()
     }
 
     val kotlinVersion by extra("1.2.31")
@@ -22,9 +22,9 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         mavenCentral()
         google()
+        jcenter()
     }
 }
 
