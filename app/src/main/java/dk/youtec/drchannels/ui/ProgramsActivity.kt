@@ -1,17 +1,25 @@
 package dk.youtec.drchannels.ui
 
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.view.isVisible
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ProgramAdapter
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_programs.*
+import org.jetbrains.anko.displayMetrics
+import org.jetbrains.anko.toast
 import java.util.*
 import java.util.Calendar.DATE
 
