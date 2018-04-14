@@ -80,7 +80,8 @@ class DrTvInputSessionImpl(
             DEFAULT_BUFFERED_FRACTION_TO_LIVE_EDGE_FOR_QUALITY_INCREASE,
             DEFAULT_MIN_TIME_BETWEEN_BUFFER_REEVALUTATION_MS,
             Clock.DEFAULT)
-    private val trackSelector = DefaultTrackSelector(adaptiveTrackSelection)
+    //private val trackSelector = DefaultTrackSelector(adaptiveTrackSelection)
+    private val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(defaultBandwidthMeter))
     private val eventLogger = EventLogger(trackSelector)
     private val mediaDataSourceFactory: DataSource.Factory = buildDataSourceFactory(true)
 
