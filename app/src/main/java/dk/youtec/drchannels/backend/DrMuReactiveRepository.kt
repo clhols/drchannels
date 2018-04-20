@@ -3,9 +3,9 @@ package dk.youtec.drchannels.backend
 import android.content.Context
 import android.util.Log
 import dk.youtec.drapi.*
+import dk.youtec.drchannels.util.serverDateFormat
 import io.reactivex.Observable
 import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class DrMuReactiveRepository(context: Context) {
@@ -65,8 +65,7 @@ class DrMuReactiveRepository(context: Context) {
     fun getScheduleObservable(id: String, date: Date): Observable<Schedule> {
         return Observable.create<Schedule> { subscriber ->
             try {
-                val dateString = SimpleDateFormat("yyyy-MM-dd HH:MM:ss", Locale.GERMAN)
-                        .format(date)
+                val dateString = serverDateFormat("yyyy-MM-dd HH:MM:ss").format(date)
 
                 val schedule: Schedule? = api.getSchedule(id, dateString)
                 if (schedule != null) {

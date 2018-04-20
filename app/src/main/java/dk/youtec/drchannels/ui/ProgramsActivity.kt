@@ -12,6 +12,7 @@ import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ProgramAdapter
+import dk.youtec.drchannels.util.serverCalendar
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.Observables
@@ -20,7 +21,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_programs.*
 import org.jetbrains.anko.displayMetrics
 import org.jetbrains.anko.toast
-import java.util.*
 import java.util.Calendar.DATE
 
 class ProgramsActivity : AppCompatActivity() {
@@ -64,10 +64,10 @@ class ProgramsActivity : AppCompatActivity() {
 
         val scheduleObservable: Observable<Schedule> =
                 Observables.combineLatest(
-                        api.getScheduleObservable(id, calendar { add(DATE, 1) }.time),
-                        api.getScheduleObservable(id, Date()),
-                        api.getScheduleObservable(id, calendar { add(DATE, -1) }.time),
-                        api.getScheduleObservable(id, calendar { add(DATE, -2) }.time)
+                        api.getScheduleObservable(id, serverCalendar { add(DATE, 1) }.time),
+                        api.getScheduleObservable(id, serverCalendar().time),
+                        api.getScheduleObservable(id, serverCalendar { add(DATE, -1) }.time),
+                        api.getScheduleObservable(id, serverCalendar { add(DATE, -2) }.time)
                 ) { tomorrow, today, yesterday, twoDaysAgo ->
                     val broadcasts = mutableListOf<MuScheduleBroadcast>().apply {
                         addAll(twoDaysAgo.Broadcasts)
@@ -177,5 +177,3 @@ class ProgramsActivity : AppCompatActivity() {
     }
 
 }
-
-inline fun calendar(block: Calendar.() -> Unit = {}): Calendar = Calendar.getInstance().apply(block)

@@ -40,11 +40,11 @@ import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.log.EventLogger
 import dk.youtec.drchannels.player.TvExoPlayer
+import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
-import java.text.SimpleDateFormat
 import java.util.*
 
 class DrTvInputService : BaseTvInputService() {
@@ -415,7 +415,7 @@ class DrTvInputRecordingSessionImpl(
             if (endPublish != null && endPublish.isNotEmpty()) {
                 setRecordingExpireTimeUtcMillis(endPublish.toLong())
 
-                val dateString = SimpleDateFormat("dd-MM-yyyy HH:MM", Locale.GERMAN)
+                val dateString = serverDateFormat("dd-MM-yyyy HH:MM")
                         .format(Date(endPublish.toLong()))
                 setShortDescription((programToRecord.description ?: "") + "\nExpires $dateString")
             }
