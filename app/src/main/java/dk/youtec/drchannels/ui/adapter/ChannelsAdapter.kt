@@ -23,11 +23,10 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.TAG
 import dk.youtec.drchannels.model.ChannelsDiffCallback
 import dk.youtec.drchannels.ui.view.AspectImageView
+import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.android.synthetic.main.channels_item.view.*
 import org.jetbrains.anko.image
 import org.jetbrains.anko.selector
-import java.text.SimpleDateFormat
-import java.util.*
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View =
         LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
@@ -51,7 +50,7 @@ class ChannelsAdapter(
         holder.nowDescription.visibility = if (showDetails) View.VISIBLE else View.GONE
 
         //Show time interval
-        val localDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val localDateFormat = serverDateFormat("HH:mm")
         val startTime = localDateFormat.format(now.StartTime)
         val endTime = localDateFormat.format(now.EndTime)
 

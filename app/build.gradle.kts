@@ -116,4 +116,7 @@ if (releasePropertiesFile.exists()) {
     }
 }
 
-val versionCodeTimestamp get() = SimpleDateFormat("yyMMddHHmm").format(Date()).toInt()
+val versionCodeTimestamp
+    get() = SimpleDateFormat("yyMMddHHmm")
+            .apply { timeZone = TimeZone.getTimeZone("Europe/Copenhagen") }
+            .format(Date()).toInt()

@@ -21,14 +21,13 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.ui.view.AspectImageView
+import dk.youtec.drchannels.util.serverDateFormat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.program_item.view.*
 import org.jetbrains.anko.image
 import org.jetbrains.anko.toast
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ProgramAdapter(
         private val context: Context,
@@ -57,10 +56,10 @@ class ProgramAdapter(
         holder.nowDescription.text = program.Description
 
         //Time
-        val localDateFormat = SimpleDateFormat("dd/MM", Locale.getDefault())
+        val localDateFormat = serverDateFormat("dd/MM")
         val startDate = localDateFormat.format(program.StartTime)
 
-        val localTimeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val localTimeFormat = serverDateFormat("HH:mm")
         val startTime = localTimeFormat.format(program.StartTime)
         val endTime = localTimeFormat.format(program.EndTime)
 

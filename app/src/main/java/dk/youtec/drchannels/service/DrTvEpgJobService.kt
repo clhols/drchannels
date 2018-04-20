@@ -10,7 +10,7 @@ import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drchannels.backend.streamingUrl
-import java.text.SimpleDateFormat
+import dk.youtec.drchannels.util.serverDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -157,7 +157,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
     }
 
     private fun getBroadcasts(channel: Channel, date: Date): MutableList<MuScheduleBroadcast> {
-        val dateString = SimpleDateFormat("yyyy-MM-dd HH:MM:ss", Locale.GERMAN).format(date)
+        val dateString = serverDateFormat("yyyy-MM-dd HH:MM:ss").format(date)
         val schedule = api.getSchedule(channel.networkAffiliation, dateString)
         return schedule?.Broadcasts?.toMutableList() ?: mutableListOf()
     }
