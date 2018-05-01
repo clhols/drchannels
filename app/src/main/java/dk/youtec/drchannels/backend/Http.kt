@@ -28,7 +28,7 @@ fun getHttpResponse(context: Context, urlAddress: String): Response {
         try {
             response = client.newCall(request).execute()
             if (!response.isSuccessful)
-                throw HttpException(response.code(), "Unexpected code " + response)
+                throw HttpException(response.code(), "Unexpected code $response")
 
             return response
         } catch (e: HttpException) {

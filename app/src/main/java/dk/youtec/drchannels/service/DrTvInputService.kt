@@ -300,7 +300,7 @@ class DrTvInputSessionImpl(
         val type = if (TextUtils.isEmpty(overrideExtension))
             Util.inferContentType(uri)
         else
-            Util.inferContentType("." + overrideExtension)
+            Util.inferContentType(".$overrideExtension")
 
         return when (type) {
             C.TYPE_SS -> SsMediaSource(uri, buildDataSourceFactory(false),
@@ -311,7 +311,7 @@ class DrTvInputSessionImpl(
             C.TYPE_OTHER -> ExtractorMediaSource(uri, mediaDataSourceFactory, DefaultExtractorsFactory(),
                     mainHandler, null)
             else -> {
-                throw IllegalStateException("Unsupported type: " + type)
+                throw IllegalStateException("Unsupported type: $type")
             }
         }
     }
@@ -340,7 +340,7 @@ class DrTvInputRecordingSessionImpl(
     override fun onTune(uri: Uri) {
         super.onTune(uri)
 
-        Log.d(tag, "Tune recording session to " + uri)
+        Log.d(tag, "Tune recording session to $uri")
         // By default, the number of tuners for this service is one. When a channel is being
         // recorded, no other channel from this TvInputService will be accessible. Developers
         // should call notifyError(TvInputManager.RECORDING_ERROR_RESOURCE_BUSY) to alert
@@ -360,7 +360,7 @@ class DrTvInputRecordingSessionImpl(
     }
 
     override fun onStopRecording(programToRecord: Program) {
-        Log.d(tag, "onStopRecording, programToRecord=" + programToRecord)
+        Log.d(tag, "onStopRecording, programToRecord=$programToRecord")
 
         // In this drchannels app, since all of the content is VOD, the video URL is stored.
         // If the video was live, the start and stop times should be noted using
@@ -372,7 +372,7 @@ class DrTvInputRecordingSessionImpl(
         launch(UI) {
             val recordedProgram = getRecordedProgram(programToRecord)
 
-            Log.d(tag, "onStopRecording, recorded=" + recordedProgram)
+            Log.d(tag, "onStopRecording, recorded=$recordedProgram")
 
             notifyRecordingStopped(recordedProgram)
         }
