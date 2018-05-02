@@ -167,13 +167,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
     override fun playChannel(muNowNext: MuNowNext) {
         val name = muNowNext.ChannelSlug
         disposables.add(
-                api.getAllActiveDrTvChannelsObservable()
+                api.getAllActiveDrTvChannels()
                         .subscribeOn(Schedulers.io())
                         .map { it.first { it.Slug == name } }
                         .map { it.StreamingServers.first { it.LinkType == "HLS" } }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
-                                onNext = { server ->
+                                onSuccess = { server ->
                                     val stream = server.Qualities.sortedByDescending { it.Kbps }.first().Streams.first().Stream
                                     val playbackUri = "${server.Server}/$stream"
                                     val intent = buildIntent(this@MainActivity, playbackUri)
@@ -192,11 +192,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
         val uri = muNowNext.Now?.ProgramCard?.PrimaryAsset?.Uri
         if (uri != null) {
             disposables.add(
-                    api.getManifestObservable(uri)
+                    api.getManifest(uri)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeBy(
-                                    onNext = { manifest ->
+                                    onSuccess = { manifest ->
                                         val playbackUri = manifest.Links.firstOrNull { it.Target == "HLS" }?.Uri
                                         if (playbackUri != null) {
                                             val intent = buildIntent(this@MainActivity, playbackUri)

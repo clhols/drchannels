@@ -34,7 +34,7 @@ class ChannelsLiveData(context: Context) : LiveData<List<MuNowNext>>() {
         dispose()
 
         subscription = Observable.interval(0, 30, TimeUnit.SECONDS, Schedulers.io())
-                .switchMap { api.getScheduleNowNextObservable() }
+                .switchMap { api.getScheduleNowNext().toObservable() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { it.filter { it.Now != null } }
                 .doOnNext { Log.v(javaClass.simpleName, "Got channel data") }
