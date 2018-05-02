@@ -150,11 +150,11 @@ class ProgramAdapter(
         private fun playProgram(program: MuScheduleBroadcast) {
             val uri = program.ProgramCard.PrimaryAsset?.Uri
             if (uri != null) {
-                api.getManifestObservable(uri)
+                api.getManifest(uri)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
-                                onNext = { manifest ->
+                                onSuccess = { manifest ->
                                     val playbackUri = manifest.Links.firstOrNull { it.Target == "HLS" }?.Uri
                                     if (playbackUri != null) {
                                         val intent = buildIntent(context, playbackUri)

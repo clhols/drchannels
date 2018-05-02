@@ -13,9 +13,10 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ProgramAdapter
 import dk.youtec.drchannels.util.serverCalendar
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.Observables
+import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.Singles
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_programs.*
@@ -28,6 +29,7 @@ class ProgramsActivity : AppCompatActivity() {
     private var selectedGenre: String = ""
     private var genres: Set<String> = setOf()
     private lateinit var programAdapter: ProgramAdapter
+    private var disposable: Disposable? = null
 
     companion object {
         const val CATEGORY_GROUP = 1
@@ -54,20 +56,24 @@ class ProgramsActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView.requestFocus()
 
-        loadPrograms()
-    }
-
-    private fun loadPrograms() {
-        progressBar.isVisible = true
-
         val id = intent.extras.get(CHANNEL_ID) as String
 
-        val scheduleObservable: Observable<Schedule> =
-                Observables.combineLatest(
-                        api.getScheduleObservable(id, serverCalendar { add(DATE, 1) }.time),
-                        api.getScheduleObservable(id, serverCalendar().time),
-                        api.getScheduleObservable(id, serverCalendar { add(DATE, -1) }.time),
-                        api.getScheduleObservable(id, serverCalendar { add(DATE, -2) }.time)
+        loadPrograms(id)
+    }
+
+    private fun loadPrograms(id: String) {
+        progressBar.isVisible = true
+
+        val scheduleSingle: Single<Schedule> =
+                Singles.zip(
+                        api.getSchedule(id, serverCalendar { add(DATE, 1) }.time)
+                                .subscribeOn(Schedulers.io()),
+                        api.getSchedule(id, serverCalendar().time)
+                                .subscribeOn(Schedulers.io()),
+                        api.getSchedule(id, serverCalendar { add(DATE, -1) }
+                                .time).subscribeOn(Schedulers.io()),
+                        api.getSchedule(id, serverCalendar { add(DATE, -2) }.time)
+                                .subscribeOn(Schedulers.io())
                 ) { tomorrow, today, yesterday, twoDaysAgo ->
                     val broadcasts = mutableListOf<MuScheduleBroadcast>().apply {
                         addAll(twoDaysAgo.Broadcasts)
@@ -79,11 +85,13 @@ class ProgramsActivity : AppCompatActivity() {
                     Schedule(broadcasts, today.BroadcastDate, today.ChannelSlug, today.Channel)
                 }
 
-        scheduleObservable
+        disposable?.dispose()
+
+        disposable = scheduleSingle
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(
-                        onNext = { schedule ->
+                        onSuccess = { schedule ->
                             onScheduleLoaded(schedule)
                         },
                         onError = { e ->
@@ -118,6 +126,12 @@ class ProgramsActivity : AppCompatActivity() {
         super.onBackPressed()
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        disposable?.dispose()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

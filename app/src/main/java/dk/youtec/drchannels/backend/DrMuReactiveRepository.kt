@@ -4,20 +4,19 @@ import android.content.Context
 import android.util.Log
 import dk.youtec.drapi.*
 import dk.youtec.drchannels.util.serverDateFormat
-import io.reactivex.Observable
+import io.reactivex.Single
 import java.io.IOException
 import java.util.*
 
 class DrMuReactiveRepository(context: Context) {
     private val api = DrMuRepository(OkHttpClientFactory.getInstance(context))
 
-    fun getPageTvFrontObservable(): Observable<PageTvFrontResponse> {
-        return Observable.create<PageTvFrontResponse> { subscriber ->
+    fun getPageTvFront(): Single<PageTvFrontResponse> {
+        return Single.create<PageTvFrontResponse> { subscriber ->
             try {
                 val pageTvFrontResponse = api.getPageTvFront()
                 if (pageTvFrontResponse != null) {
-                    subscriber.onNext(pageTvFrontResponse)
-                    subscriber.onComplete()
+                    subscriber.onSuccess(pageTvFrontResponse)
                 } else {
                     subscriber.onError(DrMuException("Missing page tv front response"))
                 }
@@ -27,12 +26,11 @@ class DrMuReactiveRepository(context: Context) {
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
 
-    fun getAllActiveDrTvChannelsObservable(): Observable<List<Channel>> {
-        return Observable.create<List<Channel>> { subscriber ->
+    fun getAllActiveDrTvChannels(): Single<List<Channel>> {
+        return Single.create<List<Channel>> { subscriber ->
             try {
                 val channels = api.getAllActiveDrTvChannels()
-                subscriber.onNext(channels)
-                subscriber.onComplete()
+                subscriber.onSuccess(channels)
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
             }
@@ -42,13 +40,12 @@ class DrMuReactiveRepository(context: Context) {
     /**
      * @param uri Uri from a [PrimaryAsset] from a [ProgramCard]
      */
-    fun getManifestObservable(uri: String): Observable<Manifest> {
-        return Observable.create<Manifest> { subscriber ->
+    fun getManifest(uri: String): Single<Manifest> {
+        return Single.create<Manifest> { subscriber ->
             try {
                 val manifest: Manifest? = api.getManifest(uri)
                 if (manifest != null) {
-                    subscriber.onNext(manifest)
-                    subscriber.onComplete()
+                    subscriber.onSuccess(manifest)
                 } else {
                     subscriber.onError(DrMuException("Missing response"))
                 }
@@ -62,15 +59,14 @@ class DrMuReactiveRepository(context: Context) {
      * @param id Channel id from [Channel.Slug]
      * @param date Day to load schedule from
      */
-    fun getScheduleObservable(id: String, date: Date): Observable<Schedule> {
-        return Observable.create<Schedule> { subscriber ->
+    fun getSchedule(id: String, date: Date): Single<Schedule> {
+        return Single.create<Schedule> { subscriber ->
             try {
                 val dateString = serverDateFormat("yyyy-MM-dd HH:MM:ss").format(date)
 
                 val schedule: Schedule? = api.getSchedule(id, dateString)
                 if (schedule != null) {
-                    subscriber.onNext(schedule)
-                    subscriber.onComplete()
+                    subscriber.onSuccess(schedule)
                 } else {
                     subscriber.onError(DrMuException("Missing response"))
                 }
@@ -80,12 +76,11 @@ class DrMuReactiveRepository(context: Context) {
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
 
-    fun getScheduleNowNextObservable(): Observable<List<MuNowNext>> {
-        return Observable.create<List<MuNowNext>> { subscriber ->
+    fun getScheduleNowNext(): Single<List<MuNowNext>> {
+        return Single.create<List<MuNowNext>> { subscriber ->
             try {
                 val schedules: List<MuNowNext> = api.getScheduleNowNext()
-                subscriber.onNext(schedules)
-                subscriber.onComplete()
+                subscriber.onSuccess(schedules)
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
             }
@@ -95,13 +90,12 @@ class DrMuReactiveRepository(context: Context) {
     /**
      * @param id Channel id from [Channel.Slug]
      */
-    fun getScheduleNowNextObservable(id: String): Observable<MuNowNext> {
-        return Observable.create<MuNowNext> { subscriber ->
+    fun getScheduleNowNext(id: String): Single<MuNowNext> {
+        return Single.create<MuNowNext> { subscriber ->
             try {
                 val schedule: MuNowNext? = api.getScheduleNowNext(id)
                 if (schedule != null) {
-                    subscriber.onNext(schedule)
-                    subscriber.onComplete()
+                    subscriber.onSuccess(schedule)
                 } else {
                     subscriber.onError(DrMuException("Missing response"))
                 }
