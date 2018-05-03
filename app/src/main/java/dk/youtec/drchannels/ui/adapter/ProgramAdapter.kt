@@ -12,15 +12,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.ui.view.AspectImageView
+import dk.youtec.drchannels.util.load
 import dk.youtec.drchannels.util.serverDateFormat
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.subscribeBy
@@ -78,12 +76,7 @@ class ProgramAdapter(
         holder.image.apply {
             if (!program.ProgramCard.PrimaryImageUri.isEmpty()) {
                 isVisible = true
-                Glide.with(context)
-                        .load(program.ProgramCard.PrimaryImageUri)
-                        .apply(RequestOptions()
-                                .placeholder(R.drawable.image_placeholder)
-                                .diskCacheStrategy(DiskCacheStrategy.ALL))
-                        .into(this)
+                load(program.ProgramCard.PrimaryImageUri)
             } else {
                 isVisible = false
                 image = null

@@ -15,14 +15,12 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.TAG
 import dk.youtec.drchannels.model.ChannelsDiffCallback
 import dk.youtec.drchannels.ui.view.AspectImageView
+import dk.youtec.drchannels.util.load
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.android.synthetic.main.channels_item.view.*
 import org.jetbrains.anko.image
@@ -84,27 +82,12 @@ class ChannelsAdapter(
         holder.image.apply {
             if (!now.ProgramCard.PrimaryImageUri.isEmpty() && showDetails) {
                 visibility = View.VISIBLE
-                Glide.with(context)
-                        .load(now.ProgramCard.PrimaryImageUri)
-                        .apply(RequestOptions()
-                                .placeholder(R.drawable.image_placeholder)
-                                .diskCacheStrategy(DiskCacheStrategy.ALL))
-                        .into(this)
+                load(now.ProgramCard.PrimaryImageUri)
             } else {
                 visibility = View.GONE
                 image = null
             }
         }
-
-        /*
-        Glide.with(holder.logo.context)
-                .load(URL_GET_GFX
-                        .replace("[SID]", channel.sid, true)
-                        .replace("[SIZE]", 60.toString()))
-                .apply(RequestOptions()
-                        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL))
-                .into(holder.logo)
-                */
 
         holder.nextTitle.text =
                 if (channel.Next.isNotEmpty())
