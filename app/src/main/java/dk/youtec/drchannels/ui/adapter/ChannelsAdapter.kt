@@ -2,12 +2,10 @@ package dk.youtec.drchannels.ui.adapter
 
 import android.content.Context
 import android.support.annotation.LayoutRes
-import android.support.annotation.MainThread
 import android.support.v4.content.ContextCompat
+import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
-import android.support.v7.util.ListUpdateCallback
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +15,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
-import dk.youtec.drchannels.backend.TAG
-import dk.youtec.drchannels.model.ChannelsDiffCallback
 import dk.youtec.drchannels.ui.view.AspectImageView
 import dk.youtec.drchannels.util.load
 import dk.youtec.drchannels.util.serverDateFormat
@@ -30,16 +26,14 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false):
         LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 
 class ChannelsAdapter(
-        val contentView: View?,
-        var channels: List<MuNowNext>,
         val listener: OnChannelClickListener
-) : RecyclerView.Adapter<ChannelsAdapter.ViewHolder>() {
+) : ListAdapter<MuNowNext, ChannelsAdapter.ViewHolder>(ChannelsDiffItemCallback()) {
 
     //Toggles if description and image should be shown
     private var showDetails = true
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val channel = channels[position]
+        val channel = getItem(position)
         val now = channel.Now ?: return
 
         holder.channelName.text = channel.ChannelSlug.toUpperCase()
@@ -107,45 +101,6 @@ class ChannelsAdapter(
         return ViewHolder(parent.inflate(R.layout.channels_item))
     }
 
-    @MainThread
-    fun updateList(newList: List<MuNowNext>) {
-        //Calculate the diff
-        val diffResult = DiffUtil.calculateDiff(ChannelsDiffCallback(channels, newList))
-
-        //Update the backing list
-        channels = newList
-
-        diffResult.dispatchUpdatesTo(object : ListUpdateCallback {
-
-            override fun onInserted(position: Int, count: Int) {
-            }
-
-            override fun onRemoved(position: Int, count: Int) {
-            }
-
-            override fun onMoved(fromPosition: Int, toPosition: Int) {
-            }
-
-            override fun onChanged(position: Int, count: Int, payload: Any?) {
-                if (position < newList.size) {
-                    val (_, channelName, now, _) = newList[position]
-
-                    if (contentView != null) {
-                        val message = now?.Title + " " + contentView.context.getString(R.string.on) + " " + channelName
-                        Log.d(TAG, message)
-
-                        //contentView.context.longToast(message)
-                    }
-                }
-            }
-        })
-
-        //Make the adapter notify of the changes
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    override fun getItemCount(): Int = channels.size
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val channelName: TextView = itemView.channelName
         val title: TextView = itemView.title
@@ -160,20 +115,20 @@ class ChannelsAdapter(
 
         init {
             more.setOnClickListener {
-                listener.showChannel(it.context, channels[adapterPosition])
+                listener.showChannel(it.context, getItem(adapterPosition))
             }
 
             (image as AspectImageView).setAspectRatio(292, 189)
 
             itemView.setOnClickListener {
-                if (0 <= adapterPosition && adapterPosition < channels.size) {
-                    listener.playChannel(channels[adapterPosition])
+                if (adapterPosition in 0..(itemCount - 1)) {
+                    listener.playChannel(getItem(adapterPosition))
                 }
             }
             itemView.setOnLongClickListener {
                 it.context.selector(it.context.getString(R.string.channelAction), listOf(it.context.getString(R.string.startOverAction))) { _, _ ->
-                    if (0 <= adapterPosition && adapterPosition < channels.size) {
-                        listener.playProgram(channels[adapterPosition])
+                    if (adapterPosition in 0..(itemCount - 1)) {
+                        listener.playProgram(getItem(adapterPosition))
                     }
                 }
                 true
@@ -186,4 +141,12 @@ class ChannelsAdapter(
         fun playChannel(muNowNext: MuNowNext)
         fun playProgram(muNowNext: MuNowNext)
     }
+}
+
+class ChannelsDiffItemCallback : DiffUtil.ItemCallback<MuNowNext>() {
+    override fun areItemsTheSame(oldItem: MuNowNext?, newItem: MuNowNext?): Boolean =
+            oldItem?.ChannelSlug == newItem?.ChannelSlug
+
+    override fun areContentsTheSame(oldItem: MuNowNext?, newItem: MuNowNext?): Boolean =
+            oldItem == newItem
 }
