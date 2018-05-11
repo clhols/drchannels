@@ -26,14 +26,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.contentView
 import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelClickListener {
     private val api by lazy { DrMuReactiveRepository(this) }
 
     private lateinit var viewModel: ChannelsViewModel
-    private var adapter: ChannelsAdapter? = null
 
     private val disposables = CompositeDisposable()
 
@@ -97,19 +95,17 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
      */
     private fun handleChannelsChanged(channels: List<MuNowNext>) {
         if (!isFinishing) {
-            if (adapter != null) {
+            if (recyclerView.adapter != null) {
                 progressBar.isVisible = false
                 swipeRefresh.isRefreshing = false
 
-                adapter?.updateList(channels)
+                (recyclerView.adapter as ChannelsAdapter?)?.submitList(channels)
             } else {
                 setEmptyState(false)
 
-                adapter = ChannelsAdapter(
-                        contentView,
-                        channels,
-                        this)
-                recyclerView.adapter = adapter
+                recyclerView.adapter = ChannelsAdapter(this).apply {
+                    submitList(channels)
+                }
             }
         }
     }
