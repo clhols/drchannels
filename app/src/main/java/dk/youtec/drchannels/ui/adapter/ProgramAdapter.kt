@@ -18,6 +18,7 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.ui.view.AspectImageView
+import dk.youtec.drchannels.util.calendar
 import dk.youtec.drchannels.util.load
 import dk.youtec.drchannels.util.serverDateFormat
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,6 +37,7 @@ class ProgramAdapter(
     private var colorMatrixColorFilter: ColorMatrixColorFilter
     private var resources: Resources
     private var genreFilter: String = ""
+    private val todaysDate: String = serverDateFormat("dd/MM").format(calendar().time)
     var broadcasts: List<MuScheduleBroadcast> = schedule.Broadcasts
 
     init {
@@ -61,13 +63,10 @@ class ProgramAdapter(
         val startTime = localTimeFormat.format(program.StartTime)
         val endTime = localTimeFormat.format(program.EndTime)
 
-        holder.time.text = buildString {
-            append(startDate)
-            append(" ")
-            append(startTime)
-            append(" - ")
-            append(endTime)
-        }
+        holder.time.text = if (startDate == todaysDate)
+            "$startTime - $endTime"
+        else
+            "$startDate $startTime - $endTime"
 
         //Header color
         holder.live.isVisible = System.currentTimeMillis() in
