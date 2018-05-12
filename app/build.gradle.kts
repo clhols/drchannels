@@ -69,7 +69,6 @@ kapt {
 dependencies {
     val kotlinVersion: String by rootProject.extra
     val supportLibVersion: String by rootProject.extra
-    val playServicesVersion: String by rootProject.extra
 
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
@@ -91,6 +90,7 @@ dependencies {
 
     implementation("android.arch.lifecycle:extensions:1.1.1")
     kapt("android.arch.lifecycle:compiler:1.1.1")
+    //implementation("android.arch.work:work-runtime:1.0.0-alpha01")
 
     implementation("io.reactivex.rxjava2:rxjava:2.1.13")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
