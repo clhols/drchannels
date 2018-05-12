@@ -70,8 +70,8 @@ class ProgramAdapter(
         }
 
         //Header color
-        holder.live.isVisible = program.StartTime.time < System.currentTimeMillis()
-                && System.currentTimeMillis() <= program.EndTime.time
+        holder.live.isVisible = System.currentTimeMillis() in
+                ((program.StartTime.time + 1)..program.EndTime.time)
 
         holder.image.apply {
             if (!program.ProgramCard.PrimaryImageUri.isEmpty()) {
