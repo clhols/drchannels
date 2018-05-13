@@ -64,6 +64,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
                 android.arch.lifecycle.Observer<List<MuNowNext>> { channels ->
                     if (channels != null) {
                         handleChannelsChanged(channels)
+                    } else {
+                        isEmptyState = true
                     }
                 })
 
@@ -95,14 +97,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
      */
     private fun handleChannelsChanged(channels: List<MuNowNext>) {
         if (!isFinishing) {
+            isEmptyState = false
             if (recyclerView.adapter != null) {
                 progressBar.isVisible = false
                 swipeRefresh.isRefreshing = false
 
                 (recyclerView.adapter as ChannelsAdapter?)?.submitList(channels)
             } else {
-                setEmptyState(false)
-
                 recyclerView.adapter = ChannelsAdapter(this).apply {
                     submitList(channels)
                 }
@@ -121,10 +122,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
         disposables.clear()
     }
 
-    private fun setEmptyState(show: Boolean) {
-        emptyState.isVisible = show
-        recyclerView.isVisible = !show
-    }
+    private var isEmptyState: Boolean = false
+        set(value) {
+            emptyState.isVisible = value
+            recyclerView.isVisible = !value
+        }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

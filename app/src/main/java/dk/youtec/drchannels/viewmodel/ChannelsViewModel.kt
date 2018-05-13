@@ -10,6 +10,7 @@ import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
@@ -39,7 +40,9 @@ class ChannelsLiveData(context: Context) : LiveData<List<MuNowNext>>() {
                 .map { it.filter { it.Now != null } }
                 .doOnNext { Log.v(javaClass.simpleName, "Got channel data") }
                 .doOnError { Log.e(javaClass.simpleName, "Unable to get channel data") }
-                .subscribe({ value = it })
+                .subscribeBy(
+                        onNext = { value = it },
+                        onError = { value = null })
     }
 
     /**
