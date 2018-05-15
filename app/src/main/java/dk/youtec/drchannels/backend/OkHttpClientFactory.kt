@@ -53,17 +53,13 @@ object OkHttpClientFactory {
         } catch (e: Exception) {
             Log.d(TAG, "Unable to set http cache", e)
         }
-
     }
 
     fun clearCache() {
-        if (client != null) {
-            try {
-                (client as OkHttpClient).cache().evictAll()
-            } catch (e: IOException) {
-                Log.e(TAG, e.message, e)
-            }
-
+        try {
+            client?.cache()?.evictAll()
+        } catch (e: IOException) {
+            Log.e(TAG, e.message, e)
         }
     }
 
