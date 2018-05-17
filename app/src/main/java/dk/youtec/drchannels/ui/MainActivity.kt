@@ -231,13 +231,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
             putExtra(ProgramsActivity.CHANNEL_ID, channel.ChannelSlug)
         }
 
-        if (Build.VERSION.SDK_INT > 15) {
-            val translateBundle = ActivityOptions.makeCustomAnimation(context,
-                    R.anim.slide_in_left, R.anim.slide_out_left).toBundle()
-
-            context.startActivity(intent, translateBundle)
-        } else {
-            context.startActivity(intent)
-        }
+        context.startActivity(intent, ActivityOptions.makeCustomAnimation(context,
+                R.anim.slide_in_left, R.anim.slide_out_left).toBundle())
     }
 }
