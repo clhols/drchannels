@@ -72,7 +72,7 @@ dependencies {
 
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5")
 
