@@ -78,7 +78,7 @@ dependencies {
 
     implementation("com.google.android.exoplayer:exoplayer:2.7.3")
 
-    implementation("org.jetbrains.anko:anko-sdk15:0.10.4")
+    implementation("org.jetbrains.anko:anko-sdk15:0.10.5")
     implementation("com.github.bumptech.glide:glide:4.6.1")
     implementation("com.github.bumptech.glide:okhttp3-integration:4.6.1")
     implementation("com.squareup.okhttp3:okhttp:3.10.0")
