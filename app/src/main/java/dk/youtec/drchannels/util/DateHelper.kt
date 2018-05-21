@@ -6,7 +6,7 @@ import java.util.*
 val defaultLocale: Locale = Locale.GERMAN
 val serverTimeZone: TimeZone = TimeZone.getTimeZone("Europe/Copenhagen")
 
-inline fun calendar(block: Calendar.() -> Unit = {}): Calendar = Calendar.getInstance().apply(block)
+inline fun calendar(block: Calendar.() -> Unit = {}): Calendar = GregorianCalendar.getInstance().apply(block)
 
 inline fun serverCalendar(block: Calendar.() -> Unit = {}): Calendar = calendar {
     timeZone = serverTimeZone

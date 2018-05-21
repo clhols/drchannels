@@ -22,7 +22,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_programs.*
 import org.jetbrains.anko.displayMetrics
 import org.jetbrains.anko.toast
-import java.util.Calendar.DATE
+import java.util.Calendar.*
 
 class ProgramsActivity : AppCompatActivity() {
     private val api by lazy { DrMuReactiveRepository(this) }
@@ -66,13 +66,13 @@ class ProgramsActivity : AppCompatActivity() {
 
         val scheduleSingle: Single<Schedule> =
                 Singles.zip(
-                        api.getSchedule(id, serverCalendar { add(DATE, 1) }.time)
+                        api.getSchedule(id, serverCalendar { set(SECOND, 0); set(MINUTE, 0); add(DATE, 1) }.time)
                                 .subscribeOn(Schedulers.io()),
-                        api.getSchedule(id, serverCalendar().time)
+                        api.getSchedule(id, serverCalendar { set(SECOND, 0); set(MINUTE, 0) }.time)
                                 .subscribeOn(Schedulers.io()),
-                        api.getSchedule(id, serverCalendar { add(DATE, -1) }
-                                .time).subscribeOn(Schedulers.io()),
-                        api.getSchedule(id, serverCalendar { add(DATE, -2) }.time)
+                        api.getSchedule(id, serverCalendar { set(SECOND, 0); set(MINUTE, 0); add(DATE, -1) }.time)
+                                .subscribeOn(Schedulers.io()),
+                        api.getSchedule(id, serverCalendar { set(SECOND, 0); set(MINUTE, 0); add(DATE, -2) }.time)
                                 .subscribeOn(Schedulers.io())
                 ) { tomorrow, today, yesterday, twoDaysAgo ->
                     val broadcasts = mutableListOf<MuScheduleBroadcast>().apply {
