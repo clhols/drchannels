@@ -11,21 +11,6 @@ import java.util.*
 class DrMuReactiveRepository(context: Context) {
     private val api = DrMuRepository(OkHttpClientFactory.getInstance(context))
 
-    fun getPageTvFront(): Single<PageTvFrontResponse> {
-        return Single.create<PageTvFrontResponse> { subscriber ->
-            try {
-                val pageTvFrontResponse = api.getPageTvFront()
-                if (pageTvFrontResponse != null) {
-                    subscriber.onSuccess(pageTvFrontResponse)
-                } else {
-                    subscriber.onError(DrMuException("Missing page tv front response"))
-                }
-            } catch (e: IOException) {
-                subscriber.onError(DrMuException(e.message))
-            }
-        }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
-    }
-
     fun getAllActiveDrTvChannels(): Single<List<Channel>> {
         return Single.create<List<Channel>> { subscriber ->
             try {
@@ -62,7 +47,7 @@ class DrMuReactiveRepository(context: Context) {
     fun getSchedule(id: String, date: Date): Single<Schedule> {
         return Single.create<Schedule> { subscriber ->
             try {
-                val dateString = serverDateFormat("yyyy-MM-dd HH:MM:ss").format(date)
+                val dateString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
 
                 val schedule: Schedule? = api.getSchedule(id, dateString)
                 if (schedule != null) {
