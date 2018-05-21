@@ -10,16 +10,13 @@ const val API_VERSION = "1.4"
 const val API_URL = "https://www.dr.dk/mu-online/api/$API_VERSION/"
 
 internal interface DrMuApi {
-    @GET("page/tv/front")
-    fun getPageTvFront(): Call<PageTvFrontResponse>
-
     @GET("channel/all-active-dr-tv-channels")
     fun getAllActiveDrTvChannels(): Call<List<Channel>>
 
     @GET("{uri}")
     fun getManifest(@Path("uri") uri: String): Call<Manifest>
 
-    @GET("schedule/{id}") // Date format yyyy-MM-dd HH:MM:ss
+    @GET("schedule/{id}") // Date format yyyy-MM-dd HH:mm:ss
     fun getSchedule(@Path("id") id: String, @Query("broadcastdate") date: String): Call<Schedule>
 
     @GET("schedule/nownext/{id}")
@@ -34,23 +31,23 @@ internal interface DrMuApi {
 
 data class SearchResult(
         val Title: String,
-        val Subtitle: String,
-        val Description: String,
+        val Subtitle: String = "",
+        val Description: String = "",
         val IsRepremiere: Boolean,
-        val BundleType: String,
-        val ThemeType: String,
-        val Slug: String,
+        val BundleType: String = "",
+        val ThemeType: String = "",
+        val Slug: String = "",
         val Items: List<ProgramCard>,
         val Paging: MuPaging,
         val TotalSize: Int,
-        val BackgroundImageUri: String,
-        val SiteUrl: String)
+        val BackgroundImageUri: String = "",
+        val SiteUrl: String = "")
 
 data class MuPaging(
-        val Title: String,
+        val Title: String = "",
         val Source: String,
-        val Next: String,
-        val Previous: String,
+        val Next: String = "",
+        val Previous: String = "",
         val TotalSize: Int)
 
 data class Schedule(
@@ -62,33 +59,32 @@ data class Schedule(
 data class Channel(
         val Type: String,
         val StreamingServers: List<MuStreamingServer>,
-        val Url: String,
-        val SourceUrl: String,
+        val Url: String = "",
+        val SourceUrl: String = "",
         val WebChannel: Boolean,
         val Slug: String,
         val Urn: String,
         val PrimaryImageUri: String,
-        val PresentationUri: String,
-        val PresentationUriAutoplay: String,
+        val PresentationUri: String = "",
+        val PresentationUriAutoplay: String = "",
         val Title: String,
-        val ItemLabel: String,
-        val Subtitle: String)
+        val ItemLabel: String = "",
+        val Subtitle: String = "")
 
 data class MuStreamingServer(
         val Server: String,
         val LinkType: String,
         val Qualities: List<MuStreamQuality>,
-        val DynamicUserQualityChange: Boolean)
+        val DynamicUserQualityChange: Boolean,
+        val EncryptedServer: String)
 
 data class MuStreamQuality(
         val Kbps: Int,
         val Streams: List<MuStream>)
 
 data class MuStream(
-        val Stream: String)
-
-data class PageTvFrontResponse(
-        val Live: List<MuNowNext>)
+        val Stream: String = "",
+        val EncryptedStream: String = "")
 
 data class MuNowNext(
         val ChannelSlug: String,
@@ -99,7 +95,7 @@ data class MuNowNext(
 data class MuScheduleBroadcast(
         val Title: String,
         val Description: String,
-        val Subtitle: String,
+        val Subtitle: String = "",
         val StartTime: Date,
         val EndTime: Date,
         val ProgramCard: ProgramCard,
@@ -119,9 +115,9 @@ data class MuScheduleBroadcast(
 
 data class ProgramCard(
         val Type: String,
-        val SeriesTitle: String,
-        val SeriesSlug: String,
-        val SeriesUrn: String,
+        val SeriesTitle: String = "",
+        val SeriesSlug: String = "",
+        val SeriesUrn: String = "",
         val PrimaryChannel: String,
         val PrimaryChannelSlug: String,
         val SeasonEpisodeNumberingValid: Boolean,
@@ -134,17 +130,19 @@ data class ProgramCard(
         val OnlineGenreText: String,
         val PrimaryAsset: PrimaryAsset?,
         val HasPublicPrimaryAsset: Boolean,
-        val AssetTargetTypes: String,
+        val AssetTargetTypes: String = "",
         val PrimaryBroadcastStartTime: Date,
         val SortDateTime: Date,
         val OnDemandInfo: Info?,
         val Slug: String,
         val Urn: String,
         val PrimaryImageUri: String,
-        val PresentationUri: String,
-        val PresentationUriAutoplay: String,
+        val PresentationUri: String = "",
+        val PresentationUriAutoplay: String = "",
         val Title: String,
-        val Subtitle: String)
+        val Subtitle: String = "",
+        val IsNewSeries: Boolean,
+        val OriginalTitle: String = "")
 
 data class Info(
         val StartPublish: Date,

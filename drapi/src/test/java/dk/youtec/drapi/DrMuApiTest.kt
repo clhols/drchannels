@@ -1,41 +1,28 @@
 package dk.youtec.drapi
 
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.junit.Assert
 import org.junit.Test
+import retrofit2.Converter
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.jackson.JacksonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DrMuApiTest {
-    @Test
-    fun testPageTvFront() {
-        val retrofit = Retrofit.Builder()
-                .baseUrl(API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-        val service = retrofit.create<DrMuApi>(DrMuApi::class.java)
-
-        val response: Response<PageTvFrontResponse> = service.getPageTvFront().execute()
-        val liveResponse = response.body()
-        val channels = liveResponse?.Live ?: emptyList()
-
-        val channelIds = channels.map { it.ChannelSlug }
-        val expectedChannelIds = listOf("dr1", "dr2", "dr3", "dr-k", "dr-ramasjang", "dr-ultra")
-
-        Assert.assertEquals(expectedChannelIds, channelIds)
-
-        println("Primary asset uri ${channels[0].Now?.ProgramCard?.PrimaryAsset?.Uri}")
-        println("Date ${SimpleDateFormat("dd-MM-yyyy HH:mm").format(channels[0].Now?.StartTime)}")
-    }
+    private val converterFactory: Converter.Factory = JacksonConverterFactory.create(
+            ObjectMapper().registerModule(KotlinModule()).apply {
+                configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            })
 
     @Test
     fun testAllActiveDrTvChannels() {
         val retrofit = Retrofit.Builder()
                 .baseUrl(API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(converterFactory)
                 .build()
 
         val service = retrofit.create<DrMuApi>(DrMuApi::class.java)
@@ -55,25 +42,25 @@ class DrMuApiTest {
     fun testScheduleDr1() {
         val retrofit = Retrofit.Builder()
                 .baseUrl(API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(converterFactory)
                 .build()
 
         val service = retrofit.create<DrMuApi>(DrMuApi::class.java)
 
-        val date = SimpleDateFormat("yyyy-MM-dd HH:MM:ss").format(Date())
+        val date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         val response: Response<Schedule> = service.getSchedule(
                 "dr1",
                 date).execute()
         val schedule = response.body()
 
-        Assert.assertEquals(schedule?.ChannelSlug, "dr1")
+        Assert.assertEquals("dr1", schedule?.ChannelSlug)
     }
 
     @Test
     fun testSearch() {
         val retrofit = Retrofit.Builder()
                 .baseUrl(API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(converterFactory)
                 .build()
 
         val service = retrofit.create<DrMuApi>(DrMuApi::class.java)

@@ -1,9 +1,12 @@
 package dk.youtec.drapi
 
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.jackson.JacksonConverterFactory
 
 /**
  * Implements a Java API for https://www.dr.dk/mu-online/Help/1.4
@@ -14,20 +17,16 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
     init {
         val retrofit = with(Retrofit.Builder()) {
             baseUrl(API_URL)
-            addConverterFactory(GsonConverterFactory.create())
+            addConverterFactory(
+                    JacksonConverterFactory.create(
+                            ObjectMapper().registerModule(KotlinModule()).apply {
+                                configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                            }))
             client?.let { client(it) }
             build()
         }
 
         service = retrofit.create<DrMuApi>(DrMuApi::class.java)
-    }
-
-    /**
-     * Gets front page info
-     */
-    fun getPageTvFront(): PageTvFrontResponse? {
-        val response: Response<PageTvFrontResponse> = service.getPageTvFront().execute()
-        return response.body()
     }
 
     /**
