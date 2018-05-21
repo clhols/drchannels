@@ -415,7 +415,7 @@ class DrTvInputRecordingSessionImpl(
             if (endPublish != null && endPublish.isNotEmpty()) {
                 setRecordingExpireTimeUtcMillis(endPublish.toLong())
 
-                val dateString = serverDateFormat("dd-MM-yyyy HH:MM")
+                val dateString = serverDateFormat("dd-MM-yyyy HH:mm")
                         .format(Date(endPublish.toLong()))
                 setShortDescription((programToRecord.description ?: "") + "\nExpires $dateString")
             }
