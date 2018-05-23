@@ -35,4 +35,7 @@
     <string name="loading">Henter…</string>
     <string name="cancel">Annuller</string>
     <string name="error_setup_channels">Fejl ved kanalkonfigurering</string>
+    <string name="error_unrecognized_abr_algorithm">Ukendt ABR algoritme</string>
+    <string name="ima_not_loaded">Afspiller uden reklamer, da IMA udvidelsen ikke kunne findes</string>
+    <string name="error_generic">Afspilning fejlede</string>
 </resources>

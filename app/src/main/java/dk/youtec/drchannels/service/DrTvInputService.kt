@@ -13,22 +13,23 @@ import android.support.annotation.RequiresApi
 import android.text.TextUtils
 import android.util.Log
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
+import com.google.android.exoplayer2.offline.FilteringManifestParser
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.source.dash.DashMediaSource
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource
+import com.google.android.exoplayer2.source.dash.manifest.DashManifestParser
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
+import com.google.android.exoplayer2.source.hls.playlist.HlsPlaylistParser
 import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource
+import com.google.android.exoplayer2.source.smoothstreaming.manifest.SsManifestParser
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection.*
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelection
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.upstream.*
-import com.google.android.exoplayer2.util.Clock
 import com.google.android.exoplayer2.util.Util
 import com.google.android.media.tv.companionlibrary.BaseTvInputService
 import com.google.android.media.tv.companionlibrary.TvPlayer
@@ -71,16 +72,6 @@ class DrTvInputSessionImpl(
     private val unknownType = -1
 
     private val defaultBandwidthMeter = DefaultBandwidthMeter()
-    private val adaptiveTrackSelection = AdaptiveTrackSelection.Factory(defaultBandwidthMeter,
-            2000000,
-            5000,
-            DEFAULT_MAX_DURATION_FOR_QUALITY_DECREASE_MS,
-            5000,
-            0.8f,
-            DEFAULT_BUFFERED_FRACTION_TO_LIVE_EDGE_FOR_QUALITY_INCREASE,
-            DEFAULT_MIN_TIME_BETWEEN_BUFFER_REEVALUTATION_MS,
-            Clock.DEFAULT)
-    //private val trackSelector = DefaultTrackSelector(adaptiveTrackSelection)
     private val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(defaultBandwidthMeter))
     private val eventLogger = EventLogger(trackSelector)
     private val mediaDataSourceFactory: DataSource.Factory = buildDataSourceFactory(true)
@@ -103,10 +94,7 @@ class DrTvInputSessionImpl(
 
         player = TvExoPlayer(renderersFactory, trackSelector, DefaultLoadControl()).apply {
             addListener(this@DrTvInputSessionImpl)
-            addListener(eventLogger)
-            addAudioDebugListener(eventLogger)
-            addVideoDebugListener(eventLogger)
-            addMetadataOutput(eventLogger)
+            addAnalyticsListener(eventLogger)
             prepare(buildMediaSource(Uri.parse(providerData.videoUrl)), true, false)
         }
     }
@@ -238,7 +226,7 @@ class DrTvInputSessionImpl(
     }
 
     private fun getTrackType(trackSelection: TrackSelection): Int {
-        val mimeType = trackSelection.selectedFormat.sampleMimeType
+        val mimeType = trackSelection.selectedFormat.sampleMimeType!!
         if (mimeType.contains("audio/")) {
             return TvTrackInfo.TYPE_AUDIO
         }
@@ -291,10 +279,12 @@ class DrTvInputSessionImpl(
     }
 
     private fun getVideoId(selectedFormats: List<Format>) =
-            selectedFormats.firstOrNull { it.sampleMimeType.contains("video/") }?.id ?: "0"
+            selectedFormats.firstOrNull { it.sampleMimeType?.contains("video/") ?: false }?.id
+                    ?: "0"
 
     private fun getAudioId(selectedFormats: List<Format>) =
-            selectedFormats.firstOrNull { it.sampleMimeType.contains("audio/") }?.id ?: "0"
+            selectedFormats.firstOrNull { it.sampleMimeType?.contains("audio/") ?: false }?.id
+                    ?: "0"
 
     private fun buildMediaSource(uri: Uri, overrideExtension: String = ""): MediaSource {
         val type = if (TextUtils.isEmpty(overrideExtension))
@@ -303,13 +293,18 @@ class DrTvInputSessionImpl(
             Util.inferContentType(".$overrideExtension")
 
         return when (type) {
-            C.TYPE_SS -> SsMediaSource(uri, buildDataSourceFactory(false),
-                    DefaultSsChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger)
-            C.TYPE_DASH -> DashMediaSource(uri, buildDataSourceFactory(false),
-                    DefaultDashChunkSource.Factory(mediaDataSourceFactory), mainHandler, eventLogger)
-            C.TYPE_HLS -> HlsMediaSource(uri, mediaDataSourceFactory, mainHandler, eventLogger)
-            C.TYPE_OTHER -> ExtractorMediaSource(uri, mediaDataSourceFactory, DefaultExtractorsFactory(),
-                    mainHandler, null)
+            C.TYPE_SS -> SsMediaSource.Factory(DefaultSsChunkSource.Factory(mediaDataSourceFactory),
+                    buildDataSourceFactory(false))
+                    .setManifestParser(FilteringManifestParser(SsManifestParser(), emptyList()))
+                    .createMediaSource(uri)
+            C.TYPE_DASH -> DashMediaSource.Factory(DefaultDashChunkSource.Factory(mediaDataSourceFactory),
+                    buildDataSourceFactory(false))
+                    .setManifestParser(FilteringManifestParser(DashManifestParser(), emptyList()))
+                    .createMediaSource(uri)
+            C.TYPE_HLS -> HlsMediaSource.Factory(mediaDataSourceFactory)
+                    .setPlaylistParser(FilteringManifestParser(HlsPlaylistParser(), emptyList()))
+                    .createMediaSource(uri)
+            C.TYPE_OTHER -> ExtractorMediaSource.Factory(mediaDataSourceFactory).createMediaSource(uri)
             else -> {
                 throw IllegalStateException("Unsupported type: $type")
             }

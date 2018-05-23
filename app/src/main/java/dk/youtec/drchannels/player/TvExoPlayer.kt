@@ -19,7 +19,7 @@ open class TvExoPlayer(
         renderersFactory: RenderersFactory,
         trackSelector: TrackSelector,
         loadControl: LoadControl
-) : SimpleExoPlayer(renderersFactory, trackSelector, loadControl), TvPlayer {
+) : SimpleExoPlayer(renderersFactory, trackSelector, loadControl, null), TvPlayer {
 
     var seekJob: Job? = null
 
