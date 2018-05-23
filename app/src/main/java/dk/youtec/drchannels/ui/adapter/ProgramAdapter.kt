@@ -173,7 +173,7 @@ class ProgramAdapter(
 
         return Intent(context, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
-            putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS, preferExtensionDecoders)
+            putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, preferExtensionDecoders)
             data = Uri.parse(uri)
         }
     }

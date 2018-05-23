@@ -36,4 +36,7 @@
     <string name="all">All</string>
     <string name="live">LIVE</string>
     <string name="next">Next</string>
+    <string name="error_unrecognized_abr_algorithm">Unrecognized ABR algorithm</string>
+    <string name="ima_not_loaded">Playing sample without ads, as the IMA extension was not loaded</string>
+    <string name="error_generic">Playback failed</string>
 </resources>
