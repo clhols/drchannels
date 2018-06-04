@@ -1,1 +1,1 @@
-include(":app", ":drapi")
+include(":app", ":drapi", ":tv-library")
