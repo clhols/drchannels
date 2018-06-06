@@ -30,5 +30,5 @@ allprojects {
 val kotlinVersion by extra("1.2.41")
 val compileSdkVersion by extra(28)
 val targetSdkVersion by extra(28)
-val buildToolsVersion by extra("27.0.3")
+val buildToolsVersion by extra("28.0.0")
 val supportLibVersion by extra("27.1.1")
