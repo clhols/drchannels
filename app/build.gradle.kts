@@ -73,8 +73,8 @@ dependencies {
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.3")
 
     implementation("com.google.android.exoplayer:exoplayer:2.8.2")
 
@@ -85,14 +85,14 @@ dependencies {
     implementation("com.android.support:design:$supportLibVersion")
     implementation("com.android.support:support-v4:$supportLibVersion")
     implementation("com.android.support:recyclerview-v7:$supportLibVersion")
-    implementation("com.android.support.constraint:constraint-layout:1.1.0")
+    implementation("com.android.support.constraint:constraint-layout:2.0.0+")
     implementation("androidx.core:core-ktx:0.3")
 
     implementation("android.arch.lifecycle:extensions:1.1.1")
     kapt("android.arch.lifecycle:compiler:1.1.1")
     //implementation("android.arch.work:work-runtime:1.0.0-alpha01")
 
-    implementation("io.reactivex.rxjava2:rxjava:2.1.13")
+    implementation("io.reactivex.rxjava2:rxjava:2.1.16")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.0.2")
 }
