@@ -81,16 +81,14 @@ class DrTvInputSessionImpl(
     private fun initPlayer(providerData: InternalProviderData) {
         Log.d(tag, "Loading providerData " + providerData.toString())
 
-        val drmSessionManager = null
-        val renderersFactory = DefaultRenderersFactory(
-                context,
-                drmSessionManager,
-                DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF)
+        val renderersFactory = DefaultRenderersFactory(context)
 
         releasePlayer()
 
         // Enable tunneling if supported by the current media and device configuration.
-        trackSelector.setTunnelingAudioSessionId(C.generateAudioSessionIdV21(context))
+        trackSelector.apply {
+            setParameters(buildUponParameters().setTunnelingAudioSessionId(C.generateAudioSessionIdV21(context)))
+        }
 
         player = TvExoPlayer(renderersFactory, trackSelector, DefaultLoadControl()).apply {
             addListener(this@DrTvInputSessionImpl)
