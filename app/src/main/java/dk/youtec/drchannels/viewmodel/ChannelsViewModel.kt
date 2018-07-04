@@ -42,7 +42,7 @@ class ChannelsLiveData(context: Context) : LiveData<List<MuNowNext>>() {
                 .doOnError { Log.e(javaClass.simpleName, "Unable to get channel data") }
                 .subscribeBy(
                         onNext = { value = it },
-                        onError = { value = null })
+                        onError = { value = emptyList() })
     }
 
     /**
