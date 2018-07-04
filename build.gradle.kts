@@ -10,7 +10,7 @@ buildscript {
         jcenter()
     }
 
-    val kotlinVersion by extra("1.2.50")
+    val kotlinVersion by extra("1.2.51")
 
     dependencies {
         classpath("com.android.tools.build:gradle:3.2+")
@@ -27,7 +27,7 @@ allprojects {
     }
 }
 
-val kotlinVersion by extra("1.2.50")
+val kotlinVersion by extra("1.2.51")
 val compileSdkVersion by extra(28)
 val targetSdkVersion by extra(28)
 val buildToolsVersion by extra("28.0.0")
