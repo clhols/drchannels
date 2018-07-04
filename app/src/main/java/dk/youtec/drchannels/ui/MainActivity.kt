@@ -1,11 +1,11 @@
 package dk.youtec.drchannels.ui
 
 import android.app.ActivityOptions
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
@@ -17,6 +17,7 @@ import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
+import dk.youtec.drchannels.util.isNullOrEmpty
 import dk.youtec.drchannels.viewmodel.ChannelsViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -59,14 +60,15 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
         viewModel = ViewModelProviders.of(this)
                 .get(ChannelsViewModel::class.java)
 
+        progressBar.isVisible = true
+
         viewModel.channels.observe(
                 this,
-                android.arch.lifecycle.Observer<List<MuNowNext>> { channels ->
-                    if (channels != null) {
-                        handleChannelsChanged(channels)
-                    } else {
-                        isEmptyState = true
-                    }
+                Observer<List<MuNowNext>> { channels ->
+                    isEmptyState = channels.isNullOrEmpty()
+                    handleChannelsChanged(channels!!)
+                    progressBar.isVisible = false
+                    swipeRefresh.isRefreshing = false
                 })
 
         //Schedule task
@@ -97,11 +99,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
      */
     private fun handleChannelsChanged(channels: List<MuNowNext>) {
         if (!isFinishing) {
-            isEmptyState = false
             if (recyclerView.adapter != null) {
-                progressBar.isVisible = false
-                swipeRefresh.isRefreshing = false
-
                 (recyclerView.adapter as ChannelsAdapter?)?.submitList(channels)
             } else {
                 recyclerView.adapter = ChannelsAdapter(this).apply {
