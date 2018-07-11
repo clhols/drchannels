@@ -15,6 +15,9 @@ object SharedPreferences {
     fun getString(context: Context, key: String, default: String = ""): String =
             context.defaultSharedPreferences.getString(key, default)
 
+    fun getLong(context: Context, key: String, default: Long = 0): Long =
+            context.defaultSharedPreferences.getLong(key, default)
+
     fun setString(context: Context, key: String, value: String) {
         context.defaultSharedPreferences
                 .edit()

@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.media.tv.Channel
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.DividerItemDecoration
@@ -28,6 +29,15 @@ import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
+import android.support.media.tv.TvContractCompat
+import android.content.ContentUris
+import android.graphics.BitmapFactory
+import android.os.Build
+import android.support.media.tv.ChannelLogoUtils
+import dk.youtec.drchannels.service.schedulePreviewUpdate
+import dk.youtec.drchannels.util.SharedPreferences
+import dk.youtec.drchannels.util.putPreference
+
 
 class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelClickListener {
     private val api by lazy { DrMuReactiveRepository(this) }
@@ -92,6 +102,33 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
                 .build()
         gcmNetworkManager.schedule(task)
         */
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                && SharedPreferences.getLong(this, "channelId") == 0L) {
+
+            val builder = Channel.Builder()
+            // Every channel you create must have the type `TYPE_PREVIEW`
+            builder.setType(TvContractCompat.Channels.TYPE_PREVIEW)
+                    .setDisplayName(getString(R.string.currentPrograms))
+                    .setAppLinkIntent(Intent(this, MainActivity::class.java))
+
+            val channelUri = contentResolver.insert(
+                    TvContractCompat.Channels.CONTENT_URI, builder.build().toContentValues())
+
+            val channelId = ContentUris.parseId(channelUri)
+
+            ChannelLogoUtils.storeChannelLogo(this,
+                    channelId,
+                    BitmapFactory.decodeResource(resources, R.drawable.ic_channel_logo))
+
+            TvContractCompat.requestChannelBrowsable(this, channelId)
+
+            putPreference {
+                putLong("channelId", channelId)
+            }
+        }
+
+        schedulePreviewUpdate()
     }
 
     /**
@@ -214,11 +251,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelC
     }
 
     private fun buildIntent(context: Context, uri: String): Intent {
-        val preferExtensionDecoders = false
-
         return Intent(context, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
-            putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, preferExtensionDecoders)
+            putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
             data = Uri.parse(uri)
         }
     }
