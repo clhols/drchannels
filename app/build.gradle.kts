@@ -85,12 +85,13 @@ dependencies {
     implementation("com.android.support:design:$supportLibVersion")
     implementation("com.android.support:support-v4:$supportLibVersion")
     implementation("com.android.support:recyclerview-v7:$supportLibVersion")
+    implementation("com.android.support:support-tv-provider:$supportLibVersion")
     implementation("com.android.support.constraint:constraint-layout:2.0.0+")
     implementation("androidx.core:core-ktx:0.3")
 
     implementation("android.arch.lifecycle:extensions:1.1.1")
     kapt("android.arch.lifecycle:compiler:1.1.1")
-    //implementation("android.arch.work:work-runtime:1.0.0-alpha01")
+    implementation("android.arch.work:work-runtime-ktx:1.0.0+")
 
     implementation("io.reactivex.rxjava2:rxjava:2.1.16")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")

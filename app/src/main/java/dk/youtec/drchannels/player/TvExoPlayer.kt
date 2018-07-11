@@ -21,7 +21,7 @@ open class TvExoPlayer(
         loadControl: LoadControl
 ) : SimpleExoPlayer(renderersFactory, trackSelector, loadControl, null), TvPlayer {
 
-    var seekJob: Job? = null
+    private var seekJob: Job? = null
 
     override fun setSurface(surface: Surface?) {
         setVideoSurface(surface)

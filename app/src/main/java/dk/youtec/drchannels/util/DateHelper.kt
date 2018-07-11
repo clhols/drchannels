@@ -14,7 +14,7 @@ inline fun serverCalendar(block: Calendar.() -> Unit = {}): Calendar = calendar 
 }
 
 inline fun dateFormat(pattern: String,
-                      locale: Locale,
+                      locale: Locale = defaultLocale,
                       block: SimpleDateFormat.() -> Unit = {}): SimpleDateFormat = SimpleDateFormat(pattern, locale).apply(block)
 
 fun serverDateFormat(pattern: String) = dateFormat(pattern, defaultLocale) {

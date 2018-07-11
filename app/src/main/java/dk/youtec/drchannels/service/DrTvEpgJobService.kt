@@ -1,6 +1,12 @@
 package dk.youtec.drchannels.service
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
+import android.support.v4.content.LocalBroadcastManager
+import android.util.Log
 
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService
 import com.google.android.media.tv.companionlibrary.model.Channel
@@ -20,10 +26,31 @@ import java.util.concurrent.TimeUnit
 class DrTvEpgJobService : EpgSyncJobService() {
     private lateinit var api: DrMuRepository
 
+    private val syncFinishedReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent) {
+            val syncStatus = intent.getStringExtra(EpgSyncJobService.SYNC_STATUS)
+            if (syncStatus == EpgSyncJobService.SYNC_FINISHED) {
+                Log.d("DrTvEpgJobService", "Sync finished, scheduling preview update")
+
+                schedulePreviewUpdate()
+            }
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
 
         api = DrMuRepository()
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                syncFinishedReceiver,
+                IntentFilter(ACTION_SYNC_STATUS_CHANGED))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(syncFinishedReceiver)
     }
 
     override fun getChannels(): List<Channel> {

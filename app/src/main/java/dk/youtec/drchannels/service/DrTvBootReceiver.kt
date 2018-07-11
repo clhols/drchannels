@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 class DrTvBootReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
-        if(intent?.action == Intent.ACTION_BOOT_COMPLETED) {
+        if (intent?.action == Intent.ACTION_BOOT_COMPLETED) {
 
             val jobScheduler: JobScheduler = context.systemService()
 
@@ -42,6 +42,8 @@ class DrTvBootReceiver : BroadcastReceiver() {
                         .filter { it.isPersisted }
                         .forEach { jobScheduler.schedule(it) }
             }
+
+            schedulePreviewUpdate()
         }
     }
 }
