@@ -79,6 +79,7 @@ class PreviewUpdater : Worker() {
                                     .setEndTimeUtcMillis(program.endTimeUtcMillis)
                                     .setDurationMillis((program.endTimeUtcMillis - program.startTimeUtcMillis).toInt())
                                     .setLive(true)
+                                    .setWeight((Int.MAX_VALUE - program.channelId).toInt())
                                     .setPosterArtUri(Uri.parse(program.posterArtUri))
                                     .build().toContentValues()
 
