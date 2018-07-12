@@ -66,12 +66,16 @@ class PreviewUpdater : Worker() {
                         data = Uri.parse(program.internalProviderData.videoUrl)
                     }
 
+                    val title = with(program) {
+                        if (episodeTitle?.isNotBlank() == true) "$title - $episodeTitle" else title
+                    }
+
                     //If a current broadcast, then add it to our channel
                     val previewProgram =
                             PreviewProgram.Builder()
                                     .setChannelId(channelId)
                                     .setType(TvContractCompat.PreviewPrograms.TYPE_CHANNEL)
-                                    .setTitle(program.title)
+                                    .setTitle(title)
                                     .setDescription(program.description)
                                     .setIntent(intent)
                                     .setInternalProviderId(program.internalProviderData.videoUrl)
@@ -125,11 +129,10 @@ class PreviewUpdater : Worker() {
             val time = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(nextProgramFinishTime))
             Log.d(tag, "Scheduling next preview update at $time")
 
-            val alarmIntent = Intent(applicationContext, PreviewUpdateReceiver::class.java)
             val pendingIntent = PendingIntent.getBroadcast(applicationContext,
                     0,
-                    alarmIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT)
+                    Intent(applicationContext, PreviewUpdateReceiver::class.java),
+                    PendingIntent.FLAG_CANCEL_CURRENT)
 
             //Schedule the pending intent
             val alarmManager = applicationContext.systemService<AlarmManager>()
