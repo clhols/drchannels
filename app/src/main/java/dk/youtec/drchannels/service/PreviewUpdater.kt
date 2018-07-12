@@ -158,6 +158,7 @@ fun schedulePreviewUpdate() {
                 .addTag("updatePreviewPrograms")
                 .build()
         WorkManager.getInstance()?.enqueue(updatePreviewPrograms)
+        Log.d("PreviewUpdater", "Work task enqueued")
     } else {
         Log.d("PreviewUpdater", "Work task already pending")
     }
