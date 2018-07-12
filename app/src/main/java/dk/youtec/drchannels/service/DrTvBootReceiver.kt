@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit
 
 class DrTvBootReceiver : BroadcastReceiver() {
     private val tag = "DrTvBootReceiver"
+    private val inputId = "dk.youtec.drchannels/.service.DrTvInputService"
 
     override fun onReceive(context: Context, intent: Intent?) {
         val jobScheduler: JobScheduler = context.systemService()
@@ -21,23 +22,15 @@ class DrTvBootReceiver : BroadcastReceiver() {
         val pendingJobs = jobScheduler.allPendingJobs
         if (pendingJobs.isEmpty()) {
             Log.v(tag, "No pending jobs")
-            val inputId = context.getSharedPreferences(
-                    EpgSyncJobService.PREFERENCE_EPG_SYNC,
-                    Context.MODE_PRIVATE)
-                    .getString(EpgSyncJobService.BUNDLE_KEY_INPUT_ID, null)
 
-            if (inputId != null) {
-                Log.v(tag, "Calling EpgSyncJobService.setUpPeriodicSync")
-                // Set up periodic sync only when input has set up.
-                EpgSyncJobService.setUpPeriodicSync(
-                        context,
-                        inputId,
-                        ComponentName(context, DrTvEpgJobService::class.java),
-                        TimeUnit.HOURS.toMillis(12),
-                        TimeUnit.DAYS.toMillis(6))
-            } else {
-                Log.v(tag, "Input id is null")
-            }
+            Log.v(tag, "Calling EpgSyncJobService.setUpPeriodicSync")
+            // Set up periodic sync only when input has set up.
+            EpgSyncJobService.setUpPeriodicSync(
+                    context,
+                    inputId,
+                    ComponentName(context, DrTvEpgJobService::class.java),
+                    TimeUnit.HOURS.toMillis(12),
+                    TimeUnit.DAYS.toMillis(6))
         } else {
             // On L/L-MR1, reschedule the pending jobs.
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
