@@ -38,13 +38,13 @@ class DrTvBootReceiver : BroadcastReceiver() {
             } else {
                 Log.v(tag, "Input id is null")
             }
-            return
-        }
-        // On L/L-MR1, reschedule the pending jobs.
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            pendingJobs
-                    .filter { it.isPersisted }
-                    .forEach { jobScheduler.schedule(it) }
+        } else {
+            // On L/L-MR1, reschedule the pending jobs.
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                pendingJobs
+                        .filter { it.isPersisted }
+                        .forEach { jobScheduler.schedule(it) }
+            }
         }
 
         schedulePreviewUpdate()
