@@ -115,13 +115,11 @@ class PreviewUpdater : Worker() {
             //contentResolver.update(TvContractCompat.buildPreviewProgramUri(previewId),
             //        previewProgram, null, null)
         } else {
-            if (previewId > 0) {
-                //Delete the existing program
-                if (contentResolver.delete(TvContractCompat.buildPreviewProgramUri(
-                                previewId),
-                                null, null) > 0) {
-                    Log.d(tag, "Deleted program with id $previewId")
-                }
+            //Delete the existing program
+            if (previewId > 0
+                    && contentResolver.delete(TvContractCompat.buildPreviewProgramUri(previewId),
+                            null, null) > 0) {
+                Log.d(tag, "Deleted program with id $previewId")
             }
 
             //Create the new program
