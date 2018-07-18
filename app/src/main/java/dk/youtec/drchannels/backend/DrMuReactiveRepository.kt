@@ -9,7 +9,7 @@ import io.reactivex.Single
 import java.io.IOException
 import java.util.*
 
-class DrMuReactiveRepository(val context: Context) {
+class DrMuReactiveRepository(private val context: Context) {
     private val api = DrMuRepository(OkHttpClientFactory.getInstance(context))
 
     fun getAllActiveDrTvChannels(): Single<List<Channel>> {
