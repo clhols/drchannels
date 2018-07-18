@@ -2,6 +2,7 @@ package dk.youtec.drchannels.service
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Intent
 import android.media.tv.TvContract
@@ -14,6 +15,7 @@ import android.util.Log
 import androidx.core.content.systemService
 import androidx.core.util.forEach
 import androidx.work.*
+import com.google.android.media.tv.companionlibrary.model.Program
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
@@ -60,89 +62,103 @@ class PreviewUpdater : Worker() {
                     //Find the next time to start updating previews
                     nextProgramFinishTime = nextProgramFinishTime.coerceAtMost(program.endTimeUtcMillis)
 
-                    val intent = Intent(applicationContext, PlayerActivity::class.java).apply {
-                        action = PlayerActivity.ACTION_VIEW
-                        putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-                        data = Uri.parse(program.internalProviderData.videoUrl)
-                    }
-
-                    val title = with(program) {
-                        if (episodeTitle?.isNotBlank() == true) "$title - $episodeTitle" else title
-                    }
-
-                    //If a current broadcast, then add it to our channel
-                    val previewProgram =
-                            PreviewProgram.Builder()
-                                    .setChannelId(channelId)
-                                    .setType(TvContractCompat.PreviewPrograms.TYPE_CHANNEL)
-                                    .setTitle(title)
-                                    .setDescription(program.description)
-                                    .setIntent(intent)
-                                    .setInternalProviderId(program.internalProviderData.videoUrl)
-                                    .setStartTimeUtcMillis(program.startTimeUtcMillis)
-                                    .setEndTimeUtcMillis(program.endTimeUtcMillis)
-                                    .setDurationMillis((program.endTimeUtcMillis - program.startTimeUtcMillis).toInt())
-                                    .setLive(true)
-                                    .setWeight((Int.MAX_VALUE - program.channelId).toInt())
-                                    .setPosterArtUri(Uri.parse(program.posterArtUri))
-                                    .build().toContentValues()
-
-                    val programIdKey = "${program.channelId}-programId"
-                    val previewIdKey = "${program.channelId}-previewId"
-
-                    val programId = SharedPreferences.getLong(applicationContext, programIdKey)
-                    val previewId = SharedPreferences.getLong(applicationContext, previewIdKey)
-
-                    //If this channel is showing the same program as last time.
-                    if (programId == program.id) {
-                        Log.d(tag, "Existing program ${program.title} with preview id $previewId")
-                        //contentResolver.update(TvContractCompat.buildPreviewProgramUri(previewId),
-                        //        previewProgram, null, null)
-                    } else {
-                        if (previewId > 0) {
-                            //Delete the existing program
-                            if (contentResolver.delete(TvContractCompat.buildPreviewProgramUri(
-                                            previewId),
-                                            null, null) > 0) {
-                                Log.d(tag, "Deleted program with id $previewId")
-                            }
-                        }
-
-                        //Create the new program
-                        val programUri = contentResolver.insert(TvContractCompat.PreviewPrograms.CONTENT_URI,
-                                previewProgram)
-                        val newPreviewId = ContentUris.parseId(programUri)
-
-                        Log.d(tag, "Added program ${program.title} with preview id $newPreviewId")
-
-                        //Save mapping between channel->previewId(database) and channel->programId(program)
-                        applicationContext.putPreference {
-                            putLong(programIdKey, program.id)
-                            putLong(previewIdKey, newPreviewId)
-                        }
-                    }
+                    updateProgram(program, channelId, contentResolver)
                 }
             }
         }
 
         if (nextProgramFinishTime < Long.MAX_VALUE) {
-            val time = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(nextProgramFinishTime))
-            Log.d(tag, "Scheduling next preview update at $time")
+            scheduleNextProgramsUpdate(nextProgramFinishTime)
+        }
+    }
 
-            val pendingIntent = PendingIntent.getBroadcast(applicationContext,
-                    0,
-                    Intent(applicationContext, PreviewUpdateReceiver::class.java),
-                    PendingIntent.FLAG_CANCEL_CURRENT)
+    /**
+     * Removes any existing program from the channel and insert the new one.
+     */
+    private fun updateProgram(program: Program, channelId: Long, contentResolver: ContentResolver) {
+        val intent = Intent(applicationContext, PlayerActivity::class.java).apply {
+            action = PlayerActivity.ACTION_VIEW
+            putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
+            data = Uri.parse(program.internalProviderData.videoUrl)
+        }
 
-            //Schedule the pending intent
-            val alarmManager = applicationContext.systemService<AlarmManager>()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
-                        nextProgramFinishTime,
-                        pendingIntent)
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, nextProgramFinishTime, pendingIntent)
+        val title = with(program) {
+            if (episodeTitle?.isNotBlank() == true) "$title - $episodeTitle" else title
+        }
+
+        //If a current broadcast, then add it to our channel
+        val previewProgram =
+                PreviewProgram.Builder()
+                        .setChannelId(channelId)
+                        .setType(TvContractCompat.PreviewPrograms.TYPE_CHANNEL)
+                        .setTitle(title)
+                        .setDescription(program.description)
+                        .setIntent(intent)
+                        .setInternalProviderId(program.internalProviderData.videoUrl)
+                        .setStartTimeUtcMillis(program.startTimeUtcMillis)
+                        .setEndTimeUtcMillis(program.endTimeUtcMillis)
+                        .setDurationMillis((program.endTimeUtcMillis - program.startTimeUtcMillis).toInt())
+                        .setLive(true)
+                        .setWeight((Int.MAX_VALUE - program.channelId).toInt())
+                        .setPosterArtUri(Uri.parse(program.posterArtUri))
+                        .build().toContentValues()
+
+        val programIdKey = "${program.channelId}-programId"
+        val previewIdKey = "${program.channelId}-previewId"
+
+        val programId = SharedPreferences.getLong(applicationContext, programIdKey)
+        val previewId = SharedPreferences.getLong(applicationContext, previewIdKey)
+
+        //If this channel is showing the same program as last time.
+        if (programId == program.id) {
+            Log.d(tag, "Existing program ${program.title} with preview id $previewId")
+            //contentResolver.update(TvContractCompat.buildPreviewProgramUri(previewId),
+            //        previewProgram, null, null)
+        } else {
+            if (previewId > 0) {
+                //Delete the existing program
+                if (contentResolver.delete(TvContractCompat.buildPreviewProgramUri(
+                                previewId),
+                                null, null) > 0) {
+                    Log.d(tag, "Deleted program with id $previewId")
+                }
             }
+
+            //Create the new program
+            val programUri = contentResolver.insert(TvContractCompat.PreviewPrograms.CONTENT_URI,
+                    previewProgram)
+            val newPreviewId = ContentUris.parseId(programUri)
+
+            Log.d(tag, "Added program ${program.title} with preview id $newPreviewId")
+
+            //Save mapping between channel->previewId(database) and channel->programId(program)
+            applicationContext.putPreference {
+                putLong(programIdKey, program.id)
+                putLong(previewIdKey, newPreviewId)
+            }
+        }
+    }
+
+    /**
+     * Schedules the next update at [time]
+     */
+    private fun scheduleNextProgramsUpdate(time: Long) {
+        val timeString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(time))
+        Log.d(tag, "Scheduling next preview update at $timeString")
+
+        val pendingIntent = PendingIntent.getBroadcast(applicationContext,
+                0,
+                Intent(applicationContext, PreviewUpdateReceiver::class.java),
+                PendingIntent.FLAG_CANCEL_CURRENT)
+
+        //Schedule the pending intent
+        val alarmManager = applicationContext.systemService<AlarmManager>()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+                    time,
+                    pendingIntent)
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent)
         }
     }
 }
