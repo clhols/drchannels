@@ -18,10 +18,10 @@ class DrTvBootReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
         if (context.isTv()) {
-            val jobScheduler: JobScheduler = context.systemService()
+            val jobScheduler: JobScheduler? = context.systemService()
 
             // If there are not pending jobs. Create a sync job and schedule it.
-            val pendingJobs = jobScheduler.allPendingJobs
+            val pendingJobs = jobScheduler?.allPendingJobs ?: emptyList()
             if (pendingJobs.isEmpty()) {
                 Log.v(tag, "No pending jobs")
 
@@ -38,7 +38,7 @@ class DrTvBootReceiver : BroadcastReceiver() {
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
                     pendingJobs
                             .filter { it.isPersisted }
-                            .forEach { jobScheduler.schedule(it) }
+                            .forEach { jobScheduler?.schedule(it) }
                 }
             }
 

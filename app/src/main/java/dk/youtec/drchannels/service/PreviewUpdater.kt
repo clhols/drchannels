@@ -150,14 +150,16 @@ class PreviewUpdater : Worker() {
                 PendingIntent.FLAG_CANCEL_CURRENT)
 
         //Schedule the pending intent
-        val alarmManager = applicationContext.systemService<AlarmManager>()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
-                    time,
-                    pendingIntent)
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent)
+        applicationContext.systemService<AlarmManager?>()?.apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+                        time,
+                        pendingIntent)
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent)
+            }
         }
+
     }
 }
 
