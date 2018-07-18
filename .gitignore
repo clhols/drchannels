@@ -57,3 +57,6 @@ freeline_project_description.json
 .idea
 app/youtec.json
 release.properties
+
+#Sonarqube
+.scannerwork
