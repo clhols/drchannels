@@ -95,9 +95,9 @@ class PreviewUpdater : Worker() {
 
                     //If this channel is showing the same program as last time.
                     if (programId == program.id) {
-                        Log.d(tag, "Updating program ${program.title} with preview id $previewId")
-                        contentResolver.update(TvContractCompat.buildPreviewProgramUri(previewId),
-                                previewProgram, null, null)
+                        Log.d(tag, "Existing program ${program.title} with preview id $previewId")
+                        //contentResolver.update(TvContractCompat.buildPreviewProgramUri(previewId),
+                        //        previewProgram, null, null)
                     } else {
                         if (previewId > 0) {
                             //Delete the existing program
