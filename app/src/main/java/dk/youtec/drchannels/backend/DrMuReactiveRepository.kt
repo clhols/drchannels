@@ -3,12 +3,13 @@ package dk.youtec.drchannels.backend
 import android.content.Context
 import android.util.Log
 import dk.youtec.drapi.*
+import dk.youtec.drchannels.R
 import dk.youtec.drchannels.util.serverDateFormat
 import io.reactivex.Single
 import java.io.IOException
 import java.util.*
 
-class DrMuReactiveRepository(context: Context) {
+class DrMuReactiveRepository(val context: Context) {
     private val api = DrMuRepository(OkHttpClientFactory.getInstance(context))
 
     fun getAllActiveDrTvChannels(): Single<List<Channel>> {
@@ -32,7 +33,7 @@ class DrMuReactiveRepository(context: Context) {
                 if (manifest != null) {
                     subscriber.onSuccess(manifest)
                 } else {
-                    subscriber.onError(DrMuException("Missing response"))
+                    subscriber.onError(DrMuException(context.getString(R.string.missingResponse)))
                 }
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
@@ -53,7 +54,7 @@ class DrMuReactiveRepository(context: Context) {
                 if (schedule != null) {
                     subscriber.onSuccess(schedule)
                 } else {
-                    subscriber.onError(DrMuException("Missing response"))
+                    subscriber.onError(DrMuException(context.getString(R.string.missingResponse)))
                 }
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
@@ -82,7 +83,7 @@ class DrMuReactiveRepository(context: Context) {
                 if (schedule != null) {
                     subscriber.onSuccess(schedule)
                 } else {
-                    subscriber.onError(DrMuException("Missing response"))
+                    subscriber.onError(DrMuException(context.getString(R.string.missingResponse)))
                 }
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))

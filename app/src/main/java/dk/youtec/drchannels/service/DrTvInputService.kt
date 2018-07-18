@@ -68,11 +68,11 @@ class DrTvInputSessionImpl(
 ) : BaseTvInputService.Session(context, inputId), Player.EventListener {
 
     private val tag = DrTvInputSessionImpl::class.java.simpleName
-    private val mainHandler = Handler()
     private val unknownType = -1
 
     private val defaultBandwidthMeter = DefaultBandwidthMeter()
-    private val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(defaultBandwidthMeter))
+    private val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(
+            defaultBandwidthMeter))
     private val eventLogger = EventLogger(trackSelector)
     private val mediaDataSourceFactory: DataSource.Factory = buildDataSourceFactory(true)
 
@@ -87,7 +87,8 @@ class DrTvInputSessionImpl(
 
         // Enable tunneling if supported by the current media and device configuration.
         trackSelector.apply {
-            setParameters(buildUponParameters().setTunnelingAudioSessionId(C.generateAudioSessionIdV21(context)))
+            setParameters(buildUponParameters().setTunnelingAudioSessionId(C.generateAudioSessionIdV21(
+                    context)))
         }
 
         player = TvExoPlayer(renderersFactory, trackSelector, DefaultLoadControl()).apply {
@@ -175,18 +176,28 @@ class DrTvInputSessionImpl(
         Log.d(tag, "onPlayerStateChanged $playWhenReady with state $playbackState")
 
         if (playWhenReady && playbackState == Player.STATE_READY) {
-            val tracks = ArrayList<TvTrackInfo>()
+            handlePlayerReady()
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                Math.abs(player!!.playbackParameters.speed - 1) < 0.1 &&
+                playWhenReady && playbackState == Player.STATE_BUFFERING) {
+            notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_BUFFERING)
+        }
+    }
 
-            val trackSelections = player!!.currentTrackSelections.all.filter { it != null }
-            trackSelections.forEach { trackSelection ->
+    private fun handlePlayerReady() {
+        val tracks = ArrayList<TvTrackInfo>()
 
-                val trackType = getTrackType(trackSelection)
-                if (trackType != unknownType) {
-                    val format = trackSelection.selectedFormat
+        val trackSelections = player!!.currentTrackSelections.all.filter { it != null }
+        trackSelections.forEach { trackSelection ->
 
-                    val builder = TvTrackInfo.Builder(trackType, format.id)
+            val trackType = getTrackType(trackSelection)
+            if (trackType != unknownType) {
+                val format = trackSelection.selectedFormat
 
-                    if (trackType == TvTrackInfo.TYPE_VIDEO) {
+                val builder = TvTrackInfo.Builder(trackType, format.id)
+
+                when (trackType) {
+                    TvTrackInfo.TYPE_VIDEO -> {
                         if (format.width != Format.NO_VALUE) {
                             builder.setVideoWidth(format.width)
                         } else if (format.width != Format.NO_VALUE) {
@@ -197,30 +208,28 @@ class DrTvInputSessionImpl(
                         } else if (format.height != Format.NO_VALUE) {
                             builder.setVideoHeight(format.height)
                         }
-                    } else if (trackType == TvTrackInfo.TYPE_AUDIO) {
+                    }
+                    TvTrackInfo.TYPE_AUDIO -> {
                         builder.setAudioChannelCount(format.channelCount)
                         builder.setAudioSampleRate(format.sampleRate)
                         builder.setLanguage(format.language)
-                    } else if (trackType == TvTrackInfo.TYPE_SUBTITLE) {
+                    }
+                    TvTrackInfo.TYPE_SUBTITLE -> {
                         builder.setLanguage(format.language)
                     }
-
-                    tracks.add(builder.build())
                 }
+
+                tracks.add(builder.build())
             }
-            notifyTracksChanged(tracks)
-
-            val selectedFormats = trackSelections.map { it.selectedFormat }
-
-            notifyTrackSelected(TvTrackInfo.TYPE_AUDIO, getAudioId(selectedFormats))
-            notifyTrackSelected(TvTrackInfo.TYPE_VIDEO, getVideoId(selectedFormats))
-            //notifyTrackSelected(TvTrackInfo.TYPE_SUBTITLE, textId)
-            notifyVideoAvailable()
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                Math.abs(player!!.playbackParameters.speed - 1) < 0.1 &&
-                playWhenReady && playbackState == Player.STATE_BUFFERING) {
-            notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_BUFFERING)
         }
+        notifyTracksChanged(tracks)
+
+        val selectedFormats = trackSelections.map { it.selectedFormat }
+
+        notifyTrackSelected(TvTrackInfo.TYPE_AUDIO, getAudioId(selectedFormats))
+        notifyTrackSelected(TvTrackInfo.TYPE_VIDEO, getVideoId(selectedFormats))
+        //notifyTrackSelected(TvTrackInfo.TYPE_SUBTITLE, textId)
+        notifyVideoAvailable()
     }
 
     private fun getTrackType(trackSelection: TrackSelection): Int {
@@ -295,14 +304,16 @@ class DrTvInputSessionImpl(
                     buildDataSourceFactory(false))
                     .setManifestParser(FilteringManifestParser(SsManifestParser(), emptyList()))
                     .createMediaSource(uri)
-            C.TYPE_DASH -> DashMediaSource.Factory(DefaultDashChunkSource.Factory(mediaDataSourceFactory),
+            C.TYPE_DASH -> DashMediaSource.Factory(DefaultDashChunkSource.Factory(
+                    mediaDataSourceFactory),
                     buildDataSourceFactory(false))
                     .setManifestParser(FilteringManifestParser(DashManifestParser(), emptyList()))
                     .createMediaSource(uri)
             C.TYPE_HLS -> HlsMediaSource.Factory(mediaDataSourceFactory)
                     .setPlaylistParser(FilteringManifestParser(HlsPlaylistParser(), emptyList()))
                     .createMediaSource(uri)
-            C.TYPE_OTHER -> ExtractorMediaSource.Factory(mediaDataSourceFactory).createMediaSource(uri)
+            C.TYPE_OTHER -> ExtractorMediaSource.Factory(mediaDataSourceFactory).createMediaSource(
+                    uri)
             else -> {
                 throw IllegalStateException("Unsupported type: $type")
             }
