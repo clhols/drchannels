@@ -10,6 +10,7 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-android-extensions")
     id("com.github.triplet.play")
+    id("org.sonarqube") version "2.6.2"
 }
 
 android {
