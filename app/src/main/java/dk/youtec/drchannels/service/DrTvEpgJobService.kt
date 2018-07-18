@@ -95,64 +95,61 @@ class DrTvEpgJobService : EpgSyncJobService() {
         val tomorrowsBroadcasts = getBroadcasts(channel, Date(startMs + TimeUnit.DAYS.toMillis(1)))
 
         //Adjust the end time of the last of today's broadcasts to avoid gaps or overlaps in the schedule.
-        if (todaysBroadcasts.isNotEmpty() && tomorrowsBroadcasts.isNotEmpty()) {
-            val lastBroadcast = todaysBroadcasts.last()
-            val firstBroadcast = tomorrowsBroadcasts.first()
-            lastBroadcast.EndTime.time = firstBroadcast.StartTime.time
-
-            // If the first broadcast eliminates the last, then remove the last.
-            if (lastBroadcast.StartTime.time >= lastBroadcast.EndTime.time) {
-                todaysBroadcasts.removeAt(todaysBroadcasts.lastIndex)
-            }
-        }
+        alignPrograms(todaysBroadcasts, tomorrowsBroadcasts)
 
         val broadcasts = todaysBroadcasts + tomorrowsBroadcasts
         broadcasts.forEach { broadcast ->
+            programs.add(buildProgram(channel, broadcast, endMs))
+        }
 
-            val program = with(Program.Builder()) {
+        return programs
+    }
 
-                setChannelId(channel.id)
-                setTitle(broadcast.Title)
-                setDescription(broadcast.Description)
+    private fun buildProgram(channel: Channel, broadcast: MuScheduleBroadcast, endMs: Long): Program {
+        return with(Program.Builder()) {
 
-                setStartTimeUtcMillis(broadcast.StartTime.time)
-                setEndTimeUtcMillis(Math.min(broadcast.EndTime.time, endMs))
+            setChannelId(channel.id)
+            setTitle(broadcast.Title)
+            setDescription(broadcast.Description)
 
-                if (broadcast.OnlineGenreText?.isNotBlank() == true) {
-                    setBroadcastGenres(arrayOf(broadcast.OnlineGenreText))
+            setStartTimeUtcMillis(broadcast.StartTime.time)
+            setEndTimeUtcMillis(Math.min(broadcast.EndTime.time, endMs))
+
+            if (broadcast.OnlineGenreText?.isNotBlank() == true) {
+                setBroadcastGenres(arrayOf(broadcast.OnlineGenreText))
+            }
+
+            setEpisodeTitle(broadcast.Subtitle)
+
+            setSeasonTitle(broadcast.ProgramCard.SeasonTitle)
+            if (broadcast.ProgramCard.SeasonNumber > 0) {
+                setSeasonNumber(broadcast.ProgramCard.SeasonNumber)
+            }
+            setPosterArtUri(broadcast.ProgramCard.PrimaryImageUri)
+
+            if (broadcast.VideoHD && broadcast.VideoWidescreen) {
+                setVideoHeight(720)
+                setVideoWidth(1280)
+            }
+
+            val providerData = InternalProviderData().apply {
+                videoType = TvContractUtils.SOURCE_TYPE_HLS
+                videoUrl = channel.internalProviderData.videoUrl
+            }
+
+            setRecordingProhibited(broadcast.ProgramCard.PrimaryAsset == null)
+
+            broadcast.ProgramCard.PrimaryAsset?.let { primaryAsset ->
+
+                val onDemandInfo = broadcast.ProgramCard.OnDemandInfo
+                if (onDemandInfo != null) {
+                    providerData.put("endPublish", onDemandInfo.EndPublish.time)
                 }
 
-                setEpisodeTitle(broadcast.Subtitle)
+                providerData.put("assetUri", primaryAsset.Uri)
 
-                setSeasonTitle(broadcast.ProgramCard.SeasonTitle)
-                if (broadcast.ProgramCard.SeasonNumber > 0) {
-                    setSeasonNumber(broadcast.ProgramCard.SeasonNumber)
-                }
-                setPosterArtUri(broadcast.ProgramCard.PrimaryImageUri)
-
-                if (broadcast.VideoHD && broadcast.VideoWidescreen) {
-                    setVideoHeight(720)
-                    setVideoWidth(1280)
-                }
-
-                val providerData = InternalProviderData().apply {
-                    videoType = TvContractUtils.SOURCE_TYPE_HLS
-                    videoUrl = channel.internalProviderData.videoUrl
-                }
-
-                setRecordingProhibited(broadcast.ProgramCard.PrimaryAsset == null)
-
-                broadcast.ProgramCard.PrimaryAsset?.let { primaryAsset ->
-
-                    val onDemandInfo = broadcast.ProgramCard.OnDemandInfo
-                    if (onDemandInfo != null) {
-                        providerData.put("endPublish", onDemandInfo.EndPublish.time)
-                    }
-
-                    providerData.put("assetUri", primaryAsset.Uri)
-
-                    if (primaryAsset.Downloadable) {
-                        /*
+                if (primaryAsset.Downloadable) {
+                    /*
                         val manifestResponse = api.getManifest(primaryAsset.Uri)
                         manifestResponse?.Links
                                 ?.asSequence()
@@ -168,19 +165,30 @@ class DrTvEpgJobService : EpgSyncJobService() {
                             providerData.put("downloadUrl", downloadUrl)
                         }
                         */
-                    }
                 }
-
-                //Channel uri and downloadable url
-                setInternalProviderData(providerData)
-
-                build()
             }
 
-            programs.add(program)
-        }
+            //Channel uri and downloadable url
+            setInternalProviderData(providerData)
 
-        return programs
+            build()
+        }
+    }
+
+    /**
+     * Adjust the end time of the last of today's broadcasts to avoid gaps or overlaps in the schedule.
+     */
+    private fun alignPrograms(todaysBroadcasts: MutableList<MuScheduleBroadcast>, tomorrowsBroadcasts: MutableList<MuScheduleBroadcast>) {
+        if (todaysBroadcasts.isNotEmpty() && tomorrowsBroadcasts.isNotEmpty()) {
+            val lastBroadcast = todaysBroadcasts.last()
+            val firstBroadcast = tomorrowsBroadcasts.first()
+            lastBroadcast.EndTime.time = firstBroadcast.StartTime.time
+
+            // If the first broadcast eliminates the last, then remove the last.
+            if (lastBroadcast.StartTime.time >= lastBroadcast.EndTime.time) {
+                todaysBroadcasts.removeAt(todaysBroadcasts.lastIndex)
+            }
+        }
     }
 
     private fun getBroadcasts(channel: Channel, date: Date): MutableList<MuScheduleBroadcast> {
