@@ -200,12 +200,8 @@ class DrTvInputSessionImpl(
                     TvTrackInfo.TYPE_VIDEO -> {
                         if (format.width != Format.NO_VALUE) {
                             builder.setVideoWidth(format.width)
-                        } else if (format.width != Format.NO_VALUE) {
-                            builder.setVideoWidth(format.width)
                         }
                         if (format.height != Format.NO_VALUE) {
-                            builder.setVideoHeight(format.height)
-                        } else if (format.height != Format.NO_VALUE) {
                             builder.setVideoHeight(format.height)
                         }
                     }
