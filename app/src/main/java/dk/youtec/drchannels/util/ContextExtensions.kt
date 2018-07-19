@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package dk.youtec.drchannels.util
 
 import android.content.Context
