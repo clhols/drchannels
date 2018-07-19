@@ -105,7 +105,7 @@ class ProgramsActivity : AppCompatActivity() {
 
         genres = schedule.Broadcasts
                 .map { it.OnlineGenreText ?: "" }
-                .filter { it.isNotBlank() == true }
+                .filter { it.isNotBlank() }
                 .toSet()
         invalidateOptionsMenu()
 
