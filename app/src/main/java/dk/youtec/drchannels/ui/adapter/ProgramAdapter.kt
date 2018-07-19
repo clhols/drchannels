@@ -86,14 +86,6 @@ class ProgramAdapter(
         holder.enabled = program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() ?: false
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
-        if (payloads.isEmpty()) {
-            super.onBindViewHolder(holder, position, payloads)
-        } else {
-            super.onBindViewHolder(holder, position, payloads)
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent.inflate(R.layout.program_item))
     }
