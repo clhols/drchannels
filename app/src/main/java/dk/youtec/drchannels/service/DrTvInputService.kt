@@ -8,11 +8,11 @@ import android.media.tv.TvTrackInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.support.annotation.RequiresApi
 import android.text.TextUtils
 import android.util.Log
 import com.google.android.exoplayer2.*
+import com.google.android.exoplayer2.DefaultLoadControl.*
 import com.google.android.exoplayer2.offline.FilteringManifestParser
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
@@ -87,11 +87,20 @@ class DrTvInputSessionImpl(
 
         // Enable tunneling if supported by the current media and device configuration.
         trackSelector.apply {
-            setParameters(buildUponParameters().setTunnelingAudioSessionId(C.generateAudioSessionIdV21(
-                    context)))
+            setParameters(
+                    buildUponParameters().setTunnelingAudioSessionId(
+                            C.generateAudioSessionIdV21(context)))
         }
 
-        player = TvExoPlayer(renderersFactory, trackSelector, DefaultLoadControl()).apply {
+        val loadControl = DefaultLoadControl.Builder()
+                .setBufferDurationsMs(
+                        5000,
+                        DEFAULT_MAX_BUFFER_MS,
+                        1500,
+                        DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS)
+                .createDefaultLoadControl()
+
+        player = TvExoPlayer(renderersFactory, trackSelector, loadControl).apply {
             addListener(this@DrTvInputSessionImpl)
             addAnalyticsListener(eventLogger)
             prepare(buildMediaSource(Uri.parse(providerData.videoUrl)), true, false)
