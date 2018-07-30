@@ -191,7 +191,10 @@ public class PlayerActivity extends Activity
             startWindow = savedInstanceState.getInt(KEY_WINDOW);
             startPosition = savedInstanceState.getLong(KEY_POSITION);
         } else {
-            trackSelectorParameters = new DefaultTrackSelector.ParametersBuilder().build();
+            trackSelectorParameters = new DefaultTrackSelector.ParametersBuilder()
+                    .setAllowMixedMimeAdaptiveness(true)
+                    .setAllowNonSeamlessAdaptiveness(true)
+                    .build();
             clearStartPosition();
         }
     }
