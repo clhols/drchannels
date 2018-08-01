@@ -167,6 +167,7 @@ class PreviewUpdater : Worker() {
 /**
  * Schedules a new task to update the preview channel if no other task is pending or running.
  */
+@Synchronized
 fun schedulePreviewUpdate() {
     val statuses = WorkManager.getInstance().getStatusesByTag("updatePreviewPrograms")
     val pendingWork = statuses.value?.any { !it.state.isFinished } ?: false
@@ -177,7 +178,7 @@ fun schedulePreviewUpdate() {
                         .build())
                 .addTag("updatePreviewPrograms")
                 .build()
-        WorkManager.getInstance()?.enqueue(updatePreviewPrograms)
+        WorkManager.getInstance().enqueue(updatePreviewPrograms)
         Log.d("PreviewUpdater", "Work task enqueued")
     } else {
         Log.d("PreviewUpdater", "Work task already pending")

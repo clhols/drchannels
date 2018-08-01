@@ -65,8 +65,6 @@ class DrTvInputSetupFragment: ChannelSetupFragment() {
         }
         activity.finish()
 
-        schedulePreviewUpdate()
-
         //Start Live Channels app after channel scan
         activity.packageManager.getLaunchIntentForPackage("com.google.android.tv")?.also {
             startActivity(it)
