@@ -57,7 +57,7 @@ class PreviewUpdater : Worker() {
         channelMap.forEach { id, _ ->
             val programs = TvContractUtils.getPrograms(contentResolver,
                     TvContract.buildChannelUri(id))
-            programs.forEach { program ->
+            programs.distinctBy { it.id }.forEach { program ->
                 if (program.startTimeUtcMillis <= now && now < program.endTimeUtcMillis) {
 
                     //Find the next time to start updating previews
