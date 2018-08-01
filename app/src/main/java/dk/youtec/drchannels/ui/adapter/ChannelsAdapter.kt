@@ -98,7 +98,7 @@ class ChannelsAdapter(
         val title: TextView = itemView.title
         val progress: ProgressBar = itemView.progress
         val nowDescription: TextView = itemView.nowDescription
-        val image: ImageView = itemView.image
+        val image: AspectImageView = itemView.image
         val logo: ImageView = itemView.logo
         val time: TextView = itemView.time
         val genre: ImageView = itemView.genre
@@ -110,7 +110,7 @@ class ChannelsAdapter(
                 listener.showChannel(it.context, getItem(adapterPosition))
             }
 
-            (image as AspectImageView).setAspectRatio(292, 189)
+            image.setAspectRatio(292, 189)
 
             itemView.setOnClickListener {
                 if (adapterPosition in 0..(itemCount - 1)) {

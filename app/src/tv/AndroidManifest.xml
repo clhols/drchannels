@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="dk.youtec.drchannels">
+
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="com.android.providers.tv.permission.READ_EPG_DATA"/>
+    <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA"/>
+
+    <uses-feature
+            android:name="android.software.live_tv"
+            android:required="false"/>
+
+    <uses-feature
+            android:name="android.software.leanback"
+            android:required="false"/>
+
+    <uses-feature
+            android:name="android.hardware.touchscreen"
+            android:required="false"/>
+
+    <application
+            android:banner="@drawable/banner">
+
+        <!-- Launched by the TV app before it uses DrTvInputService. This registers channels and sets up SampleJobService to provide program information in the background. -->
+        <activity
+                android:name="dk.youtec.drchannels.ui.DrTvInputSetupActivity"
+                android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <service
+                android:name="dk.youtec.drchannels.service.DrTvEpgJobService"
+                android:exported="true"
+                android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+        <service
+                android:name="dk.youtec.drchannels.service.DrTvInputService"
+                android:label="@string/drtv_input_label"
+                android:permission="android.permission.BIND_TV_INPUT">
+            <!-- Required filter used by the system to launch our account service. -->
+            <intent-filter>
+                <action android:name="android.media.tv.TvInputService"/>
+            </intent-filter>
+            <!-- An XML file which describes this input. This provides pointers to
+            the RichTvInputSetupActivity to the system/TV app. -->
+            <meta-data
+                    android:name="android.media.tv.input"
+                    android:resource="@xml/drtvinputservice"/>
+        </service>
+
+        <!-- This receiver is for sync job schedule well after reboot. -->
+        <receiver android:name="dk.youtec.drchannels.service.DrTvBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="dk.youtec.drchannels.service.PreviewUpdateReceiver"/>
+
+    </application>
+
+</manifest>
