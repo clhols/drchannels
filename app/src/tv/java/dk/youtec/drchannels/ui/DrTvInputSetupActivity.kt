@@ -23,7 +23,7 @@ class DrTvInputSetupActivity : AppCompatActivity() {
 
         val fragment = DrTvInputSetupFragment().apply {
             arguments = intent.extras ?: Bundle()
-            arguments.putString(TvInputInfo.EXTRA_INPUT_ID, activity.getString(R.string.channelInputId))
+            arguments.putString(TvInputInfo.EXTRA_INPUT_ID, getString(R.string.channelInputId))
         }
 
         fragmentManager.beginTransaction().add(android.R.id.content, fragment).commit()
