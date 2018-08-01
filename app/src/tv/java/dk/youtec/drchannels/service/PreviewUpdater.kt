@@ -46,6 +46,7 @@ class PreviewUpdater : Worker() {
         return Result.SUCCESS
     }
 
+    @Synchronized
     private fun updatePrograms(channelId: Long) {
         val now = System.currentTimeMillis()
         var nextProgramFinishTime = Long.MAX_VALUE
