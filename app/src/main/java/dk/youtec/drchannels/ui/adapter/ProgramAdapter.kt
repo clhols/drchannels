@@ -96,7 +96,7 @@ class ProgramAdapter(
         val header: View = itemView.programHeader
         val title: TextView = itemView.title
         val nowDescription: TextView = itemView.nowDescription
-        val image: ImageView = itemView.image
+        val image: AspectImageView = itemView.image
         val time: TextView = itemView.time
         val genre: ImageView = itemView.genre
         val live: TextView = itemView.live
@@ -118,7 +118,7 @@ class ProgramAdapter(
                 handleClick(it)
             }
 
-            (image as AspectImageView).setAspectRatio(292, 189)
+            image.setAspectRatio(292, 189)
         }
 
         private fun handleClick(it: View) {

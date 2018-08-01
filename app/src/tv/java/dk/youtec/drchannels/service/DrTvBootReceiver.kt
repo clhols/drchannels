@@ -9,15 +9,16 @@ import android.os.Build
 import android.util.Log
 import androidx.core.content.systemService
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService
+import dk.youtec.drchannels.R
 import dk.youtec.drchannels.util.isTv
 import java.util.concurrent.TimeUnit
 
 class DrTvBootReceiver : BroadcastReceiver() {
     private val tag = "DrTvBootReceiver"
-    private val inputId = "dk.youtec.drchannels/.service.DrTvInputService"
 
     override fun onReceive(context: Context, intent: Intent?) {
         if (context.isTv()) {
+            val inputId = context.getString(R.string.channelInputId)
             val jobScheduler: JobScheduler? = context.systemService()
 
             // If there are not pending jobs. Create a sync job and schedule it.

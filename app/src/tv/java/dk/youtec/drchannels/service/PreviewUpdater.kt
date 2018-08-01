@@ -25,7 +25,6 @@ import java.util.*
 
 class PreviewUpdater : Worker() {
     private val tag = PreviewUpdater::class.java.simpleName
-    private val inputId = "dk.youtec.drchannels/.service.DrTvInputService"
 
     override fun doWork(): Result {
         //Id of preview channel
@@ -52,7 +51,8 @@ class PreviewUpdater : Worker() {
         var nextProgramFinishTime = Long.MAX_VALUE
         val contentResolver = applicationContext.contentResolver
 
-        val channelMap = TvContractUtils.buildChannelMap(contentResolver, inputId)
+        val channelMap = TvContractUtils.buildChannelMap(contentResolver,
+                applicationContext.getString(dk.youtec.drchannels.R.string.channelInputId))
         channelMap.forEach { id, _ ->
             val programs = TvContractUtils.getPrograms(contentResolver,
                     TvContract.buildChannelUri(id))
@@ -167,8 +167,8 @@ class PreviewUpdater : Worker() {
  * Schedules a new task to update the preview channel if no other task is pending or running.
  */
 fun schedulePreviewUpdate() {
-    val statuses = WorkManager.getInstance()?.getStatusesByTag("updatePreviewPrograms")
-    val pendingWork = statuses?.value?.any { !it.state.isFinished } ?: false
+    val statuses = WorkManager.getInstance().getStatusesByTag("updatePreviewPrograms")
+    val pendingWork = statuses.value?.any { !it.state.isFinished } ?: false
     if (!pendingWork) {
         val updatePreviewPrograms = OneTimeWorkRequestBuilder<PreviewUpdater>()
                 .setConstraints(Constraints.Builder()

@@ -11,6 +11,7 @@ import com.google.android.media.tv.companionlibrary.ChannelSetupFragment
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.service.DrTvEpgJobService
+import dk.youtec.drchannels.service.schedulePreviewUpdate
 import org.jetbrains.anko.toast
 import java.util.concurrent.TimeUnit
 
@@ -63,6 +64,13 @@ class DrTvInputSetupFragment: ChannelSetupFragment() {
             activity.setResult(Activity.RESULT_OK)
         }
         activity.finish()
+
+        schedulePreviewUpdate()
+
+        //Start Live Channels app after channel scan
+        activity.packageManager.getLaunchIntentForPackage("com.google.android.tv")?.also {
+            startActivity(it)
+        }
     }
 
     override fun onScanError(reason: Int) {

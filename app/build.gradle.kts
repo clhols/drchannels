@@ -52,6 +52,15 @@ android {
             }
         }
 
+        productFlavors {
+            create("mobile") {
+                applicationId = "dk.youtec.drchannels.mobile"
+            }
+            create("tv") {
+                applicationId = "dk.youtec.drchannels.tv"
+            }
+        }
+
         compileOptions {
             setSourceCompatibility(JavaVersion.VERSION_1_8)
             setTargetCompatibility(JavaVersion.VERSION_1_8)
