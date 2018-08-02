@@ -60,3 +60,6 @@ release.properties
 
 #Sonarqube
 .scannerwork
+
+#MacOS
+.DS_Store
