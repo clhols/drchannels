@@ -1,16 +1,20 @@
 package dk.youtec.drchannels.service
 
+import android.annotation.TargetApi
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Intent
+import android.database.Cursor
 import android.media.tv.TvContract
+import android.media.tv.TvContract.PreviewPrograms.*
 import android.net.Uri
 import android.os.Build
 import android.support.media.tv.Channel
 import android.support.media.tv.PreviewProgram
 import android.support.media.tv.TvContractCompat
+import android.support.media.tv.TvContractCompat.BaseTvColumns.COLUMN_PACKAGE_NAME
 import android.util.Log
 import androidx.core.content.systemService
 import androidx.core.util.forEach
@@ -23,6 +27,7 @@ import dk.youtec.drchannels.util.putPreference
 import dk.youtec.drchannels.util.serverDateFormat
 import java.util.*
 
+@TargetApi(Build.VERSION_CODES.O)
 class PreviewUpdater : Worker() {
     private val tag = PreviewUpdater::class.java.simpleName
 
@@ -37,6 +42,8 @@ class PreviewUpdater : Worker() {
                         if (cursor?.moveToNext() == true) {
                             val channel = Channel.fromCursor(cursor)
                             if (channel.isBrowsable) {
+                                getExistingPrograms(channelId)
+
                                 //update channel's programs
                                 updatePrograms(channelId)
                             }
@@ -44,6 +51,26 @@ class PreviewUpdater : Worker() {
                     }
         }
         return Result.SUCCESS
+    }
+
+    private fun getExistingPrograms(channelId: Long) {
+        val cursor = applicationContext.contentResolver.query(TvContractCompat.buildPreviewProgramsUriForChannel(
+                channelId),
+                null,
+                null,
+                null)
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(cursor.getColumnIndex("_id"))
+                val channel = cursor.getInt(cursor.getColumnIndex(COLUMN_CHANNEL_ID))
+                val contentId = cursor.getString(cursor.getColumnIndex(COLUMN_CONTENT_ID))
+                val packageName = cursor.getString(cursor.getColumnIndex(COLUMN_PACKAGE_NAME))
+                val previewTitle = cursor.getString(cursor.getColumnIndex(COLUMN_TITLE))
+                Log.d(tag,
+                        "Found preview channel id $channel, $packageName, $contentId, $previewTitle, $id")
+
+            } while (cursor.moveToNext())
+        }
     }
 
     @Synchronized
@@ -57,7 +84,7 @@ class PreviewUpdater : Worker() {
         channelMap.forEach { id, _ ->
             val programs = TvContractUtils.getPrograms(contentResolver,
                     TvContract.buildChannelUri(id))
-            programs.distinctBy { it.id }.forEach { program ->
+            programs.forEach { program ->
                 if (program.startTimeUtcMillis <= now && now < program.endTimeUtcMillis) {
 
                     //Find the next time to start updating previews
@@ -95,6 +122,7 @@ class PreviewUpdater : Worker() {
                         .setTitle(title)
                         .setDescription(program.description)
                         .setIntent(intent)
+                        .setContentId(program.id.toString())
                         .setInternalProviderId(program.internalProviderData.videoUrl)
                         .setStartTimeUtcMillis(program.startTimeUtcMillis)
                         .setEndTimeUtcMillis(program.endTimeUtcMillis)
@@ -186,4 +214,34 @@ fun schedulePreviewUpdate() {
     } else {
         Log.d("PreviewUpdater", "Work task already pending")
     }
+}
+
+/**
+ * Returns the current list of programs on a given channel.
+ *
+ * @param resolver Application's ContentResolver.
+ * @param channelUri Channel's Uri.
+ * @return List of programs.
+ * @hide
+ */
+@TargetApi(Build.VERSION_CODES.O)
+fun getPreviewPrograms(resolver: ContentResolver, channelUri: Uri): List<Program>? {
+    val uri = TvContract.buildPreviewProgramsUriForChannel(channelUri)
+    val programs = ArrayList<Program>()
+    // TvProvider returns programs in chronological order by default.
+    var cursor: Cursor? = null
+    try {
+        cursor = resolver.query(uri, Program.PROJECTION, null, null, null)
+        if (cursor == null || cursor.count == 0) {
+            return programs
+        }
+        while (cursor.moveToNext()) {
+            programs.add(Program.fromCursor(cursor))
+        }
+    } catch (e: Exception) {
+        Log.w("PreviewUpdater", "Unable to get preview programs for $channelUri", e)
+    } finally {
+        cursor?.close()
+    }
+    return programs
 }
