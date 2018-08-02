@@ -110,6 +110,9 @@ class PreviewUpdater : Worker() {
         val programId = SharedPreferences.getLong(applicationContext, programIdKey)
         val previewId = SharedPreferences.getLong(applicationContext, previewIdKey)
 
+        Log.v(tag, "Program key $programIdKey has program id $programId")
+        Log.v(tag, "Preview key $previewIdKey has preview id $previewId")
+
         //If this channel is showing the same program as last time.
         if (programId == program.id) {
             Log.d(tag, "Existing program ${program.title} with preview id $previewId")
