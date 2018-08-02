@@ -7,7 +7,6 @@ import android.arch.lifecycle.Observer
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Intent
-import android.database.Cursor
 import android.media.tv.TvContract
 import android.net.Uri
 import android.os.Build
@@ -25,9 +24,10 @@ import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.serverDateFormat
 import java.util.*
 
+private const val TAG = "PreviewUpdater"
+
 @TargetApi(Build.VERSION_CODES.O)
 class PreviewUpdater : Worker() {
-    private val tag = PreviewUpdater::class.java.simpleName
     private lateinit var contentResolver: ContentResolver
 
     override fun doWork(): Result {
@@ -38,16 +38,15 @@ class PreviewUpdater : Worker() {
             contentResolver
                     .query(TvContractCompat.buildChannelUri(previewChannelId),
                             null, null, null, null)
-                    .use { cursor ->
-                        if (cursor?.moveToNext() == true) {
+                    ?.use { cursor ->
+                        if (cursor.moveToNext()) {
                             val channel = Channel.fromCursor(cursor)
                             if (channel.isBrowsable) {
                                 synchronized(PreviewUpdater::class.java) {
-                                    Log.v(tag, "Updating programs for channel ${channel.displayName} with id ${channel.id}")
-                                    val previewPrograms = getPreviewPrograms(previewChannelId)
-
+                                    Log.v(TAG,
+                                            "Updating programs for channel ${channel.displayName} with id ${channel.id}")
                                     //update channel's programs
-                                    updatePrograms(previewChannelId, previewPrograms)
+                                    updatePrograms(previewChannelId)
                                 }
                             }
                         }
@@ -56,34 +55,38 @@ class PreviewUpdater : Worker() {
         return Result.SUCCESS
     }
 
-    private fun updatePrograms(previewChannelId: Long, existingPrograms: List<PreviewProgram>) {
+    private fun updatePrograms(previewChannelId: Long) {
         val now = System.currentTimeMillis()
         var nextProgramFinishTime = Long.MAX_VALUE
 
+        val existingPreviewPrograms = getPreviewPrograms(previewChannelId)
+
         //Remove expired programs
-        existingPrograms
+        existingPreviewPrograms
+                .asSequence()
                 .filter { now >= it.endTimeUtcMillis }
-                .forEach { program ->
-                    //Delete the existing program
-                    if (contentResolver.delete(TvContractCompat.buildPreviewProgramUri(program.id),
+                .forEach { expired ->
+                    //Delete the existing preview
+                    if (contentResolver.delete(TvContractCompat.buildPreviewProgramUri(expired.id),
                                     null, null) > 0) {
-                        Log.d(tag, "Deleted expired program ${program.title} with id ${program.id}")
+                        Log.d(TAG,
+                                "Deleted expired preview program ${expired.title} with id ${expired.id}")
                     }
                 }
 
-        //Update existing or add new programs
-        val channelMap = TvContractUtils.buildChannelMap(contentResolver,
+        //Get current programs from the Live Channels content provider.
+        //Update existing or add new preview programs
+        val channels = TvContractUtils.buildChannelMap(contentResolver,
                 applicationContext.getString(dk.youtec.drchannels.R.string.channelInputId))
-        channelMap.forEach { id, _ ->
-            val programs = TvContractUtils.getPrograms(contentResolver,
-                    TvContract.buildChannelUri(id))
-            val currentPrograms = programs.filter { it.startTimeUtcMillis <= now && now < it.endTimeUtcMillis }
-            currentPrograms
+        channels.forEach { id, _ ->
+            TvContractUtils.getPrograms(contentResolver, TvContract.buildChannelUri(id))
+                    .asSequence()
+                    .filter { it.startTimeUtcMillis <= now && now < it.endTimeUtcMillis }
                     .forEach { program ->
                         //Find the next time to start updating previews
                         nextProgramFinishTime = nextProgramFinishTime.coerceAtMost(program.endTimeUtcMillis)
 
-                        updateProgram(program, previewChannelId, existingPrograms)
+                        updateProgram(program, previewChannelId, existingPreviewPrograms)
                     }
         }
 
@@ -95,7 +98,7 @@ class PreviewUpdater : Worker() {
     /**
      * Removes any existing program from the channel and insert the new one.
      */
-    private fun updateProgram(program: Program, previewChannelId: Long, existingPrograms: List<PreviewProgram>) {
+    private fun updateProgram(program: Program, previewChannelId: Long, existingPreviewPrograms: List<PreviewProgram>) {
         val intent = Intent(applicationContext, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
@@ -124,21 +127,19 @@ class PreviewUpdater : Worker() {
                         .build()
 
         //If this channel is showing the same program as last time.
-        if (isExistingProgram(previewProgram, existingPrograms)) {
-            Log.d(tag, "Existing program ${program.title}")
-            //contentResolver.update(TvContractCompat.buildPreviewProgramUri(previewId),
-            //        previewProgram, null, null)
+        if (isExistingPreviewProgram(previewProgram, existingPreviewPrograms)) {
+            Log.d(TAG, "Existing program ${program.title}")
         } else {
             //Create the new program
             val programUri = contentResolver.insert(TvContractCompat.PreviewPrograms.CONTENT_URI,
                     previewProgram.toContentValues())
             val newPreviewId = ContentUris.parseId(programUri)
 
-            Log.d(tag, "Added program ${program.title} with preview id $newPreviewId")
+            Log.d(TAG, "Added program ${previewProgram.title} with preview id $newPreviewId")
         }
     }
 
-    private fun isExistingProgram(program: PreviewProgram, existingPrograms: List<PreviewProgram>): Boolean {
+    private fun isExistingPreviewProgram(program: PreviewProgram, existingPrograms: List<PreviewProgram>): Boolean {
         return existingPrograms.any {
             it.startTimeUtcMillis == program.startTimeUtcMillis
                     && it.endTimeUtcMillis == program.endTimeUtcMillis
@@ -151,7 +152,7 @@ class PreviewUpdater : Worker() {
      */
     private fun scheduleNextProgramsUpdate(time: Long) {
         val timeString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(time))
-        Log.d(tag, "Scheduling next preview update at $timeString")
+        Log.d(TAG, "Scheduling next preview update at $timeString")
 
         val pendingIntent = PendingIntent.getBroadcast(applicationContext,
                 0,
@@ -181,19 +182,15 @@ class PreviewUpdater : Worker() {
         val uri = TvContract.buildPreviewProgramsUriForChannel(channelId)
         val programs = ArrayList<PreviewProgram>()
         // TvProvider returns programs in chronological order by default.
-        var cursor: Cursor? = null
         try {
-            cursor = contentResolver.query(uri, Program.PROJECTION, null, null, null)
-            if (cursor == null || cursor.count == 0) {
-                return programs
-            }
-            while (cursor.moveToNext()) {
-                programs.add(PreviewProgram.fromCursor(cursor))
-            }
+            contentResolver.query(uri, Program.PROJECTION, null, null, null)
+                    ?.use { cursor ->
+                        while (cursor.moveToNext()) {
+                            programs.add(PreviewProgram.fromCursor(cursor))
+                        }
+                    }
         } catch (e: Exception) {
-            Log.w("PreviewUpdater", "Unable to get preview programs for $channelId", e)
-        } finally {
-            cursor?.close()
+            Log.w(TAG, "Unable to get preview programs for $channelId", e)
         }
         return programs
     }
@@ -205,7 +202,7 @@ class PreviewUpdater : Worker() {
 @Synchronized
 fun schedulePreviewUpdate() {
     val tag = "updatePreviewPrograms"
-    lateinit var observer : Observer<MutableList<WorkStatus>>
+    lateinit var observer: Observer<MutableList<WorkStatus>>
 
     val statuses = WorkManager.getInstance().getStatusesByTag(tag)
     observer = Observer { workStatuses ->
@@ -220,9 +217,9 @@ fun schedulePreviewUpdate() {
                     .addTag(tag)
                     .build()
             WorkManager.getInstance().enqueue(updatePreviewPrograms)
-            Log.d("PreviewUpdater", "Work task enqueued")
+            Log.d(TAG, "Work task enqueued")
         } else {
-            Log.d("PreviewUpdater", "Work task already pending")
+            Log.d(TAG, "Work task already pending")
         }
     }
     statuses.observeForever(observer)
