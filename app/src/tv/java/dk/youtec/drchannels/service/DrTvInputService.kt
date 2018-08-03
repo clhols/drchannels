@@ -42,10 +42,10 @@ import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.log.EventLogger
 import dk.youtec.drchannels.player.TvExoPlayer
 import dk.youtec.drchannels.util.serverDateFormat
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.withContext
+import kotlinx.coroutines.CommonPool
+import kotlinx.coroutines.android.UI
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class DrTvInputService : BaseTvInputService() {
