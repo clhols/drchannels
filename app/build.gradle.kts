@@ -85,8 +85,8 @@ dependencies {
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.24.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0-eap13")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.24.0-eap13")
 
     implementation("com.google.android.exoplayer:exoplayer:2.8.2")
 

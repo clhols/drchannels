@@ -8,9 +8,10 @@ buildscript {
         mavenCentral()
         google()
         jcenter()
+        maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
     }
 
-    val kotlinVersion by extra("1.2.60")
+    val kotlinVersion by extra("1.3-M1")
 
     dependencies {
         classpath("com.android.tools.build:gradle:3.2.0-beta05")
@@ -24,10 +25,11 @@ allprojects {
         mavenCentral()
         google()
         jcenter()
+        maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
     }
 }
 
-val kotlinVersion by extra("1.2.60")
+val kotlinVersion by extra("1.3-M1")
 val compileSdkVersion by extra(28)
 val targetSdkVersion by extra(28)
 val buildToolsVersion by extra("28.0.1")
