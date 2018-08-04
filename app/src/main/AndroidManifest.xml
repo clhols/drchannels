@@ -42,6 +42,10 @@
                 android:name="preloaded_fonts"
                 android:resource="@array/preloaded_fonts"/>
 
+        <meta-data
+                android:name="dk.youtec.drchannels.ui.image.GlideModule"
+                android:value="GlideModule"/>
+
     </application>
 
 </manifest>

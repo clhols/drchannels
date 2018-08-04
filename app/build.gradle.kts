@@ -81,6 +81,7 @@ kapt {
 dependencies {
     val kotlinVersion: String by rootProject.extra
     val supportLibVersion: String by rootProject.extra
+    val glideVersion: String by rootProject.extra
 
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
@@ -91,19 +92,20 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer:2.8.2")
 
     implementation("org.jetbrains.anko:anko-sdk15:0.10.5")
-    implementation("com.github.bumptech.glide:glide:4.7.1")
-    implementation("com.github.bumptech.glide:okhttp3-integration:4.7.1")
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
+    implementation("com.github.bumptech.glide:okhttp3-integration:$glideVersion")
+    kapt("com.github.bumptech.glide:compiler:$glideVersion")
     implementation("com.squareup.okhttp3:okhttp:3.11.0")
     implementation("com.android.support:design:$supportLibVersion")
     implementation("com.android.support:support-v4:$supportLibVersion")
     implementation("com.android.support:recyclerview-v7:$supportLibVersion")
     implementation("com.android.support:support-tv-provider:$supportLibVersion")
-    implementation("com.android.support.constraint:constraint-layout:2.0.0+")
+    implementation("com.android.support.constraint:constraint-layout:+")
     implementation("androidx.core:core-ktx:0.3")
 
     implementation("android.arch.lifecycle:extensions:1.1.1")
     kapt("android.arch.lifecycle:compiler:1.1.1")
-    implementation("android.arch.work:work-runtime-ktx:1.0.0+")
+    implementation("android.arch.work:work-runtime-ktx:+")
 
     implementation("io.reactivex.rxjava2:rxjava:2.1.17")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
