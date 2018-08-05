@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="updateApp">App update</string>
+    <string name="newAppVersionReady">New app version is ready!</string>
+    <string name="update">Update</string>
+</resources>
