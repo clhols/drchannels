@@ -13,7 +13,9 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import androidx.core.view.isVisible
+import dk.youtec.appupdater.updateApp
 import dk.youtec.drapi.MuNowNext
+import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
@@ -26,6 +28,8 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
+import kotlinx.coroutines.CommonPool
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 
@@ -92,6 +96,13 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                 .build()
         gcmNetworkManager.schedule(task)
         */
+
+        launch(CommonPool) {
+            updateApp(this@MainActivity,
+                    BuildConfig.VERSION_CODE,
+                    "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
+                    "https://www.dropbox.com/s/fwc2q3a3vw67rhv/drchannels.apk?dl=1")
+        }
     }
 
     /**
