@@ -35,6 +35,8 @@ dependencies {
     val kotlinVersion: String by rootProject.extra
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0-eap13")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.24.0-eap13")
     implementation("com.android.support:support-v4:$supportLibVersion")
     implementation("com.squareup.okhttp3:okhttp:3.11.0")
 }
