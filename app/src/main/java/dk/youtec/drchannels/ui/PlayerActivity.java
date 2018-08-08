@@ -25,6 +25,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
@@ -163,6 +164,44 @@ public class PlayerActivity extends Activity
     private AdsLoader adsLoader;
     private Uri loadedAdTagUri;
     private ViewGroup adUiViewGroup;
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        Log.v("PlayerActivity", "Key pressed: " + keyCode);
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BUTTON_Y:
+                break;
+            case KeyEvent.KEYCODE_BUTTON_A:
+                break;
+            case KeyEvent.KEYCODE_BUTTON_X:
+                break;
+            case KeyEvent.KEYCODE_BUTTON_B:
+                break;
+            case KeyEvent.KEYCODE_BUTTON_THUMBL:
+                break;
+            case KeyEvent.KEYCODE_BUTTON_THUMBR:
+                break;
+            case KeyEvent.KEYCODE_BUTTON_R1:
+                player.seekTo(player.getCurrentPosition() + 10000);
+                return true;
+            case KeyEvent.KEYCODE_BUTTON_L1:
+                player.seekTo(player.getCurrentPosition() - 10000);
+                return true;
+            case KeyEvent.KEYCODE_BUTTON_START:
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                break;
+        }
+
+        return super.onKeyUp(keyCode, event);
+    }
 
     // Activity lifecycle
 
