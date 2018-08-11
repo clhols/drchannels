@@ -45,7 +45,7 @@ class ProgramsActivity : AppCompatActivity() {
 
         //Setup toolbar
         toolbar.title = ""
-        toolbarTitle.text = intent.extras.get(CHANNEL_NAME) as String
+        toolbarTitle.text = intent.extras?.getString(CHANNEL_NAME) ?: ""
         setSupportActionBar(toolbar)
 
         //Setup toolbar up navigation
@@ -56,7 +56,7 @@ class ProgramsActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView.requestFocus()
 
-        val id = intent.extras.get(CHANNEL_ID) as String
+        val id = intent.extras?.getString(CHANNEL_ID) ?: ""
 
         loadPrograms(id)
     }

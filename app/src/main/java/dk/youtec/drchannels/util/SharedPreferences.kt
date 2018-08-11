@@ -13,7 +13,7 @@ inline fun Context.putPreference(
 
 object SharedPreferences {
     fun getString(context: Context, key: String, default: String = ""): String =
-            context.defaultSharedPreferences.getString(key, default)
+            context.defaultSharedPreferences.getString(key, default) ?: default
 
     fun getLong(context: Context, key: String, default: Long = 0): Long =
             context.defaultSharedPreferences.getLong(key, default)

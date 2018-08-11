@@ -199,11 +199,11 @@ class DrTvInputSessionImpl(
         val trackSelections = player!!.currentTrackSelections.all.filter { it != null }
         trackSelections.forEach { trackSelection ->
 
+            val format = trackSelection.selectedFormat
+            val formatId = format.id
             val trackType = getTrackType(trackSelection)
-            if (trackType != unknownType) {
-                val format = trackSelection.selectedFormat
-
-                val builder = TvTrackInfo.Builder(trackType, format.id)
+            if (trackType != unknownType && formatId != null) {
+                val builder = TvTrackInfo.Builder(trackType, formatId)
 
                 when (trackType) {
                     TvTrackInfo.TYPE_VIDEO -> {

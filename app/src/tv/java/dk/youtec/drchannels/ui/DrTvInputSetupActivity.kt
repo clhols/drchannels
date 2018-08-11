@@ -28,6 +28,7 @@ class DrTvInputSetupActivity : AppCompatActivity() {
             arguments.putString(TvInputInfo.EXTRA_INPUT_ID, inputId)
         }
 
+        @Suppress("DEPRECATION")
         fragmentManager.beginTransaction().add(android.R.id.content, fragment).commit()
     }
 
