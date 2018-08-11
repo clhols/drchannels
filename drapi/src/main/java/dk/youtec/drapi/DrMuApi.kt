@@ -1,6 +1,6 @@
 package dk.youtec.drapi
 
-import retrofit2.Call
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -11,22 +11,22 @@ const val API_URL = "https://www.dr.dk/mu-online/api/$API_VERSION/"
 
 internal interface DrMuApi {
     @GET("channel/all-active-dr-tv-channels")
-    fun getAllActiveDrTvChannels(): Call<List<Channel>>
+    fun getAllActiveDrTvChannels(): Deferred<List<Channel>>
 
     @GET("{uri}")
-    fun getManifest(@Path("uri") uri: String): Call<Manifest>
+    fun getManifest(@Path("uri") uri: String): Deferred<Manifest>
 
     @GET("schedule/{id}") // Date format yyyy-MM-dd HH:mm:ss
-    fun getSchedule(@Path("id") id: String, @Query("broadcastdate") date: String): Call<Schedule>
+    fun getSchedule(@Path("id") id: String, @Query("broadcastdate") date: String): Deferred<Schedule>
 
     @GET("schedule/nownext/{id}")
-    fun getScheduleNowNext(@Path("id") id: String): Call<MuNowNext>
+    fun getScheduleNowNext(@Path("id") id: String): Deferred<MuNowNext>
 
     @GET("schedule/nownext-for-all-active-dr-tv-channels")
-    fun getScheduleNowNext(): Call<List<MuNowNext>>
+    fun getScheduleNowNext(): Deferred<List<MuNowNext>>
 
     @GET("search/tv/programcards-latest-episode-with-asset/series-title/{query}")
-    fun search(@Path("query") query: String): Call<SearchResult>
+    fun search(@Path("query") query: String): Deferred<SearchResult>
 }
 
 data class SearchResult(

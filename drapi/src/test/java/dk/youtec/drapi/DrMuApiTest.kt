@@ -3,34 +3,22 @@ package dk.youtec.drapi
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 import retrofit2.Converter
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DrMuApiTest {
-    private val converterFactory: Converter.Factory = JacksonConverterFactory.create(
-            ObjectMapper().registerModule(KotlinModule()).apply {
-                configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            })
-
     @Test
     fun testAllActiveDrTvChannels() {
-        val retrofit = Retrofit.Builder()
-                .baseUrl(API_URL)
-                .addConverterFactory(converterFactory)
-                .build()
+        val channels = runBlocking { service.getAllActiveDrTvChannels().await() }
 
-        val service = retrofit.create<DrMuApi>(DrMuApi::class.java)
-
-        val response: Response<List<Channel>> = service.getAllActiveDrTvChannels().execute()
-        val channels = response.body()
-
-        val channelIds = channels?.map { it.Slug } ?: emptyList()
+        val channelIds = channels.map { it.Slug }
         val expectedChannelIds = listOf("dr1", "dr2", "dr3", "dr-k", "dr-ramasjang", "dr-ultra")
 
         Assert.assertTrue(
@@ -40,34 +28,32 @@ class DrMuApiTest {
 
     @Test
     fun testScheduleDr1() {
-        val retrofit = Retrofit.Builder()
-                .baseUrl(API_URL)
-                .addConverterFactory(converterFactory)
-                .build()
-
-        val service = retrofit.create<DrMuApi>(DrMuApi::class.java)
-
         val date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-        val response: Response<Schedule> = service.getSchedule(
-                "dr1",
-                date).execute()
-        val schedule = response.body()
+        val schedule = runBlocking { service.getSchedule("dr1", date).await() }
 
-        Assert.assertEquals("dr1", schedule?.ChannelSlug)
+        Assert.assertEquals("dr1", schedule.ChannelSlug)
     }
 
     @Test
     fun testSearch() {
-        val retrofit = Retrofit.Builder()
-                .baseUrl(API_URL)
-                .addConverterFactory(converterFactory)
-                .build()
+        val searchResult = runBlocking { service.search("bonderøven").await() }
 
-        val service = retrofit.create<DrMuApi>(DrMuApi::class.java)
-
-        val response: Response<SearchResult> = service.search("bonderøven").execute()
-        val searchResult = response.body()
-
-        Assert.assertEquals(searchResult?.Items?.first()?.SeriesSlug, "bonderoeven-tv")
+        Assert.assertEquals(searchResult.Items.first().SeriesSlug, "bonderoeven-tv")
     }
+
+    private val service
+        get(): DrMuApi {
+            val converterFactory: Converter.Factory = JacksonConverterFactory.create(
+                    ObjectMapper().registerModule(KotlinModule()).apply {
+                        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                    })
+            val callAdapterFactory = CoroutineCallAdapterFactory()
+
+            val retrofit = Retrofit.Builder()
+                    .baseUrl(API_URL)
+                    .addConverterFactory(converterFactory)
+                    .addCallAdapterFactory(callAdapterFactory)
+                    .build()
+            return retrofit.create(DrMuApi::class.java)
+        }
 }
