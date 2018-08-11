@@ -60,7 +60,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="dk.youtec.drchannels.service.PreviewUpdateReceiver"/>
+        <receiver android:name="dk.youtec.drchannels.service.CurrentProgramsPreviewUpdateReceiver"/>
 
     </application>
 

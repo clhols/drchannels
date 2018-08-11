@@ -19,7 +19,7 @@ class DrTvInputSetupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setupPreviewChannel()
+        setupCurrentProgramsPreviewChannel()
 
         val inputId = getString(R.string.channelInputId)
 
@@ -31,7 +31,7 @@ class DrTvInputSetupActivity : AppCompatActivity() {
         fragmentManager.beginTransaction().add(android.R.id.content, fragment).commit()
     }
 
-    private fun setupPreviewChannel() {
+    private fun setupCurrentProgramsPreviewChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && SharedPreferences.getLong(this, "channelId") == 0L) {
 

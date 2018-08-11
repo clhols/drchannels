@@ -11,7 +11,6 @@ import com.google.android.media.tv.companionlibrary.ChannelSetupFragment
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.service.DrTvEpgJobService
-import dk.youtec.drchannels.service.schedulePreviewUpdate
 import org.jetbrains.anko.toast
 import java.util.concurrent.TimeUnit
 
