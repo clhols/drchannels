@@ -41,5 +41,6 @@
     <string name="ima_not_loaded">Playing sample without ads, as the IMA extension was not loaded</string>
     <string name="error_generic">Playback failed</string>
     <string name="currentPrograms">Current programs</string>
+    <string name="mostViewed">Most viewed</string>
     <string name="missingResponse">Missing response</string>
 </resources>

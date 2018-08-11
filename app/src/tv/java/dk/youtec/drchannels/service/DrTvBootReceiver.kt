@@ -42,8 +42,6 @@ class DrTvBootReceiver : BroadcastReceiver() {
                             .forEach { jobScheduler?.schedule(it) }
                 }
             }
-
-            schedulePreviewUpdate()
         }
     }
 }

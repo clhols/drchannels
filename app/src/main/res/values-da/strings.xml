@@ -39,5 +39,6 @@
     <string name="ima_not_loaded">Afspiller uden reklamer, da IMA udvidelsen ikke kunne findes</string>
     <string name="error_generic">Afspilning fejlede</string>
     <string name="currentPrograms">Aktuelle programmer</string>
+    <string name="mostViewed">Mest sete</string>
     <string name="missingResponse">Manglende svar</string>
 </resources>

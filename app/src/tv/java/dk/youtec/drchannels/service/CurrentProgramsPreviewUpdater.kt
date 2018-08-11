@@ -24,16 +24,17 @@ import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.serverDateFormat
 import java.util.*
 
-private const val TAG = "PreviewUpdater"
+private val TAG = CurrentProgramsPreviewUpdater::class.java.simpleName
 
 @TargetApi(Build.VERSION_CODES.O)
-class PreviewUpdater : Worker() {
+class CurrentProgramsPreviewUpdater : Worker() {
     private lateinit var contentResolver: ContentResolver
 
     override fun doWork(): Result {
         contentResolver = applicationContext.contentResolver
+        val channelKey = "channelId"
         //Id of preview channel
-        val previewChannelId = SharedPreferences.getLong(applicationContext, "channelId")
+        val previewChannelId = SharedPreferences.getLong(applicationContext, channelKey)
         if (previewChannelId > 0L) {
             contentResolver
                     .query(TvContractCompat.buildChannelUri(previewChannelId),
@@ -41,13 +42,11 @@ class PreviewUpdater : Worker() {
                     ?.use { cursor ->
                         if (cursor.moveToNext()) {
                             val channel = Channel.fromCursor(cursor)
-                            if (channel.isBrowsable) {
-                                synchronized(PreviewUpdater::class.java) {
-                                    Log.v(TAG,
-                                            "Updating programs for channel ${channel.displayName} with id ${channel.id}")
-                                    //update channel's programs
-                                    updatePrograms(previewChannelId)
-                                }
+                            synchronized(CurrentProgramsPreviewUpdater::class.java) {
+                                Log.v(TAG,
+                                        "Updating programs for channel ${channel.displayName} with id ${channel.id}")
+                                //update channel's programs
+                                updatePrograms(previewChannelId)
                             }
                         }
                     }
@@ -156,7 +155,7 @@ class PreviewUpdater : Worker() {
 
         val pendingIntent = PendingIntent.getBroadcast(applicationContext,
                 0,
-                Intent(applicationContext, PreviewUpdateReceiver::class.java),
+                Intent(applicationContext, CurrentProgramsPreviewUpdateReceiver::class.java),
                 PendingIntent.FLAG_CANCEL_CURRENT)
 
         //Schedule the pending intent
@@ -200,8 +199,8 @@ class PreviewUpdater : Worker() {
  * Schedules a new task to update the preview channel if no other task is pending or running.
  */
 @Synchronized
-fun schedulePreviewUpdate() {
-    val tag = "updatePreviewPrograms"
+fun scheduleCurrentProgramsPreviewUpdate() {
+    val tag = "scheduleCurrentProgramsPreviewUpdate"
     lateinit var observer: Observer<MutableList<WorkStatus>>
 
     val statuses = WorkManager.getInstance().getStatusesByTag(tag)
@@ -210,7 +209,7 @@ fun schedulePreviewUpdate() {
 
         val pendingWork = workStatuses?.any { !it.state.isFinished } ?: false
         if (!pendingWork) {
-            val updatePreviewPrograms = OneTimeWorkRequestBuilder<PreviewUpdater>()
+            val updatePreviewPrograms = OneTimeWorkRequestBuilder<CurrentProgramsPreviewUpdater>()
                     .setConstraints(Constraints.Builder()
                             .setRequiredNetworkType(NetworkType.CONNECTED)
                             .build())

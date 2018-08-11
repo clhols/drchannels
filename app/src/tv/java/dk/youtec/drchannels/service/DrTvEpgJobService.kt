@@ -32,7 +32,8 @@ class DrTvEpgJobService : EpgSyncJobService() {
             if (syncStatus == EpgSyncJobService.SYNC_FINISHED) {
                 Log.d("DrTvEpgJobService", "Sync finished, scheduling preview update")
 
-                schedulePreviewUpdate()
+                scheduleCurrentProgramsPreviewUpdate()
+                scheduleMostViewedPreviewUpdate()
             }
         }
     }
