@@ -21,7 +21,7 @@ class DrTvInputSetupFragment: ChannelSetupFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        extraInputId = arguments.getString(TvInputInfo.EXTRA_INPUT_ID)
+        extraInputId = arguments.getString(TvInputInfo.EXTRA_INPUT_ID)!!
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
