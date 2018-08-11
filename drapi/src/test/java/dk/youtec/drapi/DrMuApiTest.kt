@@ -41,6 +41,13 @@ class DrMuApiTest {
         Assert.assertEquals(searchResult.Items.first().SeriesSlug, "bonderoeven-tv")
     }
 
+    @Test
+    fun testMostViewed() {
+        val mostViewed = runBlocking { service.getMostViewed("", "TV", 6).await() }
+
+        Assert.assertEquals(mostViewed.Items.size, 6)
+    }
+
     private val service
         get(): DrMuApi {
             val converterFactory: Converter.Factory = JacksonConverterFactory.create(

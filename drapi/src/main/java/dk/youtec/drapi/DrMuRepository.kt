@@ -72,4 +72,8 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
     fun search(query: String): SearchResult? = runBlocking(CommonPool) {
         service.search(query).await()
     }
+
+    fun getMostViewed(): MostViewed = runBlocking(CommonPool) {
+        service.getMostViewed("", "TV", 10).await()
+    }
 }
