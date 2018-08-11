@@ -82,6 +82,7 @@ dependencies {
     val kotlinVersion: String by rootProject.extra
     val supportLibVersion: String by rootProject.extra
     val glideVersion: String by rootProject.extra
+    val archComponentVersion: String by rootProject.extra
 
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
@@ -104,8 +105,8 @@ dependencies {
     implementation("com.android.support.constraint:constraint-layout:+")
     implementation("androidx.core:core-ktx:0.3")
 
-    implementation("android.arch.lifecycle:extensions:1.1.1")
-    kapt("android.arch.lifecycle:compiler:1.1.1")
+    implementation("android.arch.lifecycle:extensions:$archComponentVersion")
+    kapt("android.arch.lifecycle:compiler:$archComponentVersion")
     implementation("android.arch.work:work-runtime-ktx:+")
 
     implementation("io.reactivex.rxjava2:rxjava:2.1.17")
