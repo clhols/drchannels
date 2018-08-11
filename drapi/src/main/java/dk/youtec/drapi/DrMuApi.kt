@@ -27,6 +27,13 @@ internal interface DrMuApi {
 
     @GET("search/tv/programcards-latest-episode-with-asset/series-title/{query}")
     fun search(@Path("query") query: String): Deferred<SearchResult>
+
+    @GET("list/view/mostviewed")
+    fun getMostViewed(
+            @Query("channel") channel: String,
+            @Query("channelType") channelType: String,
+            @Query("limit") limit: Int
+    ): Deferred<MostViewed>
 }
 
 data class SearchResult(
@@ -176,3 +183,8 @@ data class Subtitle(
         val MimeType: String,
         val Type: String,
         val Uri: String)
+
+data class MostViewed(
+        val Items: List<ProgramCard>,
+        val Paging: MuPaging,
+        val TotalSize: Int)
