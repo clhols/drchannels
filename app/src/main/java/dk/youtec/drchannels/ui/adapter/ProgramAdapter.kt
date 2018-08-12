@@ -139,12 +139,12 @@ class ProgramAdapter(
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
                                 onSuccess = { manifest ->
-                                    val playbackUri = manifest.Links.firstOrNull { it.Target == "HLS" }?.Uri
+                                    val playbackUri = manifest.uri
                                     if (playbackUri != null) {
                                         val intent = buildIntent(context, playbackUri)
                                         context.startActivity(intent)
                                     } else {
-                                        context.toast("No HLS stream")
+                                        context.toast("No stream")
                                     }
                                 },
                                 onError = { e ->

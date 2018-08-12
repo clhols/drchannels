@@ -105,8 +105,7 @@ class DrMuReactiveRepository(private val context: Context) {
 
 val Channel.streamingUrl: String
     get() {
-        val server = StreamingServers.first { it.LinkType == "HLS" }
-        val stream = server.Qualities.sortedByDescending { it.Kbps }.first()
+        val stream = server!!.Qualities.sortedByDescending { it.Kbps }.first()
                 .Streams.first().Stream
-        return "${server.Server}/$stream"
+        return "${server!!.Server}/$stream"
     }

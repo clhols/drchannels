@@ -76,7 +76,7 @@ class MostViewedPreviewUpdater : Worker() {
      */
     private fun addProgram(program: ProgramCard, previewChannelId: Long) {
         val playbackUri = program.PrimaryAsset?.Uri?.let { uri ->
-            api.getManifest(uri)?.Links?.firstOrNull { it.Target == "HLS" }?.Uri
+            api.getManifest(uri)?.uri
         }
 
         val intent = Intent(applicationContext, PlayerActivity::class.java).apply {

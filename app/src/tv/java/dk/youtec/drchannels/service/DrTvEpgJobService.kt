@@ -56,7 +56,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
     override fun getChannels(): List<Channel> {
         val drTvChannels = api.getAllActiveDrTvChannels()
-                .filter { it.StreamingServers.count { it.LinkType == "HLS" } > 0 }
+                .filter { it.server != null }
                 .filter { !it.WebChannel }
                 .sortedBy { it.Title.replace(" ", "") }
 

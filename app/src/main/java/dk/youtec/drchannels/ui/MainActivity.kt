@@ -175,7 +175,7 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                 api.getAllActiveDrTvChannels()
                         .subscribeOn(Schedulers.io())
                         .map { it.first { it.Slug == name } }
-                        .map { it.StreamingServers.first { it.LinkType == "HLS" } }
+                        .map { it.server!! }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
                                 onSuccess = { server ->
@@ -202,12 +202,12 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeBy(
                                     onSuccess = { manifest ->
-                                        val playbackUri = manifest.Links.firstOrNull { it.Target == "HLS" }?.Uri
+                                        val playbackUri = manifest.uri
                                         if (playbackUri != null) {
                                             val intent = buildIntent(this@MainActivity, playbackUri)
                                             startActivity(intent)
                                         } else {
-                                            toast("No HLS stream")
+                                            toast("No stream")
                                         }
                                     },
                                     onError = { e ->
