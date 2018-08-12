@@ -134,7 +134,9 @@ public class PlayerActivity extends Activity
     private static final String KEY_POSITION = "position";
     private static final String KEY_AUTO_PLAY = "auto_play";
 
-    private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
+    private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter.Builder()
+            .setInitialBitrateEstimate(2_000_000)
+            .build();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
     static {
         DEFAULT_COOKIE_MANAGER = new CookieManager();
