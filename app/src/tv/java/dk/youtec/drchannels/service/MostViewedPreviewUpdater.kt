@@ -13,6 +13,7 @@ import android.support.media.tv.ChannelLogoUtils
 import android.support.media.tv.PreviewProgram
 import android.support.media.tv.TvContractCompat
 import android.util.Log
+import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.work.*
 import com.google.android.media.tv.companionlibrary.model.Program
@@ -22,7 +23,7 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.MainActivity
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
-import dk.youtec.drchannels.util.putPreference
+import org.jetbrains.anko.defaultSharedPreferences
 import java.util.*
 
 private val TAG = MostViewedPreviewUpdater::class.java.simpleName
@@ -66,7 +67,7 @@ class MostViewedPreviewUpdater : Worker() {
                     }
                 }
 
-        DrMuRepository().getMostViewed().Items.forEach { program ->
+        api.getMostViewed().Items.forEach { program ->
             addProgram(program, previewChannelId)
         }
     }
@@ -76,7 +77,7 @@ class MostViewedPreviewUpdater : Worker() {
      */
     private fun addProgram(program: ProgramCard, previewChannelId: Long) {
         val playbackUri = program.PrimaryAsset?.Uri?.let { uri ->
-            api.getManifest(uri)?.uri
+            api.getManifest(uri).uri
         }
 
         val intent = Intent(applicationContext, PlayerActivity::class.java).apply {
@@ -85,13 +86,11 @@ class MostViewedPreviewUpdater : Worker() {
             data = playbackUri?.toUri()
         }
 
-        val title = program.Title
-
         val previewProgram =
                 PreviewProgram.Builder()
                         .setChannelId(previewChannelId)
                         .setType(TvContractCompat.PreviewPrograms.TYPE_TV_EPISODE)
-                        .setTitle(title)
+                        .setTitle(program.Title)
                         .setDescription(program.OnlineGenreText)
                         .setIntent(intent)
                         .setInternalProviderId(program.PrimaryAsset?.Uri)
@@ -135,14 +134,14 @@ class MostViewedPreviewUpdater : Worker() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && SharedPreferences.getLong(applicationContext, channelKey) == 0L) {
 
-            val builder = Channel.Builder()
-            // Every channel you create must have the type `TYPE_PREVIEW`
-            builder.setType(TvContractCompat.Channels.TYPE_PREVIEW)
+            val channel = Channel.Builder()
+                    .setType(TvContractCompat.Channels.TYPE_PREVIEW)
                     .setDisplayName(applicationContext.getString(R.string.mostViewed))
                     .setAppLinkIntent(Intent(applicationContext, MainActivity::class.java))
+                    .build()
 
             val channelUri = contentResolver.insert(
-                    TvContractCompat.Channels.CONTENT_URI, builder.build().toContentValues())
+                    TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
 
             val channelId = ContentUris.parseId(channelUri)
 
@@ -153,7 +152,7 @@ class MostViewedPreviewUpdater : Worker() {
 
             TvContractCompat.requestChannelBrowsable(applicationContext, channelId)
 
-            applicationContext.putPreference {
+            applicationContext.defaultSharedPreferences.edit {
                 putLong(channelKey, channelId)
             }
         }
