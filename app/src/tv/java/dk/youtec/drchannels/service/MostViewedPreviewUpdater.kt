@@ -7,13 +7,13 @@ import android.content.ContentUris
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.tv.TvContract
-import android.net.Uri
 import android.os.Build
 import android.support.media.tv.Channel
 import android.support.media.tv.ChannelLogoUtils
 import android.support.media.tv.PreviewProgram
 import android.support.media.tv.TvContractCompat
 import android.util.Log
+import androidx.core.net.toUri
 import androidx.work.*
 import com.google.android.media.tv.companionlibrary.model.Program
 import dk.youtec.drapi.DrMuRepository
@@ -82,7 +82,7 @@ class MostViewedPreviewUpdater : Worker() {
         val intent = Intent(applicationContext, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-            data = Uri.parse(playbackUri)
+            data = playbackUri?.toUri()
         }
 
         val title = program.Title
@@ -96,7 +96,7 @@ class MostViewedPreviewUpdater : Worker() {
                         .setIntent(intent)
                         .setInternalProviderId(program.PrimaryAsset?.Uri)
                         .setStartTimeUtcMillis(program.PrimaryBroadcastStartTime.time)
-                        .setPosterArtUri(Uri.parse(program.PrimaryImageUri))
+                        .setPosterArtUri(program.PrimaryImageUri.toUri())
                         .build()
 
         //Create the new program
