@@ -11,8 +11,10 @@ import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.text.TextUtils
 import android.util.Log
+import androidx.core.net.toUri
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.DefaultLoadControl.*
+import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS
+import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MAX_BUFFER_MS
 import com.google.android.exoplayer2.offline.FilteringManifestParser
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
@@ -105,7 +107,7 @@ class DrTvInputSessionImpl(
         player = TvExoPlayer(renderersFactory, trackSelector, loadControl).apply {
             addListener(this@DrTvInputSessionImpl)
             addAnalyticsListener(eventLogger)
-            prepare(buildMediaSource(Uri.parse(providerData.videoUrl)), true, false)
+            prepare(buildMediaSource(providerData.videoUrl.toUri()), true, false)
         }
     }
 

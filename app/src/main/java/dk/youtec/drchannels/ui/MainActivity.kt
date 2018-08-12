@@ -5,13 +5,13 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import dk.youtec.appupdater.updateApp
 import dk.youtec.drapi.MuNowNext
@@ -28,8 +28,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
-import kotlinx.coroutines.CommonPool
-import kotlinx.coroutines.launch
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 
@@ -226,7 +224,7 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
         return Intent(context, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-            data = Uri.parse(uri)
+            data = uri.toUri()
         }
     }
 

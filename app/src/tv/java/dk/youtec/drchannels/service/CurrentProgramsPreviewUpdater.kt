@@ -8,13 +8,13 @@ import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Intent
 import android.media.tv.TvContract
-import android.net.Uri
 import android.os.Build
 import android.support.media.tv.Channel
 import android.support.media.tv.PreviewProgram
 import android.support.media.tv.TvContractCompat
 import android.util.Log
 import androidx.core.content.systemService
+import androidx.core.net.toUri
 import androidx.core.util.forEach
 import androidx.work.*
 import com.google.android.media.tv.companionlibrary.model.Program
@@ -101,7 +101,7 @@ class CurrentProgramsPreviewUpdater : Worker() {
         val intent = Intent(applicationContext, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-            data = Uri.parse(program.internalProviderData.videoUrl)
+            data = program.internalProviderData.videoUrl.toUri()
         }
 
         val title = with(program) {
@@ -122,7 +122,7 @@ class CurrentProgramsPreviewUpdater : Worker() {
                         .setDurationMillis((program.endTimeUtcMillis - program.startTimeUtcMillis).toInt())
                         .setLive(true)
                         .setWeight((Int.MAX_VALUE - program.channelId).toInt())
-                        .setPosterArtUri(Uri.parse(program.posterArtUri))
+                        .setPosterArtUri(program.posterArtUri.toUri())
                         .build()
 
         //If this channel is showing the same program as last time.

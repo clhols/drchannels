@@ -5,12 +5,12 @@ import android.content.Intent
 import android.content.res.Resources
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
-import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
@@ -166,7 +166,7 @@ class ProgramAdapter(
         return Intent(context, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, preferExtensionDecoders)
-            data = Uri.parse(uri)
+            data = uri.toUri()
         }
     }
 
