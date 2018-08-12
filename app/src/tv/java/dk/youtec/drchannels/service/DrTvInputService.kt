@@ -396,10 +396,7 @@ class DrTvInputRecordingSessionImpl(
         val endPublish = internalProviderData.get("endPublish") as String?
 
         val manifestResponse = DrMuRepository().getManifest(assetUri)
-        val playbackUrl = manifestResponse?.Links
-                ?.asSequence()
-                ?.firstOrNull { it.Target == "HLS" }
-                ?.Uri ?: ""
+        val playbackUrl = manifestResponse?.uri ?: ""
 
         val downloadUrl = manifestResponse?.Links
                 ?.asSequence()

@@ -32,6 +32,14 @@ class DrMuApiTest {
         val schedule = runBlocking { service.getSchedule("dr1", date).await() }
 
         Assert.assertEquals("dr1", schedule.ChannelSlug)
+
+        val broadcast = schedule.Broadcasts.firstOrNull()
+        val uri = broadcast?.primaryAssetUri
+        if (uri != null) {
+            val manifest = runBlocking { service.getManifest(uri.removePrefix(API_URL)).await() }
+            val playbackUri = manifest.uri
+            Assert.assertNotNull(playbackUri)
+        }
     }
 
     @Test

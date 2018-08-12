@@ -76,7 +76,16 @@ data class Channel(
         val PresentationUriAutoplay: String = "",
         val Title: String,
         val ItemLabel: String = "",
-        val Subtitle: String = "")
+        val Subtitle: String = "") {
+    val hlsServer: MuStreamingServer?
+        get() = StreamingServers.firstOrNull { it.LinkType == "HLS" }
+    val hdsServer: MuStreamingServer?
+        get() = StreamingServers.firstOrNull { it.LinkType == "HDS" }
+    //val dashServer: MuStreamingServer?
+    //    get() = StreamingServers.firstOrNull { it.LinkType == "DASH" }
+    val server: MuStreamingServer?
+        get() = hlsServer ?: hdsServer
+}
 
 data class MuStreamingServer(
         val Server: String,
@@ -118,7 +127,10 @@ data class MuScheduleBroadcast(
         val SubtitlesTTV: Boolean,
         val VideoHD: Boolean,
         val WhatsOnUri: String,
-        val IsRerun: Boolean)
+        val IsRerun: Boolean) {
+    val primaryAssetUri: String?
+        get() = ProgramCard.PrimaryAsset?.Uri
+}
 
 data class ProgramCard(
         val Type: String,
@@ -168,7 +180,14 @@ data class PrimaryAsset(
 
 data class Manifest(
         val Links: List<Link>,
-        val SubtitlesList: List<Subtitle>)
+        val SubtitlesList: List<Subtitle>) {
+    val hlsUri: String?
+        get() = Links.firstOrNull { it.Target == "HLS" }?.Uri
+    val hdsUri: String?
+        get() = Links.firstOrNull { it.Target == "HDS" }?.Uri
+    val uri: String?
+        get() = hlsUri ?: hdsUri
+}
 
 data class Link(
         val HardSubtitlesType: String,
