@@ -1,15 +1,7 @@
 package dk.youtec.drchannels.util
 
 import android.content.Context
-import androidx.core.content.edit
 import org.jetbrains.anko.defaultSharedPreferences
-
-inline fun Context.putPreference(
-        crossinline block: android.content.SharedPreferences.Editor.() -> android.content.SharedPreferences.Editor) {
-    defaultSharedPreferences.edit {
-        block()
-    }
-}
 
 object SharedPreferences {
     fun getString(context: Context, key: String, default: String = ""): String =

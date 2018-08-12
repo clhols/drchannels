@@ -400,12 +400,12 @@ class DrTvInputRecordingSessionImpl(
         val endPublish = internalProviderData.get("endPublish") as String?
 
         val manifestResponse = DrMuRepository().getManifest(assetUri)
-        val playbackUrl = manifestResponse?.uri ?: ""
+        val playbackUrl = manifestResponse.uri ?: ""
 
-        val downloadUrl = manifestResponse?.Links
-                ?.asSequence()
-                ?.sortedByDescending { it.Bitrate }
-                ?.firstOrNull { it.Target == "Download" }
+        val downloadUrl = manifestResponse.Links
+                .asSequence()
+                .sortedByDescending { it.Bitrate }
+                .firstOrNull { it.Target == "Download" }
                 ?.Uri ?: ""
 
         if (playbackUrl.isNotEmpty()) {

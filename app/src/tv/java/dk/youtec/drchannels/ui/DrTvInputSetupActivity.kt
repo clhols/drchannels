@@ -10,9 +10,10 @@ import android.support.media.tv.Channel
 import android.support.media.tv.ChannelLogoUtils
 import android.support.media.tv.TvContractCompat
 import android.support.v7.app.AppCompatActivity
+import androidx.core.content.edit
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.util.SharedPreferences
-import dk.youtec.drchannels.util.putPreference
+import org.jetbrains.anko.defaultSharedPreferences
 
 class DrTvInputSetupActivity : AppCompatActivity() {
 
@@ -36,14 +37,14 @@ class DrTvInputSetupActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && SharedPreferences.getLong(this, "channelId") == 0L) {
 
-            val builder = Channel.Builder()
-            // Every channel you create must have the type `TYPE_PREVIEW`
-            builder.setType(TvContractCompat.Channels.TYPE_PREVIEW)
+            val channel = Channel.Builder()
+                    .setType(TvContractCompat.Channels.TYPE_PREVIEW)
                     .setDisplayName(getString(R.string.currentPrograms))
                     .setAppLinkIntent(Intent(this, MainActivity::class.java))
+                    .build()
 
             val channelUri = contentResolver.insert(
-                    TvContractCompat.Channels.CONTENT_URI, builder.build().toContentValues())
+                    TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
 
             val channelId = ContentUris.parseId(channelUri)
 
@@ -53,7 +54,7 @@ class DrTvInputSetupActivity : AppCompatActivity() {
 
             TvContractCompat.requestChannelBrowsable(this, channelId)
 
-            putPreference {
+            defaultSharedPreferences.edit {
                 putLong("channelId", channelId)
             }
         }

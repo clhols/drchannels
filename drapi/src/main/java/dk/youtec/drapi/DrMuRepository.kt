@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CommonPool
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -41,7 +42,7 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
     /**
      * @param uri Uri from a [PrimaryAsset] from a [ProgramCard]
      */
-    fun getManifest(uri: String): Manifest? = runBlocking(CommonPool) {
+    fun getManifest(uri: String): Manifest = runBlocking(CommonPool) {
         service.getManifest(uri.removePrefix(API_URL)).await()
     }
 
