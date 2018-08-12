@@ -70,7 +70,9 @@ class DrTvInputSessionImpl(
     private val tag = DrTvInputSessionImpl::class.java.simpleName
     private val unknownType = -1
 
-    private val defaultBandwidthMeter = DefaultBandwidthMeter()
+    private val defaultBandwidthMeter = DefaultBandwidthMeter.Builder().apply {
+        setInitialBitrateEstimate(2_000_000)
+    }.build()
     private val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(
             defaultBandwidthMeter))
     private val eventLogger = EventLogger(trackSelector)
