@@ -18,7 +18,7 @@ import okio.Okio
 import java.io.File
 
 class UpdateActivity : AppCompatActivity() {
-    private val tag = "UpdateActivity"
+    private val tag = UpdateActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
