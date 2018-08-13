@@ -41,14 +41,18 @@ fun updateApp(context: Context, versionCode: Int, metaUrl: String, apkUrl: Strin
     }
 }
 
-private suspend fun getAppVersionFromMeta(context: Context, metaUrl: String): Int = withContext(
-        CommonPool) {
+private suspend fun getAppVersionFromMeta(
+        context: Context,
+        metaUrl: String
+): Int = withContext(CommonPool) {
     val httpClient = OkHttpClientFactory.getInstance(context)
 
     val request = Request.Builder().url(metaUrl).build()
     val response = httpClient.newCall(request).execute()
     val metaString = response.body()?.string() ?: ""
 
-    JSONArray(metaString).optJSONObject(0).optJSONObject("apkInfo")?.optInt("versionCode")
-            ?: BuildConfig.VERSION_CODE
+    JSONArray(metaString)
+            .optJSONObject(0)
+            .optJSONObject("apkInfo")
+            ?.optInt("versionCode") ?: BuildConfig.VERSION_CODE
 }
