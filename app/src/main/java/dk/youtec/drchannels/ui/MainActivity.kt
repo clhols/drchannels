@@ -73,28 +73,6 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                     swipeRefresh.isRefreshing = false
                 })
 
-        //Schedule task
-        /*
-        val gcmNetworkManager = GcmNetworkManager.getInstance(this)
-        gcmNetworkManager.cancelAllTasks(UpcomingProgramsService::class.java)
-
-        val nowTask = OneoffTask.Builder()
-                .setService(UpcomingProgramsService::class.java)
-                .setExecutionWindow(0L, 10L)
-                //.setRequiredNetwork(PeriodicTask.NETWORK_STATE_CONNECTED)
-                .setTag(UpcomingProgramsService.UPCOMING_PROGRAMS)
-                .build()
-        gcmNetworkManager.schedule(nowTask)
-
-        val task = PeriodicTask.Builder()
-                .setService(UpcomingProgramsService::class.java)
-                .setPeriod(24 * 60 * 60)
-                //.setRequiredNetwork(PeriodicTask.NETWORK_STATE_CONNECTED)
-                .setTag(UpcomingProgramsService.UPCOMING_PROGRAMS)
-                .build()
-        gcmNetworkManager.schedule(task)
-        */
-
         updateApp(this@MainActivity,
                 BuildConfig.VERSION_CODE,
                 "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
