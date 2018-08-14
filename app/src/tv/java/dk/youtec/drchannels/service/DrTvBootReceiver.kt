@@ -40,6 +40,11 @@ class DrTvBootReceiver : BroadcastReceiver() {
                     pendingJobs
                             .filter { it.isPersisted }
                             .forEach { jobScheduler?.schedule(it) }
+                } else {
+                    pendingJobs
+                            .forEach {
+                                Log.v(tag, "Pending jobs: $it")
+                            }
                 }
             }
         }
