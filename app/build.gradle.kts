@@ -35,6 +35,7 @@ android {
         applicationId = "dk.youtec.drchannels"
         versionCode = versionCodeTimestamp
         versionName = "0.1"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -113,6 +114,10 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxjava:2.2.0")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
+
+    androidTestImplementation("com.android.support.test:runner:1.0.2")
+    androidTestImplementation("com.android.support.test:rules:1.0.2")
+
 }
 
 play {

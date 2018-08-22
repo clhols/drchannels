@@ -101,6 +101,17 @@ class DrMuReactiveRepository(private val context: Context) {
             }
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
+
+    fun search(query: String): Single<SearchResult> {
+        return Single.create<SearchResult> { subscriber ->
+            try {
+                val searchResult: SearchResult = api.search(query)
+                subscriber.onSuccess(searchResult)
+            } catch (e: IOException) {
+                subscriber.onError(DrMuException(e.message))
+            }
+        }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
+    }
 }
 
 val Channel.streamingUrl: String

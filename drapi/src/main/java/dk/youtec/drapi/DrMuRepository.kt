@@ -57,7 +57,7 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
      * Gets Now and Next information from a single channel.
      * @param id Channel id from [Channel.Slug]
      */
-    fun getScheduleNowNext(id: String): MuNowNext? = runBlocking(CommonPool) {
+    fun getScheduleNowNext(id: String): MuNowNext = runBlocking(CommonPool) {
         service.getScheduleNowNext(id).await()
     }
 
@@ -66,11 +66,11 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
      * @param id Channel id from [Channel.Slug]
      * @param date Day to load schedule from
      */
-    fun getSchedule(id: String, date: String): Schedule? = runBlocking(CommonPool) {
+    fun getSchedule(id: String, date: String): Schedule = runBlocking(CommonPool) {
         service.getSchedule(id, date).await()
     }
 
-    fun search(query: String): SearchResult? = runBlocking(CommonPool) {
+    fun search(query: String): SearchResult = runBlocking(CommonPool) {
         service.search(query).await()
     }
 
