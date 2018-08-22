@@ -195,6 +195,6 @@ class DrTvEpgJobService : EpgSyncJobService() {
     private fun getBroadcasts(channel: Channel, date: Date): MutableList<MuScheduleBroadcast> {
         val dateString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
         val schedule = api.getSchedule(channel.networkAffiliation, dateString)
-        return schedule?.Broadcasts?.toMutableList() ?: mutableListOf()
+        return schedule.Broadcasts.toMutableList()
     }
 }
