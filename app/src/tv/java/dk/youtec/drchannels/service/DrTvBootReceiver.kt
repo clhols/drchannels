@@ -47,6 +47,8 @@ class DrTvBootReceiver : BroadcastReceiver() {
                             }
                 }
             }
+
+            scheduleCurrentProgramsPreviewUpdate()
         }
     }
 }
