@@ -1,6 +1,5 @@
-package dk.youtec.appupdater.plugin
+package dk.youtec.appupdater
 
-import com.visiolink.app.task.TagProjectTask
 import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project

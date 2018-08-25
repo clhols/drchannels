@@ -1,4 +1,4 @@
-package dk.youtec.appupdater.plugin
+package dk.youtec.appupdater
 
 import org.gradle.api.tasks.TaskAction
 import java.io.File

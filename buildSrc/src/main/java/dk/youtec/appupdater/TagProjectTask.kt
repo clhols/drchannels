@@ -1,8 +1,6 @@
-package com.visiolink.app.task
+package dk.youtec.appupdater
 
 import com.android.build.gradle.BasePlugin
-import dk.youtec.appupdater.plugin.AppUpdaterGroupTask
-import dk.youtec.appupdater.plugin.execute
 
 /**
  * Task to tag project with version code
