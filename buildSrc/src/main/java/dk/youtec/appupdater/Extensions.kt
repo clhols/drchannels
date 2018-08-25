@@ -1,4 +1,4 @@
-package dk.youtec.appupdater.plugin
+package dk.youtec.appupdater
 
 import groovy.lang.Closure
 import java.io.File
