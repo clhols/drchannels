@@ -16,7 +16,7 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:3.3.0-alpha07")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("com.github.triplet.gradle:play-publisher:1.2.0")
+        classpath("com.github.triplet.gradle:play-publisher:1.2.2")
     }
 }
 
