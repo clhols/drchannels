@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.Request
 import org.json.JSONArray
+import java.io.IOException
 
 private const val tag = "AppUpdater"
 
@@ -20,22 +21,25 @@ private const val tag = "AppUpdater"
  * @param apkUrl Url pointing to the APK file.
  * @param changelogUrl Url pointing to a file with the changelog.
  */
+@JvmOverloads
 fun updateApp(
         context: Context,
         versionCode: Int,
         metaUrl: String,
         apkUrl: String,
-        changelogUrl: String) = launch(UI) {
+        changelogUrl: String = "") = launch(UI) {
     val metaAppVersion = getAppVersionFromMeta(context, metaUrl)
     Log.v(tag, "Meta has version code $metaAppVersion")
 
     if (metaAppVersion > versionCode) {
         val changelog = getChangelog(context, changelogUrl)
+        var message = context.getString(R.string.newAppVersionReady)
+        if (changelog.isNotBlank()) message += "\n\n$changelog"
 
         AlertDialog.Builder(context)
                 .setTitle(context.getString(R.string.updateApp))
                 .setCancelable(true)
-                .setMessage(context.getString(R.string.newAppVersionReady) + "\n\n$changelog")
+                .setMessage(message)
                 .setPositiveButton(context.getString(R.string.update)) { _, _ ->
                     context.startActivity(Intent(context, UpdateActivity::class.java).apply {
                         putExtra("apkUrl", apkUrl)
@@ -67,9 +71,16 @@ private suspend fun getChangelog(
         context: Context,
         changelogUrl: String
 ): String = withContext(CommonPool) {
-    val httpClient = OkHttpClientFactory.getInstance(context)
+    if (changelogUrl.isNotBlank()) {
+        try {
+            val httpClient = OkHttpClientFactory.getInstance(context)
 
-    val request = Request.Builder().url(changelogUrl).build()
-    val response = httpClient.newCall(request).execute()
-    response.body()?.string() ?: ""
+            val request = Request.Builder().url(changelogUrl).build()
+            val response = httpClient.newCall(request).execute()
+            response.body()?.string() ?: ""
+        } catch (e: IOException) {
+            Log.e(tag, e.message, e)
+            ""
+        }
+    } else ""
 }
