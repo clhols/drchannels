@@ -18,26 +18,32 @@ private const val tag = "AppUpdater"
  *
  * @param metaUrl Url pointing to the output.json file from the Gradle build.
  * @param apkUrl Url pointing to the APK file.
+ * @param changelogUrl Url pointing to a file with the changelog.
  */
-fun updateApp(context: Context, versionCode: Int, metaUrl: String, apkUrl: String) {
-    launch(UI) {
-        val metaAppVersion = getAppVersionFromMeta(context, metaUrl)
-        Log.v(tag, "Meta has version code $metaAppVersion")
+fun updateApp(
+        context: Context,
+        versionCode: Int,
+        metaUrl: String,
+        apkUrl: String,
+        changelogUrl: String) = launch(UI) {
+    val metaAppVersion = getAppVersionFromMeta(context, metaUrl)
+    Log.v(tag, "Meta has version code $metaAppVersion")
 
-        if (metaAppVersion > versionCode) {
-            AlertDialog.Builder(context)
-                    .setTitle(context.getString(R.string.updateApp))
-                    .setCancelable(true)
-                    .setMessage(context.getString(R.string.newAppVersionReady))
-                    .setPositiveButton(context.getString(R.string.update)) { _, _ ->
-                        context.startActivity(Intent(context, UpdateActivity::class.java).apply {
-                            putExtra("apkUrl", apkUrl)
-                        })
-                    }
-                    .create().show()
-        } else {
-            Log.d(tag, "App is the latest version $versionCode")
-        }
+    if (metaAppVersion > versionCode) {
+        val changelog = getChangelog(context, changelogUrl)
+
+        AlertDialog.Builder(context)
+                .setTitle(context.getString(R.string.updateApp))
+                .setCancelable(true)
+                .setMessage(context.getString(R.string.newAppVersionReady) + "\n\n$changelog")
+                .setPositiveButton(context.getString(R.string.update)) { _, _ ->
+                    context.startActivity(Intent(context, UpdateActivity::class.java).apply {
+                        putExtra("apkUrl", apkUrl)
+                    })
+                }
+                .create().show()
+    } else {
+        Log.d(tag, "App is the latest version $versionCode")
     }
 }
 
@@ -55,4 +61,15 @@ private suspend fun getAppVersionFromMeta(
             .optJSONObject(0)
             .optJSONObject("apkInfo")
             ?.optInt("versionCode") ?: BuildConfig.VERSION_CODE
+}
+
+private suspend fun getChangelog(
+        context: Context,
+        changelogUrl: String
+): String = withContext(CommonPool) {
+    val httpClient = OkHttpClientFactory.getInstance(context)
+
+    val request = Request.Builder().url(changelogUrl).build()
+    val response = httpClient.newCall(request).execute()
+    response.body()?.string() ?: ""
 }
