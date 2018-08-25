@@ -48,5 +48,5 @@ val targetSdkVersion by extra(28)
 val buildToolsVersion by extra("28.0.2")
 val supportLibVersion by extra("27.1.1")
 val archComponentVersion by extra("1.1.1")
-val glideVersion by extra("4.7.1")
+val glideVersion by extra("4.8.0")
 val isCiBuild = System.getenv("CI") == "true"
