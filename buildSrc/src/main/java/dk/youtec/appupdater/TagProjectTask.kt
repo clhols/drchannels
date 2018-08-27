@@ -15,7 +15,7 @@ open class TagProjectTask : AppUpdaterGroupTask() {
     fun action() {
 
         androidBasePlugin
-                ?: throw org.gradle.api.GradleException("You must apply the Android plugin or the Android library plugin before using the visiolink plugin")
+                ?: throw org.gradle.api.GradleException("You must apply the Android plugin or the Android library plugin before using this plugin")
 
         val android = project.extensions.getByName("android") as com.android.build.gradle.AppExtension
 
