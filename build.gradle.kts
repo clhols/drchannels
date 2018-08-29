@@ -11,7 +11,7 @@ buildscript {
         maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
     }
 
-    val kotlinVersion by extra("1.3-M1")
+    val kotlinVersion by extra("1.3-M2")
 
     dependencies {
         classpath("com.android.tools.build:gradle:3.3.0-alpha08")
@@ -42,7 +42,7 @@ allprojects {
     }
 }
 
-val kotlinVersion by extra("1.3-M1")
+val kotlinVersion by extra("1.3-M2")
 val compileSdkVersion by extra(28)
 val targetSdkVersion by extra(28)
 val buildToolsVersion by extra("28.0.2")
