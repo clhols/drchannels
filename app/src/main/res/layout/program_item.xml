@@ -25,6 +25,7 @@
 
         <TextView
             android:id="@+id/title"
+            android:fontFamily="@font/primary_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -47,6 +48,7 @@
 
         <TextView
             android:id="@+id/live"
+            android:fontFamily="@font/primary_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -62,6 +64,7 @@
 
         <TextView
             android:id="@+id/time"
+            android:fontFamily="@font/primary_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -89,6 +92,7 @@
 
     <TextView
         android:id="@+id/nowDescription"
+        android:fontFamily="@font/primary_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingBottom="12dp"
