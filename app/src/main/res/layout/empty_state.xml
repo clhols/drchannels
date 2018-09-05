@@ -22,6 +22,7 @@
 
     <TextView
         android:id="@+id/empty_state_no_connection_text"
+        android:fontFamily="@font/primary_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
