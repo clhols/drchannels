@@ -86,15 +86,16 @@ dependencies {
     val supportLibVersion: String by rootProject.extra
     val glideVersion: String by rootProject.extra
     val archComponentVersion: String by rootProject.extra
+    val coroutinesVersion: String by rootProject.extra
 
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
     implementation(project(":appupdater"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0-eap13")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:0.24.0-eap13")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
 
-    implementation("com.google.android.exoplayer:exoplayer:2.8.2")
+    implementation("com.google.android.exoplayer:exoplayer:2.8.4")
 
     implementation("org.jetbrains.anko:anko-sdk15:0.10.5")
     implementation("com.github.bumptech.glide:glide:$glideVersion")
