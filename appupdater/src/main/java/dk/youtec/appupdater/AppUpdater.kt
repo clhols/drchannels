@@ -1,13 +1,12 @@
 package dk.youtec.appupdater
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import kotlinx.coroutines.CommonPool
-import kotlinx.coroutines.android.UI
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.android.Main
 import okhttp3.Request
 import org.json.JSONArray
 import java.io.IOException
@@ -23,38 +22,40 @@ private const val tag = "AppUpdater"
  */
 @JvmOverloads
 fun updateApp(
-        context: Context,
+        activity: Activity,
         versionCode: Int,
         metaUrl: String,
         apkUrl: String,
-        changelogUrl: String = "") = launch(UI) {
-    val metaAppVersion = getAppVersionFromMeta(context, metaUrl)
+        changelogUrl: String = "") = GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT, null, {
+    val metaAppVersion = getAppVersionFromMeta(activity, metaUrl)
     Log.v(tag, "Meta has version code $metaAppVersion")
 
     if (metaAppVersion > versionCode) {
-        val changelog = getChangelog(context, changelogUrl)
-        var message = context.getString(R.string.newAppVersionReady)
+        val changelog = getChangelog(activity, changelogUrl)
+        var message = activity.getString(R.string.newAppVersionReady)
         if (changelog.isNotBlank()) message += "\n\n$changelog"
 
-        AlertDialog.Builder(context)
-                .setTitle(context.getString(R.string.updateApp))
-                .setCancelable(true)
-                .setMessage(message)
-                .setPositiveButton(context.getString(R.string.update)) { _, _ ->
-                    context.startActivity(Intent(context, UpdateActivity::class.java).apply {
-                        putExtra("apkUrl", apkUrl)
-                    })
-                }
-                .create().show()
+        if (!activity.isFinishing) {
+            AlertDialog.Builder(activity)
+                    .setTitle(activity.getString(R.string.updateApp))
+                    .setCancelable(true)
+                    .setMessage(message)
+                    .setPositiveButton(activity.getString(R.string.update)) { _, _ ->
+                        activity.startActivity(Intent(activity, UpdateActivity::class.java).apply {
+                            putExtra("apkUrl", apkUrl)
+                        })
+                    }
+                    .create().show()
+        }
     } else {
         Log.d(tag, "App is the latest version $versionCode")
     }
-}
+})
 
 private suspend fun getAppVersionFromMeta(
         context: Context,
         metaUrl: String
-): Int = withContext(CommonPool) {
+): Int = withContext(Dispatchers.Default) {
     val httpClient = OkHttpClientFactory.getInstance(context)
 
     val request = Request.Builder().url(metaUrl).build()
@@ -70,7 +71,7 @@ private suspend fun getAppVersionFromMeta(
 private suspend fun getChangelog(
         context: Context,
         changelogUrl: String
-): String = withContext(CommonPool) {
+): String = withContext(Dispatchers.Default) {
     if (changelogUrl.isNotBlank()) {
         try {
             val httpClient = OkHttpClientFactory.getInstance(context)
