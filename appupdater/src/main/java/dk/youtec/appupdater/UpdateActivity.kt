@@ -8,16 +8,17 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
-import kotlinx.coroutines.CommonPool
-import kotlinx.coroutines.android.UI
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.android.Main
 import okhttp3.CacheControl
 import okhttp3.Request
 import okio.Okio
 import java.io.File
+import kotlin.coroutines.CoroutineContext
 
-class UpdateActivity : AppCompatActivity() {
+class UpdateActivity : AppCompatActivity(), CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
     private val tag = UpdateActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +28,7 @@ class UpdateActivity : AppCompatActivity() {
 
         val apkUrl = intent.getStringExtra("apkUrl")
 
-        launch(UI) {
+        launch {
             downloadApk(this@UpdateActivity, apkUrl)?.also {
                 installApk(this@UpdateActivity, it)
                 finish()

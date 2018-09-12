@@ -44,11 +44,10 @@ import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.log.EventLogger
 import dk.youtec.drchannels.player.TvExoPlayer
 import dk.youtec.drchannels.util.serverDateFormat
-import kotlinx.coroutines.CommonPool
-import kotlinx.coroutines.android.UI
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.android.Main
 import java.util.*
+import kotlin.coroutines.CoroutineContext
 
 class DrTvInputService : BaseTvInputService() {
     override fun onCreateSession(inputId: String): TvInputService.Session {
@@ -347,7 +346,10 @@ class DrTvInputSessionImpl(
 class DrTvInputRecordingSessionImpl(
         context: Context,
         private val inputId: String
-) : BaseTvInputService.RecordingSession(context, inputId) {
+) : BaseTvInputService.RecordingSession(context, inputId), CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
+
     private val tag = DrTvInputRecordingSessionImpl::class.java.simpleName
 
     override fun onTune(uri: Uri) {
@@ -382,7 +384,7 @@ class DrTvInputRecordingSessionImpl(
         // Additionally, the stream should be recorded and saved as
         // a new file.
 
-        launch(UI) {
+        launch {
             val recordedProgram = getRecordedProgram(programToRecord)
 
             Log.d(tag, "onStopRecording, recorded=$recordedProgram")
@@ -393,7 +395,7 @@ class DrTvInputRecordingSessionImpl(
 
     private suspend fun getRecordedProgram(
             programToRecord: Program
-    ): RecordedProgram? = withContext(CommonPool) {
+    ): RecordedProgram? = withContext(Dispatchers.Default) {
 
         val internalProviderData = programToRecord.internalProviderData
         val assetUri = internalProviderData.get("assetUri") as String

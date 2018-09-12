@@ -10,16 +10,17 @@ import com.google.android.exoplayer2.RenderersFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.trackselection.TrackSelector
 import com.google.android.media.tv.companionlibrary.TvPlayer
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.android.UI
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.android.Main
+import kotlin.coroutines.CoroutineContext
 
 open class TvExoPlayer(
         renderersFactory: RenderersFactory,
         trackSelector: TrackSelector,
         loadControl: LoadControl
-) : SimpleExoPlayer(renderersFactory, trackSelector, loadControl, null), TvPlayer {
+) : SimpleExoPlayer(renderersFactory, trackSelector, loadControl, null), TvPlayer, CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
 
     private var seekJob: Job? = null
 
@@ -43,7 +44,7 @@ open class TvExoPlayer(
         if (speed != 1f) {
             pause()
 
-            seekJob = launch(UI) {
+            seekJob = launch {
                 while (true) {
                     val position = Math.max(0, (currentPosition + speed * 5000).toLong())
                     seekTo(position)
