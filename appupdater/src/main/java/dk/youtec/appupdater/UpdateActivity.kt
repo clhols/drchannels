@@ -38,7 +38,7 @@ class UpdateActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private suspend fun downloadApk(context: Context, apkUrl: String): File? =
-            withContext(CommonPool) {
+            withContext(Dispatchers.Default) {
                 val httpClient = OkHttpClientFactory.getInstance(context)
 
                 val request = Request.Builder()
