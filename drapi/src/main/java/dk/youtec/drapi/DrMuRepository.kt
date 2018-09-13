@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.CommonPool
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -35,21 +36,21 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
     /**
      * Gets channels
      */
-    fun getAllActiveDrTvChannels(): List<Channel> = runBlocking(CommonPool) {
+    fun getAllActiveDrTvChannels(): List<Channel> = runBlocking(Dispatchers.IO) {
         service.getAllActiveDrTvChannels().await()
     }
 
     /**
      * @param uri Uri from a [PrimaryAsset] from a [ProgramCard]
      */
-    fun getManifest(uri: String): Manifest = runBlocking(CommonPool) {
+    fun getManifest(uri: String): Manifest = runBlocking(Dispatchers.IO) {
         service.getManifest(uri.removePrefix(API_URL)).await()
     }
 
     /**
      * Gets Now and Next information from all active channels.
      */
-    fun getScheduleNowNext(): List<MuNowNext> = runBlocking(CommonPool) {
+    fun getScheduleNowNext(): List<MuNowNext> = runBlocking(Dispatchers.IO) {
         service.getScheduleNowNext().await()
     }
 
@@ -57,7 +58,7 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
      * Gets Now and Next information from a single channel.
      * @param id Channel id from [Channel.Slug]
      */
-    fun getScheduleNowNext(id: String): MuNowNext = runBlocking(CommonPool) {
+    fun getScheduleNowNext(id: String): MuNowNext = runBlocking(Dispatchers.IO) {
         service.getScheduleNowNext(id).await()
     }
 
@@ -66,15 +67,15 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
      * @param id Channel id from [Channel.Slug]
      * @param date Day to load schedule from
      */
-    fun getSchedule(id: String, date: String): Schedule = runBlocking(CommonPool) {
+    fun getSchedule(id: String, date: String): Schedule = runBlocking(Dispatchers.IO) {
         service.getSchedule(id, date).await()
     }
 
-    fun search(query: String): SearchResult = runBlocking(CommonPool) {
+    fun search(query: String): SearchResult = runBlocking(Dispatchers.IO) {
         service.search(query).await()
     }
 
-    fun getMostViewed(): MostViewed = runBlocking(CommonPool) {
+    fun getMostViewed(): MostViewed = runBlocking(Dispatchers.IO) {
         service.getMostViewed("", "TV", 10).await()
     }
 }
