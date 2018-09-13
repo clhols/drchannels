@@ -26,7 +26,7 @@ fun updateApp(
         versionCode: Int,
         metaUrl: String,
         apkUrl: String,
-        changelogUrl: String = "") = GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT, null, {
+        changelogUrl: String = "") = GlobalScope.launch(Dispatchers.Main) {
     val metaAppVersion = getAppVersionFromMeta(activity, metaUrl)
     Log.v(tag, "Meta has version code $metaAppVersion")
 
@@ -50,7 +50,7 @@ fun updateApp(
     } else {
         Log.d(tag, "App is the latest version $versionCode")
     }
-})
+}
 
 private suspend fun getAppVersionFromMeta(
         context: Context,
