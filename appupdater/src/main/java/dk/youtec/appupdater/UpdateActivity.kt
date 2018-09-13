@@ -17,8 +17,9 @@ import java.io.File
 import kotlin.coroutines.CoroutineContext
 
 class UpdateActivity : AppCompatActivity(), CoroutineScope {
+    private val job = Job()
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
+        get() = job + Dispatchers.Main
     private val tag = UpdateActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +38,13 @@ class UpdateActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
+    }
+
     private suspend fun downloadApk(context: Context, apkUrl: String): File? =
-            withContext(Dispatchers.Default) {
+            withContext(Dispatchers.IO) {
                 val httpClient = OkHttpClientFactory.getInstance(context)
 
                 val request = Request.Builder()

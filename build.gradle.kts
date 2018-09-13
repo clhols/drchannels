@@ -14,7 +14,7 @@ buildscript {
     val kotlinVersion by extra("1.3-M1")
 
     dependencies {
-        classpath("com.android.tools.build:gradle:3.3.0-alpha08")
+        classpath("com.android.tools.build:gradle:3.3.0+")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("com.github.triplet.gradle:play-publisher:1.2.2")
     }
