@@ -43,6 +43,7 @@
 
                 <TextView
                     android:id="@+id/channelName"
+                    android:fontFamily="@font/primary_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="12dp"
@@ -52,6 +53,7 @@
 
                 <TextView
                     android:id="@+id/title"
+                    android:fontFamily="@font/primary_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -64,6 +66,7 @@
 
                 <TextView
                     android:id="@+id/time"
+                    android:fontFamily="@font/primary_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingEnd="4dp"
@@ -99,6 +102,7 @@
 
         <dk.youtec.drchannels.ui.view.AutoMaxLinesTextView
             android:id="@+id/nowDescription"
+            android:fontFamily="@font/primary_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="10"
