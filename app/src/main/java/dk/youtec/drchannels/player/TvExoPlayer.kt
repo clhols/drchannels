@@ -18,10 +18,7 @@ open class TvExoPlayer(
         renderersFactory: RenderersFactory,
         trackSelector: TrackSelector,
         loadControl: LoadControl
-) : SimpleExoPlayer(renderersFactory, trackSelector, loadControl, null), TvPlayer, CoroutineScope {
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
-
+) : SimpleExoPlayer(renderersFactory, trackSelector, loadControl, null), TvPlayer {
     private var seekJob: Job? = null
 
     override fun setSurface(surface: Surface?) {
@@ -44,7 +41,7 @@ open class TvExoPlayer(
         if (speed != 1f) {
             pause()
 
-            seekJob = launch {
+            seekJob = GlobalScope.launch {
                 while (true) {
                     val position = Math.max(0, (currentPosition + speed * 5000).toLong())
                     seekTo(position)

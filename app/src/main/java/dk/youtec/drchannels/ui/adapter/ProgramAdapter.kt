@@ -141,8 +141,7 @@ class ProgramAdapter(
                                 onSuccess = { manifest ->
                                     val playbackUri = manifest.uri
                                     if (playbackUri != null) {
-                                        val intent = buildIntent(context, playbackUri)
-                                        context.startActivity(intent)
+                                        context.startActivity(buildIntent(context, playbackUri))
                                     } else {
                                         context.toast("No stream")
                                     }

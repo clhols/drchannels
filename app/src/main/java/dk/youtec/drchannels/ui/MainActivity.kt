@@ -156,10 +156,14 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
                                 onSuccess = { server ->
-                                    val stream = server.Qualities.sortedByDescending { it.Kbps }.first().Streams.first().Stream
-                                    val playbackUri = "${server.Server}/$stream"
-                                    val intent = buildIntent(this@MainActivity, playbackUri)
-                                    startActivity(intent)
+                                    val stream = server
+                                            .Qualities
+                                            .sortedByDescending { it.Kbps }.first()
+                                            .Streams.first().Stream
+                                    startActivity(
+                                            buildIntent(
+                                                    this@MainActivity,
+                                                    "${server.Server}/$stream"))
                                 },
                                 onError = { e ->
                                     toast(
@@ -181,8 +185,8 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                                     onSuccess = { manifest ->
                                         val playbackUri = manifest.uri
                                         if (playbackUri != null) {
-                                            val intent = buildIntent(this@MainActivity, playbackUri)
-                                            startActivity(intent)
+                                            startActivity(
+                                                    buildIntent(this@MainActivity, playbackUri))
                                         } else {
                                             toast("No stream")
                                         }

@@ -66,13 +66,25 @@ class ProgramsActivity : AppCompatActivity() {
 
         val scheduleSingle: Single<Schedule> =
                 Singles.zip(
-                        api.getSchedule(id, serverCalendar { set(SECOND, 0); set(MINUTE, 0); add(DATE, 1) }.time)
+                        api.getSchedule(id,
+                                serverCalendar {
+                                    set(SECOND, 0); set(MINUTE, 0); add(DATE,
+                                        1)
+                                }.time)
                                 .subscribeOn(Schedulers.io()),
                         api.getSchedule(id, serverCalendar { set(SECOND, 0); set(MINUTE, 0) }.time)
                                 .subscribeOn(Schedulers.io()),
-                        api.getSchedule(id, serverCalendar { set(SECOND, 0); set(MINUTE, 0); add(DATE, -1) }.time)
+                        api.getSchedule(id,
+                                serverCalendar {
+                                    set(SECOND, 0); set(MINUTE, 0); add(DATE,
+                                        -1)
+                                }.time)
                                 .subscribeOn(Schedulers.io()),
-                        api.getSchedule(id, serverCalendar { set(SECOND, 0); set(MINUTE, 0); add(DATE, -2) }.time)
+                        api.getSchedule(id,
+                                serverCalendar {
+                                    set(SECOND, 0); set(MINUTE, 0); add(DATE,
+                                        -2)
+                                }.time)
                                 .subscribeOn(Schedulers.io())
                 ) { tomorrow, today, yesterday, twoDaysAgo ->
                     val broadcasts = mutableListOf<MuScheduleBroadcast>().apply {
@@ -104,6 +116,7 @@ class ProgramsActivity : AppCompatActivity() {
         progressBar.isVisible = false
 
         genres = schedule.Broadcasts
+                .asSequence()
                 .map { it.OnlineGenreText ?: "" }
                 .filter { it.isNotBlank() }
                 .toSet()
@@ -163,12 +176,8 @@ class ProgramsActivity : AppCompatActivity() {
             item.isChecked = true
 
             when (CATEGORY_ALL) {
-                item.itemId -> {
-                    selectGenre("")
-                }
-                else -> {
-                    selectGenre(item.title.toString())
-                }
+                item.itemId -> selectGenre("")
+                else -> selectGenre(item.title.toString())
             }
 
             return true
