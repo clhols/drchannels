@@ -384,7 +384,7 @@ class DrTvInputRecordingSessionImpl(
         // Additionally, the stream should be recorded and saved as
         // a new file.
 
-        launch {
+        GlobalScope.launch {
             val recordedProgram = getRecordedProgram(programToRecord)
 
             Log.d(tag, "onStopRecording, recorded=$recordedProgram")

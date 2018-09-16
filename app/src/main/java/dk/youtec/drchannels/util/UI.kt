@@ -20,14 +20,12 @@ fun colorMenuItem(menuItem: MenuItem, color: Int?, alpha: Int?) {
         return  // nothing to do.
     }
     val drawable = menuItem.icon
-    if (drawable != null) {
-        // If we don't mutate the drawable, then all drawables with this id will have the ColorFilter
-        drawable.mutate()
-        if (color != null) {
-            drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
-        }
-        if (alpha != null) {
-            drawable.alpha = alpha
-        }
+    // If we don't mutate the drawable, then all drawables with this id will have the ColorFilter
+    drawable?.mutate()
+    if (color != null) {
+        drawable?.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+    }
+    if (alpha != null) {
+        drawable?.alpha = alpha
     }
 }

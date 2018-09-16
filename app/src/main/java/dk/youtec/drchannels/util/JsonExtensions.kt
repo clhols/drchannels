@@ -7,4 +7,4 @@ import org.json.JSONObject
 operator fun JSONArray.iterator(): Iterator<JSONObject>
         = (0 until length()).asSequence().map { get(it) as JSONObject }.iterator()
 
-fun JSONArray.toIntArray(): IntArray = IntArray(length(), { i -> getInt(i) })
+fun JSONArray.toIntArray(): IntArray = IntArray(length()) { i -> getInt(i) }
