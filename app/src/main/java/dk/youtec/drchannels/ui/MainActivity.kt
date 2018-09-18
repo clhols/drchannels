@@ -73,11 +73,13 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                     swipeRefresh.isRefreshing = false
                 })
 
-        updateApp(this@MainActivity,
-                BuildConfig.VERSION_CODE,
-                "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
-                "https://www.dropbox.com/s/fwc2q3a3vw67rhv/drchannels.apk?dl=1",
-                "https://www.dropbox.com/s/8miqyro43qn71k0/drchannels.log?dl=1")
+        if (BuildConfig.DEBUG) {
+            updateApp(this@MainActivity,
+                    BuildConfig.VERSION_CODE,
+                    "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
+                    "https://www.dropbox.com/s/fwc2q3a3vw67rhv/drchannels.apk?dl=1",
+                    "https://www.dropbox.com/s/8miqyro43qn71k0/drchannels.log?dl=1")
+        }
     }
 
     /**
