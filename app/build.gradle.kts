@@ -71,7 +71,6 @@ android {
 
         lintOptions {
             isCheckReleaseBuilds = false
-            //isIgnoreTestSources = true
             isCheckDependencies = true
         }
     }
