@@ -20,6 +20,7 @@ open class TagProjectTask : AppUpdaterGroupTask() {
         val android = project.extensions.getByName("android") as com.android.build.gradle.AppExtension
 
         val versionCodes = android.applicationVariants
+                .asSequence()
                 .filter { it.buildType.name == "release" }
                 .map { it.versionCode }
                 .toSet()
