@@ -40,7 +40,7 @@ class DrTvInputSetupActivity : AppCompatActivity() {
             val channel = Channel.Builder()
                     .setType(TvContractCompat.Channels.TYPE_PREVIEW)
                     .setDisplayName(getString(R.string.currentPrograms))
-                    .setAppLinkIntent(Intent(this, MainActivity::class.java))
+                    //.setAppLinkIntent(Intent(this, MainActivity::class.java))
                     .build()
 
             val channelUri = contentResolver.insert(

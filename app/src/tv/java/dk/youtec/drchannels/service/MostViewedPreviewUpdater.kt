@@ -137,7 +137,7 @@ class MostViewedPreviewUpdater : Worker() {
             val channel = Channel.Builder()
                     .setType(TvContractCompat.Channels.TYPE_PREVIEW)
                     .setDisplayName(applicationContext.getString(R.string.mostViewed))
-                    .setAppLinkIntent(Intent(applicationContext, MainActivity::class.java))
+                    //.setAppLinkIntent(Intent(applicationContext, MainActivity::class.java))
                     .build()
 
             val channelUri = contentResolver.insert(
