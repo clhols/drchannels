@@ -34,7 +34,7 @@ android {
 
         applicationId = "dk.youtec.drchannels"
         versionCode = versionCodeTimestamp
-        versionName = "0.1"
+        versionName = "1.0.0"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
