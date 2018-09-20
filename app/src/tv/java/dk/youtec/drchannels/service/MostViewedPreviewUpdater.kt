@@ -19,6 +19,7 @@ import androidx.work.*
 import com.google.android.media.tv.companionlibrary.model.Program
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.ProgramCard
+import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.MainActivity
 import dk.youtec.drchannels.ui.PlayerActivity
@@ -134,11 +135,15 @@ class MostViewedPreviewUpdater : Worker() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && SharedPreferences.getLong(applicationContext, channelKey) == 0L) {
 
-            val channel = Channel.Builder()
-                    .setType(TvContractCompat.Channels.TYPE_PREVIEW)
-                    .setDisplayName(applicationContext.getString(R.string.mostViewed))
-                    //.setAppLinkIntent(Intent(applicationContext, MainActivity::class.java))
-                    .build()
+            val channel = with(Channel.Builder()) {
+                setType(TvContractCompat.Channels.TYPE_PREVIEW)
+                setDisplayName(applicationContext.getString(R.string.mostViewed))
+                if (BuildConfig.DEBUG) {
+                    setAppLinkIntent(Intent(applicationContext,
+                            MainActivity::class.java))
+                }
+                build()
+            }
 
             val channelUri = contentResolver.insert(
                     TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())

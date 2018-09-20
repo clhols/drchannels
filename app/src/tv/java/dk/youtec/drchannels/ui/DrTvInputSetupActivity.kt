@@ -11,6 +11,7 @@ import android.support.media.tv.ChannelLogoUtils
 import android.support.media.tv.TvContractCompat
 import android.support.v7.app.AppCompatActivity
 import androidx.core.content.edit
+import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.util.SharedPreferences
 import org.jetbrains.anko.defaultSharedPreferences
@@ -37,11 +38,15 @@ class DrTvInputSetupActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && SharedPreferences.getLong(this, "channelId") == 0L) {
 
-            val channel = Channel.Builder()
-                    .setType(TvContractCompat.Channels.TYPE_PREVIEW)
-                    .setDisplayName(getString(R.string.currentPrograms))
-                    //.setAppLinkIntent(Intent(this, MainActivity::class.java))
-                    .build()
+            val channel = with(Channel.Builder()) {
+                setType(TvContractCompat.Channels.TYPE_PREVIEW)
+                setDisplayName(getString(R.string.currentPrograms))
+                if (BuildConfig.DEBUG) {
+                    setAppLinkIntent(Intent(this@DrTvInputSetupActivity,
+                            MainActivity::class.java))
+                }
+                build()
+            }
 
             val channelUri = contentResolver.insert(
                     TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
