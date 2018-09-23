@@ -38,7 +38,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
-    implementation("com.android.support:appcompat-v7:$supportLibVersion")
-    implementation("com.android.support:support-v4:$supportLibVersion")
+    implementation("androidx.appcompat:appcompat:$supportLibVersion")
+    implementation("androidx.legacy:legacy-support-v4:$supportLibVersion")
     implementation("com.squareup.okhttp3:okhttp:3.11.0")
 }

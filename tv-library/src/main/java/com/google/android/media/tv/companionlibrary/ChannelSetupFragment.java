@@ -25,9 +25,6 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -43,6 +40,10 @@ import android.widget.TextView;
 import com.google.android.media.tv.companionlibrary.model.Channel;
 
 import java.util.ArrayList;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * The ChannelSetupFragment class provides a simple extendable class to create a user interface

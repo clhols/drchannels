@@ -37,8 +37,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.PersistableBundle;
 import android.os.RemoteException;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.util.LongSparseArray;
 import android.util.SparseArray;
@@ -51,6 +49,9 @@ import com.google.android.media.tv.companionlibrary.utils.TvContractUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * Service to handle callbacks from JobScheduler. This service will be called by the system to

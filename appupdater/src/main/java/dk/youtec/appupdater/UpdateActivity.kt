@@ -3,11 +3,11 @@ package dk.youtec.appupdater
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import kotlinx.coroutines.*
 import kotlinx.coroutines.android.Main
 import okhttp3.CacheControl

@@ -1,11 +1,7 @@
 package dk.youtec.drchannels.ui.adapter
 
 import android.content.Context
-import android.support.annotation.LayoutRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +9,10 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.view.AspectImageView
@@ -136,9 +136,9 @@ class ChannelsAdapter(
 }
 
 class ChannelsDiffItemCallback : DiffUtil.ItemCallback<MuNowNext>() {
-    override fun areItemsTheSame(oldItem: MuNowNext?, newItem: MuNowNext?): Boolean =
-            oldItem?.ChannelSlug == newItem?.ChannelSlug
+    override fun areItemsTheSame(oldItem: MuNowNext, newItem: MuNowNext): Boolean =
+            oldItem.ChannelSlug == newItem.ChannelSlug
 
-    override fun areContentsTheSame(oldItem: MuNowNext?, newItem: MuNowNext?): Boolean =
+    override fun areContentsTheSame(oldItem: MuNowNext, newItem: MuNowNext): Boolean =
             oldItem == newItem
 }

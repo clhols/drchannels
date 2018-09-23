@@ -6,11 +6,11 @@ import android.graphics.BitmapFactory
 import android.media.tv.TvInputInfo
 import android.os.Build
 import android.os.Bundle
-import android.support.media.tv.Channel
-import android.support.media.tv.ChannelLogoUtils
-import android.support.media.tv.TvContractCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import androidx.tvprovider.media.tv.Channel
+import androidx.tvprovider.media.tv.ChannelLogoUtils
+import androidx.tvprovider.media.tv.TvContractCompat
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.util.SharedPreferences

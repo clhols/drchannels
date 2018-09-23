@@ -17,7 +17,6 @@ package dk.youtec.drchannels.log;
 
 import android.net.NetworkInfo;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Surface;
 import com.google.android.exoplayer2.C;
@@ -41,6 +40,8 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Locale;
+
+import androidx.annotation.Nullable;
 
 /**
  * Logs events from {@link Player} and other core components using {@link Log}.

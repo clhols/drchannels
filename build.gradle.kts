@@ -31,9 +31,6 @@ allprojects {
         resolutionStrategy {
             eachDependency {
                 when (requested.group) {
-                    "com.android.support" -> useVersion(supportLibVersion)
-                    "android.arch.core" -> useVersion(archComponentVersion)
-                    "android.arch.lifecycle" -> useVersion(archComponentVersion)
                     "org.jetbrains.kotlin" -> useVersion(kotlinVersion)
                 }
             }
@@ -45,8 +42,8 @@ val kotlinVersion by extra("1.3+")
 val compileSdkVersion by extra(28)
 val targetSdkVersion by extra(28)
 val buildToolsVersion by extra("28.0.2")
-val supportLibVersion by extra("27.1.1")
-val archComponentVersion by extra("1.1.1")
+val supportLibVersion by extra("1.0.0")
+val archComponentVersion by extra("2.0.0")
 val glideVersion by extra("4.8.0")
 val coroutinesVersion by extra("0.26.1-eap13")
 val isCiBuild = System.getenv("CI") == "true"

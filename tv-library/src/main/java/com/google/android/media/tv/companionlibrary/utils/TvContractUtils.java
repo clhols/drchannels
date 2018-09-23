@@ -26,7 +26,6 @@ import android.media.tv.TvContract;
 import android.media.tv.TvContract.Channels;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.LongSparseArray;
@@ -47,6 +46,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
 
 /**
  * Static helper methods for working with {@link android.media.tv.TvContract}.
@@ -82,8 +83,8 @@ public class TvContractUtils {
     /**
      * Updates the list of available channels.
      *
-     * @param context The application's context.
-     * @param inputId The ID of the TV input service that provides this TV channel.
+     * @param context  The application's context.
+     * @param inputId  The ID of the TV input service that provides this TV channel.
      * @param channels The updated list of channels.
      * @hide
      */
@@ -171,13 +172,13 @@ public class TvContractUtils {
      * Builds a map of available channels.
      *
      * @param resolver Application's ContentResolver.
-     * @param inputId The ID of the TV input service that provides this TV channel.
+     * @param inputId  The ID of the TV input service that provides this TV channel.
      * @return LongSparseArray mapping each channel's {@link TvContract.Channels#_ID} to the
      * Channel object.
      * @hide
      */
     public static LongSparseArray<Channel> buildChannelMap(@NonNull ContentResolver resolver,
-            @NonNull String inputId) {
+                                                           @NonNull String inputId) {
         Uri uri = TvContract.buildChannelsUriForInput(inputId);
         LongSparseArray<Channel> channelMap = new LongSparseArray<>();
         Cursor cursor = null;
@@ -235,7 +236,7 @@ public class TvContractUtils {
 
     /**
      * Returns the {@link Channel} with specified channel URI.
-     * @param resolver {@link ContentResolver} used to query database.
+     * @param resolver   {@link ContentResolver} used to query database.
      * @param channelUri URI of channel.
      * @return An channel object with specified channel URI.
      * @hide
@@ -264,7 +265,7 @@ public class TvContractUtils {
     /**
      * Returns the current list of programs on a given channel.
      *
-     * @param resolver Application's ContentResolver.
+     * @param resolver   Application's ContentResolver.
      * @param channelUri Channel's Uri.
      * @return List of programs.
      * @hide
@@ -299,7 +300,7 @@ public class TvContractUtils {
     /**
      * Returns the program that is scheduled to be playing now on a given channel.
      *
-     * @param resolver Application's ContentResolver.
+     * @param resolver   Application's ContentResolver.
      * @param channelUri Channel's Uri.
      * @return The program that is scheduled for now in the EPG.
      */
@@ -320,8 +321,8 @@ public class TvContractUtils {
     /**
      * Returns the program that is scheduled to be playing after a given program on a given channel.
      *
-     * @param resolver Application's ContentResolver.
-     * @param channelUri Channel's Uri.
+     * @param resolver       Application's ContentResolver.
+     * @param channelUri     Channel's Uri.
      * @param currentProgram Program which plays before the desired program.If null, returns current
      *                       program
      * @return The program that is scheduled after given program in the EPG.
@@ -435,7 +436,7 @@ public class TvContractUtils {
                 for (Uri uri : logos.keySet()) {
                     try {
                         Context context = mContext.get();
-                        if(context != null) {
+                        if (context != null) {
                             insertUrl(context, uri, new URL(logos.get(uri)));
                         }
                     } catch (MalformedURLException e) {
