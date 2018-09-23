@@ -35,7 +35,7 @@ android {
         applicationId = "dk.youtec.drchannels"
         versionCode = versionCodeTimestamp
         versionName = "1.0.0"
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -96,23 +96,23 @@ dependencies {
     implementation("com.github.bumptech.glide:okhttp3-integration:$glideVersion")
     kapt("com.github.bumptech.glide:compiler:$glideVersion")
     implementation("com.squareup.okhttp3:okhttp:3.11.0")
-    implementation("com.android.support:design:$supportLibVersion")
-    implementation("com.android.support:support-v4:$supportLibVersion")
-    implementation("com.android.support:recyclerview-v7:$supportLibVersion")
-    implementation("com.android.support:support-tv-provider:$supportLibVersion")
-    implementation("com.android.support.constraint:constraint-layout:+")
-    implementation("androidx.core:core-ktx:0.3")
+    implementation("com.google.android.material:material:$supportLibVersion")
+    implementation("androidx.legacy:legacy-support-v4:$supportLibVersion")
+    implementation("androidx.recyclerview:recyclerview:$supportLibVersion")
+    implementation("androidx.tvprovider:tvprovider:$supportLibVersion")
+    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation("androidx.core:core-ktx:1.0.0")
 
-    implementation("android.arch.lifecycle:extensions:$archComponentVersion")
-    kapt("android.arch.lifecycle:compiler:$archComponentVersion")
-    implementation("android.arch.work:work-runtime-ktx:+")
+    implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
+    kapt("androidx.lifecycle:lifecycle-compiler:$archComponentVersion")
+    implementation("android.arch.work:work-runtime-ktx:1.0.0+")
 
     implementation("io.reactivex.rxjava2:rxjava:2.2.0")
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
 
-    androidTestImplementation("com.android.support.test:runner:1.0.2")
-    androidTestImplementation("com.android.support.test:rules:1.0.2")
+    androidTestImplementation("androidx.test:runner:1.1.0+")
+    androidTestImplementation("androidx.test:rules:1.1.0+")
 
 }
 

@@ -1,7 +1,7 @@
 package dk.youtec.drchannels.ui.image
 
 import android.content.Context
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideBuilder

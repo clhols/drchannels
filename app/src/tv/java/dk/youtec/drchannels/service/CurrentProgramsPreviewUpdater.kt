@@ -3,19 +3,19 @@ package dk.youtec.drchannels.service
 import android.annotation.TargetApi
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Intent
 import android.media.tv.TvContract
 import android.os.Build
-import android.support.media.tv.Channel
-import android.support.media.tv.PreviewProgram
-import android.support.media.tv.TvContractCompat
 import android.util.Log
-import androidx.core.content.systemService
+import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import androidx.core.util.forEach
+import androidx.tvprovider.media.tv.Channel
+import androidx.tvprovider.media.tv.PreviewProgram
+import androidx.tvprovider.media.tv.TvContractCompat
 import androidx.work.*
 import com.google.android.media.tv.companionlibrary.model.Program
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
@@ -159,7 +159,7 @@ class CurrentProgramsPreviewUpdater : Worker() {
                 PendingIntent.FLAG_CANCEL_CURRENT)
 
         //Schedule the pending intent
-        applicationContext.systemService<AlarmManager?>()?.apply {
+        applicationContext.getSystemService<AlarmManager?>()?.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
                         time,

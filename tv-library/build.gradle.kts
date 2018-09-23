@@ -32,6 +32,6 @@ android {
 dependencies {
     val supportLibVersion: String by rootProject.extra
 
-    implementation("com.android.support:support-annotations:$supportLibVersion")
-    implementation("com.android.support:support-core-utils:$supportLibVersion")
+    implementation("androidx.annotation:annotation:$supportLibVersion")
+    implementation("androidx.legacy:legacy-support-core-utils:$supportLibVersion")
 }

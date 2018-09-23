@@ -1,20 +1,20 @@
 package dk.youtec.drchannels.service
 
 import android.annotation.TargetApi
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.tv.TvContract
 import android.os.Build
-import android.support.media.tv.Channel
-import android.support.media.tv.ChannelLogoUtils
-import android.support.media.tv.PreviewProgram
-import android.support.media.tv.TvContractCompat
 import android.util.Log
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import androidx.tvprovider.media.tv.Channel
+import androidx.tvprovider.media.tv.ChannelLogoUtils
+import androidx.tvprovider.media.tv.PreviewProgram
+import androidx.tvprovider.media.tv.TvContractCompat
 import androidx.work.*
 import com.google.android.media.tv.companionlibrary.model.Program
 import dk.youtec.drapi.DrMuRepository

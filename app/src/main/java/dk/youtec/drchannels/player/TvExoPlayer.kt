@@ -2,7 +2,7 @@ package dk.youtec.drchannels.player
 
 import android.media.PlaybackParams
 import android.os.Build
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import android.view.Surface
 import com.google.android.exoplayer2.LoadControl
 import com.google.android.exoplayer2.PlaybackParameters

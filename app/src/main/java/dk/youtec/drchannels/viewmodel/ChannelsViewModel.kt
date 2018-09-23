@@ -1,10 +1,10 @@
 package dk.youtec.drchannels.viewmodel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import io.reactivex.Observable
