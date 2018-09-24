@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
           package="dk.youtec.drchannels">
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="com.android.providers.tv.permission.READ_EPG_DATA"/>
     <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA"/>
-
-    <!-- Due to https://stackoverflow.com/questions/51929882/google-play-warning-about-missing-leanback-intent -->
-    <uses-permission
-            tools:node="remove"
-            android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <uses-feature
             android:name="android.software.live_tv"
