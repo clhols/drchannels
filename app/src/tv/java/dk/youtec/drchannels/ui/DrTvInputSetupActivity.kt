@@ -10,6 +10,7 @@ import android.support.media.tv.Channel
 import android.support.media.tv.ChannelLogoUtils
 import android.support.media.tv.TvContractCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import androidx.core.content.edit
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
@@ -17,6 +18,7 @@ import dk.youtec.drchannels.util.SharedPreferences
 import org.jetbrains.anko.defaultSharedPreferences
 
 class DrTvInputSetupActivity : AppCompatActivity() {
+    private val tag = DrTvInputSetupActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,15 +40,7 @@ class DrTvInputSetupActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && SharedPreferences.getLong(this, "channelId") == 0L) {
 
-            val channel = with(Channel.Builder()) {
-                setType(TvContractCompat.Channels.TYPE_PREVIEW)
-                setDisplayName(getString(R.string.currentPrograms))
-                if (BuildConfig.DEBUG) {
-                    setAppLinkIntent(Intent(this@DrTvInputSetupActivity,
-                            MainActivity::class.java))
-                }
-                build()
-            }
+            val channel = getChannel()
 
             val channelUri = contentResolver.insert(
                     TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
@@ -62,6 +56,24 @@ class DrTvInputSetupActivity : AppCompatActivity() {
             defaultSharedPreferences.edit {
                 putLong("channelId", channelId)
             }
+        } else {
+            Log.d(tag, "Updating current programs preview channel")
+            contentResolver.update(
+                    TvContractCompat.buildChannelUri(
+                            SharedPreferences.getLong(this, "channelId")),
+                    getChannel().toContentValues(), null, null)
+        }
+    }
+
+    private fun getChannel(): Channel {
+        return with(Channel.Builder()) {
+            setType(TvContractCompat.Channels.TYPE_PREVIEW)
+            setDisplayName(getString(R.string.currentPrograms))
+            if (BuildConfig.DEBUG) {
+                setAppLinkIntent(Intent(this@DrTvInputSetupActivity,
+                        MainActivity::class.java))
+            }
+            build()
         }
     }
 }

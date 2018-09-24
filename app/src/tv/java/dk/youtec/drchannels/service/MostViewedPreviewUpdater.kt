@@ -135,15 +135,7 @@ class MostViewedPreviewUpdater : Worker() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && SharedPreferences.getLong(applicationContext, channelKey) == 0L) {
 
-            val channel = with(Channel.Builder()) {
-                setType(TvContractCompat.Channels.TYPE_PREVIEW)
-                setDisplayName(applicationContext.getString(R.string.mostViewed))
-                if (BuildConfig.DEBUG) {
-                    setAppLinkIntent(Intent(applicationContext,
-                            MainActivity::class.java))
-                }
-                build()
-            }
+            val channel = getChannel()
 
             val channelUri = contentResolver.insert(
                     TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
@@ -160,6 +152,23 @@ class MostViewedPreviewUpdater : Worker() {
             applicationContext.defaultSharedPreferences.edit {
                 putLong(channelKey, channelId)
             }
+        } else {
+            contentResolver.update(
+                    TvContractCompat.buildChannelUri(
+                            SharedPreferences.getLong(applicationContext, channelKey)),
+                    getChannel().toContentValues(), null, null)
+        }
+    }
+
+    private fun getChannel(): Channel {
+        return with(Channel.Builder()) {
+            setType(TvContractCompat.Channels.TYPE_PREVIEW)
+            setDisplayName(applicationContext.getString(R.string.mostViewed))
+            if (BuildConfig.DEBUG) {
+                setAppLinkIntent(Intent(applicationContext,
+                        MainActivity::class.java))
+            }
+            build()
         }
     }
 }
