@@ -138,7 +138,7 @@ data class ProgramCard(
         val SeriesSlug: String = "",
         val SeriesUrn: String = "",
         val PrimaryChannel: String,
-        val PrimaryChannelSlug: String,
+        val PrimaryChannelSlug: String = "",
         val SeasonEpisodeNumberingValid: Boolean,
         val SeasonTitle: String?,
         val SeasonSlug: String?,
