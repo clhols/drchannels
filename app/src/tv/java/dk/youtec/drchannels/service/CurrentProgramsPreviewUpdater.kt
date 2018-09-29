@@ -91,6 +91,8 @@ class CurrentProgramsPreviewUpdater : Worker() {
 
         if (nextProgramFinishTime < Long.MAX_VALUE) {
             scheduleNextProgramsUpdate(nextProgramFinishTime)
+        } else {
+            Log.w(TAG, "No program finish time for scheduling next job")
         }
     }
 
@@ -210,9 +212,6 @@ fun scheduleCurrentProgramsPreviewUpdate() {
         val pendingWork = workStatuses?.any { !it.state.isFinished } ?: false
         if (!pendingWork) {
             val updatePreviewPrograms = OneTimeWorkRequestBuilder<CurrentProgramsPreviewUpdater>()
-                    .setConstraints(Constraints.Builder()
-                            .setRequiredNetworkType(NetworkType.CONNECTED)
-                            .build())
                     .addTag(tag)
                     .build()
             WorkManager.getInstance().enqueue(updatePreviewPrograms)
