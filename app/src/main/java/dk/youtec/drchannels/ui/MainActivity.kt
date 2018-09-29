@@ -20,6 +20,7 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
 import dk.youtec.drchannels.util.isNullOrEmpty
+import dk.youtec.drchannels.util.isTv
 import dk.youtec.drchannels.viewmodel.ChannelsViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -73,7 +74,7 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                     swipeRefresh.isRefreshing = false
                 })
 
-        if (BuildConfig.DEBUG) {
+        if (!isTv()) {
             updateApp(this@MainActivity,
                     BuildConfig.VERSION_CODE,
                     "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
