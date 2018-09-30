@@ -29,10 +29,9 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
-import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 
-open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelClickListener {
+open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickListener {
     private val api by lazy { DrMuReactiveRepository(this) }
 
     private lateinit var viewModel: ChannelsViewModel
