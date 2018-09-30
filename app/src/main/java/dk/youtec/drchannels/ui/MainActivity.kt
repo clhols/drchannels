@@ -49,7 +49,8 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
 
         setContentView(R.layout.activity_main)
 
-        initToolbar()
+        toolbar.title = ""
+        setSupportActionBar(toolbar)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
@@ -68,7 +69,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 this,
                 Observer<List<MuNowNext>> { channels ->
                     isEmptyState = channels.isNullOrEmpty()
-                    handleChannelsChanged(channels!!)
+                    handleChannelsChanged(channels ?: emptyList())
                     progressBar.isVisible = false
                     swipeRefresh.isRefreshing = false
                 })
@@ -95,11 +96,6 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 }
             }
         }
-    }
-
-    private fun initToolbar() {
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
     }
 
     override fun onDestroy() {
@@ -154,7 +150,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 api.getAllActiveDrTvChannels()
                         .subscribeOn(Schedulers.io())
                         .map { it.first { it.Slug == name } }
-                        .map { it.server!! }
+                        .map { it.server ?: throw Exception("Unable to get streaming server") }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
                                 onSuccess = { server ->

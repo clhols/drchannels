@@ -54,6 +54,10 @@ class ChannelsLiveData(context: Context) : LiveData<List<MuNowNext>>() {
         }
     }
 
+    override fun getValue(): List<MuNowNext> {
+        return super.getValue() ?: emptyList()
+    }
+
     override fun onActive() {
         subscribe()
     }
