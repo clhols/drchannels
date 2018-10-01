@@ -20,6 +20,7 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
 import dk.youtec.drchannels.util.isNullOrEmpty
+import dk.youtec.drchannels.util.isTv
 import dk.youtec.drchannels.viewmodel.ChannelsViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -28,10 +29,9 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
-import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 
-open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnChannelClickListener {
+open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickListener {
     private val api by lazy { DrMuReactiveRepository(this) }
 
     private lateinit var viewModel: ChannelsViewModel
@@ -49,7 +49,8 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
 
         setContentView(R.layout.activity_main)
 
-        initToolbar()
+        toolbar.title = ""
+        setSupportActionBar(toolbar)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
@@ -68,12 +69,12 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                 this,
                 Observer<List<MuNowNext>> { channels ->
                     isEmptyState = channels.isNullOrEmpty()
-                    handleChannelsChanged(channels!!)
+                    handleChannelsChanged(channels ?: emptyList())
                     progressBar.isVisible = false
                     swipeRefresh.isRefreshing = false
                 })
 
-        if (BuildConfig.DEBUG) {
+        if (!isTv()) {
             updateApp(this@MainActivity,
                     BuildConfig.VERSION_CODE,
                     "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
@@ -95,11 +96,6 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                 }
             }
         }
-    }
-
-    private fun initToolbar() {
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
     }
 
     override fun onDestroy() {
@@ -154,7 +150,7 @@ open class MainActivity : AppCompatActivity(), AnkoLogger, ChannelsAdapter.OnCha
                 api.getAllActiveDrTvChannels()
                         .subscribeOn(Schedulers.io())
                         .map { it.first { it.Slug == name } }
-                        .map { it.server!! }
+                        .map { it.server ?: throw Exception("Unable to get streaming server") }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
                                 onSuccess = { server ->
