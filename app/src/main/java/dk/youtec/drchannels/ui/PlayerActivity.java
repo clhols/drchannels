@@ -89,6 +89,7 @@ import com.google.android.exoplayer2.util.ErrorMessageProvider;
 import com.google.android.exoplayer2.util.EventLogger;
 import com.google.android.exoplayer2.util.Util;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -805,6 +806,15 @@ public class PlayerActivity extends Activity
                                 getString(
                                         R.string.error_instantiating_decoder,
                                         decoderInitializationException.decoderName);
+                    }
+                }
+            } else if (e.type == ExoPlaybackException.TYPE_SOURCE) {
+                IOException cause = e.getSourceException();
+                if (cause instanceof HttpDataSource.InvalidResponseCodeException) {
+                    HttpDataSource.InvalidResponseCodeException responseCodeException =
+                            (HttpDataSource.InvalidResponseCodeException) cause;
+                    if(responseCodeException.responseCode == 403) {
+                        errorString = getString(R.string.invalid_country);
                     }
                 }
             }

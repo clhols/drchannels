@@ -43,4 +43,5 @@
     <string name="currentPrograms">Current programs</string>
     <string name="mostViewed">Most viewed</string>
     <string name="missingResponse">Missing response</string>
+    <string name="invalid_country">This channel is not available in your country</string>
 </resources>

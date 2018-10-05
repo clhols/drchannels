@@ -41,4 +41,5 @@
     <string name="currentPrograms">Aktuelle programmer</string>
     <string name="mostViewed">Mest sete</string>
     <string name="missingResponse">Manglende svar</string>
+    <string name="invalid_country">Kanalen er ikke tilgængelig i dette land</string>
 </resources>
