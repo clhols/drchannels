@@ -1,4 +1,3 @@
-import java.text.SimpleDateFormat
 import java.util.*
 
 plugins {
@@ -121,7 +120,3 @@ if (releasePropertiesFile.exists()) {
     }
 }
 
-val versionCodeTimestamp
-    get() = SimpleDateFormat("yyMMddHHmm")
-            .apply { timeZone = TimeZone.getTimeZone("Europe/Copenhagen") }
-            .format(Date()).toInt()
