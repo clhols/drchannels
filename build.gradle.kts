@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:3.3.0+")
+        classpath("com.android.tools.build:gradle:$androidGradlePlugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("com.github.triplet.gradle:play-publisher:1.2.2")
     }
@@ -32,6 +32,12 @@ allprojects {
                     "org.jetbrains.kotlin" -> useVersion(kotlinVersion)
                 }
             }
+        }
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).all {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-progressive")
         }
     }
 }
