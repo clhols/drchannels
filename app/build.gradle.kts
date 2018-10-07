@@ -15,11 +15,7 @@ plugins {
 }
 
 android {
-    val compileSdkVersion: Int by rootProject.extra
-    val buildToolsVersion: String by rootProject.extra
-    val targetSdkVersion: Int by rootProject.extra
-
-    compileSdkVersion(compileSdkVersion)
+    compileSdkVersion(compileSdk)
     buildToolsVersion(buildToolsVersion)
 
     flavorDimensions("app")
@@ -30,7 +26,7 @@ android {
 
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(targetSdkVersion)
+        targetSdkVersion(targetSdk)
 
         applicationId = "dk.youtec.drchannels"
         versionCode = versionCodeTimestamp
@@ -76,12 +72,6 @@ kapt {
 }
 
 dependencies {
-    val kotlinVersion: String by rootProject.extra
-    val supportLibVersion: String by rootProject.extra
-    val glideVersion: String by rootProject.extra
-    val archComponentVersion: String by rootProject.extra
-    val coroutinesVersion: String by rootProject.extra
-
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
     implementation(project(":appupdater"))
