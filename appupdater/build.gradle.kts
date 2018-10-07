@@ -1,6 +1,3 @@
-import org.gradle.kotlin.dsl.extra
-import org.gradle.kotlin.dsl.getValue
-
 plugins {
     id("com.android.library")
     kotlin("android")
