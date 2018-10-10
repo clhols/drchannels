@@ -6,16 +6,12 @@ plugins {
 }
 
 android {
-    val compileSdkVersion: Int by rootProject.extra
-    val buildToolsVersion: String by rootProject.extra
-    val targetSdkVersion: Int by rootProject.extra
-
-    compileSdkVersion(compileSdkVersion)
+    compileSdkVersion(compileSdk)
     buildToolsVersion(buildToolsVersion)
 
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(targetSdkVersion)
+        targetSdkVersion(targetSdk)
 
         versionCode = 1
         versionName = "1.0"
@@ -30,8 +26,6 @@ android {
 }
 
 dependencies {
-    val supportLibVersion: String by rootProject.extra
-
     implementation("androidx.annotation:annotation:$supportLibVersion")
     implementation("androidx.legacy:legacy-support-core-utils:$supportLibVersion")
 }

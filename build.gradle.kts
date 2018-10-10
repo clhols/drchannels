@@ -1,6 +1,3 @@
-import org.gradle.kotlin.dsl.extra
-import org.gradle.kotlin.dsl.repositories
-
 buildscript {
     repositories {
         mavenCentral()
@@ -9,10 +6,8 @@ buildscript {
         maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
     }
 
-    val kotlinVersion by extra("1.3+")
-
     dependencies {
-        classpath("com.android.tools.build:gradle:3.3.0+")
+        classpath("com.android.tools.build:gradle:$androidGradlePlugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("com.github.triplet.gradle:play-publisher:1.2.2")
     }
@@ -36,14 +31,10 @@ allprojects {
             }
         }
     }
-}
 
-val kotlinVersion by extra("1.3+")
-val compileSdkVersion by extra(28)
-val targetSdkVersion by extra(28)
-val buildToolsVersion by extra("28.0.2")
-val supportLibVersion by extra("1.0.0")
-val archComponentVersion by extra("2.0.0")
-val glideVersion by extra("4.8.0")
-val coroutinesVersion by extra("0.26.1-eap13")
-val isCiBuild = System.getenv("CI") == "true"
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).all {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-progressive")
+        }
+    }
+}
