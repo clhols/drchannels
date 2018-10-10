@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     tools:context="dk.youtec.drchannels.ui.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -39,7 +39,7 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />
 

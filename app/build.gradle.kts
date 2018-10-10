@@ -1,7 +1,3 @@
-import org.gradle.kotlin.dsl.extra
-import org.gradle.kotlin.dsl.kotlin
-import org.gradle.kotlin.dsl.version
-import java.text.SimpleDateFormat
 import java.util.*
 
 plugins {
@@ -15,11 +11,7 @@ plugins {
 }
 
 android {
-    val compileSdkVersion: Int by rootProject.extra
-    val buildToolsVersion: String by rootProject.extra
-    val targetSdkVersion: Int by rootProject.extra
-
-    compileSdkVersion(compileSdkVersion)
+    compileSdkVersion(compileSdk)
     buildToolsVersion(buildToolsVersion)
 
     flavorDimensions("app")
@@ -30,7 +22,7 @@ android {
 
     defaultConfig {
         minSdkVersion(21)
-        targetSdkVersion(targetSdkVersion)
+        targetSdkVersion(targetSdk)
 
         applicationId = "dk.youtec.drchannels"
         versionCode = versionCodeTimestamp
@@ -76,12 +68,6 @@ kapt {
 }
 
 dependencies {
-    val kotlinVersion: String by rootProject.extra
-    val supportLibVersion: String by rootProject.extra
-    val glideVersion: String by rootProject.extra
-    val archComponentVersion: String by rootProject.extra
-    val coroutinesVersion: String by rootProject.extra
-
     implementation(project(":drapi"))
     implementation(project(":tv-library"))
     implementation(project(":appupdater"))
@@ -100,7 +86,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:$supportLibVersion")
     implementation("androidx.recyclerview:recyclerview:$supportLibVersion")
     implementation("androidx.tvprovider:tvprovider:$supportLibVersion")
-    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0+")
     implementation("androidx.core:core-ktx:1.0.0")
 
     implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
@@ -134,7 +120,3 @@ if (releasePropertiesFile.exists()) {
     }
 }
 
-val versionCodeTimestamp
-    get() = SimpleDateFormat("yyMMddHHmm")
-            .apply { timeZone = TimeZone.getTimeZone("Europe/Copenhagen") }
-            .format(Date()).toInt()
