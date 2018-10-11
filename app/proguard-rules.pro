@@ -20,6 +20,8 @@
 # on the classpath.
 -keep class androidx.work.impl.background.firebase.FirebaseJobScheduler
 
+#LiveData
+-keep class androidx.lifecycle.LiveData { *; }
 
 #Jackson
 -keep class kotlin.Metadata { *; }
