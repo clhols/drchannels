@@ -7,6 +7,11 @@
 -allowaccessmodification
 -dontobfuscate
 
+#LiveData
+-keepclassmembers class androidx.lifecycle.** { *; }
+-keep class androidx.lifecycle.** { *; }
+-dontwarn androidx.lifecycle.**
+
 #Jackson
 -keep class kotlin.Metadata { *; }
 -keep class kotlin.reflect.jvm.internal.impl.builtins.BuiltInsLoader
