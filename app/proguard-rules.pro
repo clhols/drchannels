@@ -2,6 +2,15 @@
 # By default, the flags in this file are appended to flags specified
 # in /Users/clhols/Library/Android/sdk/tools/proguard/proguard-android.txt
 
+#This app
+-keep class dk.youtec.drapi.** { *; }
+-allowaccessmodification
+
+#Jackson
+-keep class kotlin.Metadata { *; }
+-keep class kotlin.reflect.jvm.internal.impl.builtins.BuiltInsLoader
+-keep class kotlin.reflect.jvm.internal.impl.serialization.deserialization.builtins.BuiltInsLoaderImpl
+
 #ExoPlayer
 -keep class com.google.android.exoplayer2.** { *; }
 
