@@ -5,6 +5,7 @@
 #This app
 -keep class dk.youtec.drapi.** { *; }
 -allowaccessmodification
+-dontobfuscate
 
 #Jackson
 -keep class kotlin.Metadata { *; }
