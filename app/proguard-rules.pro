@@ -22,6 +22,7 @@
 
 #LiveData
 -keep class androidx.lifecycle.LiveData { *; }
+-keep class androidx.lifecycle.Observer { *; }
 
 #Jackson
 -keep class kotlin.Metadata { *; }
