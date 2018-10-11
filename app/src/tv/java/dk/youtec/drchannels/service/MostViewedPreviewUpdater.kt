@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import androidx.lifecycle.Observer
 import android.content.ContentResolver
 import android.content.ContentUris
+import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.media.tv.TvContract
@@ -30,7 +31,10 @@ import java.util.*
 private val TAG = MostViewedPreviewUpdater::class.java.simpleName
 
 @TargetApi(Build.VERSION_CODES.O)
-class MostViewedPreviewUpdater : Worker() {
+class MostViewedPreviewUpdater(
+        context: Context,
+        workerParams: WorkerParameters
+) : Worker(context, workerParams) {
     private val channelKey = "mostViewedChannelId"
     private lateinit var api: DrMuRepository
     private lateinit var contentResolver: ContentResolver
