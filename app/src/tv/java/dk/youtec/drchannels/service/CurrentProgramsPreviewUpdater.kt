@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import androidx.lifecycle.Observer
 import android.content.ContentResolver
 import android.content.ContentUris
+import android.content.Context
 import android.content.Intent
 import android.media.tv.TvContract
 import android.os.Build
@@ -27,7 +28,10 @@ import java.util.*
 private val TAG = CurrentProgramsPreviewUpdater::class.java.simpleName
 
 @TargetApi(Build.VERSION_CODES.O)
-class CurrentProgramsPreviewUpdater : Worker() {
+class CurrentProgramsPreviewUpdater(
+        context: Context,
+        workerParams: WorkerParameters
+) : Worker(context, workerParams) {
     private lateinit var contentResolver: ContentResolver
 
     override fun doWork(): Result {
