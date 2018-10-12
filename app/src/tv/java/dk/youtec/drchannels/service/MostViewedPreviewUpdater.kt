@@ -185,7 +185,7 @@ fun scheduleMostViewedPreviewUpdate() {
     val tag = "scheduleMostViewedPreviewUpdate"
     lateinit var observer: Observer<MutableList<WorkStatus>>
 
-    val statuses = WorkManager.getInstance().getStatusesByTag(tag)
+    val statuses = WorkManager.getInstance().getStatusesByTagLiveData(tag)
     observer = Observer { workStatuses ->
         statuses.removeObserver(observer)
 
