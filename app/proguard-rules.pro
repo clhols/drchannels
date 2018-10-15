@@ -9,8 +9,7 @@
 
 #Jackson
 -keep class kotlin.Metadata { *; }
--keep class kotlin.reflect.jvm.internal.impl.builtins.BuiltInsLoader
--keep class kotlin.reflect.jvm.internal.impl.serialization.deserialization.builtins.BuiltInsLoaderImpl
+-keep class kotlin.reflect.jvm.internal.impl.** { *; }
 
 #ExoPlayer
 -keep class com.google.android.exoplayer2.** { *; }
