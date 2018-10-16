@@ -3,22 +3,23 @@ package dk.youtec.drapi
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 import retrofit2.Converter
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DrMuApiTest {
+
     @Test
     fun testAllActiveDrTvChannels() {
-        val channels = runBlocking { service.getAllActiveDrTvChannels().await() }
+        val response: Response<List<Channel>> = service.getAllActiveDrTvChannels().execute()
+        val channels = response.body()
 
-        val channelIds = channels.map { it.Slug }
+        val channelIds = channels?.map { it.Slug } ?: emptyList()
         val expectedChannelIds = listOf("dr1", "dr2", "dr3", "dr-k", "dr-ramasjang", "dr-ultra")
 
         Assert.assertTrue(
@@ -29,31 +30,20 @@ class DrMuApiTest {
     @Test
     fun testScheduleDr1() {
         val date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-        val schedule = runBlocking { service.getSchedule("dr1", date).await() }
+        val response: Response<Schedule> = service.getSchedule(
+                "dr1",
+                date).execute()
+        val schedule = response.body()
 
-        Assert.assertEquals("dr1", schedule.ChannelSlug)
-
-        val broadcast = schedule.Broadcasts.firstOrNull()
-        val uri = broadcast?.primaryAssetUri
-        if (uri != null) {
-            val manifest = runBlocking { service.getManifest(uri.removePrefix(API_URL)).await() }
-            val playbackUri = manifest.uri
-            Assert.assertNotNull(playbackUri)
-        }
+        Assert.assertEquals("dr1", schedule?.ChannelSlug)
     }
 
     @Test
     fun testSearch() {
-        val searchResult = runBlocking { service.search("bonderøven").await() }
+        val response: Response<SearchResult> = service.search("bonderøven").execute()
+        val searchResult = response.body()
 
-        Assert.assertEquals(searchResult.Items.first().SeriesSlug, "bonderoeven-tv")
-    }
-
-    @Test
-    fun testMostViewed() {
-        val mostViewed = runBlocking { service.getMostViewed("", "TV", 6).await() }
-
-        Assert.assertEquals(mostViewed.Items.size, 6)
+        Assert.assertEquals(searchResult?.Items?.first()?.SeriesSlug, "bonderoeven-tv")
     }
 
     private val service
@@ -62,12 +52,10 @@ class DrMuApiTest {
                     ObjectMapper().registerModule(KotlinModule()).apply {
                         configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                     })
-            val callAdapterFactory = CoroutineCallAdapterFactory()
 
             val retrofit = Retrofit.Builder()
                     .baseUrl(API_URL)
                     .addConverterFactory(converterFactory)
-                    .addCallAdapterFactory(callAdapterFactory)
                     .build()
             return retrofit.create(DrMuApi::class.java)
         }

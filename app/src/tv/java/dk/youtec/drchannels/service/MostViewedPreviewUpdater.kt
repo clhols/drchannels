@@ -72,7 +72,7 @@ class MostViewedPreviewUpdater(
                     }
                 }
 
-        api.getMostViewed().Items.forEach { program ->
+        api.getMostViewed()?.Items?.forEach { program ->
             addProgram(program, previewChannelId)
         }
     }
@@ -82,7 +82,7 @@ class MostViewedPreviewUpdater(
      */
     private fun addProgram(program: ProgramCard, previewChannelId: Long) {
         val playbackUri = program.PrimaryAsset?.Uri?.let { uri ->
-            api.getManifest(uri).uri
+            api.getManifest(uri)?.uri ?: ""
         }
 
         val intent = Intent(applicationContext, PlayerActivity::class.java).apply {

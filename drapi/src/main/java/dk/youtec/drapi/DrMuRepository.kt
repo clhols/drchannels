@@ -3,11 +3,8 @@ package dk.youtec.drapi
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
@@ -25,7 +22,6 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
                             ObjectMapper().registerModule(KotlinModule()).apply {
                                 configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                             }))
-            addCallAdapterFactory(CoroutineCallAdapterFactory())
             client?.let { client(it) }
             build()
         }
@@ -36,30 +32,34 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
     /**
      * Gets channels
      */
-    fun getAllActiveDrTvChannels(): List<Channel> = runBlocking(Dispatchers.IO) {
-        service.getAllActiveDrTvChannels().await()
+    fun getAllActiveDrTvChannels(): List<Channel> {
+        val response: Response<List<Channel>> = service.getAllActiveDrTvChannels().execute()
+        return response.body() ?: emptyList()
     }
 
     /**
      * @param uri Uri from a [PrimaryAsset] from a [ProgramCard]
      */
-    fun getManifest(uri: String): Manifest = runBlocking(Dispatchers.IO) {
-        service.getManifest(uri.removePrefix(API_URL)).await()
+    fun getManifest(uri: String): Manifest? {
+        val response: Response<Manifest> = service.getManifest(uri.removePrefix(API_URL)).execute()
+        return response.body()
     }
 
     /**
      * Gets Now and Next information from all active channels.
      */
-    fun getScheduleNowNext(): List<MuNowNext> = runBlocking(Dispatchers.IO) {
-        service.getScheduleNowNext().await()
+    fun getScheduleNowNext(): List<MuNowNext> {
+        val response: Response<List<MuNowNext>> = service.getScheduleNowNext().execute()
+        return response.body() ?: emptyList()
     }
 
     /**
      * Gets Now and Next information from a single channel.
      * @param id Channel id from [Channel.Slug]
      */
-    fun getScheduleNowNext(id: String): MuNowNext = runBlocking(Dispatchers.IO) {
-        service.getScheduleNowNext(id).await()
+    fun getScheduleNowNext(id: String): MuNowNext? {
+        val response: Response<MuNowNext> = service.getScheduleNowNext(id).execute()
+        return response.body()
     }
 
     /**
@@ -67,15 +67,18 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
      * @param id Channel id from [Channel.Slug]
      * @param date Day to load schedule from
      */
-    fun getSchedule(id: String, date: String): Schedule = runBlocking(Dispatchers.IO) {
-        service.getSchedule(id, date).await()
+    fun getSchedule(id: String, date: String): Schedule? {
+        val response: Response<Schedule> = service.getSchedule(id, date).execute()
+        return response.body()
     }
 
-    fun search(query: String): SearchResult = runBlocking(Dispatchers.IO) {
-        service.search(query).await()
+    fun search(query: String): SearchResult? {
+        val response: Response<SearchResult> = service.search(query).execute()
+        return response.body()
     }
 
-    fun getMostViewed(): MostViewed = runBlocking(Dispatchers.IO) {
-        service.getMostViewed("", "TV", 10).await()
+    fun getMostViewed(): MostViewed? {
+        val response = service.getMostViewed("", "TV", 10).execute()
+        return response.body()
     }
 }
