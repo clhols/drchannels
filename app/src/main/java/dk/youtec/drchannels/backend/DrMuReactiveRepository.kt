@@ -94,7 +94,7 @@ class DrMuReactiveRepository(private val context: Context) {
     fun getMostViewed(): Single<MostViewed> {
         return Single.create<MostViewed> { subscriber ->
             try {
-                val mostViewed: MostViewed = api.getMostViewed()
+                val mostViewed: MostViewed = api.getMostViewed() ?: MostViewed(emptyList(), MuPaging(), 0)
                 subscriber.onSuccess(mostViewed)
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
@@ -105,7 +105,7 @@ class DrMuReactiveRepository(private val context: Context) {
     fun search(query: String): Single<SearchResult> {
         return Single.create<SearchResult> { subscriber ->
             try {
-                val searchResult: SearchResult = api.search(query)
+                val searchResult: SearchResult = api.search(query)!!
                 subscriber.onSuccess(searchResult)
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))

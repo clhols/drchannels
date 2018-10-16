@@ -1,6 +1,6 @@
 package dk.youtec.drapi
 
-import kotlinx.coroutines.Deferred
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -11,29 +11,29 @@ const val API_URL = "https://www.dr.dk/mu-online/api/$API_VERSION/"
 
 internal interface DrMuApi {
     @GET("channel/all-active-dr-tv-channels")
-    fun getAllActiveDrTvChannels(): Deferred<List<Channel>>
+    fun getAllActiveDrTvChannels(): Call<List<Channel>>
 
     @GET("{uri}")
-    fun getManifest(@Path("uri") uri: String): Deferred<Manifest>
+    fun getManifest(@Path("uri") uri: String): Call<Manifest>
 
     @GET("schedule/{id}") // Date format yyyy-MM-dd HH:mm:ss
-    fun getSchedule(@Path("id") id: String, @Query("broadcastdate") date: String): Deferred<Schedule>
+    fun getSchedule(@Path("id") id: String, @Query("broadcastdate") date: String): Call<Schedule>
 
     @GET("schedule/nownext/{id}")
-    fun getScheduleNowNext(@Path("id") id: String): Deferred<MuNowNext>
+    fun getScheduleNowNext(@Path("id") id: String): Call<MuNowNext>
 
     @GET("schedule/nownext-for-all-active-dr-tv-channels")
-    fun getScheduleNowNext(): Deferred<List<MuNowNext>>
+    fun getScheduleNowNext(): Call<List<MuNowNext>>
 
     @GET("search/tv/programcards-latest-episode-with-asset/series-title/{query}")
-    fun search(@Path("query") query: String): Deferred<SearchResult>
+    fun search(@Path("query") query: String): Call<SearchResult>
 
     @GET("list/view/mostviewed")
     fun getMostViewed(
             @Query("channel") channel: String,
             @Query("channelType") channelType: String,
             @Query("limit") limit: Int
-    ): Deferred<MostViewed>
+    ): Call<MostViewed>
 }
 
 data class SearchResult(
@@ -52,10 +52,10 @@ data class SearchResult(
 
 data class MuPaging(
         val Title: String = "",
-        val Source: String,
+        val Source: String = "",
         val Next: String = "",
         val Previous: String = "",
-        val TotalSize: Int)
+        val TotalSize: Int = 0)
 
 data class Schedule(
         val Broadcasts: List<MuScheduleBroadcast>,
