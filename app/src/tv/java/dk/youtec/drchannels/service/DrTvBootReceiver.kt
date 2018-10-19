@@ -10,6 +10,7 @@ import android.os.Build
 import android.util.Log
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService
 import dk.youtec.drchannels.R
+import dk.youtec.drchannels.preview.scheduleCurrentProgramsPreviewUpdate
 import dk.youtec.drchannels.util.isTv
 import java.util.concurrent.TimeUnit
 

@@ -16,6 +16,8 @@ import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drchannels.backend.streamingUrl
+import dk.youtec.drchannels.preview.scheduleCurrentProgramsPreviewUpdate
+import dk.youtec.drchannels.preview.scheduleMostViewedPreviewUpdate
 import dk.youtec.drchannels.util.serverDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
