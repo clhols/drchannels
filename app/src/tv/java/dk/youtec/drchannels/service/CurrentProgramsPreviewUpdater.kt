@@ -3,11 +3,8 @@ package dk.youtec.drchannels.service
 import android.annotation.TargetApi
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.*
 import androidx.lifecycle.Observer
-import android.content.ContentResolver
-import android.content.ContentUris
-import android.content.Context
-import android.content.Intent
 import android.media.tv.TvContract
 import android.os.Build
 import android.util.Log
@@ -225,4 +222,12 @@ fun scheduleCurrentProgramsPreviewUpdate() {
         }
     }
     statuses.observeForever(observer)
+}
+
+class CurrentProgramsPreviewUpdateReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        Log.d(CurrentProgramsPreviewUpdateReceiver::class.java.simpleName,
+                "Scheduling new current programs preview update from alarm")
+        scheduleCurrentProgramsPreviewUpdate()
+    }
 }
