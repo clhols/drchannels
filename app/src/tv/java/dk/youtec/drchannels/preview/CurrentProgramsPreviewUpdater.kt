@@ -1,4 +1,4 @@
-package dk.youtec.drchannels.service
+package dk.youtec.drchannels.preview
 
 import android.annotation.TargetApi
 import android.app.AlarmManager
