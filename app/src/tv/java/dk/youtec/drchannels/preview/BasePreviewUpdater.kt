@@ -6,7 +6,6 @@ import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.media.tv.TvContract
 import android.os.Build
 import android.util.Log
@@ -25,6 +24,7 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.MainActivity
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
+import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
 import org.jetbrains.anko.defaultSharedPreferences
 import java.util.*
 
@@ -47,7 +47,7 @@ abstract class BasePreviewUpdater(
         contentResolver = applicationContext.contentResolver
         api = DrMuRepository()
 
-        searchPreviewChannel()
+        setupPreviewChannel()
 
         //Id of preview channel
         val previewChannelId = SharedPreferences.getLong(applicationContext, channelKey)
@@ -139,7 +139,7 @@ abstract class BasePreviewUpdater(
         return programs
     }
 
-    private fun searchPreviewChannel() {
+    private fun setupPreviewChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && SharedPreferences.getLong(applicationContext, channelKey) == 0L) {
 
@@ -152,8 +152,7 @@ abstract class BasePreviewUpdater(
 
             ChannelLogoUtils.storeChannelLogo(applicationContext,
                     channelId,
-                    BitmapFactory.decodeResource(applicationContext.resources,
-                            R.drawable.ic_channel_logo))
+                    getBitmapFromVectorDrawable(applicationContext, R.mipmap.ic_launcher))
 
             TvContractCompat.requestChannelBrowsable(applicationContext, channelId)
 

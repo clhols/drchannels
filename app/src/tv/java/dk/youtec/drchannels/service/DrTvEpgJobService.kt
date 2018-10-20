@@ -15,6 +15,7 @@ import com.google.android.media.tv.companionlibrary.model.Program
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuScheduleBroadcast
+import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.backend.streamingUrl
 import dk.youtec.drchannels.preview.*
 import dk.youtec.drchannels.util.serverDateFormat
@@ -35,7 +36,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
                 scheduleCurrentProgramsPreviewUpdate()
                 schedulePreviewUpdate<MostViewedPreviewUpdater>()
-                //schedulePreviewUpdate<SearchPreviewUpdater>()
+                if (BuildConfig.DEBUG) schedulePreviewUpdate<SearchPreviewUpdater>()
             }
         }
     }

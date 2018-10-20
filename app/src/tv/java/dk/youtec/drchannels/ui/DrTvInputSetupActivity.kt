@@ -15,6 +15,7 @@ import androidx.tvprovider.media.tv.TvContractCompat
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.util.SharedPreferences
+import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
 import org.jetbrains.anko.defaultSharedPreferences
 
 class DrTvInputSetupActivity : AppCompatActivity() {
@@ -49,7 +50,7 @@ class DrTvInputSetupActivity : AppCompatActivity() {
 
             ChannelLogoUtils.storeChannelLogo(this,
                     channelId,
-                    BitmapFactory.decodeResource(resources, R.drawable.ic_channel_logo))
+                    getBitmapFromVectorDrawable(applicationContext, R.mipmap.ic_launcher))
 
             TvContractCompat.requestChannelBrowsable(this, channelId)
 
