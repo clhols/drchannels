@@ -1,7 +1,13 @@
 package dk.youtec.drchannels.util
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.PorterDuff
 import android.view.MenuItem
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+
 
 /**
  * Sets the color filter and/or the alpha transparency on a [MenuItem]'s icon.
@@ -28,4 +34,21 @@ fun colorMenuItem(menuItem: MenuItem, color: Int?, alpha: Int?) {
     if (alpha != null) {
         drawable?.alpha = alpha
     }
+}
+
+fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap {
+    var drawable = ContextCompat.getDrawable(context, drawableId)!!
+    drawable = DrawableCompat.wrap(drawable).mutate()
+
+    val bitmap = Bitmap.createBitmap(
+            drawable.intrinsicWidth,
+            drawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888)
+
+    with(Canvas(bitmap)) {
+        drawable.setBounds(0, 0, width, height)
+        drawable.draw(this)
+    }
+
+    return bitmap
 }
