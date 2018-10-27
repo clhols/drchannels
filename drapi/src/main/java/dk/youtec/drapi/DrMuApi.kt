@@ -25,7 +25,7 @@ internal interface DrMuApi {
     @GET("schedule/nownext-for-all-active-dr-tv-channels")
     fun getScheduleNowNext(): Call<List<MuNowNext>>
 
-    @GET("search/tv/programcards-latest-episode-with-asset/series-title/{query}")
+    @GET("search/tv/programcards-with-asset/title/{query}")
     fun search(@Path("query") query: String): Call<SearchResult>
 
     @GET("list/view/mostviewed")

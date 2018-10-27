@@ -10,7 +10,7 @@ class SearchPreviewUpdater(
         val context: Context,
         workerParams: WorkerParameters
 ) : BasePreviewUpdater(context, workerParams) {
-    val query = "Tæt på sandheden"
+    private val query = "Tæt på sandheden"
     override val channelKey = "searchChannelId"
     override fun getChannelName(): String = query
     override fun getPrograms() = api.search(query)?.Items ?: emptyList()

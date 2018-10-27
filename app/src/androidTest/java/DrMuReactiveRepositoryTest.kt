@@ -1,5 +1,5 @@
-import androidx.test.InstrumentationRegistry
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import io.reactivex.rxkotlin.toObservable
 import org.junit.Test
@@ -11,7 +11,7 @@ open class DrMuReactiveRepositoryTest {
     fun testSearch() {
         val context = InstrumentationRegistry.getInstrumentation().context
 
-        DrMuReactiveRepository(context).search("bonderøven")
+        DrMuReactiveRepository(context).search("Tæt på sandheden")
                 .toObservable()
                 .flatMap {
                     it.Items.toObservable()
