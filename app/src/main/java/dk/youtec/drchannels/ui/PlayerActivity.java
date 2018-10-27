@@ -388,6 +388,8 @@ public class PlayerActivity extends Activity
                 // The player will be reinitialized if the permission is granted.
                 return;
             }
+            //For playing test uri
+            //uris = new Uri[] { Uri.parse("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4") };
 
             DefaultDrmSessionManager<FrameworkMediaCrypto> drmSessionManager = null;
             if (intent.hasExtra(DRM_SCHEME_EXTRA) || intent.hasExtra(DRM_SCHEME_UUID_EXTRA)) {
