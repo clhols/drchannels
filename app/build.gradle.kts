@@ -98,8 +98,8 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
 
-    androidTestImplementation("androidx.test:runner:1.1.0+")
-    androidTestImplementation("androidx.test:rules:1.1.0+")
+    androidTestImplementation("androidx.test:runner:1.1.0")
+    androidTestImplementation("androidx.test:rules:1.1.0")
     androidTestImplementation("androidx.test.ext:junit:1.0.0")
 }
 
