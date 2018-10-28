@@ -3,6 +3,7 @@
     <color name="colorPrimary">#01579b</color>
     <color name="colorPrimaryDark">#004f8e</color>
     <color name="colorAccent">#22FF06</color>
+    <color name="colorSelection">#4D01579B</color>
     <color name="toolbarTextColor">#ffffff</color>
     <color name="channelHeaderBackground">#eeeeee</color>
     <color name="liveProgramHeaderBackground">#bdbdbd</color>
