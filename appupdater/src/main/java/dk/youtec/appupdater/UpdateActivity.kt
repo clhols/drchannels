@@ -9,7 +9,6 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import kotlinx.coroutines.*
-import kotlinx.coroutines.android.Main
 import okhttp3.CacheControl
 import okhttp3.Request
 import okio.Okio

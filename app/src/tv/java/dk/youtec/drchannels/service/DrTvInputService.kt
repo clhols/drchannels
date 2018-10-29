@@ -45,7 +45,6 @@ import dk.youtec.drchannels.log.EventLogger
 import dk.youtec.drchannels.player.TvExoPlayer
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.coroutines.*
-import kotlinx.coroutines.android.Main
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 

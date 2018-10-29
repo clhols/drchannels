@@ -11,8 +11,6 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.trackselection.TrackSelector
 import com.google.android.media.tv.companionlibrary.TvPlayer
 import kotlinx.coroutines.*
-import kotlinx.coroutines.android.Main
-import kotlin.coroutines.CoroutineContext
 
 open class TvExoPlayer(
         renderersFactory: RenderersFactory,

@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import kotlinx.coroutines.*
-import kotlinx.coroutines.android.Main
 import okhttp3.Request
 import org.json.JSONArray
 import java.io.IOException
