@@ -19,7 +19,6 @@ import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
-import dk.youtec.drchannels.util.isNullOrEmpty
 import dk.youtec.drchannels.util.isTv
 import dk.youtec.drchannels.viewmodel.ChannelsViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
