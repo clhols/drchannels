@@ -7,7 +7,6 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService
 import com.google.android.media.tv.companionlibrary.model.Channel
 import com.google.android.media.tv.companionlibrary.model.InternalProviderData
@@ -17,7 +16,10 @@ import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.backend.streamingUrl
-import dk.youtec.drchannels.preview.*
+import dk.youtec.drchannels.preview.MostViewedPreviewUpdater
+import dk.youtec.drchannels.preview.SearchPreviewUpdater
+import dk.youtec.drchannels.preview.scheduleCurrentProgramsPreviewUpdate
+import dk.youtec.drchannels.preview.schedulePreviewUpdate
 import dk.youtec.drchannels.util.serverDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -59,6 +61,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
     override fun getChannels(): List<Channel> {
         val drTvChannels = api.getAllActiveDrTvChannels()
+                .asSequence()
                 .filter { it.server != null }
                 .filter { !it.WebChannel }
                 .sortedBy { it.Title.replace(" ", "") }
