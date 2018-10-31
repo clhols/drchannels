@@ -7,7 +7,7 @@ import androidx.work.WorkerParameters
 
 @TargetApi(Build.VERSION_CODES.O)
 class SearchPreviewUpdater(
-        val context: Context,
+        context: Context,
         workerParams: WorkerParameters
 ) : BasePreviewUpdater(context, workerParams) {
     private val query = "Tæt på sandheden"

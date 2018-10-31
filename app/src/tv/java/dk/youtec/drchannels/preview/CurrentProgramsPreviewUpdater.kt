@@ -4,13 +4,13 @@ import android.annotation.TargetApi
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.*
-import androidx.lifecycle.Observer
 import android.media.tv.TvContract
 import android.os.Build
 import android.util.Log
 import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import androidx.core.util.forEach
+import androidx.lifecycle.Observer
 import androidx.tvprovider.media.tv.Channel
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
@@ -26,16 +26,16 @@ private val TAG = CurrentProgramsPreviewUpdater::class.java.simpleName
 
 @TargetApi(Build.VERSION_CODES.O)
 class CurrentProgramsPreviewUpdater(
-        context: Context,
+        val context: Context,
         workerParams: WorkerParameters
 ) : Worker(context, workerParams) {
     private lateinit var contentResolver: ContentResolver
 
     override fun doWork(): Result {
-        contentResolver = applicationContext.contentResolver
+        contentResolver = context.contentResolver
         val channelKey = "channelId"
         //Id of preview channel
-        val previewChannelId = SharedPreferences.getLong(applicationContext, channelKey)
+        val previewChannelId = SharedPreferences.getLong(context, channelKey)
         if (previewChannelId > 0L) {
             contentResolver
                     .query(TvContractCompat.buildChannelUri(previewChannelId),
@@ -77,7 +77,7 @@ class CurrentProgramsPreviewUpdater(
         //Get current programs from the Live Channels content provider.
         //Update existing or add new preview programs
         val channels = TvContractUtils.buildChannelMap(contentResolver,
-                applicationContext.getString(dk.youtec.drchannels.R.string.channelInputId))
+                context.getString(dk.youtec.drchannels.R.string.channelInputId))
         channels.forEach { id, _ ->
             TvContractUtils.getPrograms(contentResolver, TvContract.buildChannelUri(id))
                     .asSequence()
@@ -101,7 +101,7 @@ class CurrentProgramsPreviewUpdater(
      * Removes any existing program from the channel and insert the new one.
      */
     private fun updateProgram(program: Program, previewChannelId: Long, existingPreviewPrograms: List<PreviewProgram>) {
-        val intent = Intent(applicationContext, PlayerActivity::class.java).apply {
+        val intent = Intent(context, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
             data = program.internalProviderData.videoUrl.toUri()
@@ -156,13 +156,13 @@ class CurrentProgramsPreviewUpdater(
         val timeString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(time))
         Log.d(TAG, "Scheduling next preview update at $timeString")
 
-        val pendingIntent = PendingIntent.getBroadcast(applicationContext,
+        val pendingIntent = PendingIntent.getBroadcast(context,
                 0,
-                Intent(applicationContext, CurrentProgramsPreviewUpdateReceiver::class.java),
+                Intent(context, CurrentProgramsPreviewUpdateReceiver::class.java),
                 PendingIntent.FLAG_CANCEL_CURRENT)
 
         //Schedule the pending intent
-        applicationContext.getSystemService<AlarmManager?>()?.apply {
+        context.getSystemService<AlarmManager?>()?.apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
                         time,

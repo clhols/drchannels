@@ -1,7 +1,6 @@
 package dk.youtec.drchannels.preview
 
 import android.annotation.TargetApi
-import androidx.lifecycle.Observer
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
@@ -11,6 +10,7 @@ import android.os.Build
 import android.util.Log
 import androidx.core.content.edit
 import androidx.core.net.toUri
+import androidx.lifecycle.Observer
 import androidx.tvprovider.media.tv.Channel
 import androidx.tvprovider.media.tv.ChannelLogoUtils
 import androidx.tvprovider.media.tv.PreviewProgram
@@ -32,7 +32,7 @@ private val TAG = BasePreviewUpdater::class.java.simpleName
 
 @TargetApi(Build.VERSION_CODES.O)
 abstract class BasePreviewUpdater(
-        context: Context,
+        val context: Context,
         workerParams: WorkerParameters
 ) : Worker(context, workerParams) {
     abstract val channelKey: String
@@ -44,13 +44,13 @@ abstract class BasePreviewUpdater(
     abstract fun getChannelName(): String
 
     override fun doWork(): Result {
-        contentResolver = applicationContext.contentResolver
+        contentResolver = context.contentResolver
         api = DrMuRepository()
 
         setupPreviewChannel()
 
         //Id of preview channel
-        val previewChannelId = SharedPreferences.getLong(applicationContext, channelKey)
+        val previewChannelId = SharedPreferences.getLong(context, channelKey)
         if (previewChannelId > 0L) {
             synchronized(BasePreviewUpdater::class.java) {
                 Log.v(TAG,
@@ -89,7 +89,7 @@ abstract class BasePreviewUpdater(
             api.getManifest(uri)?.uri ?: ""
         }
 
-        val intent = Intent(applicationContext, PlayerActivity::class.java).apply {
+        val intent = Intent(context, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
             data = playbackUri?.toUri()
@@ -141,7 +141,7 @@ abstract class BasePreviewUpdater(
 
     private fun setupPreviewChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-                && SharedPreferences.getLong(applicationContext, channelKey) == 0L) {
+                && SharedPreferences.getLong(context, channelKey) == 0L) {
 
             val channel = getChannel()
 
@@ -150,19 +150,19 @@ abstract class BasePreviewUpdater(
 
             val channelId = ContentUris.parseId(channelUri)
 
-            ChannelLogoUtils.storeChannelLogo(applicationContext,
+            ChannelLogoUtils.storeChannelLogo(context,
                     channelId,
-                    getBitmapFromVectorDrawable(applicationContext, R.mipmap.ic_launcher))
+                    getBitmapFromVectorDrawable(context, R.mipmap.ic_launcher))
 
-            TvContractCompat.requestChannelBrowsable(applicationContext, channelId)
+            TvContractCompat.requestChannelBrowsable(context, channelId)
 
-            applicationContext.defaultSharedPreferences.edit {
+            context.defaultSharedPreferences.edit {
                 putLong(channelKey, channelId)
             }
         } else {
             contentResolver.update(
                     TvContractCompat.buildChannelUri(
-                            SharedPreferences.getLong(applicationContext, channelKey)),
+                            SharedPreferences.getLong(context, channelKey)),
                     getChannel().toContentValues(), null, null)
         }
     }
@@ -172,7 +172,7 @@ abstract class BasePreviewUpdater(
             setType(TvContractCompat.Channels.TYPE_PREVIEW)
             setDisplayName(getChannelName())
             if (BuildConfig.DEBUG) {
-                setAppLinkIntent(Intent(applicationContext,
+                setAppLinkIntent(Intent(context,
                         MainActivity::class.java))
             }
             build()
