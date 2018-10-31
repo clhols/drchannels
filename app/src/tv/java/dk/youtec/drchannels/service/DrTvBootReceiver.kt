@@ -27,7 +27,7 @@ class DrTvBootReceiver : BroadcastReceiver() {
             val jobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler?
 
             // If there are not pending jobs. Create a sync job and schedule it.
-            val pendingJobs = jobScheduler?.allPendingJobs ?: emptyList()
+            val pendingJobs = jobScheduler?.allPendingJobs.orEmpty()
             if (pendingJobs.isEmpty()) {
                 Log.v(tag, "No pending jobs")
 

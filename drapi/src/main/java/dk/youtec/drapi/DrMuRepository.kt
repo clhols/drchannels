@@ -34,7 +34,7 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
      */
     fun getAllActiveDrTvChannels(): List<Channel> {
         val response: Response<List<Channel>> = service.getAllActiveDrTvChannels().execute()
-        return response.body() ?: emptyList()
+        return response.body().orEmpty()
     }
 
     /**
@@ -50,7 +50,7 @@ class DrMuRepository @JvmOverloads constructor(client: OkHttpClient? = null) {
      */
     fun getScheduleNowNext(): List<MuNowNext> {
         val response: Response<List<MuNowNext>> = service.getScheduleNowNext().execute()
-        return response.body() ?: emptyList()
+        return response.body().orEmpty()
     }
 
     /**

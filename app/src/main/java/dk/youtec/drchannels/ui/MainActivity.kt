@@ -69,7 +69,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 this,
                 Observer<List<MuNowNext>> { channels ->
                     isEmptyState = channels.isNullOrEmpty()
-                    handleChannelsChanged(channels ?: emptyList())
+                    handleChannelsChanged(channels.orEmpty())
                     progressBar.isVisible = false
                     swipeRefresh.isRefreshing = false
                 })
