@@ -13,5 +13,5 @@ class SearchPreviewUpdater(
     private val query = "Tæt på sandheden"
     override val channelKey = "searchChannelId"
     override fun getChannelName(): String = query
-    override fun getPrograms() = api.search(query)?.Items ?: emptyList()
+    override fun getPrograms() = api.search(query)?.Items.orEmpty()
 }

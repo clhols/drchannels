@@ -13,5 +13,5 @@ class MostViewedPreviewUpdater(
 ) : BasePreviewUpdater(context, workerParams) {
     override val channelKey = "mostViewedChannelId"
     override fun getChannelName(): String = applicationContext.getString(R.string.mostViewed)
-    override fun getPrograms() = api.getMostViewed()?.Items ?: emptyList()
+    override fun getPrograms() = api.getMostViewed()?.Items.orEmpty()
 }

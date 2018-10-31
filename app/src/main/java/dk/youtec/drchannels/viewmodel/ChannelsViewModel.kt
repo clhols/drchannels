@@ -55,7 +55,7 @@ class ChannelsLiveData(context: Context) : LiveData<List<MuNowNext>>() {
     }
 
     override fun getValue(): List<MuNowNext> {
-        return super.getValue() ?: emptyList()
+        return super.getValue().orEmpty()
     }
 
     override fun onActive() {

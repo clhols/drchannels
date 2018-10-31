@@ -19,7 +19,7 @@ class DrMuApiTest {
         val response: Response<List<Channel>> = service.getAllActiveDrTvChannels().execute()
         val channels = response.body()
 
-        val channelIds = channels?.map { it.Slug } ?: emptyList()
+        val channelIds = channels?.map { it.Slug }.orEmpty()
         val expectedChannelIds = listOf("dr1", "dr2", "dr3", "dr-k", "dr-ramasjang", "dr-ultra")
 
         Assert.assertTrue(
