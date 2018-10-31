@@ -79,9 +79,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer:2.8.4")
 
     implementation("org.jetbrains.anko:anko-sdk15:0.10.5")
-    implementation("com.github.bumptech.glide:glide:$glideVersion")
-    implementation("com.github.bumptech.glide:okhttp3-integration:$glideVersion")
-    kapt("com.github.bumptech.glide:compiler:$glideVersion")
+    implementation("com.squareup.picasso:picasso:$picassoVersion")
     implementation("com.squareup.okhttp3:okhttp:3.11.0")
     implementation("com.google.android.material:material:$supportLibVersion")
     implementation("androidx.legacy:legacy-support-v4:$supportLibVersion")
