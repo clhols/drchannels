@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
         google()
         jcenter()
-        maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
+        //maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
     }
 
     dependencies {
@@ -18,7 +18,7 @@ allprojects {
         mavenCentral()
         google()
         jcenter()
-        maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
+        //maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
     }
 
     // Force all of the primary libraries to use the same version.
