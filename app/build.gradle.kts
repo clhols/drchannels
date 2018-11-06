@@ -86,7 +86,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:$supportLibVersion")
     implementation("androidx.tvprovider:tvprovider:$supportLibVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0+")
-    implementation("androidx.core:core-ktx:1.0.0")
+    implementation("androidx.core:core-ktx:1.0.1")
 
     implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
     kapt("androidx.lifecycle:lifecycle-compiler:$archComponentVersion")
