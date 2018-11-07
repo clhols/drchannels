@@ -5,12 +5,19 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.JSON
+import kotlinx.serialization.serializerByTypeToken
+import kotlinx.serialization.typeTokenOf
 import okhttp3.Request
-import org.json.JSONArray
 import java.io.IOException
 
 private const val tag = "AppUpdater"
+
+internal val listOutputSerializer = serializerByTypeToken(typeTokenOf<List<Output>>())
 
 /**
  * Updates the app to a newer version.
@@ -61,10 +68,17 @@ private suspend fun getAppVersionFromMeta(
     val response = httpClient.newCall(request).execute()
     val metaString = response.body()?.string() ?: ""
 
-    JSONArray(metaString)
-            .optJSONObject(0)
-            .optJSONObject("apkInfo")
-            ?.optInt("versionCode") ?: BuildConfig.VERSION_CODE
+    extractVersionCode(metaString)
+}
+
+internal fun extractVersionCode(metaString: String): Int {
+    val outputs = JSON.nonstrict.parse(listOutputSerializer, metaString) as? List<*>
+            ?: emptyList<Output>()
+
+    return outputs
+            .asSequence()
+            .filterIsInstance<Output>()
+            .firstOrNull()?.apkInfo?.versionCode ?: BuildConfig.VERSION_CODE
 }
 
 private suspend fun getChangelog(
