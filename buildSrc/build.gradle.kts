@@ -10,6 +10,6 @@ repositories {
 
 dependencies {
     compileOnly(gradleApi())
-    implementation("com.android.tools.build:gradle:+")
+    implementation("com.android.tools.build:gradle:3.2.1")
     implementation(kotlin("stdlib"))
 }
