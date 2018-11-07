@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -27,7 +28,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.9.0")
     implementation("androidx.appcompat:appcompat:$supportLibVersion")
     implementation("androidx.legacy:legacy-support-v4:$supportLibVersion")
     implementation("com.squareup.okhttp3:okhttp:3.11.0")
+    testImplementation("junit:junit:4.12")
 }
