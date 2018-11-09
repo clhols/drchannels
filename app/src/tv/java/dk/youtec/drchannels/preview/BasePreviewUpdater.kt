@@ -186,9 +186,9 @@ abstract class BasePreviewUpdater(
 @Synchronized
 inline fun <reified W : Worker> schedulePreviewUpdate() {
     val tag = "schedulePreviewUpdate" + W::class.java
-    lateinit var observer: Observer<MutableList<WorkStatus>>
+    lateinit var observer: Observer<MutableList<WorkInfo>>
 
-    val statuses = WorkManager.getInstance().getStatusesByTagLiveData(tag)
+    val statuses = WorkManager.getInstance().getWorkInfosByTagLiveData(tag)
     observer = Observer { workStatuses ->
         statuses.removeObserver(observer)
 
