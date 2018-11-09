@@ -204,9 +204,9 @@ class CurrentProgramsPreviewUpdater(
 @Synchronized
 fun scheduleCurrentProgramsPreviewUpdate() {
     val tag = "scheduleCurrentProgramsPreviewUpdate"
-    lateinit var observer: Observer<MutableList<WorkStatus>>
+    lateinit var observer: Observer<MutableList<WorkInfo>>
 
-    val statuses = WorkManager.getInstance().getStatusesByTagLiveData(tag)
+    val statuses = WorkManager.getInstance().getWorkInfosByTagLiveData(tag)
     observer = Observer { workStatuses ->
         statuses.removeObserver(observer)
 
