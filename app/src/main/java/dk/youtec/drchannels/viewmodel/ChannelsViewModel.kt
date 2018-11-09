@@ -3,6 +3,7 @@ package dk.youtec.drchannels.viewmodel
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import androidx.annotation.Keep
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import dk.youtec.drapi.MuNowNext
@@ -14,6 +15,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
+@Keep
 class ChannelsViewModel(application: Application) : AndroidViewModel(application) {
     val channels: ChannelsLiveData = ChannelsLiveData(application)
 
