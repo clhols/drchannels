@@ -80,7 +80,7 @@ dependencies {
 
     implementation("org.jetbrains.anko:anko-sdk15:0.10.5")
     implementation("com.squareup.picasso:picasso:$picassoVersion")
-    implementation("com.squareup.okhttp3:okhttp:3.11.0")
+    implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.google.android.material:material:$supportLibVersion")
     implementation("androidx.legacy:legacy-support-v4:$supportLibVersion")
     implementation("androidx.recyclerview:recyclerview:$supportLibVersion")
