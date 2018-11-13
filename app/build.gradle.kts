@@ -118,4 +118,3 @@ if (releasePropertiesFile.exists()) {
         keyPassword = props.getProperty("keyAliasPassword")
     }
 }
-
