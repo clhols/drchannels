@@ -150,7 +150,7 @@ data class ProgramCard(
         val PrimaryAsset: PrimaryAsset?,
         val HasPublicPrimaryAsset: Boolean,
         val AssetTargetTypes: String = "",
-        val PrimaryBroadcastStartTime: Date,
+        val PrimaryBroadcastStartTime: Date?,
         val SortDateTime: Date,
         val OnDemandInfo: Info?,
         val Slug: String,
