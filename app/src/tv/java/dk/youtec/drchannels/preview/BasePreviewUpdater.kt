@@ -103,7 +103,7 @@ abstract class BasePreviewUpdater(
                         .setDescription(program.OnlineGenreText)
                         .setIntent(intent)
                         .setInternalProviderId(program.PrimaryAsset?.Uri)
-                        .setStartTimeUtcMillis(program.PrimaryBroadcastStartTime.time)
+                        .setStartTimeUtcMillis(program.PrimaryBroadcastStartTime?.time ?: 0)
                         .setPosterArtUri(program.PrimaryImageUri.toUri())
                         .build()
 
