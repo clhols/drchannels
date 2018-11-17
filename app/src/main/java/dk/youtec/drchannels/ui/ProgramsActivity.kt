@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
@@ -87,14 +86,10 @@ class ProgramsActivity : AppCompatActivity() {
                                 }.time)
                                 .subscribeOn(Schedulers.io())
                 ) { tomorrow, today, yesterday, twoDaysAgo ->
-                    val broadcasts = mutableListOf<MuScheduleBroadcast>().apply {
-                        addAll(twoDaysAgo.Broadcasts)
-                        addAll(yesterday.Broadcasts)
-                        addAll(today.Broadcasts)
-                        addAll(tomorrow.Broadcasts)
-                    }
-
-                    Schedule(broadcasts, today.BroadcastDate, today.ChannelSlug, today.Channel)
+                    Schedule(twoDaysAgo.Broadcasts + yesterday.Broadcasts + today.Broadcasts + tomorrow.Broadcasts,
+                            today.BroadcastDate,
+                            today.ChannelSlug,
+                            today.Channel)
                 }
 
         disposable?.dispose()
