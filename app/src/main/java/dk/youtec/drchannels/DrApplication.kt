@@ -7,6 +7,7 @@ import dk.youtec.drchannels.backend.OkHttpClientFactory
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.android.schedulers.AndroidSchedulers
 
+@Suppress("unused")
 class DrApplication : android.app.Application() {
     override fun onCreate() {
         super.onCreate()
