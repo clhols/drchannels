@@ -41,7 +41,7 @@ fun updateApp(
         var message = activity.getString(R.string.newAppVersionReady)
         if (changelog.isNotBlank()) message += "\n\n$changelog"
 
-        if (!activity.isFinishing) {
+        if (!activity.isFinishing && !activity.isDestroyed) {
             AlertDialog.Builder(activity)
                     .setTitle(activity.getString(R.string.updateApp))
                     .setCancelable(true)
