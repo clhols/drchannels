@@ -7,8 +7,8 @@ plugins {
 dependencies {
     implementation(kotlin("stdlib"))
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
-    implementation("com.squareup.retrofit2:retrofit:2.4.0")
-    implementation("com.squareup.retrofit2:converter-jackson:2.4.0")
+    implementation("com.squareup.retrofit2:retrofit:2.5.0")
+    implementation("com.squareup.retrofit2:converter-jackson:2.5.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.6")
 
     testImplementation("junit:junit:4.12")
