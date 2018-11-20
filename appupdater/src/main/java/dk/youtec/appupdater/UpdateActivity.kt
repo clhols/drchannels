@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import kotlinx.coroutines.*
@@ -13,6 +14,7 @@ import okhttp3.CacheControl
 import okhttp3.Request
 import okio.Okio
 import java.io.File
+import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
 class UpdateActivity : AppCompatActivity(), CoroutineScope {
@@ -29,8 +31,17 @@ class UpdateActivity : AppCompatActivity(), CoroutineScope {
         val apkUrl = intent.getStringExtra("apkUrl")
 
         launch {
-            downloadApk(this@UpdateActivity, apkUrl)?.also {
-                installApk(this@UpdateActivity, it)
+            try {
+                downloadApk(this@UpdateActivity, apkUrl)?.also {
+                    installApk(this@UpdateActivity, it)
+                }
+            } catch (e: IOException) {
+                Log.e(tag, e.message, e)
+                Toast.makeText(
+                        this@UpdateActivity,
+                        "Unable to update app",
+                        Toast.LENGTH_SHORT).show()
+            } finally {
                 finish()
                 overridePendingTransition(0, 0)
             }
