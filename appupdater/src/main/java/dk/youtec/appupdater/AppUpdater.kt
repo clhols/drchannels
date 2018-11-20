@@ -41,7 +41,7 @@ fun updateApp(
         var message = activity.getString(R.string.newAppVersionReady)
         if (changelog.isNotBlank()) message += "\n\n$changelog"
 
-        if (!activity.isFinishing && !activity.isDestroyed) {
+        if (!activity.isFinishing) {
             AlertDialog.Builder(activity)
                     .setTitle(activity.getString(R.string.updateApp))
                     .setCancelable(true)
@@ -62,13 +62,18 @@ private suspend fun getAppVersionFromMeta(
         context: Context,
         metaUrl: String
 ): Int = withContext(Dispatchers.Default) {
-    val httpClient = OkHttpClientFactory.getInstance(context)
+    try {
+        val httpClient = OkHttpClientFactory.getInstance(context)
 
-    val request = Request.Builder().url(metaUrl).build()
-    val response = httpClient.newCall(request).execute()
-    val metaString = response.body()?.string() ?: ""
+        val request = Request.Builder().url(metaUrl).build()
+        val response = httpClient.newCall(request).execute()
+        val metaString = response.body()?.string() ?: ""
 
-    extractVersionCode(metaString)
+        extractVersionCode(metaString)
+    } catch (e: IOException) {
+        Log.w(tag, e.message)
+        BuildConfig.VERSION_CODE
+    }
 }
 
 internal fun extractVersionCode(metaString: String): Int {
