@@ -11,7 +11,10 @@ import android.util.Log
 import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.lifecycle.Observer
-import androidx.tvprovider.media.tv.*
+import androidx.tvprovider.media.tv.Channel
+import androidx.tvprovider.media.tv.ChannelLogoUtils
+import androidx.tvprovider.media.tv.PreviewProgram
+import androidx.tvprovider.media.tv.TvContractCompat
 import androidx.work.*
 import com.google.android.media.tv.companionlibrary.model.Program
 import dk.youtec.drapi.DrMuRepository
@@ -36,7 +39,7 @@ abstract class BasePreviewUpdater(
     protected lateinit var api: DrMuRepository
     private lateinit var contentResolver: ContentResolver
 
-    abstract fun getPrograms(): List<ProgramCard>
+    abstract fun getPrograms() : List<ProgramCard>
 
     abstract fun getChannelName(): String
 
@@ -137,32 +140,36 @@ abstract class BasePreviewUpdater(
     }
 
     private fun setupPreviewChannel() {
-        val helper = PreviewChannelHelper(context)
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && SharedPreferences.getLong(context, channelKey) == 0L) {
 
             val channel = getChannel()
 
-            val channelId = helper.publishChannel(channel)
+            val channelUri = contentResolver.insert(
+                    TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
 
-            if (channelId != -1L) {
-                TvContractCompat.requestChannelBrowsable(context, channelId)
+            val channelId = ContentUris.parseId(channelUri)
 
-                context.defaultSharedPreferences.edit {
-                    putLong(channelKey, channelId)
-                }
+            ChannelLogoUtils.storeChannelLogo(context,
+                    channelId,
+                    getBitmapFromVectorDrawable(context, R.mipmap.ic_launcher))
+
+            TvContractCompat.requestChannelBrowsable(context, channelId)
+
+            context.defaultSharedPreferences.edit {
+                putLong(channelKey, channelId)
             }
         } else {
-            helper.updatePreviewChannel(
-                    SharedPreferences.getLong(context, channelKey),
-                    getChannel())
+            contentResolver.update(
+                    TvContractCompat.buildChannelUri(
+                            SharedPreferences.getLong(context, channelKey)),
+                    getChannel().toContentValues(), null, null)
         }
     }
 
-    private fun getChannel(): PreviewChannel {
-        return with(PreviewChannel.Builder()) {
-            setLogo(getBitmapFromVectorDrawable(context, R.mipmap.ic_launcher))
+    private fun getChannel(): Channel {
+        return with(Channel.Builder()) {
+            setType(TvContractCompat.Channels.TYPE_PREVIEW)
             setDisplayName(getChannelName())
             if (BuildConfig.DEBUG) {
                 setAppLinkIntent(Intent(context,
@@ -178,7 +185,7 @@ abstract class BasePreviewUpdater(
  */
 @Synchronized
 inline fun <reified W : Worker> schedulePreviewUpdate() {
-    val tag = "schedulePreviewUpdate" + W::class.java
+    val tag = "schedulePreviewUpdate" + W::class.java.simpleName
     lateinit var observer: Observer<MutableList<WorkInfo>>
 
     val statuses = WorkManager.getInstance().getWorkInfosByTagLiveData(tag)
