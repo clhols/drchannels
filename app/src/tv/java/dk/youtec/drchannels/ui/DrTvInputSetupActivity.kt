@@ -2,7 +2,6 @@ package dk.youtec.drchannels.ui
 
 import android.content.ContentUris
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.media.tv.TvInputInfo
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +15,7 @@ import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
+import dk.youtec.drchannels.util.isTv
 import org.jetbrains.anko.defaultSharedPreferences
 
 class DrTvInputSetupActivity : AppCompatActivity() {
@@ -23,6 +23,12 @@ class DrTvInputSetupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (!isTv()) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
 
         setupCurrentProgramsPreviewChannel()
 
