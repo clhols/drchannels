@@ -62,6 +62,11 @@ android {
             isCheckDependencies = true
         }
     }
+
+    compileOptions {
+        setSourceCompatibility("1.8")
+        setTargetCompatibility("1.8")
+    }
 }
 
 kapt {
@@ -76,7 +81,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
 
-    implementation("com.google.android.exoplayer:exoplayer:2.8.4")
+    implementation("com.google.android.exoplayer:exoplayer:2.9.1")
 
     implementation("org.jetbrains.anko:anko-sdk15:0.10.5")
     implementation("com.squareup.picasso:picasso:$picassoVersion")

@@ -1,22 +1,36 @@
 package dk.youtec.drchannels.player
 
+import android.content.Context
 import android.media.PlaybackParams
 import android.os.Build
-import androidx.annotation.RequiresApi
+import android.os.Looper
 import android.view.Surface
+import androidx.annotation.RequiresApi
 import com.google.android.exoplayer2.LoadControl
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.RenderersFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.trackselection.TrackSelector
+import com.google.android.exoplayer2.upstream.BandwidthMeter
 import com.google.android.media.tv.companionlibrary.TvPlayer
-import kotlinx.coroutines.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 open class TvExoPlayer(
+        context: Context,
         renderersFactory: RenderersFactory,
         trackSelector: TrackSelector,
-        loadControl: LoadControl
-) : SimpleExoPlayer(renderersFactory, trackSelector, loadControl, null), TvPlayer {
+        loadControl: LoadControl,
+        bandwidthMeter: BandwidthMeter
+) : SimpleExoPlayer(context,
+        renderersFactory,
+        trackSelector,
+        loadControl,
+        bandwidthMeter,
+        null,
+        Looper.getMainLooper()), TvPlayer {
     private var seekJob: Job? = null
 
     override fun setSurface(surface: Surface?) {
