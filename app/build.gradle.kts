@@ -60,6 +60,7 @@ android {
         lintOptions {
             isCheckReleaseBuilds = false
             isCheckDependencies = true
+            isAbortOnError = false
         }
     }
 
