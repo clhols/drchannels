@@ -3,8 +3,9 @@ package dk.youtec.drapi
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 import retrofit2.Converter
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -22,9 +23,9 @@ class DrMuApiTest {
         val channelIds = channels?.map { it.Slug }.orEmpty()
         val expectedChannelIds = listOf("dr1", "dr2", "dr3", "dr-k", "dr-ramasjang", "dr-ultra")
 
-        Assert.assertTrue(
-                "Didn't find all the following channels $expectedChannelIds"
-                , channelIds.containsAll(expectedChannelIds))
+        assertTrue(
+                channelIds.containsAll(expectedChannelIds),
+                "Didn't find all the following channels $expectedChannelIds")
     }
 
     @Test
@@ -35,7 +36,7 @@ class DrMuApiTest {
                 date).execute()
         val schedule = response.body()
 
-        Assert.assertEquals("dr1", schedule?.ChannelSlug)
+        assertEquals("dr1", schedule?.ChannelSlug)
     }
 
     @Test
@@ -43,7 +44,7 @@ class DrMuApiTest {
         val response: Response<SearchResult> = service.search("bonderøven").execute()
         val searchResult = response.body()
 
-        Assert.assertEquals(searchResult?.Items?.first()?.SeriesSlug, "bonderoeven-tv")
+        assertEquals(searchResult?.Items?.first()?.SeriesSlug, "bonderoeven-tv")
     }
 
     @Test
@@ -51,7 +52,7 @@ class DrMuApiTest {
         val response: Response<MostViewed> = service.getMostViewed("", "TV", 10).execute()
         val searchResult = response.body()
 
-        Assert.assertEquals(searchResult?.Items?.size, 10)
+        assertEquals(searchResult?.Items?.size, 10)
     }
 
     private val service

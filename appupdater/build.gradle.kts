@@ -32,5 +32,5 @@ dependencies {
     implementation("androidx.appcompat:appcompat:$supportLibVersion")
     implementation("androidx.legacy:legacy-support-v4:$supportLibVersion")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
-    testImplementation("junit:junit:4.12")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
