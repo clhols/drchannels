@@ -1,7 +1,7 @@
 package dk.youtec.appupdater
 
-import junit.framework.TestCase.assertEquals
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import java.io.File
 
 open class AppUpdaterTest {

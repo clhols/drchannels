@@ -11,5 +11,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-jackson:2.5.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.6")
 
-    testImplementation("junit:junit:4.12")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
