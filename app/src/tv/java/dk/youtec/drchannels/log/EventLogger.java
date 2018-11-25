@@ -15,10 +15,6 @@
  */
 package dk.youtec.drchannels.log;
 
-import android.net.NetworkInfo;
-import android.os.SystemClock;
-import android.util.Log;
-import android.view.Surface;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.Format;
@@ -37,6 +33,11 @@ import com.google.android.exoplayer2.trackselection.MappingTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+
+import android.os.SystemClock;
+import android.util.Log;
+import android.view.Surface;
+
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -368,16 +369,6 @@ public class EventLogger implements AnalyticsListener {
     }
 
     @Override
-    public void onViewportSizeChange(EventTime eventTime, int width, int height) {
-        logd(eventTime, "viewportSizeChanged", width + ", " + height);
-    }
-
-    @Override
-    public void onNetworkTypeChanged(EventTime eventTime, @Nullable NetworkInfo networkInfo) {
-        logd(eventTime, "networkTypeChanged", networkInfo == null ? "none" : networkInfo.toString());
-    }
-
-    @Override
     public void onUpstreamDiscarded(EventTime eventTime, MediaLoadData mediaLoadData) {
         logd(eventTime, "upstreamDiscarded", Format.toLogString(mediaLoadData.trackFormat));
     }
@@ -466,7 +457,7 @@ public class EventLogger implements AnalyticsListener {
     private String getEventTimeString(EventTime eventTime) {
         String windowPeriodString = "window=" + eventTime.windowIndex;
         if (eventTime.mediaPeriodId != null) {
-            windowPeriodString += ", period=" + eventTime.mediaPeriodId.periodIndex;
+            windowPeriodString += ", period=" + eventTime.mediaPeriodId;
             if (eventTime.mediaPeriodId.isAd()) {
                 windowPeriodString += ", adGroup=" + eventTime.mediaPeriodId.adGroupIndex;
                 windowPeriodString += ", ad=" + eventTime.mediaPeriodId.adIndexInAdGroup;

@@ -8,7 +8,6 @@ import android.media.tv.TvTrackInfo
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
@@ -16,16 +15,17 @@ import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS
 import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MAX_BUFFER_MS
 import com.google.android.exoplayer2.offline.FilteringManifestParser
+import com.google.android.exoplayer2.offline.StreamKey
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.source.dash.DashMediaSource
-import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource
+import com.google.android.exoplayer2.source.dash.manifest.DashManifest
 import com.google.android.exoplayer2.source.dash.manifest.DashManifestParser
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
-import com.google.android.exoplayer2.source.hls.playlist.HlsPlaylistParser
-import com.google.android.exoplayer2.source.smoothstreaming.DefaultSsChunkSource
+import com.google.android.exoplayer2.source.hls.playlist.DefaultHlsPlaylistParserFactory
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource
+import com.google.android.exoplayer2.source.smoothstreaming.manifest.SsManifest
 import com.google.android.exoplayer2.source.smoothstreaming.manifest.SsManifestParser
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
@@ -70,13 +70,13 @@ class DrTvInputSessionImpl(
     private val tag = DrTvInputSessionImpl::class.java.simpleName
     private val unknownType = -1
 
-    private val defaultBandwidthMeter = DefaultBandwidthMeter.Builder().apply {
+    private val defaultBandwidthMeter = DefaultBandwidthMeter.Builder(context).apply {
         setInitialBitrateEstimate(2_000_000)
     }.build()
     private val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(
             defaultBandwidthMeter))
     private val eventLogger = EventLogger(trackSelector)
-    private val mediaDataSourceFactory: DataSource.Factory = buildDataSourceFactory(true)
+    private val dataSourceFactory: DataSource.Factory = buildDataSourceFactory(true)
 
     private var player: TvExoPlayer? = null
 
@@ -102,7 +102,7 @@ class DrTvInputSessionImpl(
                         DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS)
                 .createDefaultLoadControl()
 
-        player = TvExoPlayer(renderersFactory, trackSelector, loadControl).apply {
+        player = TvExoPlayer(context, renderersFactory, trackSelector, loadControl, defaultBandwidthMeter).apply {
             addListener(this@DrTvInputSessionImpl)
             addAnalyticsListener(eventLogger)
             prepare(buildMediaSource(providerData.videoUrl.toUri()), true, false)
@@ -300,31 +300,34 @@ class DrTvInputSessionImpl(
             selectedFormats.firstOrNull { it.sampleMimeType?.contains("audio/") ?: false }?.id
                     ?: "0"
 
-    private fun buildMediaSource(uri: Uri, overrideExtension: String = ""): MediaSource {
-        val type = if (TextUtils.isEmpty(overrideExtension))
-            Util.inferContentType(uri)
-        else
-            Util.inferContentType(".$overrideExtension")
 
-        return when (type) {
-            C.TYPE_SS -> SsMediaSource.Factory(DefaultSsChunkSource.Factory(mediaDataSourceFactory),
-                    buildDataSourceFactory(false))
-                    .setManifestParser(FilteringManifestParser(SsManifestParser(), emptyList()))
+    private fun buildMediaSource(uri: Uri, overrideExtension: String = ""): MediaSource {
+        @C.ContentType val type = Util.inferContentType(uri, overrideExtension)
+        when (type) {
+            C.TYPE_DASH -> return DashMediaSource.Factory(dataSourceFactory)
+                    .setManifestParser(
+                            FilteringManifestParser<DashManifest>(DashManifestParser(),
+                                    getOfflineStreamKeys(uri)))
                     .createMediaSource(uri)
-            C.TYPE_DASH -> DashMediaSource.Factory(DefaultDashChunkSource.Factory(
-                    mediaDataSourceFactory),
-                    buildDataSourceFactory(false))
-                    .setManifestParser(FilteringManifestParser(DashManifestParser(), emptyList()))
+            C.TYPE_SS -> return SsMediaSource.Factory(dataSourceFactory)
+                    .setManifestParser(
+                            FilteringManifestParser<SsManifest>(SsManifestParser(),
+                                    getOfflineStreamKeys(uri)))
                     .createMediaSource(uri)
-            C.TYPE_HLS -> HlsMediaSource.Factory(mediaDataSourceFactory)
-                    .setPlaylistParser(FilteringManifestParser(HlsPlaylistParser(), emptyList()))
+            C.TYPE_HLS -> return HlsMediaSource.Factory(dataSourceFactory)
+                    .setPlaylistParserFactory(
+                            DefaultHlsPlaylistParserFactory(getOfflineStreamKeys(uri)))
                     .createMediaSource(uri)
-            C.TYPE_OTHER -> ExtractorMediaSource.Factory(mediaDataSourceFactory).createMediaSource(
+            C.TYPE_OTHER -> return ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(
                     uri)
             else -> {
                 throw IllegalStateException("Unsupported type: $type")
             }
         }
+    }
+
+    private fun getOfflineStreamKeys(uri: Uri): List<StreamKey> {
+        return ArrayList()
     }
 
     private fun buildDataSourceFactory(useBandwidthMeter: Boolean): DataSource.Factory {
