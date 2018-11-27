@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
+    implementation(kotlin("stdlib", kotlinVersion))
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.squareup.retrofit2:retrofit:2.5.0")
     implementation("com.squareup.retrofit2:converter-jackson:2.5.0")
