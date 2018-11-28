@@ -52,7 +52,7 @@ kotlin {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
                 implementation "io.ktor:ktor-client-core:1.0.0"
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:+"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.9.1"
             }
         }
         commonTest {
@@ -64,7 +64,6 @@ kotlin {
         androidLibMain {
             dependencies {
                 implementation "io.ktor:ktor-client-okhttp:1.0.0"
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:+"
             }
         }
         androidLibTest {
@@ -76,7 +75,7 @@ kotlin {
         iosMain {
             dependencies {
                 implementation "io.ktor:ktor-client-ios:1.0.0"
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-native:+"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.9.1"
             }
         }
         iosTest {
