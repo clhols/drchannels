@@ -1,0 +1,118 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.multiplatform'
+    id 'kotlinx-serialization'
+}
+
+group = 'dk.youtec'
+version = 1.0
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 15
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    // Specify Kotlin/JVM stdlib dependency.
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
+
+    androidTestImplementation 'junit:junit:4.12'
+    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test'
+    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+kotlin {
+    targets {
+        fromPreset(presets.android, 'androidLib')
+
+        def buildForDevice = project.findProperty("device")?.toBoolean() ?: false
+        def iosPreset = (buildForDevice) ? presets.iosArm64 : presets.iosX64
+        fromPreset(iosPreset, 'ios') {
+            compilations.main.outputKinds('FRAMEWORK')
+        }
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-stdlib-common'
+                implementation "io.ktor:ktor-client-core:1.0.0"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:+"
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation 'org.jetbrains.kotlin:kotlin-test-common'
+                implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
+            }
+        }
+        androidLibMain {
+            dependencies {
+                implementation "io.ktor:ktor-client-okhttp:1.0.0"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:+"
+            }
+        }
+        androidLibTest {
+            dependencies {
+                implementation "com.squareup.okhttp3:okhttp:3.12.0"
+                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1"
+            }
+        }
+        iosMain {
+            dependencies {
+                implementation "io.ktor:ktor-client-ios:1.0.0"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-native:+"
+            }
+        }
+        iosTest {
+            dependencies {
+                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1"
+            }
+        }
+    }
+}
+
+task copyFramework {
+    def buildType = project.findProperty("kotlin.build.type") ?: "DEBUG"
+    dependsOn "link${buildType.toLowerCase().capitalize()}FrameworkIos"
+
+    doLast {
+        def srcFile = kotlin.targets.ios.compilations.main.getBinary("FRAMEWORK", buildType)
+        def targetDir = getProperty("configuration.build.dir")
+        copy {
+            from srcFile.parent
+            into targetDir
+            include 'drapi.framework/**'
+            include 'drapi.framework.dSYM'
+        }
+    }
+}
+
+task iosTest {
+    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
+    dependsOn 'linkTestDebugExecutableIos'
+    group = JavaBasePlugin.VERIFICATION_GROUP
+    description = "Runs tests for target 'ios' on an iOS simulator"
+
+    doLast {
+        def binary = kotlin.targets.ios.compilations.test.getBinary('EXECUTABLE', 'DEBUG')
+        exec {
+            commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
+        }
+    }
+}

@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.annotation.Keep
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import dk.youtec.drapi.MuNowNext
+import dk.youtec.drapi.multiplatform.MuNowNext
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

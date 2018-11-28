@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import dk.youtec.drapi.MuNowNext
+import dk.youtec.drapi.multiplatform.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.view.AspectImageView
 import dk.youtec.drchannels.util.load

@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.appupdater.updateApp
-import dk.youtec.drapi.MuNowNext
+import dk.youtec.drapi.multiplatform.MuNowNext
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
@@ -68,7 +68,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 this,
                 Observer<List<MuNowNext>> { channels ->
                     isEmptyState = channels.isNullOrEmpty()
-                    handleChannelsChanged(channels.orEmpty())
+                    handleChannelsChanged(channels)
                     progressBar.isVisible = false
                     swipeRefresh.isRefreshing = false
                 })

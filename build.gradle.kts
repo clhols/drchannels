@@ -2,8 +2,10 @@ buildscript {
     repositories {
         mavenCentral()
         google()
+        maven { setUrl("https://plugins.gradle.org/m2/") }
+        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
+        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         jcenter()
-        //maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
     }
 
     dependencies {
@@ -18,9 +20,11 @@ allprojects {
     repositories {
         mavenCentral()
         google()
-        jcenter()
         maven { setUrl("https://kotlin.bintray.com/kotlinx") }
-        //maven { setUrl("http://dl.bintray.com/kotlin/kotlin-eap") }
+        maven { setUrl("https://plugins.gradle.org/m2/") }
+        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
+        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
+        jcenter()
     }
 
     // Force all of the primary libraries to use the same version.

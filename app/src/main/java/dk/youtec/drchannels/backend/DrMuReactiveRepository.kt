@@ -3,14 +3,17 @@ package dk.youtec.drchannels.backend
 import android.content.Context
 import android.util.Log
 import dk.youtec.drapi.*
+import dk.youtec.drapi.multiplatform.DrMuRepo
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.util.serverDateFormat
 import io.reactivex.Single
+import kotlinx.coroutines.runBlocking
 import java.io.IOException
-import java.util.*
+import java.util.Date
 
 class DrMuReactiveRepository(private val context: Context) {
     private val api = DrMuRepository(OkHttpClientFactory.getInstance(context))
+    private val api2 = DrMuRepo()
 
     fun getAllActiveDrTvChannels(): Single<List<Channel>> {
         return Single.create<List<Channel>> { subscriber ->
@@ -62,10 +65,10 @@ class DrMuReactiveRepository(private val context: Context) {
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
 
-    fun getScheduleNowNext(): Single<List<MuNowNext>> {
-        return Single.create<List<MuNowNext>> { subscriber ->
+    fun getScheduleNowNext(): Single<List<dk.youtec.drapi.multiplatform.MuNowNext>> {
+        return Single.create<List<dk.youtec.drapi.multiplatform.MuNowNext>> { subscriber ->
             try {
-                val schedules: List<MuNowNext> = api.getScheduleNowNext()
+                val schedules: List<dk.youtec.drapi.multiplatform.MuNowNext> = runBlocking { api2.getScheduleNowNext() }
                 subscriber.onSuccess(schedules)
             } catch (e: IOException) {
                 subscriber.onError(DrMuException(e.message))
