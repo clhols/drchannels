@@ -94,6 +94,7 @@ class CurrentProgramsPreviewUpdater(
             scheduleNextProgramsUpdate(nextProgramFinishTime)
         } else {
             Log.w(TAG, "No program finish time for scheduling next job")
+            scheduleNextProgramsUpdate(now + 5 * 60 * 1000)
         }
     }
 
