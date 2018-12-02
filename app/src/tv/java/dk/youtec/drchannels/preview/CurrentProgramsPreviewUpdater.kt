@@ -61,6 +61,10 @@ class CurrentProgramsPreviewUpdater(
 
         val existingPreviewPrograms = getPreviewPrograms(previewChannelId)
 
+        existingPreviewPrograms.forEach {
+            Log.d(TAG, "Existing program: ${it.title}, start=${it.startTimeUtcMillis}, end=${it.endTimeUtcMillis}")
+        }
+
         //Remove expired programs
         existingPreviewPrograms
                 .asSequence()
@@ -130,9 +134,7 @@ class CurrentProgramsPreviewUpdater(
                         .build()
 
         //If this channel is showing the same program as last time.
-        if (isExistingPreviewProgram(previewProgram, existingPreviewPrograms)) {
-            Log.d(TAG, "Existing program ${program.title}")
-        } else {
+        if (!isExistingPreviewProgram(previewProgram, existingPreviewPrograms)) {
             //Create the new program
             val programUri = contentResolver.insert(TvContractCompat.PreviewPrograms.CONTENT_URI,
                     previewProgram.toContentValues())
