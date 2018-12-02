@@ -57,7 +57,6 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.TrackSelectionView;
 import com.google.android.exoplayer2.ui.spherical.SphericalSurfaceView;
 import com.google.android.exoplayer2.upstream.DataSource;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
@@ -136,9 +135,6 @@ public class PlayerActivity extends Activity
     private static final String KEY_POSITION = "position";
     private static final String KEY_AUTO_PLAY = "auto_play";
 
-    private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter.Builder()
-            .setInitialBitrateEstimate(2_000_000)
-            .build();
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
     static {
         DEFAULT_COOKIE_MANAGER = new CookieManager();
@@ -162,13 +158,13 @@ public class PlayerActivity extends Activity
     private int startWindow;
     private long startPosition;
 
-    private boolean useExtensionRenderers = false;
-
     // Fields used only for ad playback. The ads loader is loaded via reflection.
 
     private AdsLoader adsLoader;
     private Uri loadedAdTagUri;
     private ViewGroup adUiViewGroup;
+
+    private boolean useExtensionRenderers = false;
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -215,7 +211,7 @@ public class PlayerActivity extends Activity
         String sphericalStereoMode = getIntent().getStringExtra(SPHERICAL_STEREO_MODE_EXTRA);
 
         super.onCreate(savedInstanceState);
-        dataSourceFactory = buildDataSourceFactory(true);
+        dataSourceFactory = buildDataSourceFactory();
         if (CookieHandler.getDefault() != DEFAULT_COOKIE_MANAGER) {
             CookieHandler.setDefault(DEFAULT_COOKIE_MANAGER);
         }
@@ -563,8 +559,9 @@ public class PlayerActivity extends Activity
     private DefaultDrmSessionManager<FrameworkMediaCrypto> buildDrmSessionManagerV18(
             UUID uuid, String licenseUrl, String[] keyRequestPropertiesArray, boolean multiSession)
             throws UnsupportedDrmException {
+    HttpDataSource.Factory licenseDataSourceFactory = buildHttpDataSourceFactory();
         HttpMediaDrmCallback drmCallback =
-                new HttpMediaDrmCallback(licenseUrl, buildHttpDataSourceFactory(false));
+            new HttpMediaDrmCallback(licenseUrl, licenseDataSourceFactory);
         if (keyRequestPropertiesArray != null) {
             for (int i = 0; i < keyRequestPropertiesArray.length - 1; i += 2) {
                 drmCallback.setKeyRequestProperty(keyRequestPropertiesArray[i],
@@ -626,26 +623,13 @@ public class PlayerActivity extends Activity
         startPosition = C.TIME_UNSET;
     }
 
-    /**
-     * Returns a new DataSource factory.
-     *
-     * @param useBandwidthMeter Whether to set {@link #BANDWIDTH_METER} as a listener to the new
-     *     DataSource factory.
-     * @return A new DataSource factory.
-     */
-    private DataSource.Factory buildDataSourceFactory(boolean useBandwidthMeter) {
-        return new DefaultDataSourceFactory(this, useBandwidthMeter ? BANDWIDTH_METER : null,
-                buildHttpDataSourceFactory(useBandwidthMeter));
+    /** Returns a new DataSource factory. */
+    private DataSource.Factory buildDataSourceFactory() {
+        return new DefaultDataSourceFactory(this, buildHttpDataSourceFactory());
     }
 
-    /**
-     * Returns a new HttpDataSource factory.
-     *
-     * @param useBandwidthMeter Whether to set {@link #BANDWIDTH_METER} as a listener to the new
-     *                          DataSource factory.
-     * @return A new HttpDataSource factory.
-     */
-    private HttpDataSource.Factory buildHttpDataSourceFactory(boolean useBandwidthMeter) {
+    /** Returns a {@link HttpDataSource.Factory}. */
+    public HttpDataSource.Factory buildHttpDataSourceFactory() {
         String name = getPackageName();
         String version = "";
         try {
@@ -654,12 +638,10 @@ public class PlayerActivity extends Activity
         } catch (PackageManager.NameNotFoundException e) {
         }
 
-        return new DefaultHttpDataSourceFactory(name + "/" + version + " (Linux;Android " + Build.VERSION.RELEASE + ") ", useBandwidthMeter ? BANDWIDTH_METER : null);
+        return new DefaultHttpDataSourceFactory(name + "/" + version + " (Linux;Android " + Build.VERSION.RELEASE + ") ");
     }
 
-    /**
-     * Returns an ads media source, reusing the ads loader if one exists.
-     */
+  /** Returns an ads media source, reusing the ads loader if one exists. */
     private @Nullable MediaSource createAdsMediaSource(MediaSource mediaSource, Uri adTagUri) {
         // Load the extension source using reflection so the demo app doesn't have to depend on it.
         // The ads loader is reused for multiple playbacks, so that ad playback can resume.
