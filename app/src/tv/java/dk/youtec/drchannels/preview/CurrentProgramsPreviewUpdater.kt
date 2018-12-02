@@ -62,7 +62,7 @@ class CurrentProgramsPreviewUpdater(
         val existingPreviewPrograms = getPreviewPrograms(previewChannelId)
 
         existingPreviewPrograms.forEach {
-            Log.d(TAG, "Existing program: ${it.title}, start=${it.startTimeUtcMillis}, end=${it.endTimeUtcMillis}")
+            Log.d(TAG, "Existing program: ${it.title}, posterArtUri=${it.posterArtUri}")
         }
 
         //Remove expired programs
@@ -146,8 +146,7 @@ class CurrentProgramsPreviewUpdater(
 
     private fun isExistingPreviewProgram(program: PreviewProgram, existingPrograms: List<PreviewProgram>): Boolean {
         return existingPrograms.any {
-            it.startTimeUtcMillis == program.startTimeUtcMillis
-                    && it.endTimeUtcMillis == program.endTimeUtcMillis
+            it.posterArtUri == program.posterArtUri
                     && it.title == program.title
         }
     }
