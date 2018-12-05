@@ -27,7 +27,6 @@ import com.google.android.exoplayer2.source.hls.playlist.DefaultHlsPlaylistParse
 import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource
 import com.google.android.exoplayer2.source.smoothstreaming.manifest.SsManifest
 import com.google.android.exoplayer2.source.smoothstreaming.manifest.SsManifestParser
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelection
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
@@ -70,13 +69,10 @@ class DrTvInputSessionImpl(
     private val tag = DrTvInputSessionImpl::class.java.simpleName
     private val unknownType = -1
 
-    private val defaultBandwidthMeter = DefaultBandwidthMeter.Builder(context).apply {
-        setInitialBitrateEstimate(2_000_000)
-    }.build()
-    private val trackSelector = DefaultTrackSelector(AdaptiveTrackSelection.Factory(
-            defaultBandwidthMeter))
+    private val defaultBandwidthMeter = DefaultBandwidthMeter.Builder(context).build()
+    private val trackSelector = DefaultTrackSelector()
     private val eventLogger = EventLogger(trackSelector)
-    private val dataSourceFactory: DataSource.Factory = buildDataSourceFactory(true)
+    private val dataSourceFactory: DataSource.Factory = buildDataSourceFactory()
 
     private var player: TvExoPlayer? = null
 
@@ -330,17 +326,12 @@ class DrTvInputSessionImpl(
         return ArrayList()
     }
 
-    private fun buildDataSourceFactory(useBandwidthMeter: Boolean): DataSource.Factory {
-        return DefaultDataSourceFactory(
-                context,
-                if (useBandwidthMeter) defaultBandwidthMeter else null,
-                buildHttpDataSourceFactory(useBandwidthMeter))
+    private fun buildDataSourceFactory(): DataSource.Factory {
+        return DefaultDataSourceFactory(context, buildHttpDataSourceFactory())
     }
 
-    private fun buildHttpDataSourceFactory(useBandwidthMeter: Boolean): HttpDataSource.Factory {
-        return DefaultHttpDataSourceFactory(
-                "${context.packageName} / (Linux;Android ${Build.VERSION.RELEASE}) ",
-                if (useBandwidthMeter) defaultBandwidthMeter else null)
+    private fun buildHttpDataSourceFactory(): HttpDataSource.Factory {
+        return DefaultHttpDataSourceFactory("${context.packageName} / (Linux;Android ${Build.VERSION.RELEASE}) ")
     }
 }
 
