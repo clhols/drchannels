@@ -59,7 +59,7 @@ abstract class BasePreviewUpdater(
                 updatePrograms(previewChannelId)
             }
         }
-        return Result.SUCCESS
+        return Result.success()
     }
 
     private fun updatePrograms(previewChannelId: Long) {
