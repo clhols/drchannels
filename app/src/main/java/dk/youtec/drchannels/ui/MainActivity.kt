@@ -18,7 +18,6 @@ import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
-import dk.youtec.drchannels.preview.scheduleCurrentProgramsPreviewUpdate
 import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
 import dk.youtec.drchannels.util.isTv
 import dk.youtec.drchannels.viewmodel.ChannelsViewModel
@@ -80,8 +79,6 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                     "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
                     "https://www.dropbox.com/s/fwc2q3a3vw67rhv/drchannels.apk?dl=1",
                     "https://www.dropbox.com/s/8miqyro43qn71k0/drchannels.log?dl=1")
-        } else {
-            scheduleCurrentProgramsPreviewUpdate()
         }
     }
 
