@@ -4,6 +4,9 @@ pluginManagement {
             if (requested.id.id == "kotlin-multiplatform") {
                 useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
             }
+            if (requested.id.id == "kotlinx-serialization") {
+                useModule("org.jetbrains.kotlin:kotlin-serialization:${requested.version}")
+            }
             if (requested.id.id == "com.android.library") {
                 useModule("com.android.tools.build:gradle:${requested.version}")
             }
@@ -22,5 +25,7 @@ pluginManagement {
         jcenter()
     }
 }
+
+//enableFeaturePreview("GRADLE_METADATA")
 
 include(":app", ":drapi", ":tv-library", ":appupdater", ":drapi-lib")
