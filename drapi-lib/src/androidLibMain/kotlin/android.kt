@@ -6,13 +6,14 @@ import kotlinx.serialization.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 actual object HttpClientFactory {
     actual fun create() = HttpClient(OkHttp) {
         engine {
             // https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.Builder.html
             config { // this: OkHttpClient.Builder ->
-                followRedirects = true
+                connectTimeout(10, TimeUnit.SECONDS)
             }
 
             // https://square.github.io/okhttp/3.x/okhttp/okhttp3/Interceptor.html

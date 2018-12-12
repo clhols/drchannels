@@ -71,14 +71,9 @@ data class Channel(
         val Title: String,
         @Optional val ItemLabel: String = "",
         @Optional val Subtitle: String = "") {
-    val hlsServer: MuStreamingServer?
-        get() = StreamingServers.firstOrNull { it.LinkType == "HLS" }
-    val hdsServer: MuStreamingServer?
-        get() = StreamingServers.firstOrNull { it.LinkType == "HDS" }
-    //val dashServer: MuStreamingServer?
-    //    get() = StreamingServers.firstOrNull { it.LinkType == "DASH" }
-    val server: MuStreamingServer?
-        get() = hlsServer ?: hdsServer
+    private fun hlsServer(): MuStreamingServer? = StreamingServers.firstOrNull { it.LinkType == "HLS" }
+    private fun hdsServer(): MuStreamingServer? = StreamingServers.firstOrNull { it.LinkType == "HDS" }
+    fun server(): MuStreamingServer? = hlsServer() ?: hdsServer()
 }
 
 @Serializable
