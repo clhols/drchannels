@@ -1,16 +1,12 @@
 package dk.youtec.drchannels.preview
 
 import android.annotation.TargetApi
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.*
 import android.media.tv.TvContract
 import android.os.Build
 import android.util.Log
-import androidx.core.content.getSystemService
 import androidx.core.net.toUri
 import androidx.core.util.forEach
-import androidx.lifecycle.Observer
 import androidx.tvprovider.media.tv.Channel
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
@@ -21,6 +17,7 @@ import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.serverDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 private val TAG = CurrentProgramsPreviewUpdater::class.java.simpleName
 
@@ -52,7 +49,7 @@ class CurrentProgramsPreviewUpdater(
                         }
                     }
         }
-        return Result.SUCCESS
+        return Result.success()
     }
 
     private fun updatePrograms(previewChannelId: Long) {
@@ -60,6 +57,10 @@ class CurrentProgramsPreviewUpdater(
         var nextProgramFinishTime = Long.MAX_VALUE
 
         val existingPreviewPrograms = getPreviewPrograms(previewChannelId)
+
+        existingPreviewPrograms.forEach {
+            Log.d(TAG, "Existing program: ${it.title}, posterArtUri=${it.posterArtUri}")
+        }
 
         //Remove expired programs
         existingPreviewPrograms
@@ -100,7 +101,11 @@ class CurrentProgramsPreviewUpdater(
     /**
      * Removes any existing program from the channel and insert the new one.
      */
-    private fun updateProgram(program: Program, previewChannelId: Long, existingPreviewPrograms: List<PreviewProgram>) {
+    private fun updateProgram(
+            program: Program,
+            previewChannelId: Long,
+            existingPreviewPrograms: List<PreviewProgram>
+    ) {
         val intent = Intent(context, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
@@ -129,12 +134,12 @@ class CurrentProgramsPreviewUpdater(
                         .build()
 
         //If this channel is showing the same program as last time.
-        if (isExistingPreviewProgram(previewProgram, existingPreviewPrograms)) {
-            Log.d(TAG, "Existing program ${program.title}")
-        } else {
+        if (!isExistingPreviewProgram(previewProgram, existingPreviewPrograms)) {
             //Create the new program
-            val programUri = contentResolver.insert(TvContractCompat.PreviewPrograms.CONTENT_URI,
-                    previewProgram.toContentValues())
+            val programUri = contentResolver.insert(
+                    TvContractCompat.PreviewPrograms.CONTENT_URI,
+                    previewProgram.toContentValues()
+            )
             val newPreviewId = ContentUris.parseId(programUri)
 
             Log.d(TAG, "Added program ${previewProgram.title} with preview id $newPreviewId")
@@ -143,34 +148,20 @@ class CurrentProgramsPreviewUpdater(
 
     private fun isExistingPreviewProgram(program: PreviewProgram, existingPrograms: List<PreviewProgram>): Boolean {
         return existingPrograms.any {
-            it.startTimeUtcMillis == program.startTimeUtcMillis
-                    && it.endTimeUtcMillis == program.endTimeUtcMillis
+            it.posterArtUri == program.posterArtUri
                     && it.title == program.title
         }
     }
 
     /**
-     * Schedules the next update at [time]
+     * Schedules the next update at [time] in millis
      */
     private fun scheduleNextProgramsUpdate(time: Long) {
+        val delay = time - System.currentTimeMillis()
         val timeString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(time))
         Log.d(TAG, "Scheduling next preview update at $timeString")
 
-        val pendingIntent = PendingIntent.getBroadcast(context,
-                0,
-                Intent(context, CurrentProgramsPreviewUpdateReceiver::class.java),
-                PendingIntent.FLAG_CANCEL_CURRENT)
-
-        //Schedule the pending intent
-        context.getSystemService<AlarmManager?>()?.apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
-                        time,
-                        pendingIntent)
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent)
-            }
-        }
+        scheduleCurrentProgramsPreviewUpdate(delay)
     }
 
     /**
@@ -202,26 +193,16 @@ class CurrentProgramsPreviewUpdater(
  * Schedules a new task to update the preview channel if no other task is pending or running.
  */
 @Synchronized
-fun scheduleCurrentProgramsPreviewUpdate() {
+fun scheduleCurrentProgramsPreviewUpdate(delay: Long = 0) {
     val tag = "scheduleCurrentProgramsPreviewUpdate"
-    lateinit var observer: Observer<MutableList<WorkInfo>>
 
-    val statuses = WorkManager.getInstance().getWorkInfosByTagLiveData(tag)
-    observer = Observer { workStatuses ->
-        statuses.removeObserver(observer)
+    WorkManager.getInstance().cancelAllWorkByTag(tag)
 
-        val pendingWork = workStatuses?.any { !it.state.isFinished } ?: false
-        if (!pendingWork) {
-            val updatePreviewPrograms = OneTimeWorkRequestBuilder<CurrentProgramsPreviewUpdater>()
-                    .addTag(tag)
-                    .build()
-            WorkManager.getInstance().enqueue(updatePreviewPrograms)
-            Log.d(TAG, "Work task enqueued")
-        } else {
-            Log.d(TAG, "Work task already pending")
-        }
-    }
-    statuses.observeForever(observer)
+    val updatePreviewPrograms = OneTimeWorkRequestBuilder<CurrentProgramsPreviewUpdater>()
+            .addTag(tag)
+            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+            .build()
+    WorkManager.getInstance().enqueue(updatePreviewPrograms)
 }
 
 class CurrentProgramsPreviewUpdateReceiver : BroadcastReceiver() {
