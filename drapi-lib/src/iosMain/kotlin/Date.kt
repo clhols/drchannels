@@ -1,8 +1,18 @@
 package dk.youtec.drapi.multiplatform
 
-actual class Date actual constructor(millisSinceEpoch: Long) {
+import kotlinx.serialization.Decoder
+import kotlinx.serialization.Encoder
+import kotlinx.serialization.Serializer
+
+actual class Date {
+    var millisSinceEpoch: Long? = null
+
     actual fun getTime(): Long {
-        TODO("not implemented")
+        return millisSinceEpoch ?: 0
+    }
+
+    actual fun setTime(millisSinceEpoch: Long) {
+        this.millisSinceEpoch = millisSinceEpoch
     }
 }
 
@@ -10,6 +20,8 @@ actual class Date actual constructor(millisSinceEpoch: Long) {
 actual object DateSerializer {
     actual override fun serialize(output: Encoder, obj: Date) {}
     actual override fun deserialize(input: Decoder): Date {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Date().apply {
+            setTime(42)
+        }
     }
 }

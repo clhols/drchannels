@@ -129,6 +129,7 @@ data class MuScheduleBroadcast(
 data class ProgramCard(
         val Type: String,
         @Optional val SeriesTitle: String = "",
+        @Optional val EpisodeTitle: String = "",
         @Optional val SeriesSlug: String = "",
         @Optional val SeriesUrn: String = "",
         val PrimaryChannel: String,
@@ -179,12 +180,9 @@ data class PrimaryAsset(
 data class Manifest(
         val Links: List<Link>,
         val SubtitlesList: List<Subtitle>) {
-    val hlsUri: String?
-        get() = Links.firstOrNull { it.Target == "HLS" }?.Uri
-    val hdsUri: String?
-        get() = Links.firstOrNull { it.Target == "HDS" }?.Uri
-    val uri: String?
-        get() = hlsUri ?: hdsUri
+    private fun getHlsUri(): String? = Links.firstOrNull { it.Target == "HLS" }?.Uri
+    private fun getHdsUri(): String? = Links.firstOrNull { it.Target == "HDS" }?.Uri
+    fun getUri(): String? = getHlsUri() ?: getHdsUri()
 }
 
 @Serializable

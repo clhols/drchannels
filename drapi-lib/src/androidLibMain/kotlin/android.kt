@@ -3,6 +3,7 @@ package dk.youtec.drapi.multiplatform
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.serialization.*
+import kotlinx.serialization.internal.StringDescriptor
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,6 +26,8 @@ actual object HttpClientFactory {
 
 @Serializer(forClass = java.util.Date::class)
 actual object DateSerializer: KSerializer<Date> {
+    override val descriptor: SerialDescriptor
+        get() = StringDescriptor.withName("WithCustomDefault")
     private val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
     private val df2 = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
 

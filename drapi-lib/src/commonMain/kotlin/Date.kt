@@ -5,7 +5,8 @@ import kotlinx.serialization.Encoder
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializer
 
-expect class Date(millisSinceEpoch: Long) {
+expect class Date() {
+    fun setTime(millisSinceEpoch: Long)
     fun getTime(): Long
 }
 

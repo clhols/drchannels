@@ -26,6 +26,6 @@ pluginManagement {
     }
 }
 
-//enableFeaturePreview("GRADLE_METADATA")
+enableFeaturePreview("GRADLE_METADATA")
 
 include(":app", ":drapi", ":tv-library", ":appupdater", ":drapi-lib")

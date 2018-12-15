@@ -9,10 +9,10 @@ class DateSerializerTests {
     fun testDate() {
         var df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
         val date = df.parse("2018-11-24T19:01:26.2Z")
-        assertTrue { date != null }
+        assertTrue { date.time == 1543082486002L }
 
         df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
         val date2 = df.parse("2018-12-23T22:59:00Z")
-        assertTrue { date2 != null }
+        assertTrue { date2.time == 1545602340000L }
     }
 }
