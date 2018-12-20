@@ -132,6 +132,7 @@ data class ProgramCard(
         @Optional val EpisodeTitle: String = "",
         @Optional val SeriesSlug: String = "",
         @Optional val SeriesUrn: String = "",
+        @Optional val SeriesHostName: String = "",
         val PrimaryChannel: String,
         @Optional val PrimaryChannelSlug: String = "",
         @Optional val SeasonEpisodeNumberingValid: Boolean = false,

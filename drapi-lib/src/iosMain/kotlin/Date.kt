@@ -20,6 +20,7 @@ actual class Date {
 actual object DateSerializer {
     actual override fun serialize(output: Encoder, obj: Date) {}
     actual override fun deserialize(input: Decoder): Date {
+        val dateString = input.decodeString()
         return Date().apply {
             setTime(42)
         }

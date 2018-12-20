@@ -23,6 +23,13 @@ class DrMuRepoTests {
     }
 
     @Test
+    fun testScheduleNowNext() = runBlocking {
+        val schedules = service.getScheduleNowNext()
+
+        assertTrue(schedules.isNotEmpty())
+    }
+
+    @Test
     fun testScheduleDr1() = runBlocking {
         val date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
         val schedule = service.getSchedule("dr1", date)

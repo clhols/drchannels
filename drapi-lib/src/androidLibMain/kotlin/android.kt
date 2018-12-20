@@ -8,24 +8,28 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import okhttp3.logging.HttpLoggingInterceptor
 
 actual object HttpClientFactory {
     actual fun create() = HttpClient(OkHttp) {
         engine {
             // https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.Builder.html
-            config { // this: OkHttpClient.Builder ->
+            config {
+                // this: OkHttpClient.Builder ->
                 connectTimeout(10, TimeUnit.SECONDS)
             }
 
             // https://square.github.io/okhttp/3.x/okhttp/okhttp3/Interceptor.html
-            //addInterceptor(interceptor)
+            addInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
+                System.out.println(message)
+            }).apply { level = HttpLoggingInterceptor.Level.BODY })
             //addNetworkInterceptor(interceptor)
         }
     }
 }
 
 @Serializer(forClass = java.util.Date::class)
-actual object DateSerializer: KSerializer<Date> {
+actual object DateSerializer : KSerializer<Date> {
     override val descriptor: SerialDescriptor
         get() = StringDescriptor.withName("WithCustomDefault")
     private val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
