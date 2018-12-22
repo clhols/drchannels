@@ -1,4 +1,4 @@
-package dk.youtec.drapi.multiplatform
+package dk.youtec.drapi
 
 import kotlinx.serialization.Optional
 import kotlinx.serialization.Serializable
@@ -194,7 +194,7 @@ data class Link(
         val EncryptedUri: String,
         val FileFormat: String,
         val Target: String,
-        val Bitrate: Int)
+        @Optional val Bitrate: Int = 0)
 
 @Serializable
 data class Subtitle(

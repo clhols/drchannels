@@ -21,13 +21,19 @@ import dk.youtec.drchannels.preview.SearchPreviewUpdater
 import dk.youtec.drchannels.preview.scheduleCurrentProgramsPreviewUpdate
 import dk.youtec.drchannels.preview.schedulePreviewUpdate
 import dk.youtec.drchannels.util.serverDateFormat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.CoroutineContext
 
 /**
  * EpgSyncJobService that periodically runs to update channels and programs.
  */
-class DrTvEpgJobService : EpgSyncJobService() {
+class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
     private lateinit var api: DrMuRepository
 
     private val syncFinishedReceiver = object : BroadcastReceiver() {
@@ -60,9 +66,9 @@ class DrTvEpgJobService : EpgSyncJobService() {
     }
 
     override fun getChannels(): List<Channel> {
-        val drTvChannels = api.getAllActiveDrTvChannels()
+        val drTvChannels = runBlocking { api.getAllActiveDrTvChannels() }
                 .asSequence()
-                .filter { it.server != null }
+                .filter { it.server() != null }
                 .filter { !it.WebChannel }
                 .sortedBy { it.Title.replace(" ", "") }
 
@@ -200,7 +206,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
     private fun getBroadcasts(channel: Channel, date: Date): MutableList<MuScheduleBroadcast> {
         val dateString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
-        val schedule = api.getSchedule(channel.networkAffiliation, dateString)
-        return schedule?.Broadcasts?.toMutableList() ?: mutableListOf()
+        val schedule = runBlocking { api.getSchedule(channel.networkAffiliation, dateString) }
+        return schedule.Broadcasts.toMutableList()
     }
 }

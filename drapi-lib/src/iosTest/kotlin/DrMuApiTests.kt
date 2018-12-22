@@ -1,5 +1,5 @@
-import dk.youtec.drapi.multiplatform.DrMuRepoIos
-import dk.youtec.drapi.multiplatform.MuNowNext
+import dk.youtec.drapi.DrMuRepoIos
+import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.list

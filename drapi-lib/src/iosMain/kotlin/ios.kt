@@ -1,4 +1,4 @@
-package dk.youtec.drapi.multiplatform
+package dk.youtec.drapi
 
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.CoroutineScope
@@ -17,7 +17,7 @@ class DrMuRepoIos(
     override val coroutineContext: CoroutineContext
         get() = mainContext
 
-    private val repo = DrMuRepo()
+    private val repo = DrMuRepository()
 
     fun getAllActiveDrTvChannels(callback: (List<Channel>) -> Unit) {
         launch { callback(repo.getAllActiveDrTvChannels()) }

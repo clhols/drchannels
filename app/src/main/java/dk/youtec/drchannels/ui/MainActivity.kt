@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.appupdater.updateApp
-import dk.youtec.drapi.multiplatform.MuNowNext
+import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.backend.DrMuReactiveRepository
@@ -149,7 +149,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 api.getAllActiveDrTvChannels()
                         .subscribeOn(Schedulers.io())
                         .map { it.first { it.Slug == name } }
-                        .map { it.server ?: throw Exception("Unable to get streaming server") }
+                        .map { it.server() ?: throw Exception("Unable to get streaming server") }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
                                 onSuccess = { server ->
@@ -180,7 +180,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeBy(
                                     onSuccess = { manifest ->
-                                        val playbackUri = manifest.uri
+                                        val playbackUri = manifest.getUri()
                                         if (playbackUri != null) {
                                             startActivity(
                                                     buildIntent(this@MainActivity, playbackUri))

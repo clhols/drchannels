@@ -1,4 +1,4 @@
-package dk.youtec.drapi.multiplatform
+package dk.youtec.drapi
 
 import kotlin.test.Test
 

@@ -1,4 +1,4 @@
-package dk.youtec.drapi.multiplatform
+package dk.youtec.drapi
 
 import com.soywiz.klock.DateFormat
 import com.soywiz.klock.parse

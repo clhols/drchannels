@@ -1,4 +1,4 @@
-package dk.youtec.drapi.multiplatform
+package dk.youtec.drapi
 
 import com.soywiz.klock.DateException
 import com.soywiz.klock.DateFormat
@@ -8,9 +8,13 @@ import kotlinx.serialization.*
 import kotlinx.serialization.internal.StringDescriptor
 
 class Date {
-    var dateTime = DateTime(0)
+    internal var dateTime = DateTime(0)
 
-    fun getTime(): Long = dateTime.unixMillisLong
+    var time: Long
+        get() = dateTime.unixMillisLong
+        set(value) {
+            dateTime = DateTime(value)
+        }
 
     override fun toString(): String = dateTime.toString()
 }

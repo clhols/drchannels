@@ -1,5 +1,5 @@
-import dk.youtec.drapi.multiplatform.Channel
-import dk.youtec.drapi.multiplatform.DrMuRepo
+import dk.youtec.drapi.Channel
+import dk.youtec.drapi.DrMuRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import java.text.SimpleDateFormat
@@ -8,7 +8,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class DrMuRepoTests {
-    private val service = DrMuRepo()
+    private val service = DrMuRepository()
 
     @Test
     fun testAllActiveDrTvChannels() = runBlocking {
