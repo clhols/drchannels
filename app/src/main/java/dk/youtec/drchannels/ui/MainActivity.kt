@@ -68,7 +68,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 this,
                 Observer<List<MuNowNext>> { channels ->
                     isEmptyState = channels.isNullOrEmpty()
-                    handleChannelsChanged(channels.orEmpty())
+                    handleChannelsChanged(channels)
                     progressBar.isVisible = false
                     swipeRefresh.isRefreshing = false
                 })
@@ -149,7 +149,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 api.getAllActiveDrTvChannels()
                         .subscribeOn(Schedulers.io())
                         .map { it.first { it.Slug == name } }
-                        .map { it.server ?: throw Exception("Unable to get streaming server") }
+                        .map { it.server() ?: throw Exception("Unable to get streaming server") }
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
                                 onSuccess = { server ->
@@ -180,7 +180,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeBy(
                                     onSuccess = { manifest ->
-                                        val playbackUri = manifest.uri
+                                        val playbackUri = manifest.getUri()
                                         if (playbackUri != null) {
                                             startActivity(
                                                     buildIntent(this@MainActivity, playbackUri))

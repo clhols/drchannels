@@ -27,6 +27,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.program_item.view.*
 import org.jetbrains.anko.image
 import org.jetbrains.anko.toast
+import java.util.Date
 
 class ProgramAdapter(
         private val context: Context,
@@ -57,11 +58,11 @@ class ProgramAdapter(
 
         //Time
         val localDateFormat = serverDateFormat("dd/MM")
-        val startDate = localDateFormat.format(program.StartTime)
+        val startDate = localDateFormat.format(Date(program.StartTime.time))
 
         val localTimeFormat = serverDateFormat("HH:mm")
-        val startTime = localTimeFormat.format(program.StartTime)
-        val endTime = localTimeFormat.format(program.EndTime)
+        val startTime = localTimeFormat.format(Date(program.StartTime.time))
+        val endTime = localTimeFormat.format(Date(program.EndTime.time))
 
         holder.time.text = if (startDate == todaysDate)
             "$startTime - $endTime"
@@ -139,7 +140,7 @@ class ProgramAdapter(
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeBy(
                                 onSuccess = { manifest ->
-                                    val playbackUri = manifest.uri
+                                    val playbackUri = manifest.getUri()
                                     if (playbackUri != null) {
                                         context.startActivity(buildIntent(context, playbackUri))
                                     } else {

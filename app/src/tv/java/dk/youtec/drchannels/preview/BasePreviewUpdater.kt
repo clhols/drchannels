@@ -25,6 +25,7 @@ import dk.youtec.drchannels.ui.MainActivity
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
+import kotlinx.coroutines.runBlocking
 import org.jetbrains.anko.defaultSharedPreferences
 import java.util.*
 
@@ -39,7 +40,7 @@ abstract class BasePreviewUpdater(
     protected lateinit var api: DrMuRepository
     private lateinit var contentResolver: ContentResolver
 
-    abstract fun getPrograms() : List<ProgramCard>
+    abstract fun getPrograms(): List<ProgramCard>
 
     abstract fun getChannelName(): String
 
@@ -76,8 +77,8 @@ abstract class BasePreviewUpdater(
                     }
                 }
 
-        getPrograms().forEach { program ->
-            addProgram(program, previewChannelId)
+            getPrograms().forEach { program ->
+                addProgram(program, previewChannelId)
         }
     }
 
@@ -86,7 +87,7 @@ abstract class BasePreviewUpdater(
      */
     private fun addProgram(program: ProgramCard, previewChannelId: Long) {
         val playbackUri = program.PrimaryAsset?.Uri?.let { uri ->
-            api.getManifest(uri)?.uri ?: ""
+            runBlocking { api.getManifest(uri).getUri() ?: "" }
         }
 
         val intent = Intent(context, PlayerActivity::class.java).apply {

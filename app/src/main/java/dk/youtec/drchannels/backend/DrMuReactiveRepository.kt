@@ -3,22 +3,35 @@ package dk.youtec.drchannels.backend
 import android.content.Context
 import android.util.Log
 import dk.youtec.drapi.*
+import dk.youtec.drapi.Channel
+import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.util.serverDateFormat
 import io.reactivex.Single
+import kotlinx.coroutines.*
 import java.io.IOException
-import java.util.*
+import java.util.Date
+import kotlin.coroutines.CoroutineContext
 
-class DrMuReactiveRepository(private val context: Context) {
-    private val api = DrMuRepository(OkHttpClientFactory.getInstance(context))
+class DrMuReactiveRepository(private val context: Context) : CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
+
+    private val api = DrMuRepository()
 
     fun getAllActiveDrTvChannels(): Single<List<Channel>> {
         return Single.create<List<Channel>> { subscriber ->
             try {
-                val channels = api.getAllActiveDrTvChannels()
-                subscriber.onSuccess(channels)
+                launch {
+                    val channels = withContext(Dispatchers.IO) { api.getAllActiveDrTvChannels() }
+                    if (!subscriber.isDisposed) {
+                        subscriber.onSuccess(channels)
+                    }
+                }
             } catch (e: IOException) {
-                subscriber.onError(DrMuException(e.message))
+                if (!subscriber.isDisposed) {
+                    subscriber.onError(DrMuException(e.message))
+                }
             }
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
@@ -29,14 +42,20 @@ class DrMuReactiveRepository(private val context: Context) {
     fun getManifest(uri: String): Single<Manifest> {
         return Single.create<Manifest> { subscriber ->
             try {
-                val manifest: Manifest? = api.getManifest(uri)
-                if (manifest != null) {
-                    subscriber.onSuccess(manifest)
-                } else {
-                    subscriber.onError(DrMuException(context.getString(R.string.missingResponse)))
+                launch {
+                    val manifest: Manifest? = withContext(Dispatchers.IO) { api.getManifest(uri) }
+                    if (!subscriber.isDisposed) {
+                        if (manifest != null) {
+                            subscriber.onSuccess(manifest)
+                        } else {
+                            subscriber.onError(DrMuException(context.getString(R.string.missingResponse)))
+                        }
+                    }
                 }
             } catch (e: IOException) {
-                subscriber.onError(DrMuException(e.message))
+                if (!subscriber.isDisposed) {
+                    subscriber.onError(DrMuException(e.message))
+                }
             }
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
@@ -49,15 +68,20 @@ class DrMuReactiveRepository(private val context: Context) {
         return Single.create<Schedule> { subscriber ->
             try {
                 val dateString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
-
-                val schedule: Schedule? = api.getSchedule(id, dateString)
-                if (schedule != null) {
-                    subscriber.onSuccess(schedule)
-                } else {
-                    subscriber.onError(DrMuException(context.getString(R.string.missingResponse)))
+                launch {
+                    val schedule: Schedule? = withContext(Dispatchers.IO) { api.getSchedule(id, dateString) }
+                    if (!subscriber.isDisposed) {
+                        if (schedule != null) {
+                            subscriber.onSuccess(schedule)
+                        } else {
+                            subscriber.onError(DrMuException(context.getString(R.string.missingResponse)))
+                        }
+                    }
                 }
             } catch (e: IOException) {
-                subscriber.onError(DrMuException(e.message))
+                if (!subscriber.isDisposed) {
+                    subscriber.onError(DrMuException(e.message))
+                }
             }
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
@@ -65,10 +89,16 @@ class DrMuReactiveRepository(private val context: Context) {
     fun getScheduleNowNext(): Single<List<MuNowNext>> {
         return Single.create<List<MuNowNext>> { subscriber ->
             try {
-                val schedules: List<MuNowNext> = api.getScheduleNowNext()
-                subscriber.onSuccess(schedules)
+                launch {
+                    val schedules: List<MuNowNext> = withContext(Dispatchers.IO) { api.getScheduleNowNext() }
+                    if (!subscriber.isDisposed) {
+                        subscriber.onSuccess(schedules)
+                    }
+                }
             } catch (e: IOException) {
-                subscriber.onError(DrMuException(e.message))
+                if (!subscriber.isDisposed) {
+                    subscriber.onError(DrMuException(e.message))
+                }
             }
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
@@ -79,25 +109,37 @@ class DrMuReactiveRepository(private val context: Context) {
     fun getScheduleNowNext(id: String): Single<MuNowNext> {
         return Single.create<MuNowNext> { subscriber ->
             try {
-                val schedule: MuNowNext? = api.getScheduleNowNext(id)
-                if (schedule != null) {
-                    subscriber.onSuccess(schedule)
-                } else {
-                    subscriber.onError(DrMuException(context.getString(R.string.missingResponse)))
+                launch {
+                    val schedule: MuNowNext? = withContext(Dispatchers.IO) { api.getScheduleNowNext(id) }
+                    if (!subscriber.isDisposed) {
+                        if (schedule != null) {
+                            subscriber.onSuccess(schedule)
+                        } else {
+                            subscriber.onError(DrMuException(context.getString(R.string.missingResponse)))
+                        }
+                    }
                 }
             } catch (e: IOException) {
-                subscriber.onError(DrMuException(e.message))
+                if (!subscriber.isDisposed) {
+                    subscriber.onError(DrMuException(e.message))
+                }
             }
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
 
-    fun getMostViewed(): Single<MostViewed> {
+    fun getMostViewed(channel: String, channelType: String, limit: Int): Single<MostViewed> {
         return Single.create<MostViewed> { subscriber ->
             try {
-                val mostViewed: MostViewed = api.getMostViewed() ?: MostViewed(emptyList(), MuPaging(), 0)
-                subscriber.onSuccess(mostViewed)
+                launch {
+                    val mostViewed: MostViewed = withContext(Dispatchers.IO) { api.getMostViewed(channel, channelType, limit) }
+                    if (!subscriber.isDisposed) {
+                        subscriber.onSuccess(mostViewed)
+                    }
+                }
             } catch (e: IOException) {
-                subscriber.onError(DrMuException(e.message))
+                if (!subscriber.isDisposed) {
+                    subscriber.onError(DrMuException(e.message))
+                }
             }
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
@@ -105,10 +147,16 @@ class DrMuReactiveRepository(private val context: Context) {
     fun search(query: String): Single<SearchResult> {
         return Single.create<SearchResult> { subscriber ->
             try {
-                val searchResult: SearchResult = api.search(query)!!
-                subscriber.onSuccess(searchResult)
+                launch {
+                    val searchResult: SearchResult = withContext(Dispatchers.IO) { api.search(query) }
+                    if (!subscriber.isDisposed) {
+                        subscriber.onSuccess(searchResult)
+                    }
+                }
             } catch (e: IOException) {
-                subscriber.onError(DrMuException(e.message))
+                if (!subscriber.isDisposed) {
+                    subscriber.onError(DrMuException(e.message))
+                }
             }
         }.retry(3).doOnError { Log.e(javaClass.simpleName, it.message, it) }
     }
@@ -116,7 +164,7 @@ class DrMuReactiveRepository(private val context: Context) {
 
 val Channel.streamingUrl: String
     get() {
-        val stream = server!!.Qualities.sortedByDescending { it.Kbps }.first()
+        val stream = server()!!.Qualities.sortedByDescending { it.Kbps }.first()
                 .Streams.first().Stream
-        return "${server!!.Server}/$stream"
+        return "${server()!!.Server}/$stream"
     }
