@@ -10,37 +10,32 @@ actual object HttpClientFactory {
 }
 
 @Suppress("unused")
-class DrMuRepoIos(
-        private val mainContext: CoroutineContext // TODO: Use Dispatchers.Main instead when it is supported on iOS
-) : CoroutineScope {
+class DrMuRepositoryCallback(
+        override val coroutineContext: CoroutineContext // TODO: Use Dispatchers.Main instead when it is supported on iOS
+) : DrMuRepository(), CoroutineScope {
 
-    override val coroutineContext: CoroutineContext
-        get() = mainContext
-
-    private val repo = DrMuRepository()
-
-    fun getAllActiveDrTvChannels(callback: (List<Channel>) -> Unit) {
-        launch { callback(repo.getAllActiveDrTvChannels()) }
+    fun getAllActiveDrTvChannels(callback: (List<Channel>) -> Unit) = launch {
+        callback(getAllActiveDrTvChannels())
     }
 
-    fun getManifest(uri: String, callback: (Manifest) -> Unit) {
-        launch { callback(repo.getManifest(uri)) }
+    fun getManifest(uri: String, callback: (Manifest) -> Unit) = launch {
+        callback(getManifest(uri))
     }
 
-    fun getSchedule(id: String, date: String, callback: (Schedule) -> Unit) {
-        launch { callback(repo.getSchedule(id, date)) }
+    fun getSchedule(id: String, date: String, callback: (Schedule) -> Unit) = launch {
+        callback(getSchedule(id, date))
     }
 
-    fun getScheduleNowNext(id: String, callback: (MuNowNext) -> Unit) {
-        launch { callback(repo.getScheduleNowNext(id)) }
+    fun getScheduleNowNext(id: String, callback: (MuNowNext) -> Unit) = launch {
+        callback(getScheduleNowNext(id))
     }
 
-    fun getScheduleNowNext(callback: (List<MuNowNext>) -> Unit) {
-        launch { callback(repo.getScheduleNowNext()) }
+    fun getScheduleNowNext(callback: (List<MuNowNext>) -> Unit) = launch {
+        callback(getScheduleNowNext())
     }
 
-    fun search(query: String, callback: (SearchResult) -> Unit) {
-        launch { callback(repo.search(query)) }
+    fun search(query: String, callback: (SearchResult) -> Unit) = launch {
+        callback(search(query))
     }
 
     fun getMostViewed(
@@ -48,7 +43,7 @@ class DrMuRepoIos(
             channelType: String,
             limit: Int,
             callback: (MostViewed) -> Unit
-    ) {
-        launch { callback(repo.getMostViewed(channel, channelType, limit)) }
+    ) = launch {
+        callback(getMostViewed(channel, channelType, limit))
     }
 }

@@ -4,7 +4,7 @@ import io.ktor.client.request.get
 import kotlinx.serialization.json.JSON
 import kotlinx.serialization.list
 
-class DrMuRepository: IDrMuApi {
+open class DrMuRepository: IDrMuApi {
     override suspend fun getAllActiveDrTvChannels(): List<Channel> {
         val url = "$API_URL/channel/all-active-dr-tv-channels"
         val client = HttpClientFactory.create()
