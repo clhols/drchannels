@@ -10,14 +10,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.JSON
-import kotlinx.serialization.serializerByTypeToken
-import kotlinx.serialization.typeTokenOf
+import kotlinx.serialization.list
 import okhttp3.Request
 import java.io.IOException
 
 private const val tag = "AppUpdater"
-
-internal val listOutputSerializer = serializerByTypeToken(typeTokenOf<List<Output>>())
 
 /**
  * Updates the app to a newer version.
@@ -77,7 +74,7 @@ private suspend fun getAppVersionFromMeta(
 }
 
 internal fun extractVersionCode(metaString: String): Int {
-    val outputs = JSON.nonstrict.parse(listOutputSerializer, metaString) as? List<*>
+    val outputs = JSON.nonstrict.parse(Output.serializer().list, metaString) as? List<*>
             ?: emptyList<Output>()
 
     return outputs

@@ -21,6 +21,7 @@ import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.android.synthetic.main.channels_item.view.*
 import org.jetbrains.anko.image
 import org.jetbrains.anko.selector
+import java.util.Date
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View =
         LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
@@ -43,8 +44,8 @@ class ChannelsAdapter(
 
         //Show time interval
         val localDateFormat = serverDateFormat("HH:mm")
-        val startTime = localDateFormat.format(now.StartTime)
-        val endTime = localDateFormat.format(now.EndTime)
+        val startTime = localDateFormat.format(Date(now.StartTime.time))
+        val endTime = localDateFormat.format(Date(now.EndTime.time))
 
         holder.time.text = buildString {
             append(startTime)

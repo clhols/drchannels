@@ -25,16 +25,6 @@
 #ExoPlayer
 -keep class com.google.android.exoplayer2.** { *; }
 
-## Retrofit
--dontwarn retrofit2.**
--keep class retrofit2.** { *; }
--keepattributes Signature
--keepattributes Exceptions
-
--keepclasseswithmembers class * {
-    @retrofit2.http.* <methods>;
-}
-
 # OkHttp
 -keepattributes Signature
 -keepattributes *Annotation*
