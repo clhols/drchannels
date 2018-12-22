@@ -22,6 +22,7 @@ allprojects {
         google()
         maven { setUrl("https://kotlin.bintray.com/kotlinx") }
         maven { setUrl("https://plugins.gradle.org/m2/") }
+        maven { setUrl("https://dl.bintray.com/soywiz/soywiz") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         jcenter()
