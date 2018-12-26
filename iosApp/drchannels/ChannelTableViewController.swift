@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 import drapi_lib
 
 class ChannelTableViewController: UITableViewController {
@@ -20,13 +22,6 @@ class ChannelTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
         loadChannels()
     }
     
@@ -36,26 +31,61 @@ class ChannelTableViewController: UITableViewController {
         repo.getScheduleNowNext(callback: {
             (schedules: [MuNowNext]) -> KotlinUnit in
             print("Got channels result")
-            for nowNext in schedules {
-                print(nowNext.now?.title, "starts at", nowNext.now?.announcedStartTime)
-                print(nowNext.next.first?.title, "starts at", nowNext.next.first?.announcedStartTime)
-            }
             self.channels = schedules
-            
             self.tableView.reloadData()
             return KotlinUnit.init()
         })
     }
+    
+    func playVideo(uri: String) {
+        
+        guard let url = URL(string: uri) else {
+            return
+        }
+        
+        // Create an AVPlayer, passing it the HTTP Live Streaming URL.
+        let player = AVPlayer(url: url)
+        
+        // Create a new AVPlayerViewController and pass it a reference to the player.
+        let controller = AVPlayerViewController()
+        controller.player = player
+        
+        // Modally present the player and call the player's play() method when complete.
+        present(controller, animated: true) {
+            player.play()
+        }
+    }
+
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let name = self.channels[indexPath.row].channelSlug
+        
+        repo.getAllActiveDrTvChannels(callback: {
+            (channels: [Channel]) -> KotlinUnit in
+            
+            let channel = channels.first(where: { (channel: Channel) -> Bool in
+                channel.slug == name
+            })
+            
+            let server = channel?.server()
+            let stream = server?.qualities.first?.streams.first?.stream
+            let url = "\(server!.server)/\(stream!)"
+            
+            print("Playing url: \(url)")
+            
+            self.playVideo(uri: url)
+            
+            return KotlinUnit.init()
+        })
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return self.channels.count
     }
 
