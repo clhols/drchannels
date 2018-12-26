@@ -75,7 +75,7 @@ kapt {
 }
 
 dependencies {
-    implementation(project(":drapi-lib"))
+    implementation(project(":drapi"))
     implementation(project(":tv-library"))
     implementation(project(":appupdater"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
