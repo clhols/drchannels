@@ -28,4 +28,4 @@ pluginManagement {
 
 enableFeaturePreview("GRADLE_METADATA")
 
-include(":app", ":tv-library", ":appupdater", ":drapi-lib")
+include(":androidApp", ":tv-library", ":appupdater", ":drapi")
