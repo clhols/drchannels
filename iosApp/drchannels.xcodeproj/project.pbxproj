@@ -13,8 +13,8 @@
 		EC82AA8321D3C04300E0651C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC82AA8221D3C04300E0651C /* AppDelegate.swift */; };
 		EC82AA8821D3C04300E0651C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC82AA8621D3C04300E0651C /* Main.storyboard */; };
 		EC82AA8A21D3C04400E0651C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC82AA8921D3C04400E0651C /* Assets.xcassets */; };
-		EC82AA9721D3C0A200E0651C /* drapi_lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC82AA9521D3C09E00E0651C /* drapi_lib.framework */; };
-		EC82AA9821D3C0A200E0651C /* drapi_lib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC82AA9521D3C09E00E0651C /* drapi_lib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ECFD1FAA21D52FD300285D47 /* drapi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECFD1FA921D52FD300285D47 /* drapi.framework */; };
+		ECFD1FAB21D52FD300285D47 /* drapi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECFD1FA921D52FD300285D47 /* drapi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EC82AA9821D3C0A200E0651C /* drapi_lib.framework in Embed Frameworks */,
+				ECFD1FAB21D52FD300285D47 /* drapi.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,6 +41,7 @@
 		EC82AA8921D3C04400E0651C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC82AA8E21D3C04400E0651C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC82AA9521D3C09E00E0651C /* drapi_lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = drapi_lib.framework; sourceTree = "<group>"; };
+		ECFD1FA921D52FD300285D47 /* drapi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = drapi.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC82AA9721D3C0A200E0651C /* drapi_lib.framework in Frameworks */,
+				ECFD1FAA21D52FD300285D47 /* drapi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +59,7 @@
 		EC82AA7621D3C04300E0651C = {
 			isa = PBXGroup;
 			children = (
+				ECFD1FA921D52FD300285D47 /* drapi.framework */,
 				EC82AA8121D3C04300E0651C /* drchannels */,
 				EC82AA8021D3C04300E0651C /* Products */,
 				EC82AA9421D3C09D00E0651C /* Frameworks */,

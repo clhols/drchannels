@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 import AVFoundation
-import drapi_lib
+import drapi
 
 class ChannelTableViewController: UITableViewController {
 
