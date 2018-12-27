@@ -35,11 +35,10 @@
 		EC588A9121D3C1370010E814 /* ChannelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewController.swift; sourceTree = "<group>"; };
 		EC588A9221D3C1370010E814 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		EC588A9321D3C1370010E814 /* UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
-		EC82AA7F21D3C04300E0651C /* drchannels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drchannels.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC82AA7F21D3C04300E0651C /* DR channels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DR channels.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC82AA8221D3C04300E0651C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC82AA8721D3C04300E0651C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EC82AA8921D3C04400E0651C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EC82AA8C21D3C04400E0651C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC82AA8E21D3C04400E0651C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC82AA9521D3C09E00E0651C /* drapi_lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = drapi_lib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,7 +67,7 @@
 		EC82AA8021D3C04300E0651C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EC82AA7F21D3C04300E0651C /* drchannels.app */,
+				EC82AA7F21D3C04300E0651C /* DR channels.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,7 +81,6 @@
 				EC82AA8221D3C04300E0651C /* AppDelegate.swift */,
 				EC82AA8621D3C04300E0651C /* Main.storyboard */,
 				EC82AA8921D3C04400E0651C /* Assets.xcassets */,
-				EC82AA8B21D3C04400E0651C /* LaunchScreen.storyboard */,
 				EC82AA8E21D3C04400E0651C /* Info.plist */,
 			);
 			path = drchannels;
@@ -114,7 +112,7 @@
 			);
 			name = drchannels;
 			productName = drchannels;
-			productReference = EC82AA7F21D3C04300E0651C /* drchannels.app */;
+			productReference = EC82AA7F21D3C04300E0651C /* DR channels.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -183,14 +181,6 @@
 				EC82AA8721D3C04300E0651C /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		EC82AA8B21D3C04400E0651C /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EC82AA8C21D3C04400E0651C /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -327,7 +317,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dk.youtec.drchannels;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "DR channels";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -348,7 +338,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dk.youtec.drchannels;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "DR channels";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
