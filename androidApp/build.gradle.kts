@@ -82,7 +82,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
 
-    implementation("com.google.android.exoplayer:exoplayer:$exoPlayerVersion")
+    implementation("com.google.android.exoplayer:exoplayer-core:$exoPlayerVersion")
+    implementation("com.google.android.exoplayer:exoplayer-hls:$exoPlayerVersion")
+    implementation("com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion")
 
     implementation("org.jetbrains.anko:anko-sdk15:$ankoVersion")
     implementation("com.squareup.picasso:picasso:$picassoVersion")

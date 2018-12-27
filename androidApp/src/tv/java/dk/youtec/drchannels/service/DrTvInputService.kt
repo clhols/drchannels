@@ -14,19 +14,12 @@ import androidx.core.net.toUri
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS
 import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MAX_BUFFER_MS
-import com.google.android.exoplayer2.offline.FilteringManifestParser
 import com.google.android.exoplayer2.offline.StreamKey
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.source.TrackGroupArray
-import com.google.android.exoplayer2.source.dash.DashMediaSource
-import com.google.android.exoplayer2.source.dash.manifest.DashManifest
-import com.google.android.exoplayer2.source.dash.manifest.DashManifestParser
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.source.hls.playlist.DefaultHlsPlaylistParserFactory
-import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource
-import com.google.android.exoplayer2.source.smoothstreaming.manifest.SsManifest
-import com.google.android.exoplayer2.source.smoothstreaming.manifest.SsManifestParser
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelection
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
@@ -300,6 +293,7 @@ class DrTvInputSessionImpl(
     private fun buildMediaSource(uri: Uri, overrideExtension: String = ""): MediaSource {
         @C.ContentType val type = Util.inferContentType(uri, overrideExtension)
         when (type) {
+            /*
             C.TYPE_DASH -> return DashMediaSource.Factory(dataSourceFactory)
                     .setManifestParser(
                             FilteringManifestParser<DashManifest>(DashManifestParser(),
@@ -310,6 +304,7 @@ class DrTvInputSessionImpl(
                             FilteringManifestParser<SsManifest>(SsManifestParser(),
                                     getOfflineStreamKeys(uri)))
                     .createMediaSource(uri)
+            */
             C.TYPE_HLS -> return HlsMediaSource.Factory(dataSourceFactory)
                     .setPlaylistParserFactory(
                             DefaultHlsPlaylistParserFactory(getOfflineStreamKeys(uri)))
