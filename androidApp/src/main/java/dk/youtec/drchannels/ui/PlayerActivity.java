@@ -30,7 +30,6 @@ import com.google.android.exoplayer2.drm.HttpMediaDrmCallback;
 import com.google.android.exoplayer2.drm.UnsupportedDrmException;
 import com.google.android.exoplayer2.mediacodec.MediaCodecRenderer.DecoderInitializationException;
 import com.google.android.exoplayer2.mediacodec.MediaCodecUtil.DecoderQueryException;
-import com.google.android.exoplayer2.offline.FilteringManifestParser;
 import com.google.android.exoplayer2.offline.StreamKey;
 import com.google.android.exoplayer2.source.BehindLiveWindowException;
 import com.google.android.exoplayer2.source.ConcatenatingMediaSource;
@@ -39,12 +38,8 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.ads.AdsLoader;
 import com.google.android.exoplayer2.source.ads.AdsMediaSource;
-import com.google.android.exoplayer2.source.dash.DashMediaSource;
-import com.google.android.exoplayer2.source.dash.manifest.DashManifestParser;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.source.hls.playlist.DefaultHlsPlaylistParserFactory;
-import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
-import com.google.android.exoplayer2.source.smoothstreaming.manifest.SsManifestParser;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector.MappedTrackInfo;
@@ -529,6 +524,7 @@ public class PlayerActivity extends Activity
     private MediaSource buildMediaSource(Uri uri, @Nullable String overrideExtension) {
         @ContentType int type = Util.inferContentType(uri, overrideExtension);
         switch (type) {
+            /*
             case C.TYPE_DASH:
                 return new DashMediaSource.Factory(dataSourceFactory)
                         .setManifestParser(
@@ -539,6 +535,7 @@ public class PlayerActivity extends Activity
                         .setManifestParser(
                                 new FilteringManifestParser<>(new SsManifestParser(), getOfflineStreamKeys(uri)))
                         .createMediaSource(uri);
+            */
             case C.TYPE_HLS:
                 return new HlsMediaSource.Factory(dataSourceFactory)
                         .setPlaylistParserFactory(
