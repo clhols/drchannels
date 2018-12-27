@@ -68,6 +68,15 @@ android {
         setSourceCompatibility("1.8")
         setTargetCompatibility("1.8")
     }
+
+    packagingOptions {
+        exclude("META-INF/ktor-http.kotlin_module")
+        exclude("META-INF/kotlinx-io.kotlin_module")
+        exclude("META-INF/atomicfu.kotlin_module")
+        exclude("META-INF/ktor-utils.kotlin_module")
+        exclude("META-INF/kotlinx-coroutines-io.kotlin_module")
+        exclude("META-INF/ktor-client-core.kotlin_module")
+    }
 }
 
 kapt {
@@ -104,10 +113,10 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
 
-    androidTestImplementation("androidx.test:core:1.0.0")
-    androidTestImplementation("androidx.test:runner:1.1.0")
-    androidTestImplementation("androidx.test:rules:1.1.0")
-    androidTestImplementation("androidx.test.ext:junit:1.0.0")
+    androidTestImplementation("androidx.test:core:1.1.0")
+    androidTestImplementation("androidx.test:runner:1.1.1")
+    androidTestImplementation("androidx.test:rules:1.1.1")
+    androidTestImplementation("androidx.test.ext:junit:1.1.0")
 }
 
 play {
