@@ -1,0 +1,6 @@
+framework module drapi {
+    umbrella header "drapi.h"
+
+    export *
+    module * { export * }
+}
