@@ -17,7 +17,7 @@ class ChannelTableViewController: UITableViewController {
     
     lazy var repo: DrMuRepositoryCallback = {
         DrMuRepositoryCallback(
-            coroutineContext: UI() as! KotlinCoroutineContext)
+            coroutineContext: UI() as KotlinCoroutineContext)
     }()
     
     override func viewDidLoad() {
