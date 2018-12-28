@@ -27,6 +27,7 @@
         android:layout_height="match_parent"
         android:focusable="true"
         app:use_controller="@bool/isNotTv"
+        app:hide_on_touch="true"
         app:fastforward_increment="10000"
         app:rewind_increment="20000" />
 
