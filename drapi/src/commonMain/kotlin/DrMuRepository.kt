@@ -52,4 +52,14 @@ open class DrMuRepository: IDrMuApi {
         val json = client.get<String>(url)
         return JSON.parse(MostViewed.serializer(), json)
     }
+
+    override suspend fun getPageTvPrograms(genre: Genre): Page {
+        val encodedGenre = genre.value
+                .replace(" ", "%20")
+                .replace("&", "%26")
+        val url = "$API_URL/page/tv/programs?onlinegenretexts=$encodedGenre&orderBy=LastPrimaryBroadcastWithPublicAsset&orderDescending=True"
+        val client = HttpClientFactory.create()
+        val json = client.get<String>(url)
+        return JSON.nonstrict.parse(Page.serializer(), json)
+    }
 }
