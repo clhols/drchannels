@@ -53,11 +53,16 @@ abstract class BasePreviewUpdater(
         //Id of preview channel
         val previewChannelId = SharedPreferences.getLong(context, channelKey)
         if (previewChannelId > 0L) {
-            synchronized(BasePreviewUpdater::class.java) {
-                Log.v(TAG,
-                        "Updating programs for preview id $previewChannelId")
-                //update channel's programs
-                updatePrograms(previewChannelId)
+            val channel = queryChannel(previewChannelId)
+            if (channel?.isBrowsable == true) {
+                synchronized(BasePreviewUpdater::class.java) {
+                    Log.i(TAG,
+                            "Updating programs for preview channel $channelKey with id $previewChannelId")
+                    //update channel's programs
+                    updatePrograms(previewChannelId)
+                }
+            } else {
+                Log.i(TAG, "Channel $channelKey is not browsable")
             }
         }
         return Result.success()
@@ -77,8 +82,8 @@ abstract class BasePreviewUpdater(
                     }
                 }
 
-            getPrograms().forEach { program ->
-                addProgram(program, previewChannelId)
+        getPrograms().forEach { program ->
+            addProgram(program, previewChannelId)
         }
     }
 
@@ -141,10 +146,10 @@ abstract class BasePreviewUpdater(
     }
 
     private fun setupPreviewChannel() {
+        val channel = buildChannel()
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && SharedPreferences.getLong(context, channelKey) == 0L) {
-
-            val channel = getChannel()
 
             val channelUri = contentResolver.insert(
                     TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
@@ -164,11 +169,20 @@ abstract class BasePreviewUpdater(
             contentResolver.update(
                     TvContractCompat.buildChannelUri(
                             SharedPreferences.getLong(context, channelKey)),
-                    getChannel().toContentValues(), null, null)
+                    channel.toContentValues(), null, null)
         }
     }
 
-    private fun getChannel(): Channel {
+    private fun queryChannel(channelId: Long): Channel? {
+        val cursor = contentResolver.query(
+                TvContractCompat.buildChannelUri(channelId), null, null, null, null)
+        if (cursor?.moveToNext() == true) {
+            return Channel.fromCursor(cursor)
+        }
+        return null
+    }
+
+    private fun buildChannel(): Channel {
         return with(Channel.Builder()) {
             setType(TvContractCompat.Channels.TYPE_PREVIEW)
             setDisplayName(getChannelName())
@@ -185,7 +199,7 @@ abstract class BasePreviewUpdater(
  * Schedules a new task to update the preview channel if no other task is pending or running.
  */
 @Synchronized
-inline fun <reified W : Worker> schedulePreviewUpdate() {
+inline fun <reified W : Worker> schedulePreviewUpdate(input: Data = Data.EMPTY) {
     val tag = "schedulePreviewUpdate" + W::class.java.simpleName
     lateinit var observer: Observer<MutableList<WorkInfo>>
 
@@ -196,6 +210,7 @@ inline fun <reified W : Worker> schedulePreviewUpdate() {
         val pendingWork = workStatuses?.any { !it.state.isFinished } ?: false
         if (!pendingWork) {
             val updatePreviewPrograms = OneTimeWorkRequestBuilder<W>()
+                    .setInputData(input)
                     .setConstraints(Constraints.Builder()
                             .setRequiredNetworkType(NetworkType.CONNECTED)
                             .build())

@@ -24,6 +24,8 @@ internal interface IDrMuApi {
             channelType: String,
             limit: Int
     ): MostViewed
+
+    suspend fun getPageTvPrograms(genre: Genre): Page
 }
 
 @Serializable
@@ -208,3 +210,40 @@ data class MostViewed(
         val Items: List<ProgramCard>,
         val Paging: MuPaging,
         val TotalSize: Int)
+
+@Serializable
+data class Programs(
+        val Items: List<ProgramCard>,
+        val Paging: MuPaging,
+        val TotalSize: Int)
+
+@Serializable
+data class Page(
+        val Programs: Programs)
+
+sealed class Genre(internal val value: String) {
+    object Drama: Genre("Drama")
+    object Dokumentar: Genre("Dokumentar")
+    object Livsstil: Genre("Livsstil")
+    object Kultur: Genre("Kultur")
+    object NaturViden: Genre("Natur & viden")
+    object NyhederAktualitet: Genre("Nyheder & aktualitet")
+    object Sport: Genre("Sport")
+    object Underholdning: Genre("Underholdning")
+
+    override fun toString(): String = value
+
+    companion object {
+        fun getByValue(value: String): Genre = when(value) {
+            Drama.value -> Drama
+            Dokumentar.value -> Dokumentar
+            Livsstil.value -> Livsstil
+            Kultur.value -> Kultur
+            NaturViden.value -> NaturViden
+            NyhederAktualitet.value -> NyhederAktualitet
+            Sport.value -> Sport
+            Underholdning.value -> Underholdning
+            else -> throw RuntimeException("Genre $value not supported")
+        }
+    }
+}
