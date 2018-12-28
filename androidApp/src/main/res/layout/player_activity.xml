@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
+        app:use_controller="false"
         app:fastforward_increment="10000"
         app:rewind_increment="20000" />
 

@@ -169,6 +169,14 @@ public class PlayerActivity extends Activity
             case KeyEvent.KEYCODE_BUTTON_Y:
                 break;
             case KeyEvent.KEYCODE_BUTTON_A:
+                int playbackState = player.getPlaybackState();
+                if (playbackState == Player.STATE_IDLE) {
+                    preparePlayback();
+                } else if (playbackState == Player.STATE_ENDED) {
+                    player.seekTo(player.getCurrentWindowIndex(), C.TIME_UNSET);
+                } else if (playbackState == Player.STATE_READY) {
+                    player.setPlayWhenReady(!player.getPlayWhenReady());
+                }
                 break;
             case KeyEvent.KEYCODE_BUTTON_X:
                 break;
@@ -179,16 +187,18 @@ public class PlayerActivity extends Activity
             case KeyEvent.KEYCODE_BUTTON_THUMBR:
                 break;
             case KeyEvent.KEYCODE_BUTTON_R1:
-                player.seekTo(player.getCurrentPosition() + 10000);
+                player.seekTo(player.getCurrentPosition() + 5000);
                 return true;
             case KeyEvent.KEYCODE_BUTTON_L1:
-                player.seekTo(player.getCurrentPosition() - 10000);
+                player.seekTo(player.getCurrentPosition() - 5000);
                 return true;
             case KeyEvent.KEYCODE_BUTTON_START:
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
+                player.seekTo(player.getCurrentPosition() - 10000);
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
+                player.seekTo(player.getCurrentPosition() + 10000);
                 break;
             case KeyEvent.KEYCODE_DPAD_UP:
                 break;
