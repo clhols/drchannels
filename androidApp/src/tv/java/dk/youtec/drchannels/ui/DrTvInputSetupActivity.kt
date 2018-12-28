@@ -44,31 +44,35 @@ class DrTvInputSetupActivity : AppCompatActivity() {
     }
 
     private fun setupCurrentProgramsPreviewChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-                && SharedPreferences.getLong(this, "channelId") == 0L) {
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                    && SharedPreferences.getLong(this, "channelId") == 0L) {
 
-            val channel = getChannel()
+                val channel = getChannel()
 
-            val channelUri = contentResolver.insert(
-                    TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
+                val channelUri = contentResolver.insert(
+                        TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
 
-            val channelId = ContentUris.parseId(channelUri)
+                val channelId = ContentUris.parseId(channelUri)
 
-            ChannelLogoUtils.storeChannelLogo(this,
-                    channelId,
-                    getBitmapFromVectorDrawable(applicationContext, R.mipmap.ic_launcher))
+                ChannelLogoUtils.storeChannelLogo(this,
+                        channelId,
+                        getBitmapFromVectorDrawable(applicationContext, R.mipmap.ic_launcher))
 
-            TvContractCompat.requestChannelBrowsable(this, channelId)
+                TvContractCompat.requestChannelBrowsable(this, channelId)
 
-            defaultSharedPreferences.edit {
-                putLong("channelId", channelId)
+                defaultSharedPreferences.edit {
+                    putLong("channelId", channelId)
+                }
+            } else {
+                Log.d(tag, "Updating current programs preview channel")
+                contentResolver.update(
+                        TvContractCompat.buildChannelUri(
+                                SharedPreferences.getLong(this, "channelId")),
+                        getChannel().toContentValues(), null, null)
             }
-        } else {
-            Log.d(tag, "Updating current programs preview channel")
-            contentResolver.update(
-                    TvContractCompat.buildChannelUri(
-                            SharedPreferences.getLong(this, "channelId")),
-                    getChannel().toContentValues(), null, null)
+        } catch (e: Exception) {
+            Log.e(tag, "Unable to setup current programs preview channel", e)
         }
     }
 
