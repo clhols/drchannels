@@ -91,34 +91,38 @@ abstract class BasePreviewUpdater(
      * Removes any existing program from the channel and insert the new one.
      */
     private fun addProgram(program: ProgramCard, previewChannelId: Long) {
-        val playbackUri = program.PrimaryAsset?.Uri?.let { uri ->
-            runBlocking { api.getManifest(uri).getUri() ?: "" }
+        try {
+            val playbackUri = program.PrimaryAsset?.Uri?.let { uri ->
+                runBlocking { api.getManifest(uri).getUri() ?: "" }
+            }
+
+            val intent = Intent(context, PlayerActivity::class.java).apply {
+                action = PlayerActivity.ACTION_VIEW
+                putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
+                data = playbackUri?.toUri()
+            }
+
+            val previewProgram =
+                    PreviewProgram.Builder()
+                            .setChannelId(previewChannelId)
+                            .setType(TvContractCompat.PreviewPrograms.TYPE_TV_EPISODE)
+                            .setTitle(program.Title)
+                            .setDescription(program.OnlineGenreText)
+                            .setIntent(intent)
+                            .setInternalProviderId(program.PrimaryAsset?.Uri)
+                            .setStartTimeUtcMillis(program.PrimaryBroadcastStartTime?.time ?: 0)
+                            .setPosterArtUri(program.PrimaryImageUri.toUri())
+                            .build()
+
+            //Create the new program
+            val programUri = contentResolver.insert(TvContractCompat.PreviewPrograms.CONTENT_URI,
+                    previewProgram.toContentValues())
+            val newPreviewId = ContentUris.parseId(programUri)
+
+            Log.d(TAG, "Added program ${previewProgram.title} with preview id $newPreviewId")
+        } catch (e: Exception) {
+            Log.e(TAG, "Exception when adding program", e)
         }
-
-        val intent = Intent(context, PlayerActivity::class.java).apply {
-            action = PlayerActivity.ACTION_VIEW
-            putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-            data = playbackUri?.toUri()
-        }
-
-        val previewProgram =
-                PreviewProgram.Builder()
-                        .setChannelId(previewChannelId)
-                        .setType(TvContractCompat.PreviewPrograms.TYPE_TV_EPISODE)
-                        .setTitle(program.Title)
-                        .setDescription(program.OnlineGenreText)
-                        .setIntent(intent)
-                        .setInternalProviderId(program.PrimaryAsset?.Uri)
-                        .setStartTimeUtcMillis(program.PrimaryBroadcastStartTime?.time ?: 0)
-                        .setPosterArtUri(program.PrimaryImageUri.toUri())
-                        .build()
-
-        //Create the new program
-        val programUri = contentResolver.insert(TvContractCompat.PreviewPrograms.CONTENT_URI,
-                previewProgram.toContentValues())
-        val newPreviewId = ContentUris.parseId(programUri)
-
-        Log.d(TAG, "Added program ${previewProgram.title} with preview id $newPreviewId")
     }
 
     /**
