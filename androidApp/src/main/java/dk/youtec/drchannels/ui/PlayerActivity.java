@@ -90,6 +90,7 @@ import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import dk.youtec.drchannels.R;
 
 /** An activity that plays media using {@link SimpleExoPlayer}. */
@@ -131,6 +132,7 @@ public class PlayerActivity extends Activity
     private static final String KEY_AUTO_PLAY = "auto_play";
 
     private static final CookieManager DEFAULT_COOKIE_MANAGER;
+
     static {
         DEFAULT_COOKIE_MANAGER = new CookieManager();
         DEFAULT_COOKIE_MANAGER.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
@@ -167,15 +169,19 @@ public class PlayerActivity extends Activity
 
         switch (keyCode) {
             case KeyEvent.KEYCODE_BUTTON_Y:
+                playerView.setUseController(!playerView.getUseController());
+                playerView.showController();
                 break;
             case KeyEvent.KEYCODE_BUTTON_A:
-                int playbackState = player.getPlaybackState();
-                if (playbackState == Player.STATE_IDLE) {
-                    preparePlayback();
-                } else if (playbackState == Player.STATE_ENDED) {
-                    player.seekTo(player.getCurrentWindowIndex(), C.TIME_UNSET);
-                } else if (playbackState == Player.STATE_READY) {
-                    player.setPlayWhenReady(!player.getPlayWhenReady());
+                if (!playerView.getUseController()) {
+                    int playbackState = player.getPlaybackState();
+                    if (playbackState == Player.STATE_IDLE) {
+                        preparePlayback();
+                    } else if (playbackState == Player.STATE_ENDED) {
+                        player.seekTo(player.getCurrentWindowIndex(), C.TIME_UNSET);
+                    } else if (playbackState == Player.STATE_READY) {
+                        player.setPlayWhenReady(!player.getPlayWhenReady());
+                    }
                 }
                 break;
             case KeyEvent.KEYCODE_BUTTON_X:
@@ -195,10 +201,14 @@ public class PlayerActivity extends Activity
             case KeyEvent.KEYCODE_BUTTON_START:
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                player.seekTo(player.getCurrentPosition() - 10000);
+                if (!playerView.getUseController()) {
+                    player.seekTo(player.getCurrentPosition() - 10000);
+                }
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                player.seekTo(player.getCurrentPosition() + 10000);
+                if (!playerView.getUseController()) {
+                    player.seekTo(player.getCurrentPosition() + 10000);
+                }
                 break;
             case KeyEvent.KEYCODE_DPAD_UP:
                 break;
@@ -397,8 +407,8 @@ public class PlayerActivity extends Activity
             Uri[] uris;
             String[] extensions;
             if (ACTION_VIEW.equals(action)) {
-                uris = new Uri[] {intent.getData()};
-                extensions = new String[] {intent.getStringExtra(EXTENSION_EXTRA)};
+                uris = new Uri[]{intent.getData()};
+                extensions = new String[]{intent.getStringExtra(EXTENSION_EXTRA)};
             } else if (ACTION_VIEW_LIST.equals(action)) {
                 String[] uriStrings = intent.getStringArrayExtra(URI_LIST_EXTRA);
                 uris = new Uri[uriStrings.length];
@@ -566,9 +576,9 @@ public class PlayerActivity extends Activity
     private DefaultDrmSessionManager<FrameworkMediaCrypto> buildDrmSessionManagerV18(
             UUID uuid, String licenseUrl, String[] keyRequestPropertiesArray, boolean multiSession)
             throws UnsupportedDrmException {
-    HttpDataSource.Factory licenseDataSourceFactory = buildHttpDataSourceFactory();
+        HttpDataSource.Factory licenseDataSourceFactory = buildHttpDataSourceFactory();
         HttpMediaDrmCallback drmCallback =
-            new HttpMediaDrmCallback(licenseUrl, licenseDataSourceFactory);
+                new HttpMediaDrmCallback(licenseUrl, licenseDataSourceFactory);
         if (keyRequestPropertiesArray != null) {
             for (int i = 0; i < keyRequestPropertiesArray.length - 1; i += 2) {
                 drmCallback.setKeyRequestProperty(keyRequestPropertiesArray[i],
@@ -649,7 +659,8 @@ public class PlayerActivity extends Activity
     }
 
   /** Returns an ads media source, reusing the ads loader if one exists. */
-    private @Nullable MediaSource createAdsMediaSource(MediaSource mediaSource, Uri adTagUri) {
+    private @Nullable
+    MediaSource createAdsMediaSource(MediaSource mediaSource, Uri adTagUri) {
         // Load the extension source using reflection so the demo app doesn't have to depend on it.
         // The ads loader is reused for multiple playbacks, so that ad playback can resume.
         try {
@@ -676,7 +687,7 @@ public class PlayerActivity extends Activity
 
                         @Override
                         public int[] getSupportedTypes() {
-                            return new int[] {C.TYPE_DASH, C.TYPE_SS, C.TYPE_HLS, C.TYPE_OTHER};
+                            return new int[]{C.TYPE_DASH, C.TYPE_SS, C.TYPE_HLS, C.TYPE_OTHER};
                         }
                     };
             return new AdsMediaSource(mediaSource, adMediaSourceFactory, adsLoader, adUiViewGroup);
@@ -839,7 +850,7 @@ public class PlayerActivity extends Activity
                 if (cause instanceof HttpDataSource.InvalidResponseCodeException) {
                     HttpDataSource.InvalidResponseCodeException responseCodeException =
                             (HttpDataSource.InvalidResponseCodeException) cause;
-                    if(responseCodeException.responseCode == 403) {
+                    if (responseCodeException.responseCode == 403) {
                         errorString = getString(R.string.invalid_country);
                     }
                 }
