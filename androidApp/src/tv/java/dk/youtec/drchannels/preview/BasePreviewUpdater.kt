@@ -6,6 +6,7 @@ import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
 import android.media.tv.TvContract
+import android.media.tv.TvContract.PreviewPrograms.ASPECT_RATIO_16_9
 import android.os.Build
 import android.util.Log
 import androidx.core.content.edit
@@ -105,13 +106,15 @@ abstract class BasePreviewUpdater(
             val previewProgram =
                     PreviewProgram.Builder()
                             .setChannelId(previewChannelId)
-                            .setType(TvContractCompat.PreviewPrograms.TYPE_TV_EPISODE)
+                            .setType(TvContractCompat.PreviewPrograms.TYPE_TV_SERIES)
                             .setTitle(program.Title)
                             .setDescription(program.OnlineGenreText)
+                            .setDurationMillis(program.PrimaryAsset?.DurationInMilliseconds?.toInt() ?: 0)
                             .setIntent(intent)
                             .setInternalProviderId(program.PrimaryAsset?.Uri)
                             .setStartTimeUtcMillis(program.PrimaryBroadcastStartTime?.time ?: 0)
                             .setPosterArtUri(program.PrimaryImageUri.toUri())
+                            .setPosterArtAspectRatio(ASPECT_RATIO_16_9)
                             .build()
 
             //Create the new program

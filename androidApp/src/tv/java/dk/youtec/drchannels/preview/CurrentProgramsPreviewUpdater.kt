@@ -3,6 +3,7 @@ package dk.youtec.drchannels.preview
 import android.annotation.TargetApi
 import android.content.*
 import android.media.tv.TvContract
+import android.media.tv.TvContract.PreviewPrograms.ASPECT_RATIO_16_9
 import android.os.Build
 import android.util.Log
 import androidx.core.net.toUri
@@ -131,6 +132,7 @@ class CurrentProgramsPreviewUpdater(
                         .setLive(true)
                         .setWeight((Int.MAX_VALUE - program.channelId).toInt())
                         .setPosterArtUri(program.posterArtUri.toUri())
+                        .setPosterArtAspectRatio(ASPECT_RATIO_16_9)
                         .build()
 
         //If this channel is showing the same program as last time.
