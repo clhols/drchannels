@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 
-@class DrapiDate, DrapiDateSerializer, DrapiSearchResult, DrapiProgramCard, DrapiMuPaging, DrapiSearchResultCompanion, DrapiSearchResult$serializer, DrapiMuPagingCompanion, DrapiMuPaging$serializer, DrapiSchedule, DrapiMuScheduleBroadcast, DrapiScheduleCompanion, DrapiSchedule$serializer, DrapiChannel, DrapiMuStreamingServer, DrapiChannelCompanion, DrapiChannel$serializer, DrapiMuStreamQuality, DrapiMuStreamingServerCompanion, DrapiMuStreamingServer$serializer, DrapiMuStream, DrapiMuStreamQualityCompanion, DrapiMuStreamQuality$serializer, DrapiMuStreamCompanion, DrapiMuStream$serializer, DrapiMuNowNext, DrapiMuNowNextCompanion, DrapiMuNowNext$serializer, DrapiMuScheduleBroadcastCompanion, DrapiMuScheduleBroadcast$serializer, DrapiPrimaryAsset, DrapiInfo, DrapiProgramCardCompanion, DrapiProgramCard$serializer, DrapiInfoCompanion, DrapiInfo$serializer, DrapiPrimaryAssetCompanion, DrapiPrimaryAsset$serializer, DrapiManifest, DrapiLink, DrapiSubtitle, DrapiManifestCompanion, DrapiManifest$serializer, DrapiLinkCompanion, DrapiLink$serializer, DrapiSubtitleCompanion, DrapiSubtitle$serializer, DrapiMostViewed, DrapiMostViewedCompanion, DrapiMostViewed$serializer, DrapiPrograms, DrapiProgramsCompanion, DrapiPrograms$serializer, DrapiPage, DrapiPageCompanion, DrapiPage$serializer, DrapiGenre, DrapiGenreDrama, DrapiGenreDokumentar, DrapiGenreLivsstil, DrapiGenreKultur, DrapiGenreNaturViden, DrapiGenreNyhederAktualitet, DrapiGenreSport, DrapiGenreUnderholdning, DrapiGenreCompanion, DrapiDrMuException, DrapiKotlinException, DrapiKotlinThrowable, DrapiKotlinArray, DrapiDrMuRepository, DrapiHttpClientFactory, DrapiKtor_client_core_iosHttpClient, DrapiDrMuRepositoryCallback, DrapiKotlinUnit, DrapiKotlinx_serialization_runtime_nativeEnumDescriptor, DrapiKotlinx_serialization_runtime_nativeSerialKind, DrapiKotlinNothing, DrapiKotlinx_serialization_runtime_nativeUpdateMode, DrapiKtor_client_core_iosHttpClientConfig, DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher, DrapiKtor_client_core_iosHttpClientEngineConfig, DrapiKtor_client_core_iosHttpReceivePipeline, DrapiKtor_client_core_iosHttpRequestPipeline, DrapiKtor_client_core_iosHttpResponsePipeline, DrapiKtor_client_core_iosHttpSendPipeline, DrapiKotlinx_coroutines_core_nativeCancellationException, DrapiKotlinx_serialization_runtime_nativeSerialClassDescImpl, DrapiKotlinEnum, DrapiKtor_utils_iosAttributeKey, DrapiKotlinAbstractCoroutineContextElement, DrapiKtor_client_core_iosHttpResponseConfig, DrapiKtor_utils_iosPipeline, DrapiKtor_utils_iosPipelinePhase, DrapiKotlinIllegalStateException, DrapiKotlinRuntimeException, DrapiKotlinx_io_nativeCharset, DrapiKotlinx_coroutines_core_nativeAtomicDesc, DrapiKotlinx_io_nativeCharsetDecoder, DrapiKotlinx_io_nativeCharsetEncoder, DrapiKotlinx_coroutines_core_nativeAtomicOp, DrapiKotlinx_coroutines_core_nativeOpDescriptor;
+@class DrapiDate, DrapiDateSerializer, DrapiSearchResult, DrapiProgramCard, DrapiMuPaging, DrapiSearchResultCompanion, DrapiSearchResult$serializer, DrapiMuPagingCompanion, DrapiMuPaging$serializer, DrapiSchedule, DrapiMuScheduleBroadcast, DrapiScheduleCompanion, DrapiSchedule$serializer, DrapiChannel, DrapiMuStreamingServer, DrapiChannelCompanion, DrapiChannel$serializer, DrapiMuStreamQuality, DrapiMuStreamingServerCompanion, DrapiMuStreamingServer$serializer, DrapiMuStream, DrapiMuStreamQualityCompanion, DrapiMuStreamQuality$serializer, DrapiMuStreamCompanion, DrapiMuStream$serializer, DrapiMuNowNext, DrapiMuNowNextCompanion, DrapiMuNowNext$serializer, DrapiMuScheduleBroadcastCompanion, DrapiMuScheduleBroadcast$serializer, DrapiPrimaryAsset, DrapiInfo, DrapiProgramCardCompanion, DrapiProgramCard$serializer, DrapiInfoCompanion, DrapiInfo$serializer, DrapiPrimaryAssetCompanion, DrapiPrimaryAsset$serializer, DrapiManifest, DrapiLink, DrapiSubtitle, DrapiManifestCompanion, DrapiManifest$serializer, DrapiLinkCompanion, DrapiLink$serializer, DrapiSubtitleCompanion, DrapiSubtitle$serializer, DrapiMostViewed, DrapiMostViewedCompanion, DrapiMostViewed$serializer, DrapiPrograms, DrapiProgramsCompanion, DrapiPrograms$serializer, DrapiPage, DrapiPageCompanion, DrapiPage$serializer, DrapiGenre, DrapiGenreDrama, DrapiGenreDokumentar, DrapiGenreLivsstil, DrapiGenreKultur, DrapiGenreNaturViden, DrapiGenreNyhederAktualitet, DrapiGenreSport, DrapiGenreUnderholdning, DrapiGenreCompanion, DrapiDrMuException, DrapiKotlinException, DrapiKotlinThrowable, DrapiKotlinArray, DrapiDrMuRepository, DrapiHttpClientFactory, DrapiKtor_client_coreHttpClient, DrapiDrMuRepositoryCallback, DrapiKotlinUnit, DrapiKotlinx_serialization_runtime_nativeEnumDescriptor, DrapiKotlinx_serialization_runtime_nativeSerialKind, DrapiKotlinNothing, DrapiKotlinx_serialization_runtime_nativeUpdateMode, DrapiKtor_client_coreHttpClientConfig, DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher, DrapiKtor_client_coreHttpClientEngineConfig, DrapiKtor_client_coreHttpReceivePipeline, DrapiKtor_client_coreHttpRequestPipeline, DrapiKtor_client_coreHttpResponsePipeline, DrapiKtor_client_coreHttpSendPipeline, DrapiKotlinx_coroutines_core_nativeCancellationException, DrapiKotlinx_serialization_runtime_nativeSerialClassDescImpl, DrapiKotlinEnum, DrapiKtor_utilsAttributeKey, DrapiKotlinAbstractCoroutineContextElement, DrapiKtor_client_coreHttpResponseConfig, DrapiKtor_utilsPipeline, DrapiKtor_utilsPipelinePhase, DrapiKotlinIllegalStateException, DrapiKotlinRuntimeException, DrapiKotlinx_ioCharset, DrapiKotlinx_coroutines_core_nativeAtomicDesc, DrapiKotlinx_ioCharsetDecoder, DrapiKotlinx_ioCharsetEncoder, DrapiKotlinx_coroutines_core_nativeAtomicOp, DrapiKotlinx_coroutines_core_nativeOpDescriptor;
 
-@protocol DrapiKotlinx_serialization_runtime_nativeKSerializer, DrapiKotlinx_serialization_runtime_nativeSerializationStrategy, DrapiKotlinx_serialization_runtime_nativeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialDescriptor, DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy, DrapiKotlinx_serialization_runtime_nativeDecoder, DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinCoroutineContext, DrapiKotlinx_coroutines_core_nativeJob, DrapiKotlinx_serialization_runtime_nativeCompositeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialContext, DrapiKotlinAnnotation, DrapiKotlinx_serialization_runtime_nativeCompositeDecoder, DrapiKotlinIterator, DrapiKotlinx_io_nativeCloseable, DrapiKtor_client_core_iosHttpClientEngine, DrapiKtor_utils_iosAttributes, DrapiKotlinCoroutineContextElement, DrapiKotlinCoroutineContextKey, DrapiKotlinx_coroutines_core_nativeChildHandle, DrapiKotlinx_coroutines_core_nativeChildJob, DrapiKotlinx_coroutines_core_nativeDisposableHandle, DrapiKotlinSequence, DrapiKotlinx_coroutines_core_nativeSelectClause0, DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer, DrapiKotlinKClass, DrapiKotlinComparable, DrapiKtor_client_core_iosHttpClientFeature, DrapiKotlinContinuationInterceptor, DrapiKotlinContinuation, DrapiKotlinx_coroutines_core_nativeRunnable, DrapiKotlinSuspendFunction2, DrapiKotlinx_coroutines_core_nativeParentJob, DrapiKotlinx_coroutines_core_nativeSelectInstance, DrapiKotlinSuspendFunction0, DrapiKotlinKDeclarationContainer, DrapiKotlinKAnnotatedElement, DrapiKotlinKClassifier, DrapiKotlinSuspendFunction;
+@protocol DrapiKotlinx_serialization_runtime_nativeKSerializer, DrapiKotlinx_serialization_runtime_nativeSerializationStrategy, DrapiKotlinx_serialization_runtime_nativeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialDescriptor, DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy, DrapiKotlinx_serialization_runtime_nativeDecoder, DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinCoroutineContext, DrapiKotlinx_coroutines_core_nativeJob, DrapiKotlinx_serialization_runtime_nativeCompositeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialContext, DrapiKotlinAnnotation, DrapiKotlinx_serialization_runtime_nativeCompositeDecoder, DrapiKotlinIterator, DrapiKotlinx_ioCloseable, DrapiKtor_client_coreHttpClientEngine, DrapiKtor_utilsAttributes, DrapiKotlinCoroutineContextElement, DrapiKotlinCoroutineContextKey, DrapiKotlinx_coroutines_core_nativeChildHandle, DrapiKotlinx_coroutines_core_nativeChildJob, DrapiKotlinx_coroutines_core_nativeDisposableHandle, DrapiKotlinSequence, DrapiKotlinx_coroutines_core_nativeSelectClause0, DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer, DrapiKotlinKClass, DrapiKotlinComparable, DrapiKtor_client_coreHttpClientFeature, DrapiKotlinContinuationInterceptor, DrapiKotlinContinuation, DrapiKotlinx_coroutines_core_nativeRunnable, DrapiKotlinSuspendFunction2, DrapiKotlinx_coroutines_core_nativeParentJob, DrapiKotlinx_coroutines_core_nativeSelectInstance, DrapiKotlinSuspendFunction0, DrapiKotlinKDeclarationContainer, DrapiKotlinKAnnotatedElement, DrapiKotlinKClassifier, DrapiKotlinSuspendFunction;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -1051,7 +1051,7 @@ __attribute__((swift_name("HttpClientFactory")))
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)httpClientFactory __attribute__((swift_name("init()")));
-- (DrapiKtor_client_core_iosHttpClient *)create __attribute__((swift_name("create()")));
+- (DrapiKtor_client_coreHttpClient *)create __attribute__((swift_name("create()")));
 @end;
 
 __attribute__((swift_name("Kotlinx_coroutines_core_nativeCoroutineScope")))
@@ -1157,24 +1157,24 @@ __attribute__((swift_name("KotlinArray")))
 @property (readonly) int32_t size;
 @end;
 
-__attribute__((swift_name("Kotlinx_io_nativeCloseable")))
-@protocol DrapiKotlinx_io_nativeCloseable
+__attribute__((swift_name("Kotlinx_ioCloseable")))
+@protocol DrapiKotlinx_ioCloseable
 @required
 - (void)close __attribute__((swift_name("close()")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_client_core_iosHttpClient")))
-@interface DrapiKtor_client_core_iosHttpClient : KotlinBase <DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinx_io_nativeCloseable>
-- (instancetype)initWithEngine:(id<DrapiKtor_client_core_iosHttpClientEngine>)engine userConfig:(DrapiKtor_client_core_iosHttpClientConfig *)userConfig __attribute__((swift_name("init(engine:userConfig:)"))) __attribute__((objc_designated_initializer));
-- (DrapiKtor_client_core_iosHttpClient *)configBlock:(DrapiKotlinUnit *(^)(DrapiKtor_client_core_iosHttpClientConfig *))block __attribute__((swift_name("config(block:)")));
-@property (readonly) id<DrapiKtor_utils_iosAttributes> attributes;
+__attribute__((swift_name("Ktor_client_coreHttpClient")))
+@interface DrapiKtor_client_coreHttpClient : KotlinBase <DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinx_ioCloseable>
+- (instancetype)initWithEngine:(id<DrapiKtor_client_coreHttpClientEngine>)engine userConfig:(DrapiKtor_client_coreHttpClientConfig *)userConfig __attribute__((swift_name("init(engine:userConfig:)"))) __attribute__((objc_designated_initializer));
+- (DrapiKtor_client_coreHttpClient *)configBlock:(DrapiKotlinUnit *(^)(DrapiKtor_client_coreHttpClientConfig *))block __attribute__((swift_name("config(block:)")));
+@property (readonly) id<DrapiKtor_utilsAttributes> attributes;
 @property (readonly) DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher *dispatcher;
-@property (readonly) DrapiKtor_client_core_iosHttpClientEngineConfig *engineConfig;
-@property (readonly) DrapiKtor_client_core_iosHttpReceivePipeline *receivePipeline;
-@property (readonly) DrapiKtor_client_core_iosHttpRequestPipeline *requestPipeline;
-@property (readonly) DrapiKtor_client_core_iosHttpResponsePipeline *responsePipeline;
-@property (readonly) DrapiKtor_client_core_iosHttpSendPipeline *sendPipeline;
+@property (readonly) DrapiKtor_client_coreHttpClientEngineConfig *engineConfig;
+@property (readonly) DrapiKtor_client_coreHttpReceivePipeline *receivePipeline;
+@property (readonly) DrapiKtor_client_coreHttpRequestPipeline *requestPipeline;
+@property (readonly) DrapiKtor_client_coreHttpResponsePipeline *responsePipeline;
+@property (readonly) DrapiKtor_client_coreHttpSendPipeline *sendPipeline;
 @end;
 
 __attribute__((swift_name("KotlinCoroutineContext")))
@@ -1333,41 +1333,41 @@ __attribute__((swift_name("KotlinIterator")))
 - (id _Nullable)next __attribute__((swift_name("next()")));
 @end;
 
-__attribute__((swift_name("Ktor_client_core_iosHttpClientEngine")))
-@protocol DrapiKtor_client_core_iosHttpClientEngine <DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinx_io_nativeCloseable>
+__attribute__((swift_name("Ktor_client_coreHttpClientEngine")))
+@protocol DrapiKtor_client_coreHttpClientEngine <DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinx_ioCloseable>
 @required
-@property (readonly) DrapiKtor_client_core_iosHttpClientEngineConfig *config;
+@property (readonly) DrapiKtor_client_coreHttpClientEngineConfig *config;
 @property (readonly) DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher *dispatcher;
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_client_core_iosHttpClientConfig")))
-@interface DrapiKtor_client_core_iosHttpClientConfig : KotlinBase
+__attribute__((swift_name("Ktor_client_coreHttpClientConfig")))
+@interface DrapiKtor_client_coreHttpClientConfig : KotlinBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (DrapiKtor_client_core_iosHttpClientConfig *)clone __attribute__((swift_name("clone()")));
-- (void)engineBlock:(DrapiKotlinUnit *(^)(DrapiKtor_client_core_iosHttpClientEngineConfig *))block __attribute__((swift_name("engine(block:)")));
-- (void)installClient:(DrapiKtor_client_core_iosHttpClient *)client __attribute__((swift_name("install(client:)")));
-- (void)installFeature:(id<DrapiKtor_client_core_iosHttpClientFeature>)feature configure:(DrapiKotlinUnit *(^)(id))configure __attribute__((swift_name("install(feature:configure:)")));
-- (void)installKey:(NSString *)key block:(DrapiKotlinUnit *(^)(DrapiKtor_client_core_iosHttpClient *))block __attribute__((swift_name("install(key:block:)")));
-- (void)plusAssignOther:(DrapiKtor_client_core_iosHttpClientConfig *)other __attribute__((swift_name("plusAssign(other:)")));
+- (DrapiKtor_client_coreHttpClientConfig *)clone __attribute__((swift_name("clone()")));
+- (void)engineBlock:(DrapiKotlinUnit *(^)(DrapiKtor_client_coreHttpClientEngineConfig *))block __attribute__((swift_name("engine(block:)")));
+- (void)installClient:(DrapiKtor_client_coreHttpClient *)client __attribute__((swift_name("install(client:)")));
+- (void)installFeature:(id<DrapiKtor_client_coreHttpClientFeature>)feature configure:(DrapiKotlinUnit *(^)(id))configure __attribute__((swift_name("install(feature:configure:)")));
+- (void)installKey:(NSString *)key block:(DrapiKotlinUnit *(^)(DrapiKtor_client_coreHttpClient *))block __attribute__((swift_name("install(key:block:)")));
+- (void)plusAssignOther:(DrapiKtor_client_coreHttpClientConfig *)other __attribute__((swift_name("plusAssign(other:)")));
 @property BOOL expectSuccess;
 @property BOOL followRedirects;
 @property BOOL useDefaultTransformers;
 @end;
 
-__attribute__((swift_name("Ktor_utils_iosAttributes")))
-@protocol DrapiKtor_utils_iosAttributes
+__attribute__((swift_name("Ktor_utilsAttributes")))
+@protocol DrapiKtor_utilsAttributes
 @required
-- (id)computeIfAbsentKey:(DrapiKtor_utils_iosAttributeKey *)key block:(id (^)(void))block __attribute__((swift_name("computeIfAbsent(key:block:)")));
-- (BOOL)containsKey:(DrapiKtor_utils_iosAttributeKey *)key __attribute__((swift_name("contains(key:)")));
-- (id)getKey_:(DrapiKtor_utils_iosAttributeKey *)key __attribute__((swift_name("get(key_:)")));
-- (id _Nullable)getOrNullKey:(DrapiKtor_utils_iosAttributeKey *)key __attribute__((swift_name("getOrNull(key:)")));
-- (void)putKey:(DrapiKtor_utils_iosAttributeKey *)key value:(id)value __attribute__((swift_name("put(key:value:)")));
-- (void)removeKey:(DrapiKtor_utils_iosAttributeKey *)key __attribute__((swift_name("remove(key:)")));
-- (id)takeKey:(DrapiKtor_utils_iosAttributeKey *)key __attribute__((swift_name("take(key:)")));
-- (id _Nullable)takeOrNullKey:(DrapiKtor_utils_iosAttributeKey *)key __attribute__((swift_name("takeOrNull(key:)")));
-@property (readonly) NSArray<DrapiKtor_utils_iosAttributeKey *> *allKeys;
+- (id)computeIfAbsentKey:(DrapiKtor_utilsAttributeKey *)key block:(id (^)(void))block __attribute__((swift_name("computeIfAbsent(key:block:)")));
+- (BOOL)containsKey:(DrapiKtor_utilsAttributeKey *)key __attribute__((swift_name("contains(key:)")));
+- (id)getKey_:(DrapiKtor_utilsAttributeKey *)key __attribute__((swift_name("get(key_:)")));
+- (id _Nullable)getOrNullKey:(DrapiKtor_utilsAttributeKey *)key __attribute__((swift_name("getOrNull(key:)")));
+- (void)putKey:(DrapiKtor_utilsAttributeKey *)key value:(id)value __attribute__((swift_name("put(key:value:)")));
+- (void)removeKey:(DrapiKtor_utilsAttributeKey *)key __attribute__((swift_name("remove(key:)")));
+- (id)takeKey:(DrapiKtor_utilsAttributeKey *)key __attribute__((swift_name("take(key:)")));
+- (id _Nullable)takeOrNullKey:(DrapiKtor_utilsAttributeKey *)key __attribute__((swift_name("takeOrNull(key:)")));
+@property (readonly) NSArray<DrapiKtor_utilsAttributeKey *> *allKeys;
 @end;
 
 __attribute__((swift_name("KotlinAbstractCoroutineContextElement")))
@@ -1393,64 +1393,64 @@ __attribute__((swift_name("Kotlinx_coroutines_core_nativeCoroutineDispatcher")))
 - (DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher *)plusOther_:(DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher *)other __attribute__((swift_name("plus(other_:)")));
 @end;
 
-__attribute__((swift_name("Ktor_client_core_iosHttpClientEngineConfig")))
-@interface DrapiKtor_client_core_iosHttpClientEngineConfig : KotlinBase
+__attribute__((swift_name("Ktor_client_coreHttpClientEngineConfig")))
+@interface DrapiKtor_client_coreHttpClientEngineConfig : KotlinBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 @property DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher * _Nullable dispatcher;
 @property BOOL pipelining;
-@property (readonly) DrapiKtor_client_core_iosHttpResponseConfig *response;
+@property (readonly) DrapiKtor_client_coreHttpResponseConfig *response;
 @property int32_t threadsCount;
 @end;
 
-__attribute__((swift_name("Ktor_utils_iosPipeline")))
-@interface DrapiKtor_utils_iosPipeline : KotlinBase
-- (instancetype)initWithPhase:(DrapiKtor_utils_iosPipelinePhase *)phase interceptors:(NSArray<id<DrapiKotlinSuspendFunction2>> *)interceptors __attribute__((swift_name("init(phase:interceptors:)"))) __attribute__((objc_designated_initializer));
+__attribute__((swift_name("Ktor_utilsPipeline")))
+@interface DrapiKtor_utilsPipeline : KotlinBase
+- (instancetype)initWithPhase:(DrapiKtor_utilsPipelinePhase *)phase interceptors:(NSArray<id<DrapiKotlinSuspendFunction2>> *)interceptors __attribute__((swift_name("init(phase:interceptors:)"))) __attribute__((objc_designated_initializer));
 - (instancetype)initWithPhases:(DrapiKotlinArray *)phases __attribute__((swift_name("init(phases:)"))) __attribute__((objc_designated_initializer));
-- (void)addPhasePhase:(DrapiKtor_utils_iosPipelinePhase *)phase __attribute__((swift_name("addPhase(phase:)")));
+- (void)addPhasePhase:(DrapiKtor_utilsPipelinePhase *)phase __attribute__((swift_name("addPhase(phase:)")));
 - (void)afterIntercepted __attribute__((swift_name("afterIntercepted()")));
-- (void)insertPhaseAfterReference:(DrapiKtor_utils_iosPipelinePhase *)reference phase:(DrapiKtor_utils_iosPipelinePhase *)phase __attribute__((swift_name("insertPhaseAfter(reference:phase:)")));
-- (void)insertPhaseBeforeReference:(DrapiKtor_utils_iosPipelinePhase *)reference phase:(DrapiKtor_utils_iosPipelinePhase *)phase __attribute__((swift_name("insertPhaseBefore(reference:phase:)")));
-- (void)interceptPhase:(DrapiKtor_utils_iosPipelinePhase *)phase block:(id<DrapiKotlinSuspendFunction2>)block __attribute__((swift_name("intercept(phase:block:)")));
-- (void)mergeFrom:(DrapiKtor_utils_iosPipeline *)from __attribute__((swift_name("merge(from:)")));
-@property (readonly) id<DrapiKtor_utils_iosAttributes> attributes;
+- (void)insertPhaseAfterReference:(DrapiKtor_utilsPipelinePhase *)reference phase:(DrapiKtor_utilsPipelinePhase *)phase __attribute__((swift_name("insertPhaseAfter(reference:phase:)")));
+- (void)insertPhaseBeforeReference:(DrapiKtor_utilsPipelinePhase *)reference phase:(DrapiKtor_utilsPipelinePhase *)phase __attribute__((swift_name("insertPhaseBefore(reference:phase:)")));
+- (void)interceptPhase:(DrapiKtor_utilsPipelinePhase *)phase block:(id<DrapiKotlinSuspendFunction2>)block __attribute__((swift_name("intercept(phase:block:)")));
+- (void)mergeFrom:(DrapiKtor_utilsPipeline *)from __attribute__((swift_name("merge(from:)")));
+@property (readonly) id<DrapiKtor_utilsAttributes> attributes;
 @property (readonly) BOOL isEmpty;
-@property (readonly) NSArray<DrapiKtor_utils_iosPipelinePhase *> *items;
+@property (readonly) NSArray<DrapiKtor_utilsPipelinePhase *> *items;
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_client_core_iosHttpReceivePipeline")))
-@interface DrapiKtor_client_core_iosHttpReceivePipeline : DrapiKtor_utils_iosPipeline
+__attribute__((swift_name("Ktor_client_coreHttpReceivePipeline")))
+@interface DrapiKtor_client_coreHttpReceivePipeline : DrapiKtor_utilsPipeline
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithPhase:(DrapiKtor_utils_iosPipelinePhase *)phase interceptors:(NSArray<id<DrapiKotlinSuspendFunction2>> *)interceptors __attribute__((swift_name("init(phase:interceptors:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithPhase:(DrapiKtor_utilsPipelinePhase *)phase interceptors:(NSArray<id<DrapiKotlinSuspendFunction2>> *)interceptors __attribute__((swift_name("init(phase:interceptors:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (instancetype)initWithPhases:(DrapiKotlinArray *)phases __attribute__((swift_name("init(phases:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_client_core_iosHttpRequestPipeline")))
-@interface DrapiKtor_client_core_iosHttpRequestPipeline : DrapiKtor_utils_iosPipeline
+__attribute__((swift_name("Ktor_client_coreHttpRequestPipeline")))
+@interface DrapiKtor_client_coreHttpRequestPipeline : DrapiKtor_utilsPipeline
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithPhase:(DrapiKtor_utils_iosPipelinePhase *)phase interceptors:(NSArray<id<DrapiKotlinSuspendFunction2>> *)interceptors __attribute__((swift_name("init(phase:interceptors:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithPhase:(DrapiKtor_utilsPipelinePhase *)phase interceptors:(NSArray<id<DrapiKotlinSuspendFunction2>> *)interceptors __attribute__((swift_name("init(phase:interceptors:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (instancetype)initWithPhases:(DrapiKotlinArray *)phases __attribute__((swift_name("init(phases:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_client_core_iosHttpResponsePipeline")))
-@interface DrapiKtor_client_core_iosHttpResponsePipeline : DrapiKtor_utils_iosPipeline
+__attribute__((swift_name("Ktor_client_coreHttpResponsePipeline")))
+@interface DrapiKtor_client_coreHttpResponsePipeline : DrapiKtor_utilsPipeline
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithPhase:(DrapiKtor_utils_iosPipelinePhase *)phase interceptors:(NSArray<id<DrapiKotlinSuspendFunction2>> *)interceptors __attribute__((swift_name("init(phase:interceptors:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithPhase:(DrapiKtor_utilsPipelinePhase *)phase interceptors:(NSArray<id<DrapiKotlinSuspendFunction2>> *)interceptors __attribute__((swift_name("init(phase:interceptors:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (instancetype)initWithPhases:(DrapiKotlinArray *)phases __attribute__((swift_name("init(phases:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_client_core_iosHttpSendPipeline")))
-@interface DrapiKtor_client_core_iosHttpSendPipeline : DrapiKtor_utils_iosPipeline
+__attribute__((swift_name("Ktor_client_coreHttpSendPipeline")))
+@interface DrapiKtor_client_coreHttpSendPipeline : DrapiKtor_utilsPipeline
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithPhase:(DrapiKtor_utils_iosPipelinePhase *)phase interceptors:(NSArray<id<DrapiKotlinSuspendFunction2>> *)interceptors __attribute__((swift_name("init(phase:interceptors:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
+- (instancetype)initWithPhase:(DrapiKtor_utilsPipelinePhase *)phase interceptors:(NSArray<id<DrapiKotlinSuspendFunction2>> *)interceptors __attribute__((swift_name("init(phase:interceptors:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (instancetype)initWithPhases:(DrapiKotlinArray *)phases __attribute__((swift_name("init(phases:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @end;
 
@@ -1545,17 +1545,17 @@ __attribute__((swift_name("KotlinKClass")))
 @property (readonly) NSString * _Nullable simpleName;
 @end;
 
-__attribute__((swift_name("Ktor_client_core_iosHttpClientFeature")))
-@protocol DrapiKtor_client_core_iosHttpClientFeature
+__attribute__((swift_name("Ktor_client_coreHttpClientFeature")))
+@protocol DrapiKtor_client_coreHttpClientFeature
 @required
-- (void)installFeature:(id)feature scope:(DrapiKtor_client_core_iosHttpClient *)scope __attribute__((swift_name("install(feature:scope:)")));
+- (void)installFeature:(id)feature scope:(DrapiKtor_client_coreHttpClient *)scope __attribute__((swift_name("install(feature:scope:)")));
 - (id)prepareBlock:(DrapiKotlinUnit *(^)(id))block __attribute__((swift_name("prepare(block:)")));
-@property (readonly) DrapiKtor_utils_iosAttributeKey *key;
+@property (readonly) DrapiKtor_utilsAttributeKey *key;
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_utils_iosAttributeKey")))
-@interface DrapiKtor_utils_iosAttributeKey : KotlinBase
+__attribute__((swift_name("Ktor_utilsAttributeKey")))
+@interface DrapiKtor_utilsAttributeKey : KotlinBase
 - (instancetype)initWithName:(NSString *)name __attribute__((swift_name("init(name:)"))) __attribute__((objc_designated_initializer));
 @property (readonly) NSString *name;
 @end;
@@ -1573,16 +1573,16 @@ __attribute__((swift_name("Kotlinx_coroutines_core_nativeRunnable")))
 - (void)run __attribute__((swift_name("run()")));
 @end;
 
-__attribute__((swift_name("Ktor_client_core_iosHttpResponseConfig")))
-@interface DrapiKtor_client_core_iosHttpResponseConfig : KotlinBase
+__attribute__((swift_name("Ktor_client_coreHttpResponseConfig")))
+@interface DrapiKtor_client_coreHttpResponseConfig : KotlinBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-@property DrapiKotlinx_io_nativeCharset *defaultCharset;
+@property DrapiKotlinx_ioCharset *defaultCharset;
 @end;
 
 __attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("Ktor_utils_iosPipelinePhase")))
-@interface DrapiKtor_utils_iosPipelinePhase : KotlinBase
+__attribute__((swift_name("Ktor_utilsPipelinePhase")))
+@interface DrapiKtor_utilsPipelinePhase : KotlinBase
 - (instancetype)initWithName:(NSString *)name __attribute__((swift_name("init(name:)"))) __attribute__((objc_designated_initializer));
 @property (readonly) NSString *name;
 @end;
@@ -1620,11 +1620,11 @@ __attribute__((swift_name("KotlinSuspendFunction0")))
 @required
 @end;
 
-__attribute__((swift_name("Kotlinx_io_nativeCharset")))
-@interface DrapiKotlinx_io_nativeCharset : KotlinBase
+__attribute__((swift_name("Kotlinx_ioCharset")))
+@interface DrapiKotlinx_ioCharset : KotlinBase
 - (instancetype)initWith_name:(NSString *)_name __attribute__((swift_name("init(_name:)"))) __attribute__((objc_designated_initializer));
-- (DrapiKotlinx_io_nativeCharsetDecoder *)doNewDecoder __attribute__((swift_name("doNewDecoder()")));
-- (DrapiKotlinx_io_nativeCharsetEncoder *)doNewEncoder __attribute__((swift_name("doNewEncoder()")));
+- (DrapiKotlinx_ioCharsetDecoder *)doNewDecoder __attribute__((swift_name("doNewDecoder()")));
+- (DrapiKotlinx_ioCharsetEncoder *)doNewEncoder __attribute__((swift_name("doNewEncoder()")));
 @end;
 
 __attribute__((swift_name("Kotlinx_coroutines_core_nativeAtomicDesc")))
@@ -1635,14 +1635,14 @@ __attribute__((swift_name("Kotlinx_coroutines_core_nativeAtomicDesc")))
 - (id _Nullable)prepareOp:(DrapiKotlinx_coroutines_core_nativeAtomicOp *)op __attribute__((swift_name("prepare(op:)")));
 @end;
 
-__attribute__((swift_name("Kotlinx_io_nativeCharsetDecoder")))
-@interface DrapiKotlinx_io_nativeCharsetDecoder : KotlinBase
-- (instancetype)initWith_charset:(DrapiKotlinx_io_nativeCharset *)_charset __attribute__((swift_name("init(_charset:)"))) __attribute__((objc_designated_initializer));
+__attribute__((swift_name("Kotlinx_ioCharsetDecoder")))
+@interface DrapiKotlinx_ioCharsetDecoder : KotlinBase
+- (instancetype)initWith_charset:(DrapiKotlinx_ioCharset *)_charset __attribute__((swift_name("init(_charset:)"))) __attribute__((objc_designated_initializer));
 @end;
 
-__attribute__((swift_name("Kotlinx_io_nativeCharsetEncoder")))
-@interface DrapiKotlinx_io_nativeCharsetEncoder : KotlinBase
-- (instancetype)initWith_charset:(DrapiKotlinx_io_nativeCharset *)_charset __attribute__((swift_name("init(_charset:)"))) __attribute__((objc_designated_initializer));
+__attribute__((swift_name("Kotlinx_ioCharsetEncoder")))
+@interface DrapiKotlinx_ioCharsetEncoder : KotlinBase
+- (instancetype)initWith_charset:(DrapiKotlinx_ioCharset *)_charset __attribute__((swift_name("init(_charset:)"))) __attribute__((objc_designated_initializer));
 @end;
 
 __attribute__((swift_name("Kotlinx_coroutines_core_nativeOpDescriptor")))
