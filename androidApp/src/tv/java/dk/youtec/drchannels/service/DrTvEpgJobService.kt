@@ -141,8 +141,8 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
             setPosterArtUri(broadcast.ProgramCard.PrimaryImageUri)
 
             if (broadcast.VideoHD && broadcast.VideoWidescreen) {
-                setVideoHeight(1080)
-                setVideoWidth(1920)
+                setVideoHeight(720)
+                setVideoWidth(1280)
             }
 
             val providerData = InternalProviderData().apply {
