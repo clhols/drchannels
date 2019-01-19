@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
@@ -110,19 +111,22 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
         }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
+        return BuildConfig.DEBUG && isTv()
+    }
 
-        /*
-        val listsMenu = menu.findItem(R.id.menu_favourite_lists)
-        val subMenu = listsMenu.subMenu
-        for ((key, name) in favouriteLists) {
-            subMenu.add(listsGroup, key, Menu.NONE, name)
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.menu_update) {
+            if (isTv()) {
+                updateApp(this@MainActivity,
+                        BuildConfig.VERSION_CODE,
+                        "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
+                        "https://www.dropbox.com/s/fwc2q3a3vw67rhv/drchannels-tv-debug.apk?dl=1",
+                        "https://www.dropbox.com/s/8miqyro43qn71k0/drchannels.log?dl=1")
+            }
         }
-        listsMenu.isVisible = favouriteLists.isNotEmpty()
-        */
 
-        return false
+        return true
     }
 
     private fun loadGenres() {

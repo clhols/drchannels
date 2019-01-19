@@ -160,7 +160,10 @@ data class ProgramCard(
         val Title: String,
         @Optional val Subtitle: String = "",
         @Optional val IsNewSeries: Boolean = false,
-        @Optional val OriginalTitle: String = "")
+        @Optional val OriginalTitle: String = "",
+        @Optional val RectificationStatus: String = "",
+        @Optional val RectificationAuto: Boolean = false,
+        @Optional val RectificationText: String = "")
 
 @Serializable
 data class Info(
