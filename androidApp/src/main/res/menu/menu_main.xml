@@ -2,12 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
+    <!--item
         android:id="@+id/menu_favourite_lists"
         android:icon="@drawable/ic_playlist_play_white_24dp"
         android:title="@string/lists"
         app:showAsAction="always">
 
         <menu></menu>
+    </item-->
+    <item
+        android:id="@+id/menu_update"
+        android:icon="@drawable/ic_refresh_white_24dp"
+        android:title="Update"
+        app:showAsAction="always">
     </item>
 </menu>
