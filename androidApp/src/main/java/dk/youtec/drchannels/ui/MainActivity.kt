@@ -121,7 +121,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 updateApp(this@MainActivity,
                         BuildConfig.VERSION_CODE,
                         "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
-                        "https://www.dropbox.com/s/fwc2q3a3vw67rhv/drchannels-tv-debug.apk?dl=1",
+                        "https://www.dropbox.com/s/xs9qr72cgyh31r8/drchannels-tv-debug.apk?dl=1",
                         "https://www.dropbox.com/s/8miqyro43qn71k0/drchannels.log?dl=1")
             }
         }
