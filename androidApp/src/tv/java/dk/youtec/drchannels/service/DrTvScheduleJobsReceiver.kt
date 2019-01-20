@@ -69,4 +69,4 @@ class DrTvScheduleJobsReceiver : BroadcastReceiver() {
     }
 }
 
-private fun with(genre: Genre) = Data.Builder().putString("genre", genre.toString()).build()
+internal fun with(genre: Genre) = Data.Builder().putString("genre", genre.toString()).build()
