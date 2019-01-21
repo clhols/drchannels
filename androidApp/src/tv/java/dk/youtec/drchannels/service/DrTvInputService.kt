@@ -337,8 +337,8 @@ class DrTvInputRecordingSessionImpl(
 ) : BaseTvInputService.RecordingSession(context, inputId), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
-
     private val tag = DrTvInputRecordingSessionImpl::class.java.simpleName
+    private val api = DrMuRepository(context.cacheDir.absolutePath)
 
     override fun onTune(uri: Uri) {
         super.onTune(uri)
@@ -383,44 +383,46 @@ class DrTvInputRecordingSessionImpl(
 
     private suspend fun getRecordedProgram(
             programToRecord: Program
-    ): RecordedProgram? = withContext(Dispatchers.Default) {
+    ): RecordedProgram? {
+        return withContext(Dispatchers.Default) {
 
-        val internalProviderData = programToRecord.internalProviderData
-        val assetUri = internalProviderData.get("assetUri") as String
-        val endPublish = internalProviderData.get("endPublish") as String?
+            val internalProviderData = programToRecord.internalProviderData
+            val assetUri = internalProviderData.get("assetUri") as String
+            val endPublish = internalProviderData.get("endPublish") as String?
 
-        val manifestResponse = DrMuRepository().getManifest(assetUri)
-        val playbackUrl = manifestResponse.getUri() ?: ""
+            val manifestResponse = api.getManifest(assetUri)
+            val playbackUrl = manifestResponse.getUri() ?: ""
 
-        val downloadUrl = manifestResponse.Links
-                .asSequence()
-                .sortedByDescending { it.Bitrate }
-                .firstOrNull { it.Target == "Download" }
-                ?.Uri ?: ""
+            val downloadUrl = manifestResponse.Links
+                    .asSequence()
+                    .sortedByDescending { it.Bitrate }
+                    .firstOrNull { it.Target == "Download" }
+                    ?.Uri ?: ""
 
-        if (playbackUrl.isNotEmpty()) {
-            internalProviderData.videoUrl = playbackUrl
-            internalProviderData.videoType = TvContractUtils.SOURCE_TYPE_HLS
-        } else {
-            internalProviderData.videoUrl = downloadUrl
-            internalProviderData.videoType = TvContractUtils.SOURCE_TYPE_INVALID
-        }
-
-        internalProviderData.setRecordingStartTime(programToRecord.startTimeUtcMillis)
-
-        with(RecordedProgram.Builder(programToRecord)) {
-            setInputId(inputId)
-            setRecordingDataUri(internalProviderData.videoUrl)
-            setRecordingDurationMillis(programToRecord.endTimeUtcMillis - programToRecord.startTimeUtcMillis)
-            if (endPublish != null && endPublish.isNotEmpty()) {
-                setRecordingExpireTimeUtcMillis(endPublish.toLong())
-
-                val dateString = serverDateFormat("dd-MM-yyyy HH:mm")
-                        .format(Date(endPublish.toLong()))
-                setShortDescription((programToRecord.description ?: "") + "\nExpires $dateString")
+            if (playbackUrl.isNotEmpty()) {
+                internalProviderData.videoUrl = playbackUrl
+                internalProviderData.videoType = TvContractUtils.SOURCE_TYPE_HLS
+            } else {
+                internalProviderData.videoUrl = downloadUrl
+                internalProviderData.videoType = TvContractUtils.SOURCE_TYPE_INVALID
             }
-            setInternalProviderData(internalProviderData)
-            build()
+
+            internalProviderData.setRecordingStartTime(programToRecord.startTimeUtcMillis)
+
+            with(RecordedProgram.Builder(programToRecord)) {
+                setInputId(inputId)
+                setRecordingDataUri(internalProviderData.videoUrl)
+                setRecordingDurationMillis(programToRecord.endTimeUtcMillis - programToRecord.startTimeUtcMillis)
+                if (endPublish != null && endPublish.isNotEmpty()) {
+                    setRecordingExpireTimeUtcMillis(endPublish.toLong())
+
+                    val dateString = serverDateFormat("dd-MM-yyyy HH:mm")
+                            .format(Date(endPublish.toLong()))
+                    setShortDescription((programToRecord.description ?: "") + "\nExpires $dateString")
+                }
+                setInternalProviderData(internalProviderData)
+                build()
+            }
         }
     }
 

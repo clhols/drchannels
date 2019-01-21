@@ -560,7 +560,7 @@ __attribute__((swift_name("MuScheduleBroadcast.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ProgramCard")))
 @interface DrapiProgramCard : KotlinBase
-- (instancetype)initWithType:(NSString *)Type SeriesTitle:(NSString *)SeriesTitle EpisodeTitle:(NSString *)EpisodeTitle SeriesSlug:(NSString *)SeriesSlug SeriesUrn:(NSString *)SeriesUrn HostName:(NSString *)HostName SeriesHostName:(NSString *)SeriesHostName PrimaryChannel:(NSString *)PrimaryChannel PrimaryChannelSlug:(NSString *)PrimaryChannelSlug SeasonEpisodeNumberingValid:(BOOL)SeasonEpisodeNumberingValid SeasonTitle:(NSString * _Nullable)SeasonTitle SeasonSlug:(NSString * _Nullable)SeasonSlug SeasonUrn:(NSString * _Nullable)SeasonUrn SeasonNumber:(int32_t)SeasonNumber PrePremiere:(BOOL)PrePremiere ExpiresSoon:(BOOL)ExpiresSoon OnlineGenreText:(NSString *)OnlineGenreText PrimaryAsset:(DrapiPrimaryAsset * _Nullable)PrimaryAsset HasPublicPrimaryAsset:(BOOL)HasPublicPrimaryAsset AssetTargetTypes:(NSString *)AssetTargetTypes PrimaryBroadcastStartTime:(DrapiDate * _Nullable)PrimaryBroadcastStartTime SortDateTime:(DrapiDate *)SortDateTime OnDemandInfo:(DrapiInfo * _Nullable)OnDemandInfo Slug:(NSString *)Slug Urn:(NSString *)Urn PrimaryImageUri:(NSString *)PrimaryImageUri PresentationUri:(NSString *)PresentationUri PresentationUriAutoplay:(NSString *)PresentationUriAutoplay Title:(NSString *)Title Subtitle:(NSString *)Subtitle IsNewSeries:(BOOL)IsNewSeries OriginalTitle:(NSString *)OriginalTitle __attribute__((swift_name("init(Type:SeriesTitle:EpisodeTitle:SeriesSlug:SeriesUrn:HostName:SeriesHostName:PrimaryChannel:PrimaryChannelSlug:SeasonEpisodeNumberingValid:SeasonTitle:SeasonSlug:SeasonUrn:SeasonNumber:PrePremiere:ExpiresSoon:OnlineGenreText:PrimaryAsset:HasPublicPrimaryAsset:AssetTargetTypes:PrimaryBroadcastStartTime:SortDateTime:OnDemandInfo:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:Subtitle:IsNewSeries:OriginalTitle:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithType:(NSString *)Type SeriesTitle:(NSString *)SeriesTitle EpisodeTitle:(NSString *)EpisodeTitle SeriesSlug:(NSString *)SeriesSlug SeriesUrn:(NSString *)SeriesUrn HostName:(NSString *)HostName SeriesHostName:(NSString *)SeriesHostName PrimaryChannel:(NSString *)PrimaryChannel PrimaryChannelSlug:(NSString *)PrimaryChannelSlug SeasonEpisodeNumberingValid:(BOOL)SeasonEpisodeNumberingValid SeasonTitle:(NSString * _Nullable)SeasonTitle SeasonSlug:(NSString * _Nullable)SeasonSlug SeasonUrn:(NSString * _Nullable)SeasonUrn SeasonNumber:(int32_t)SeasonNumber PrePremiere:(BOOL)PrePremiere ExpiresSoon:(BOOL)ExpiresSoon OnlineGenreText:(NSString *)OnlineGenreText PrimaryAsset:(DrapiPrimaryAsset * _Nullable)PrimaryAsset HasPublicPrimaryAsset:(BOOL)HasPublicPrimaryAsset AssetTargetTypes:(NSString *)AssetTargetTypes PrimaryBroadcastStartTime:(DrapiDate * _Nullable)PrimaryBroadcastStartTime SortDateTime:(DrapiDate *)SortDateTime OnDemandInfo:(DrapiInfo * _Nullable)OnDemandInfo Slug:(NSString *)Slug Urn:(NSString *)Urn PrimaryImageUri:(NSString *)PrimaryImageUri PresentationUri:(NSString *)PresentationUri PresentationUriAutoplay:(NSString *)PresentationUriAutoplay Title:(NSString *)Title Subtitle:(NSString *)Subtitle IsNewSeries:(BOOL)IsNewSeries OriginalTitle:(NSString *)OriginalTitle RectificationStatus:(NSString *)RectificationStatus RectificationAuto:(BOOL)RectificationAuto RectificationText:(NSString *)RectificationText __attribute__((swift_name("init(Type:SeriesTitle:EpisodeTitle:SeriesSlug:SeriesUrn:HostName:SeriesHostName:PrimaryChannel:PrimaryChannelSlug:SeasonEpisodeNumberingValid:SeasonTitle:SeasonSlug:SeasonUrn:SeasonNumber:PrePremiere:ExpiresSoon:OnlineGenreText:PrimaryAsset:HasPublicPrimaryAsset:AssetTargetTypes:PrimaryBroadcastStartTime:SortDateTime:OnDemandInfo:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:Subtitle:IsNewSeries:OriginalTitle:RectificationStatus:RectificationAuto:RectificationText:)"))) __attribute__((objc_designated_initializer));
 - (NSString *)component1 __attribute__((swift_name("component1()")));
 - (NSString *)component2 __attribute__((swift_name("component2()")));
 - (NSString *)component3 __attribute__((swift_name("component3()")));
@@ -593,7 +593,10 @@ __attribute__((swift_name("ProgramCard")))
 - (NSString *)component30 __attribute__((swift_name("component30()")));
 - (BOOL)component31 __attribute__((swift_name("component31()")));
 - (NSString *)component32 __attribute__((swift_name("component32()")));
-- (DrapiProgramCard *)doCopyType:(NSString *)Type SeriesTitle:(NSString *)SeriesTitle EpisodeTitle:(NSString *)EpisodeTitle SeriesSlug:(NSString *)SeriesSlug SeriesUrn:(NSString *)SeriesUrn HostName:(NSString *)HostName SeriesHostName:(NSString *)SeriesHostName PrimaryChannel:(NSString *)PrimaryChannel PrimaryChannelSlug:(NSString *)PrimaryChannelSlug SeasonEpisodeNumberingValid:(BOOL)SeasonEpisodeNumberingValid SeasonTitle:(NSString * _Nullable)SeasonTitle SeasonSlug:(NSString * _Nullable)SeasonSlug SeasonUrn:(NSString * _Nullable)SeasonUrn SeasonNumber:(int32_t)SeasonNumber PrePremiere:(BOOL)PrePremiere ExpiresSoon:(BOOL)ExpiresSoon OnlineGenreText:(NSString *)OnlineGenreText PrimaryAsset:(DrapiPrimaryAsset * _Nullable)PrimaryAsset HasPublicPrimaryAsset:(BOOL)HasPublicPrimaryAsset AssetTargetTypes:(NSString *)AssetTargetTypes PrimaryBroadcastStartTime:(DrapiDate * _Nullable)PrimaryBroadcastStartTime SortDateTime:(DrapiDate *)SortDateTime OnDemandInfo:(DrapiInfo * _Nullable)OnDemandInfo Slug:(NSString *)Slug Urn:(NSString *)Urn PrimaryImageUri:(NSString *)PrimaryImageUri PresentationUri:(NSString *)PresentationUri PresentationUriAutoplay:(NSString *)PresentationUriAutoplay Title:(NSString *)Title Subtitle:(NSString *)Subtitle IsNewSeries:(BOOL)IsNewSeries OriginalTitle:(NSString *)OriginalTitle __attribute__((swift_name("doCopy(Type:SeriesTitle:EpisodeTitle:SeriesSlug:SeriesUrn:HostName:SeriesHostName:PrimaryChannel:PrimaryChannelSlug:SeasonEpisodeNumberingValid:SeasonTitle:SeasonSlug:SeasonUrn:SeasonNumber:PrePremiere:ExpiresSoon:OnlineGenreText:PrimaryAsset:HasPublicPrimaryAsset:AssetTargetTypes:PrimaryBroadcastStartTime:SortDateTime:OnDemandInfo:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:Subtitle:IsNewSeries:OriginalTitle:)")));
+- (NSString *)component33 __attribute__((swift_name("component33()")));
+- (BOOL)component34 __attribute__((swift_name("component34()")));
+- (NSString *)component35 __attribute__((swift_name("component35()")));
+- (DrapiProgramCard *)doCopyType:(NSString *)Type SeriesTitle:(NSString *)SeriesTitle EpisodeTitle:(NSString *)EpisodeTitle SeriesSlug:(NSString *)SeriesSlug SeriesUrn:(NSString *)SeriesUrn HostName:(NSString *)HostName SeriesHostName:(NSString *)SeriesHostName PrimaryChannel:(NSString *)PrimaryChannel PrimaryChannelSlug:(NSString *)PrimaryChannelSlug SeasonEpisodeNumberingValid:(BOOL)SeasonEpisodeNumberingValid SeasonTitle:(NSString * _Nullable)SeasonTitle SeasonSlug:(NSString * _Nullable)SeasonSlug SeasonUrn:(NSString * _Nullable)SeasonUrn SeasonNumber:(int32_t)SeasonNumber PrePremiere:(BOOL)PrePremiere ExpiresSoon:(BOOL)ExpiresSoon OnlineGenreText:(NSString *)OnlineGenreText PrimaryAsset:(DrapiPrimaryAsset * _Nullable)PrimaryAsset HasPublicPrimaryAsset:(BOOL)HasPublicPrimaryAsset AssetTargetTypes:(NSString *)AssetTargetTypes PrimaryBroadcastStartTime:(DrapiDate * _Nullable)PrimaryBroadcastStartTime SortDateTime:(DrapiDate *)SortDateTime OnDemandInfo:(DrapiInfo * _Nullable)OnDemandInfo Slug:(NSString *)Slug Urn:(NSString *)Urn PrimaryImageUri:(NSString *)PrimaryImageUri PresentationUri:(NSString *)PresentationUri PresentationUriAutoplay:(NSString *)PresentationUriAutoplay Title:(NSString *)Title Subtitle:(NSString *)Subtitle IsNewSeries:(BOOL)IsNewSeries OriginalTitle:(NSString *)OriginalTitle RectificationStatus:(NSString *)RectificationStatus RectificationAuto:(BOOL)RectificationAuto RectificationText:(NSString *)RectificationText __attribute__((swift_name("doCopy(Type:SeriesTitle:EpisodeTitle:SeriesSlug:SeriesUrn:HostName:SeriesHostName:PrimaryChannel:PrimaryChannelSlug:SeasonEpisodeNumberingValid:SeasonTitle:SeasonSlug:SeasonUrn:SeasonNumber:PrePremiere:ExpiresSoon:OnlineGenreText:PrimaryAsset:HasPublicPrimaryAsset:AssetTargetTypes:PrimaryBroadcastStartTime:SortDateTime:OnDemandInfo:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:Subtitle:IsNewSeries:OriginalTitle:RectificationStatus:RectificationAuto:RectificationText:)")));
 @property (readonly) NSString *Type;
 @property (readonly) NSString *SeriesTitle;
 @property (readonly) NSString *EpisodeTitle;
@@ -626,6 +629,9 @@ __attribute__((swift_name("ProgramCard")))
 @property (readonly) NSString *Subtitle;
 @property (readonly) BOOL IsNewSeries;
 @property (readonly) NSString *OriginalTitle;
+@property (readonly) NSString *RectificationStatus;
+@property (readonly) BOOL RectificationAuto;
+@property (readonly) NSString *RectificationText;
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1038,8 +1044,7 @@ __attribute__((swift_name("DrMuException")))
 
 __attribute__((swift_name("DrMuRepository")))
 @interface DrapiDrMuRepository : KotlinBase
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (instancetype)initWithCacheDir:(NSString * _Nullable)cacheDir sizeBytes:(int64_t)sizeBytes __attribute__((swift_name("init(cacheDir:sizeBytes:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)equalsOther:(id _Nullable)other __attribute__((swift_name("equals(other:)")));
 - (int32_t)hashCode __attribute__((swift_name("hashCode()")));
 - (NSString *)toString __attribute__((swift_name("toString()")));
@@ -1051,7 +1056,7 @@ __attribute__((swift_name("HttpClientFactory")))
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)httpClientFactory __attribute__((swift_name("init()")));
-- (DrapiKtor_client_coreHttpClient *)create __attribute__((swift_name("create()")));
+- (DrapiKtor_client_coreHttpClient *)createCacheDir:(NSString * _Nullable)cacheDir sizeBytes:(int64_t)sizeBytes __attribute__((swift_name("create(cacheDir:sizeBytes:)")));
 @end;
 
 __attribute__((swift_name("Kotlinx_coroutines_core_nativeCoroutineScope")))
@@ -1064,8 +1069,7 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("DrMuRepositoryCallback")))
 @interface DrapiDrMuRepositoryCallback : DrapiDrMuRepository <DrapiKotlinx_coroutines_core_nativeCoroutineScope>
 - (instancetype)initWithCoroutineContext:(id<DrapiKotlinCoroutineContext>)coroutineContext __attribute__((swift_name("init(coroutineContext:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)new __attribute__((unavailable));
+- (instancetype)initWithCacheDir:(NSString * _Nullable)cacheDir sizeBytes:(int64_t)sizeBytes __attribute__((swift_name("init(cacheDir:sizeBytes:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (id<DrapiKotlinx_coroutines_core_nativeJob>)getAllActiveDrTvChannelsCallback:(DrapiKotlinUnit *(^)(NSArray<DrapiChannel *> *))callback __attribute__((swift_name("getAllActiveDrTvChannels(callback:)")));
 - (id<DrapiKotlinx_coroutines_core_nativeJob>)getManifestUri:(NSString *)uri callback:(DrapiKotlinUnit *(^)(DrapiManifest *))callback __attribute__((swift_name("getManifest(uri:callback:)")));
 - (id<DrapiKotlinx_coroutines_core_nativeJob>)getScheduleId:(NSString *)id date:(NSString *)date callback:(DrapiKotlinUnit *(^)(DrapiSchedule *))callback __attribute__((swift_name("getSchedule(id:date:callback:)")));
@@ -1080,6 +1084,12 @@ __attribute__((swift_name("DrMuApiKt")))
 @interface DrapiDrMuApiKt : KotlinBase
 @property (class, readonly) NSString *API_VERSION;
 @property (class, readonly) NSString *API_URL;
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("DrMuRepositoryKt")))
+@interface DrapiDrMuRepositoryKt : KotlinBase
+@property (class, readonly) int64_t defaultCacheSize;
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeEncoder")))

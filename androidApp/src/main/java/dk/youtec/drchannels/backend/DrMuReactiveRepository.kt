@@ -17,7 +17,7 @@ class DrMuReactiveRepository(private val context: Context) : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
 
-    private val api = DrMuRepository()
+    private val api = DrMuRepository(context.cacheDir.absolutePath)
 
     fun getAllActiveDrTvChannels(): Single<List<Channel>> {
         return Single.create<List<Channel>> { subscriber ->

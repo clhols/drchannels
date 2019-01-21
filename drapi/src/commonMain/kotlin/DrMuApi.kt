@@ -194,7 +194,7 @@ data class Manifest(
 
 @Serializable
 data class Link(
-        val HardSubtitlesType: String,
+        @Optional val HardSubtitlesType: String = "None",
         val Uri: String,
         val EncryptedUri: String,
         val FileFormat: String,
