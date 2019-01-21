@@ -61,7 +61,7 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
     override fun onCreate() {
         super.onCreate()
 
-        api = DrMuRepository()
+        api = DrMuRepository(cacheDir.absolutePath)
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 syncFinishedReceiver,

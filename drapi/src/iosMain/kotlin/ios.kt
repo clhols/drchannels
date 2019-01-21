@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 actual object HttpClientFactory {
-    actual fun create(): HttpClient = HttpClient()
+    actual fun create(cacheDir: String?, sizeBytes: Long): HttpClient = HttpClient()
 }
 
 @Suppress("unused")
