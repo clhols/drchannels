@@ -58,7 +58,7 @@ fun updateApp(
 private suspend fun getAppVersionFromMeta(
         context: Context,
         metaUrl: String
-): Int = withContext(Dispatchers.Default) {
+): Int = withContext(Dispatchers.IO) {
     try {
         val httpClient = OkHttpClientFactory.getInstance(context)
 
@@ -86,7 +86,7 @@ internal fun extractVersionCode(metaString: String): Int {
 private suspend fun getChangelog(
         context: Context,
         changelogUrl: String
-): String = withContext(Dispatchers.Default) {
+): String = withContext(Dispatchers.IO) {
     if (changelogUrl.isNotBlank()) {
         try {
             val httpClient = OkHttpClientFactory.getInstance(context)
