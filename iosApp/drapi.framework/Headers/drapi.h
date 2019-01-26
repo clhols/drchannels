@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 
-@class DrapiDate, DrapiDateSerializer, DrapiSearchResult, DrapiProgramCard, DrapiMuPaging, DrapiSearchResultCompanion, DrapiSearchResult$serializer, DrapiMuPagingCompanion, DrapiMuPaging$serializer, DrapiSchedule, DrapiMuScheduleBroadcast, DrapiScheduleCompanion, DrapiSchedule$serializer, DrapiChannel, DrapiMuStreamingServer, DrapiChannelCompanion, DrapiChannel$serializer, DrapiMuStreamQuality, DrapiMuStreamingServerCompanion, DrapiMuStreamingServer$serializer, DrapiMuStream, DrapiMuStreamQualityCompanion, DrapiMuStreamQuality$serializer, DrapiMuStreamCompanion, DrapiMuStream$serializer, DrapiMuNowNext, DrapiMuNowNextCompanion, DrapiMuNowNext$serializer, DrapiMuScheduleBroadcastCompanion, DrapiMuScheduleBroadcast$serializer, DrapiPrimaryAsset, DrapiInfo, DrapiProgramCardCompanion, DrapiProgramCard$serializer, DrapiInfoCompanion, DrapiInfo$serializer, DrapiPrimaryAssetCompanion, DrapiPrimaryAsset$serializer, DrapiManifest, DrapiLink, DrapiSubtitle, DrapiManifestCompanion, DrapiManifest$serializer, DrapiLinkCompanion, DrapiLink$serializer, DrapiSubtitleCompanion, DrapiSubtitle$serializer, DrapiMostViewed, DrapiMostViewedCompanion, DrapiMostViewed$serializer, DrapiPrograms, DrapiProgramsCompanion, DrapiPrograms$serializer, DrapiPage, DrapiPageCompanion, DrapiPage$serializer, DrapiGenre, DrapiGenreDrama, DrapiGenreDokumentar, DrapiGenreLivsstil, DrapiGenreKultur, DrapiGenreNaturViden, DrapiGenreNyhederAktualitet, DrapiGenreSport, DrapiGenreUnderholdning, DrapiGenreCompanion, DrapiDrMuException, DrapiKotlinException, DrapiKotlinThrowable, DrapiKotlinArray, DrapiDrMuRepository, DrapiHttpClientFactory, DrapiKtor_client_coreHttpClient, DrapiDrMuRepositoryCallback, DrapiKotlinUnit, DrapiKotlinx_serialization_runtime_nativeEnumDescriptor, DrapiKotlinx_serialization_runtime_nativeSerialKind, DrapiKotlinNothing, DrapiKotlinx_serialization_runtime_nativeUpdateMode, DrapiKtor_client_coreHttpClientConfig, DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher, DrapiKtor_client_coreHttpClientEngineConfig, DrapiKtor_client_coreHttpReceivePipeline, DrapiKtor_client_coreHttpRequestPipeline, DrapiKtor_client_coreHttpResponsePipeline, DrapiKtor_client_coreHttpSendPipeline, DrapiKotlinx_coroutines_core_nativeCancellationException, DrapiKotlinx_serialization_runtime_nativeSerialClassDescImpl, DrapiKotlinEnum, DrapiKtor_utilsAttributeKey, DrapiKotlinAbstractCoroutineContextElement, DrapiKtor_client_coreHttpResponseConfig, DrapiKtor_utilsPipeline, DrapiKtor_utilsPipelinePhase, DrapiKotlinIllegalStateException, DrapiKotlinRuntimeException, DrapiKotlinx_ioCharset, DrapiKotlinx_coroutines_core_nativeAtomicDesc, DrapiKotlinx_ioCharsetDecoder, DrapiKotlinx_ioCharsetEncoder, DrapiKotlinx_coroutines_core_nativeAtomicOp, DrapiKotlinx_coroutines_core_nativeOpDescriptor;
+@class DrapiDate, DrapiDateSerializer, DrapiSearchResult, DrapiProgramCard, DrapiMuPaging, DrapiSearchResultCompanion, DrapiSearchResult$serializer, DrapiKotlinArray, DrapiMuPagingCompanion, DrapiMuPaging$serializer, DrapiSchedule, DrapiMuScheduleBroadcast, DrapiScheduleCompanion, DrapiSchedule$serializer, DrapiChannel, DrapiMuStreamingServer, DrapiChannelCompanion, DrapiChannel$serializer, DrapiMuStreamQuality, DrapiMuStreamingServerCompanion, DrapiMuStreamingServer$serializer, DrapiMuStream, DrapiMuStreamQualityCompanion, DrapiMuStreamQuality$serializer, DrapiMuStreamCompanion, DrapiMuStream$serializer, DrapiMuNowNext, DrapiMuNowNextCompanion, DrapiMuNowNext$serializer, DrapiMuScheduleBroadcastCompanion, DrapiMuScheduleBroadcast$serializer, DrapiPrimaryAsset, DrapiInfo, DrapiProgramCardCompanion, DrapiProgramCard$serializer, DrapiInfoCompanion, DrapiInfo$serializer, DrapiPrimaryAssetCompanion, DrapiPrimaryAsset$serializer, DrapiManifest, DrapiLink, DrapiSubtitle, DrapiManifestCompanion, DrapiManifest$serializer, DrapiLinkCompanion, DrapiLink$serializer, DrapiSubtitleCompanion, DrapiSubtitle$serializer, DrapiMostViewed, DrapiMostViewedCompanion, DrapiMostViewed$serializer, DrapiPrograms, DrapiProgramsCompanion, DrapiPrograms$serializer, DrapiPage, DrapiPageCompanion, DrapiPage$serializer, DrapiGenre, DrapiGenreDrama, DrapiGenreDokumentar, DrapiGenreLivsstil, DrapiGenreKultur, DrapiGenreNaturViden, DrapiGenreNyhederAktualitet, DrapiGenreSport, DrapiGenreUnderholdning, DrapiGenreCompanion, DrapiDrMuException, DrapiKotlinException, DrapiKotlinThrowable, DrapiDrMuRepository, DrapiHttpClientFactory, DrapiKtor_client_coreHttpClient, DrapiDrMuRepositoryCallback, DrapiKotlinUnit, DrapiKotlinx_serialization_runtime_nativeEnumDescriptor, DrapiKotlinx_serialization_runtime_nativeSerialKind, DrapiKotlinNothing, DrapiKotlinx_serialization_runtime_nativeUpdateMode, DrapiKtor_client_coreHttpClientConfig, DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher, DrapiKtor_client_coreHttpClientEngineConfig, DrapiKtor_client_coreHttpReceivePipeline, DrapiKtor_client_coreHttpRequestPipeline, DrapiKtor_client_coreHttpResponsePipeline, DrapiKtor_client_coreHttpSendPipeline, DrapiKotlinx_coroutines_core_nativeCancellationException, DrapiKotlinx_serialization_runtime_nativeSerialClassDescImpl, DrapiKotlinEnum, DrapiKtor_utilsAttributeKey, DrapiKotlinAbstractCoroutineContextElement, DrapiKtor_client_coreHttpResponseConfig, DrapiKtor_utilsPipeline, DrapiKtor_utilsPipelinePhase, DrapiKotlinIllegalStateException, DrapiKotlinRuntimeException, DrapiKotlinx_ioCharset, DrapiKotlinx_coroutines_core_nativeAtomicDesc, DrapiKotlinx_ioCharsetDecoder, DrapiKotlinx_ioCharsetEncoder, DrapiKotlinx_coroutines_core_nativeAtomicOp, DrapiKotlinx_coroutines_core_nativeOpDescriptor;
 
-@protocol DrapiKotlinx_serialization_runtime_nativeKSerializer, DrapiKotlinx_serialization_runtime_nativeSerializationStrategy, DrapiKotlinx_serialization_runtime_nativeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialDescriptor, DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy, DrapiKotlinx_serialization_runtime_nativeDecoder, DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinCoroutineContext, DrapiKotlinx_coroutines_core_nativeJob, DrapiKotlinx_serialization_runtime_nativeCompositeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialContext, DrapiKotlinAnnotation, DrapiKotlinx_serialization_runtime_nativeCompositeDecoder, DrapiKotlinIterator, DrapiKotlinx_ioCloseable, DrapiKtor_client_coreHttpClientEngine, DrapiKtor_utilsAttributes, DrapiKotlinCoroutineContextElement, DrapiKotlinCoroutineContextKey, DrapiKotlinx_coroutines_core_nativeChildHandle, DrapiKotlinx_coroutines_core_nativeChildJob, DrapiKotlinx_coroutines_core_nativeDisposableHandle, DrapiKotlinSequence, DrapiKotlinx_coroutines_core_nativeSelectClause0, DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer, DrapiKotlinKClass, DrapiKotlinComparable, DrapiKtor_client_coreHttpClientFeature, DrapiKotlinContinuationInterceptor, DrapiKotlinContinuation, DrapiKotlinx_coroutines_core_nativeRunnable, DrapiKotlinSuspendFunction2, DrapiKotlinx_coroutines_core_nativeParentJob, DrapiKotlinx_coroutines_core_nativeSelectInstance, DrapiKotlinSuspendFunction0, DrapiKotlinKDeclarationContainer, DrapiKotlinKAnnotatedElement, DrapiKotlinKClassifier, DrapiKotlinSuspendFunction;
+@protocol DrapiKotlinx_serialization_runtime_nativeKSerializer, DrapiKotlinx_serialization_runtime_nativeSerializationStrategy, DrapiKotlinx_serialization_runtime_nativeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialDescriptor, DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy, DrapiKotlinx_serialization_runtime_nativeDecoder, DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer, DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinCoroutineContext, DrapiKotlinx_coroutines_core_nativeJob, DrapiKotlinx_serialization_runtime_nativeCompositeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialContext, DrapiKotlinAnnotation, DrapiKotlinx_serialization_runtime_nativeCompositeDecoder, DrapiKotlinIterator, DrapiKotlinx_ioCloseable, DrapiKtor_client_coreHttpClientEngine, DrapiKtor_utilsAttributes, DrapiKotlinCoroutineContextElement, DrapiKotlinCoroutineContextKey, DrapiKotlinx_coroutines_core_nativeChildHandle, DrapiKotlinx_coroutines_core_nativeChildJob, DrapiKotlinx_coroutines_core_nativeDisposableHandle, DrapiKotlinSequence, DrapiKotlinx_coroutines_core_nativeSelectClause0, DrapiKotlinKClass, DrapiKotlinComparable, DrapiKtor_client_coreHttpClientFeature, DrapiKotlinContinuationInterceptor, DrapiKotlinContinuation, DrapiKotlinx_coroutines_core_nativeRunnable, DrapiKotlinSuspendFunction2, DrapiKotlinx_coroutines_core_nativeParentJob, DrapiKotlinx_coroutines_core_nativeSelectInstance, DrapiKotlinSuspendFunction0, DrapiKotlinKDeclarationContainer, DrapiKotlinKAnnotatedElement, DrapiKotlinKClassifier, DrapiKotlinSuspendFunction;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -152,15 +152,15 @@ __attribute__((swift_name("Date")))
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeSerializationStrategy")))
 @protocol DrapiKotlinx_serialization_runtime_nativeSerializationStrategy
 @required
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(id _Nullable)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(id _Nullable)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor> descriptor;
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeDeserializationStrategy")))
 @protocol DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy
 @required
-- (id _Nullable)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (id _Nullable)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(id _Nullable)old __attribute__((swift_name("patch(input:old:)")));
+- (id _Nullable)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (id _Nullable)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(id _Nullable)old __attribute__((swift_name("patch(decoder:old:)")));
 @property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor> descriptor;
 @end;
 
@@ -175,9 +175,9 @@ __attribute__((swift_name("DateSerializer")))
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)dateSerializer __attribute__((swift_name("init()")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiDate *)obj __attribute__((swift_name("serialize(output:obj:)")));
-- (DrapiDate *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiDate *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiDate *)old __attribute__((swift_name("patch(input:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiDate *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
+- (DrapiDate *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiDate *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiDate *)old __attribute__((swift_name("patch(decoder:old:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -220,15 +220,21 @@ __attribute__((swift_name("SearchResult.Companion")))
 - (id<DrapiKotlinx_serialization_runtime_nativeKSerializer>)serializer __attribute__((swift_name("serializer()")));
 @end;
 
+__attribute__((swift_name("Kotlinx_serialization_runtime_nativeGeneratedSerializer")))
+@protocol DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@required
+- (DrapiKotlinArray *)childSerializers __attribute__((swift_name("childSerializers()")));
+@end;
+
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("SearchResult.$serializer")))
-@interface DrapiSearchResult$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiSearchResult$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiSearchResult *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiSearchResult *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiSearchResult *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiSearchResult *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiSearchResult *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiSearchResult *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiSearchResult *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiSearchResult *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -259,13 +265,13 @@ __attribute__((swift_name("MuPaging.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuPaging.$serializer")))
-@interface DrapiMuPaging$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiMuPaging$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiMuPaging *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiMuPaging *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiMuPaging *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiMuPaging *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiMuPaging *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiMuPaging *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiMuPaging *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiMuPaging *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -294,13 +300,13 @@ __attribute__((swift_name("Schedule.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Schedule.$serializer")))
-@interface DrapiSchedule$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiSchedule$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiSchedule *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiSchedule *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiSchedule *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiSchedule *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiSchedule *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiSchedule *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiSchedule *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiSchedule *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -348,13 +354,13 @@ __attribute__((swift_name("Channel.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Channel.$serializer")))
-@interface DrapiChannel$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiChannel$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiChannel *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiChannel *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiChannel *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiChannel *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiChannel *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiChannel *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiChannel *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiChannel *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -385,13 +391,13 @@ __attribute__((swift_name("MuStreamingServer.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuStreamingServer.$serializer")))
-@interface DrapiMuStreamingServer$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiMuStreamingServer$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiMuStreamingServer *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiMuStreamingServer *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiMuStreamingServer *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiMuStreamingServer *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiMuStreamingServer *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiMuStreamingServer *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiMuStreamingServer *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiMuStreamingServer *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -416,13 +422,13 @@ __attribute__((swift_name("MuStreamQuality.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuStreamQuality.$serializer")))
-@interface DrapiMuStreamQuality$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiMuStreamQuality$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiMuStreamQuality *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiMuStreamQuality *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiMuStreamQuality *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiMuStreamQuality *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiMuStreamQuality *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiMuStreamQuality *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiMuStreamQuality *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiMuStreamQuality *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -447,13 +453,13 @@ __attribute__((swift_name("MuStream.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuStream.$serializer")))
-@interface DrapiMuStream$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiMuStream$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiMuStream *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiMuStream *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiMuStream *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiMuStream *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiMuStream *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiMuStream *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiMuStream *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiMuStream *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -482,13 +488,13 @@ __attribute__((swift_name("MuNowNext.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuNowNext.$serializer")))
-@interface DrapiMuNowNext$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiMuNowNext$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiMuNowNext *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiMuNowNext *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiMuNowNext *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiMuNowNext *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiMuNowNext *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiMuNowNext *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiMuNowNext *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiMuNowNext *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -548,13 +554,13 @@ __attribute__((swift_name("MuScheduleBroadcast.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuScheduleBroadcast.$serializer")))
-@interface DrapiMuScheduleBroadcast$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiMuScheduleBroadcast$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiMuScheduleBroadcast *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiMuScheduleBroadcast *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiMuScheduleBroadcast *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiMuScheduleBroadcast *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiMuScheduleBroadcast *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiMuScheduleBroadcast *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiMuScheduleBroadcast *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiMuScheduleBroadcast *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -645,13 +651,13 @@ __attribute__((swift_name("ProgramCard.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ProgramCard.$serializer")))
-@interface DrapiProgramCard$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiProgramCard$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiProgramCard *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiProgramCard *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiProgramCard *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiProgramCard *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiProgramCard *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiProgramCard *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiProgramCard *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiProgramCard *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -676,13 +682,13 @@ __attribute__((swift_name("Info.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Info.$serializer")))
-@interface DrapiInfo$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiInfo$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiInfo *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiInfo *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiInfo *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiInfo *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiInfo *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiInfo *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiInfo *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiInfo *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -723,13 +729,13 @@ __attribute__((swift_name("PrimaryAsset.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("PrimaryAsset.$serializer")))
-@interface DrapiPrimaryAsset$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiPrimaryAsset$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiPrimaryAsset *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiPrimaryAsset *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiPrimaryAsset *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiPrimaryAsset *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiPrimaryAsset *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiPrimaryAsset *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiPrimaryAsset *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiPrimaryAsset *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -755,13 +761,13 @@ __attribute__((swift_name("Manifest.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Manifest.$serializer")))
-@interface DrapiManifest$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiManifest$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiManifest *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiManifest *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiManifest *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiManifest *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiManifest *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiManifest *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiManifest *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiManifest *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -794,13 +800,13 @@ __attribute__((swift_name("Link.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Link.$serializer")))
-@interface DrapiLink$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiLink$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiLink *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiLink *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiLink *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiLink *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiLink *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiLink *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiLink *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiLink *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -829,13 +835,13 @@ __attribute__((swift_name("Subtitle.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Subtitle.$serializer")))
-@interface DrapiSubtitle$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiSubtitle$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiSubtitle *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiSubtitle *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiSubtitle *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiSubtitle *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiSubtitle *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiSubtitle *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiSubtitle *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiSubtitle *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -862,13 +868,13 @@ __attribute__((swift_name("MostViewed.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MostViewed.$serializer")))
-@interface DrapiMostViewed$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiMostViewed$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiMostViewed *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiMostViewed *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiMostViewed *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiMostViewed *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiMostViewed *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiMostViewed *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiMostViewed *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiMostViewed *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -895,13 +901,13 @@ __attribute__((swift_name("Programs.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Programs.$serializer")))
-@interface DrapiPrograms$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiPrograms$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiPrograms *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiPrograms *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiPrograms *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiPrograms *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiPrograms *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiPrograms *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiPrograms *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiPrograms *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -924,13 +930,13 @@ __attribute__((swift_name("Page.Companion")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Page.$serializer")))
-@interface DrapiPage$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeKSerializer>
+@interface DrapiPage$serializer : KotlinBase <DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer>
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)$serializer __attribute__((swift_name("init()")));
-- (DrapiPage *)deserializeInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input __attribute__((swift_name("deserialize(input:)")));
-- (DrapiPage *)patchInput:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)input old:(DrapiPage *)old __attribute__((swift_name("patch(input:old:)")));
-- (void)serializeOutput:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)output obj:(DrapiPage *)obj __attribute__((swift_name("serialize(output:obj:)")));
+- (DrapiPage *)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
+- (DrapiPage *)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(DrapiPage *)old __attribute__((swift_name("patch(decoder:old:)")));
+- (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(DrapiPage *)obj __attribute__((swift_name("serialize(encoder:obj:)")));
 @end;
 
 __attribute__((swift_name("Genre")))
@@ -1107,8 +1113,8 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeEncoder")))
 - (void)encodeLongValue:(int64_t)value __attribute__((swift_name("encodeLong(value:)")));
 - (void)encodeNotNullMark __attribute__((swift_name("encodeNotNullMark()")));
 - (void)encodeNull __attribute__((swift_name("encodeNull()")));
-- (void)encodeNullableSerializableValueSaver:(id<DrapiKotlinx_serialization_runtime_nativeSerializationStrategy>)saver value:(id _Nullable)value __attribute__((swift_name("encodeNullableSerializableValue(saver:value:)")));
-- (void)encodeSerializableValueSaver:(id<DrapiKotlinx_serialization_runtime_nativeSerializationStrategy>)saver value:(id _Nullable)value __attribute__((swift_name("encodeSerializableValue(saver:value:)")));
+- (void)encodeNullableSerializableValueSerializer:(id<DrapiKotlinx_serialization_runtime_nativeSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeNullableSerializableValue(serializer:value:)")));
+- (void)encodeSerializableValueSerializer:(id<DrapiKotlinx_serialization_runtime_nativeSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeSerializableValue(serializer:value:)")));
 - (void)encodeShortValue:(int16_t)value __attribute__((swift_name("encodeShort(value:)")));
 - (void)encodeStringValue:(NSString *)value __attribute__((swift_name("encodeString(value:)")));
 - (void)encodeUnit __attribute__((swift_name("encodeUnit()")));
@@ -1144,13 +1150,13 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeDecoder")))
 - (int64_t)decodeLong __attribute__((swift_name("decodeLong()")));
 - (BOOL)decodeNotNullMark __attribute__((swift_name("decodeNotNullMark()")));
 - (DrapiKotlinNothing * _Nullable)decodeNull __attribute__((swift_name("decodeNull()")));
-- (id _Nullable)decodeNullableSerializableValueLoader:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)loader __attribute__((swift_name("decodeNullableSerializableValue(loader:)")));
-- (id _Nullable)decodeSerializableValueLoader:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)loader __attribute__((swift_name("decodeSerializableValue(loader:)")));
+- (id _Nullable)decodeNullableSerializableValueDeserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer __attribute__((swift_name("decodeNullableSerializableValue(deserializer:)")));
+- (id _Nullable)decodeSerializableValueDeserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer __attribute__((swift_name("decodeSerializableValue(deserializer:)")));
 - (int16_t)decodeShort __attribute__((swift_name("decodeShort()")));
 - (NSString *)decodeString __attribute__((swift_name("decodeString()")));
 - (void)decodeUnit __attribute__((swift_name("decodeUnit()")));
-- (id _Nullable)updateNullableSerializableValueLoader:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)loader old:(id _Nullable)old __attribute__((swift_name("updateNullableSerializableValue(loader:old:)")));
-- (id _Nullable)updateSerializableValueLoader:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)loader old:(id _Nullable)old __attribute__((swift_name("updateSerializableValue(loader:old:)")));
+- (id _Nullable)updateNullableSerializableValueDeserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer old:(id _Nullable)old __attribute__((swift_name("updateNullableSerializableValue(deserializer:old:)")));
+- (id _Nullable)updateSerializableValueDeserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer old:(id _Nullable)old __attribute__((swift_name("updateSerializableValue(deserializer:old:)")));
 @property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialContext> context;
 @property (readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *updateMode;
 @end;
@@ -1240,8 +1246,8 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeCompositeEncoder"
 - (void)encodeIntElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index value:(int32_t)value __attribute__((swift_name("encodeIntElement(desc:index:value:)")));
 - (void)encodeLongElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index value:(int64_t)value __attribute__((swift_name("encodeLongElement(desc:index:value:)")));
 - (void)encodeNonSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index value:(id)value __attribute__((swift_name("encodeNonSerializableElement(desc:index:value:)")));
-- (void)encodeNullableSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index saver:(id<DrapiKotlinx_serialization_runtime_nativeSerializationStrategy>)saver value:(id _Nullable)value __attribute__((swift_name("encodeNullableSerializableElement(desc:index:saver:value:)")));
-- (void)encodeSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index saver:(id<DrapiKotlinx_serialization_runtime_nativeSerializationStrategy>)saver value:(id _Nullable)value __attribute__((swift_name("encodeSerializableElement(desc:index:saver:value:)")));
+- (void)encodeNullableSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index serializer:(id<DrapiKotlinx_serialization_runtime_nativeSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeNullableSerializableElement(desc:index:serializer:value:)")));
+- (void)encodeSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index serializer:(id<DrapiKotlinx_serialization_runtime_nativeSerializationStrategy>)serializer value:(id _Nullable)value __attribute__((swift_name("encodeSerializableElement(desc:index:serializer:value:)")));
 - (void)encodeShortElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index value:(int16_t)value __attribute__((swift_name("encodeShortElement(desc:index:value:)")));
 - (void)encodeStringElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index value:(NSString *)value __attribute__((swift_name("encodeStringElement(desc:index:value:)")));
 - (void)encodeUnitElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index __attribute__((swift_name("encodeUnitElement(desc:index:)")));
@@ -1293,14 +1299,14 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeCompositeDecoder"
 - (float)decodeFloatElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index __attribute__((swift_name("decodeFloatElement(desc:index:)")));
 - (int32_t)decodeIntElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index __attribute__((swift_name("decodeIntElement(desc:index:)")));
 - (int64_t)decodeLongElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index __attribute__((swift_name("decodeLongElement(desc:index:)")));
-- (id _Nullable)decodeNullableSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index loader:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)loader __attribute__((swift_name("decodeNullableSerializableElement(desc:index:loader:)")));
-- (id _Nullable)decodeSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index loader:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)loader __attribute__((swift_name("decodeSerializableElement(desc:index:loader:)")));
+- (id _Nullable)decodeNullableSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index deserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer __attribute__((swift_name("decodeNullableSerializableElement(desc:index:deserializer:)")));
+- (id _Nullable)decodeSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index deserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer __attribute__((swift_name("decodeSerializableElement(desc:index:deserializer:)")));
 - (int16_t)decodeShortElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index __attribute__((swift_name("decodeShortElement(desc:index:)")));
 - (NSString *)decodeStringElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index __attribute__((swift_name("decodeStringElement(desc:index:)")));
 - (void)decodeUnitElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index __attribute__((swift_name("decodeUnitElement(desc:index:)")));
 - (void)endStructureDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc __attribute__((swift_name("endStructure(desc:)")));
-- (id _Nullable)updateNullableSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index loader:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)loader old:(id _Nullable)old __attribute__((swift_name("updateNullableSerializableElement(desc:index:loader:old:)")));
-- (id _Nullable)updateSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index loader:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)loader old:(id _Nullable)old __attribute__((swift_name("updateSerializableElement(desc:index:loader:old:)")));
+- (id _Nullable)updateNullableSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index deserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer old:(id _Nullable)old __attribute__((swift_name("updateNullableSerializableElement(desc:index:deserializer:old:)")));
+- (id _Nullable)updateSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index deserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer old:(id _Nullable)old __attribute__((swift_name("updateSerializableElement(desc:index:deserializer:old:)")));
 @property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialContext> context;
 @property (readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *updateMode;
 @end;
@@ -1524,12 +1530,6 @@ __attribute__((swift_name("Kotlinx_coroutines_core_nativeSelectClause0")))
 @protocol DrapiKotlinx_coroutines_core_nativeSelectClause0
 @required
 - (void)registerSelectClause0Select:(id<DrapiKotlinx_coroutines_core_nativeSelectInstance>)select block:(id<DrapiKotlinSuspendFunction0>)block __attribute__((swift_name("registerSelectClause0(select:block:)")));
-@end;
-
-__attribute__((swift_name("Kotlinx_serialization_runtime_nativeGeneratedSerializer")))
-@protocol DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer <DrapiKotlinx_serialization_runtime_nativeKSerializer>
-@required
-- (DrapiKotlinArray *)childSerializers __attribute__((swift_name("childSerializers()")));
 @end;
 
 __attribute__((swift_name("KotlinKDeclarationContainer")))
