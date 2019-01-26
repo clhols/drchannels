@@ -27,12 +27,12 @@ object DateSerializer : KSerializer<Date> {
     private val dateFormatMillis = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private val dateFormatSeconds = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
 
-    override fun serialize(output: Encoder, obj: Date) {
-        output.encodeString(obj.dateTime.format(dateFormatMillis))
+    override fun serialize(encoder: Encoder, obj: Date) {
+        encoder.encodeString(obj.dateTime.format(dateFormatMillis))
     }
 
-    override fun deserialize(input: Decoder): Date {
-        val json = input.decodeString()
+    override fun deserialize(decoder: Decoder): Date {
+        val json = decoder.decodeString()
         return try {
             Date().apply { dateTime = dateFormatMillis.parse(json).local }
         } catch (e: DateException) {

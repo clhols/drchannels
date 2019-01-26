@@ -1,7 +1,7 @@
 package dk.youtec.drapi
 
 import io.ktor.client.request.get
-import kotlinx.serialization.json.JSON
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 
 open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCacheSize): IDrMuApi {
@@ -10,42 +10,42 @@ open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCac
     override suspend fun getAllActiveDrTvChannels(): List<Channel> {
         val url = "$API_URL/channel/all-active-dr-tv-channels"
         val json = client.get<String>(url)
-        return JSON.nonstrict.parse(Channel.serializer().list, json)
+        return Json.nonstrict.parse(Channel.serializer().list, json)
     }
 
     override suspend fun getManifest(uri: String): Manifest {
         val json = client.get<String>(uri)
-        return JSON.nonstrict.parse(Manifest.serializer(), json)
+        return Json.nonstrict.parse(Manifest.serializer(), json)
     }
 
     override suspend fun getSchedule(id: String, date: String): Schedule {
         val url = "$API_URL/schedule/$id?broadcastdate=$date"
         val json = client.get<String>(url)
-        return JSON.nonstrict.parse(Schedule.serializer(), json)
+        return Json.nonstrict.parse(Schedule.serializer(), json)
     }
 
     override suspend fun getScheduleNowNext(id: String): MuNowNext {
         val url = "$API_URL/schedule/nownext/$id"
         val json = client.get<String>(url)
-        return JSON.nonstrict.parse(MuNowNext.serializer(), json)
+        return Json.nonstrict.parse(MuNowNext.serializer(), json)
     }
 
     override suspend fun getScheduleNowNext(): List<MuNowNext> {
         val url = "$API_URL/schedule/nownext-for-all-active-dr-tv-channels"
         val json = client.get<String>(url)
-        return JSON.nonstrict.parse(MuNowNext.serializer().list, json)
+        return Json.nonstrict.parse(MuNowNext.serializer().list, json)
     }
 
     override suspend fun search(query: String): SearchResult {
         val url = "$API_URL/search/tv/programcards-with-asset/title/$query"
         val json = client.get<String>(url)
-        return JSON.nonstrict.parse(SearchResult.serializer(), json)
+        return Json.nonstrict.parse(SearchResult.serializer(), json)
     }
 
     override suspend fun getMostViewed(channel: String, channelType: String, limit: Int): MostViewed {
         val url = "$API_URL/list/view/mostviewed?channel=$channel&channelType=$channelType&limit=$limit"
         val json = client.get<String>(url)
-        return JSON.nonstrict.parse(MostViewed.serializer(), json)
+        return Json.nonstrict.parse(MostViewed.serializer(), json)
     }
 
     override suspend fun getPageTvPrograms(genre: Genre): Page {
@@ -54,7 +54,7 @@ open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCac
                 .replace("&", "%26")
         val url = "$API_URL/page/tv/programs?onlinegenretexts=$encodedGenre&orderBy=LastPrimaryBroadcastWithPublicAsset&orderDescending=True"
         val json = client.get<String>(url)
-        return JSON.nonstrict.parse(Page.serializer(), json)
+        return Json.nonstrict.parse(Page.serializer(), json)
     }
 }
 
