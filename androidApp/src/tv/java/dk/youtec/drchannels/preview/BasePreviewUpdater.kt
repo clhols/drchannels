@@ -1,5 +1,6 @@
 package dk.youtec.drchannels.preview
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.ContentResolver
 import android.content.ContentUris
@@ -17,6 +18,7 @@ import androidx.tvprovider.media.tv.ChannelLogoUtils
 import androidx.tvprovider.media.tv.PreviewProgram
 import androidx.tvprovider.media.tv.TvContractCompat
 import androidx.work.*
+import com.google.android.media.tv.companionlibrary.model.Program
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.ProgramCard
 import dk.youtec.drchannels.BuildConfig
@@ -29,6 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.anko.defaultSharedPreferences
+import java.util.ArrayList
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -71,21 +74,54 @@ abstract class BasePreviewUpdater(
         return Result.success()
     }
 
+    @SuppressLint("RestrictedApi")
     private fun updatePrograms(previewChannelId: Long) {
-        val uri = TvContract.buildPreviewProgramsUriForChannel(previewChannelId)
+        //Get existing programs
+        val existingPreviewPrograms = getPreviewPrograms(previewChannelId)
 
-        //Remove all programs
-        val deletedRowCount = contentResolver.delete(uri, null, null)
-        Log.d(TAG, "Removed $deletedRowCount programs in $previewChannelId")
+        //Get new program cards
+        val newPreviewProgramCards = getPrograms()
 
-        //Build new programs list
-        val list = getPrograms().asyncAwaitMap(Dispatchers.IO) {
-            getPreviewProgram(it, previewChannelId)?.toContentValues()
-        }.filterNotNull().toTypedArray()
+        //Get expired programs
+        val expiredPrograms = existingPreviewPrograms.filterNot { existing ->
+            newPreviewProgramCards.any {
+                existing.title == it.Title && existing.description == it.OnlineGenreText
+            }
+        }
+
+        //Get new programs
+        val newProgramCards = newPreviewProgramCards.filterNot { new ->
+            existingPreviewPrograms.any {
+                new.Title == it.title && new.OnlineGenreText == it.description
+            }
+        }
+
+        //Remove expired programs
+        expiredPrograms.forEach { program ->
+            //Delete the existing preview
+            if (contentResolver.delete(
+                            TvContractCompat.buildPreviewProgramUri(program.id),
+                            null,
+                            null) > 0) {
+                Log.d(TAG,
+                        "Deleted expired preview program ${program.title} with id ${program.id}")
+            }
+        }
+
+        //Build preview programs
+        val newPrograms = newProgramCards.asyncAwaitMap(Dispatchers.IO) {
+            getPreviewProgram(it, previewChannelId)
+        }.filterNotNull()
 
         //Add new programs
-        val insertedRowCount = contentResolver.bulkInsert(TvContractCompat.PreviewPrograms.CONTENT_URI, list)
+        val insertedRowCount = contentResolver.bulkInsert(
+                TvContractCompat.PreviewPrograms.CONTENT_URI,
+                newPrograms.map { it.toContentValues() }.toTypedArray()
+        )
         Log.d(TAG, "Added $insertedRowCount programs in $previewChannelId")
+        newPrograms.forEach {
+            Log.d(TAG, "Added new preview program ${it.title}")
+        }
     }
 
     /**
@@ -119,6 +155,29 @@ abstract class BasePreviewUpdater(
             Log.e(TAG, "Exception when adding program", e)
             return null
         }
+    }
+
+    /**
+     * Returns the current list of preview programs on a given preview channel.
+     *
+     * @param channelId Channel's Id.
+     * @return List of programs.
+     */
+    private fun getPreviewPrograms(channelId: Long): List<PreviewProgram> {
+        val uri = TvContract.buildPreviewProgramsUriForChannel(channelId)
+        val programs = ArrayList<PreviewProgram>()
+        // TvProvider returns programs in chronological order by default.
+        try {
+            contentResolver.query(uri, Program.PROJECTION, null, null, null)
+                    ?.use { cursor ->
+                        while (cursor.moveToNext()) {
+                            programs.add(PreviewProgram.fromCursor(cursor))
+                        }
+                    }
+        } catch (e: Exception) {
+            Log.w(TAG, "Unable to get preview programs for $channelId", e)
+        }
+        return programs
     }
 
     private fun setupPreviewChannel() {
