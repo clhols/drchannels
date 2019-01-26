@@ -15,7 +15,6 @@ import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.Genre
 import dk.youtec.drapi.MuScheduleBroadcast
-import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.backend.streamingUrl
 import dk.youtec.drchannels.preview.*
 import dk.youtec.drchannels.util.serverDateFormat
@@ -42,18 +41,15 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
 
                 scheduleCurrentProgramsPreviewUpdate()
                 schedulePreviewUpdate<MostViewedPreviewUpdater>()
-
-                if (BuildConfig.DEBUG) {
-                    schedulePreviewUpdate<SearchPreviewUpdater>()
-                    schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Sport))
-                    schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.NaturViden))
-                    schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.NyhederAktualitet))
-                    schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Drama))
-                    schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Dokumentar))
-                    schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Kultur))
-                    schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Underholdning))
-                    schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Livsstil))
-                }
+                schedulePreviewUpdate<SearchPreviewUpdater>()
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Sport))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.NaturViden))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.NyhederAktualitet))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Drama))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Dokumentar))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Kultur))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Underholdning))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Livsstil))
             }
         }
     }
