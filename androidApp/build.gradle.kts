@@ -28,6 +28,7 @@ android {
         versionCode = versionCodeTimestamp
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -77,6 +78,10 @@ android {
         exclude("META-INF/kotlinx-coroutines-io.kotlin_module")
         exclude("META-INF/ktor-client-core.kotlin_module")
     }
+
+    testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+    }
 }
 
 kapt {
@@ -117,6 +122,7 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.1.1")
     androidTestImplementation("androidx.test:rules:1.1.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.0")
+    androidTestUtil("androidx.test:orchestrator:1.1.1")
 }
 
 play {
