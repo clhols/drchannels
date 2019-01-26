@@ -404,7 +404,7 @@ public class EventLogger implements AnalyticsListener {
      * @param msg The message to log.
      */
     protected void logd(String msg) {
-        Log.d(TAG, msg);
+        Log.v(TAG, msg);
     }
 
     /**
