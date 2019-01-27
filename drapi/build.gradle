@@ -112,6 +112,7 @@ kotlin {
 }
 
 task copyFramework {
+    setGroup("ios")
     def buildType = project.findProperty("kotlin.build.type") ?: "DEBUG"
     dependsOn "link${buildType.toLowerCase().capitalize()}FrameworkIosX64"
 
@@ -128,6 +129,7 @@ task copyFramework {
 }
 
 task iosTest {
+    setGroup("ios")
     def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
     dependsOn 'linkTestDebugExecutableIos'
     group = JavaBasePlugin.VERIFICATION_GROUP
