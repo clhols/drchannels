@@ -41,17 +41,13 @@ dependencies {
 
 kotlin {
     targets {
-        fromPreset(presets.android, 'androidLib')
-
-        def buildForDevice = project.findProperty("device")?.toBoolean() ?: false
-        def iosPreset = (buildForDevice) ? presets.iosArm64 : presets.iosX64
-        fromPreset(iosPreset, 'ios') {
+        targetFromPreset(presets.android, 'androidLib')
+        targetFromPreset(presets.iosArm64, 'iosArm64')
+        targetFromPreset(presets.iosX64, 'iosX64') {
             binaries {
                 framework {
                     // Disable bitcode embedding for the simulator build.
-                    if (!buildForDevice) {
-                        embedBitcode("disable")
-                    }
+                    embedBitcode("disable")
                 }
             }
         }
@@ -108,14 +104,19 @@ kotlin {
             }
         }
     }
+
+    configure([targets.iosX64, targets.iosArm64]) {
+        compilations.main.source(sourceSets.iosMain)
+        compilations.test.source(sourceSets.iosTest)
+    }
 }
 
 task copyFramework {
     def buildType = project.findProperty("kotlin.build.type") ?: "DEBUG"
-    dependsOn "link${buildType.toLowerCase().capitalize()}FrameworkIos"
+    dependsOn "link${buildType.toLowerCase().capitalize()}FrameworkIosX64"
 
     doLast {
-        def srcFile = file('build/bin/ios/debugFramework/')
+        def srcFile = file('build/bin/iosX64/debugFramework/')
         def targetDir = getProperty("configuration.build.dir")
         copy {
             from srcFile
