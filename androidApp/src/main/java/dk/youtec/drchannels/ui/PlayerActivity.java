@@ -17,12 +17,14 @@ package dk.youtec.drchannels.ui;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.C.ContentType;
+import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackPreparer;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.analytics.AnalyticsCollector;
 import com.google.android.exoplayer2.drm.DefaultDrmSessionManager;
 import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
 import com.google.android.exoplayer2.drm.FrameworkMediaDrm;
@@ -52,6 +54,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.TrackSelectionView;
 import com.google.android.exoplayer2.ui.spherical.SphericalSurfaceView;
 import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource;
@@ -162,6 +165,7 @@ public class PlayerActivity extends Activity
     private ViewGroup adUiViewGroup;
 
     private boolean useExtensionRenderers = false;
+    private static DefaultBandwidthMeter singletonBandwidthMeter = null;
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -265,6 +269,10 @@ public class PlayerActivity extends Activity
         } else {
             trackSelectorParameters = new DefaultTrackSelector.ParametersBuilder().build();
             clearStartPosition();
+        }
+
+        if (singletonBandwidthMeter == null) {
+            singletonBandwidthMeter = new DefaultBandwidthMeter.Builder(this).build();
         }
     }
 
@@ -496,7 +504,14 @@ public class PlayerActivity extends Activity
 
             player =
                     ExoPlayerFactory.newSimpleInstance(
-                            /* context= */ this, renderersFactory, trackSelector, drmSessionManager);
+                            /* context= */ this,
+                            renderersFactory,
+                            trackSelector,
+                            new DefaultLoadControl(),
+                            drmSessionManager,
+                            singletonBandwidthMeter,
+                            new AnalyticsCollector.Factory(),
+                            Util.getLooper());
             player.addListener(new PlayerEventListener());
             player.setPlayWhenReady(startAutoPlay);
             player.addAnalyticsListener(new EventLogger(trackSelector));
