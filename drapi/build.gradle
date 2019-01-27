@@ -26,7 +26,9 @@ android {
 dependencies {
     // Specify Kotlin/JVM stdlib dependency.
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation "com.soywiz:klock:1.1.1"
 
+    testImplementation "com.soywiz:klock:1.1.1"
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
@@ -68,14 +70,12 @@ kotlin {
                 implementation "org.jetbrains.kotlin:kotlin-stdlib-common"
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.10.0"
                 implementation "io.ktor:ktor-client-core:1.1.2"
-                implementation "com.soywiz:klock:1.1.1"
             }
         }
         commonTest {
             dependencies {
                 implementation 'org.jetbrains.kotlin:kotlin-test-common'
                 implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
-                implementation "com.soywiz:klock:1.1.1"
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
             }
         }
