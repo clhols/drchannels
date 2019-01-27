@@ -31,7 +31,9 @@ class ChannelTableViewController: UITableViewController {
         repo.getScheduleNowNext(callback: {
             (schedules: [MuNowNext]) -> KotlinUnit in
             print("Got channels result")
-            self.channels = schedules
+            self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in
+                nowNext.now != nil
+            })
             self.tableView.reloadData()
             return KotlinUnit.init()
         })
@@ -95,10 +97,11 @@ class ChannelTableViewController: UITableViewController {
         }
 
         let channel = channels[indexPath.row]
+        let imageUri = channel.now?.programCard.primaryImageUri ?? ""
         
         cell.titleLabel.text = channel.now?.title ?? "Unknown title"
         cell.descriptionLabel.text = channel.now?.subtitle ?? "Unknown description"
-        cell.channelImageView.load(url: URL.init(string: channel.now?.programCard.primaryImageUri ?? "")!, tableView: self.tableView)
+        cell.channelImageView.load(url: URL.init(string: imageUri)!, tableView: self.tableView)
 
         return cell
     }
