@@ -133,10 +133,12 @@ abstract class BasePreviewUpdater(
                 runBlocking { api.getManifest(uri).getUri() ?: "" }
             }
 
+            if (playbackUri.isNullOrBlank()) return null
+
             val intent = Intent(context, PlayerActivity::class.java).apply {
                 action = PlayerActivity.ACTION_VIEW
                 putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-                data = playbackUri?.toUri()
+                data = playbackUri.toUri()
             }
 
             return PreviewProgram.Builder()

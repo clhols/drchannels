@@ -114,10 +114,6 @@ dependencies {
     kapt("androidx.lifecycle:lifecycle-compiler:$archComponentVersion")
     implementation("android.arch.work:work-runtime-ktx:1.0.0+")
 
-    implementation("io.reactivex.rxjava2:rxjava:2.2.0")
-    implementation("io.reactivex.rxjava2:rxkotlin:2.2.0")
-    implementation("io.reactivex.rxjava2:rxandroid:2.1.0")
-
     androidTestImplementation("androidx.test:core:1.1.0")
     androidTestImplementation("androidx.test:runner:1.1.1")
     androidTestImplementation("androidx.test:rules:1.1.1")

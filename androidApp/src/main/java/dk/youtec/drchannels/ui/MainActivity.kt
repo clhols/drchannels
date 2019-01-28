@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -15,28 +16,28 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.appupdater.updateApp
+import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
-import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
 import dk.youtec.drchannels.util.isTv
 import dk.youtec.drchannels.viewmodel.ChannelsViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
+import kotlinx.coroutines.*
 import org.jetbrains.anko.toast
+import kotlin.coroutines.CoroutineContext
 
-open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickListener {
-    private val api by lazy { DrMuReactiveRepository(this) }
+open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickListener, CoroutineScope {
+    private val tag = javaClass.simpleName
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+    private val api by lazy { DrMuRepository(cacheDir.absolutePath) }
 
     private lateinit var viewModel: ChannelsViewModel
-
-    private val disposables = CompositeDisposable()
 
     companion object {
         init {
@@ -101,13 +102,14 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
     override fun onDestroy() {
         super.onDestroy()
 
-        disposables.clear()
+        job.cancel()
     }
 
     private var isEmptyState: Boolean = false
         set(value) {
             emptyState.isVisible = value
             recyclerView.isVisible = !value
+            field = value
         }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -148,57 +150,54 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
     }
 
     override fun playChannel(muNowNext: MuNowNext) {
-        val name = muNowNext.ChannelSlug
-        disposables.add(
-                api.getAllActiveDrTvChannels()
-                        .subscribeOn(Schedulers.io())
-                        .map { it.first { it.Slug == name } }
-                        .map { it.server() ?: throw Exception("Unable to get streaming server") }
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeBy(
-                                onSuccess = { server ->
-                                    val stream = server
-                                            .Qualities
-                                            .sortedByDescending { it.Kbps }.first()
-                                            .Streams.first().Stream
-                                    startActivity(
-                                            buildIntent(
-                                                    this@MainActivity,
-                                                    "${server.Server}/$stream"))
-                                },
-                                onError = { e ->
-                                    toast(
-                                            if (e.message != null
-                                                    && e.message != "Success") e.message!!
-                                            else getString(R.string.cantChangeChannel))
-                                }
-                        ))
+        launch {
+            try {
+                val name = muNowNext.ChannelSlug
+                val server = withContext(Dispatchers.IO) {
+                    api.getAllActiveDrTvChannels()
+                }
+                        .first { it.Slug == name }
+                        .server() ?: throw Exception("Unable to get streaming server")
+
+                val stream = server
+                        .Qualities
+                        .sortedByDescending { it.Kbps }.first()
+                        .Streams.first().Stream
+                startActivity(
+                        buildIntent(
+                                this@MainActivity,
+                                "${server.Server}/$stream"))
+            } catch (e: Exception) {
+                Log.e(tag, e.message, e)
+                toast(
+                        if (e.message != null
+                                && e.message != "Success") e.message!!
+                        else getString(R.string.cantChangeChannel))
+            }
+        }
     }
 
     override fun playProgram(muNowNext: MuNowNext) {
         val uri = muNowNext.Now?.ProgramCard?.PrimaryAsset?.Uri
         if (uri != null) {
-            disposables.add(
-                    api.getManifest(uri)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeBy(
-                                    onSuccess = { manifest ->
-                                        val playbackUri = manifest.getUri()
-                                        if (playbackUri != null) {
-                                            startActivity(
-                                                    buildIntent(this@MainActivity, playbackUri))
-                                        } else {
-                                            toast("No stream")
-                                        }
-                                    },
-                                    onError = { e ->
-                                        toast(
-                                                if (e.message != null
-                                                        && e.message != "Success") e.message!!
-                                                else getString(R.string.cantChangeChannel))
-                                    }
-                            ))
+            launch {
+                try {
+                    val manifest = withContext(Dispatchers.IO) { api.getManifest(uri) }
+
+                    val playbackUri = manifest.getUri()
+                    if (playbackUri != null) {
+                        startActivity(
+                                buildIntent(this@MainActivity, playbackUri))
+                    } else {
+                        toast("No stream")
+                    }
+                } catch (e: Exception) {
+                    toast(
+                            if (e.message != null
+                                    && e.message != "Success") e.message!!
+                            else getString(R.string.cantChangeChannel))
+                }
+            }
         } else {
             toast("No stream")
         }
