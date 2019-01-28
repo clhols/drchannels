@@ -12,28 +12,34 @@ import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
-import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.ui.view.AspectImageView
 import dk.youtec.drchannels.util.calendar
 import dk.youtec.drchannels.util.load
 import dk.youtec.drchannels.util.serverDateFormat
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.program_item.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.jetbrains.anko.image
 import org.jetbrains.anko.toast
+import java.lang.Exception
 import java.util.Date
+import kotlin.coroutines.CoroutineContext
 
 class ProgramAdapter(
         private val context: Context,
         private val schedule: Schedule,
-        private val api: DrMuReactiveRepository
-) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>() {
+        private val api: DrMuRepository
+) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>(), CoroutineScope {
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
 
     private var colorMatrixColorFilter: ColorMatrixColorFilter
     private var resources: Resources
@@ -133,29 +139,26 @@ class ProgramAdapter(
         }
 
         private fun playProgram(program: MuScheduleBroadcast) {
-            val uri = program.ProgramCard.PrimaryAsset?.Uri
-            if (uri != null) {
-                api.getManifest(uri)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeBy(
-                                onSuccess = { manifest ->
-                                    val playbackUri = manifest.getUri()
-                                    if (playbackUri != null) {
-                                        context.startActivity(buildIntent(context, playbackUri))
-                                    } else {
-                                        context.toast("No stream")
-                                    }
-                                },
-                                onError = { e ->
-                                    context.toast(
-                                            if (e.message != null
-                                                    && e.message != "Success") e.message!!
-                                            else context.getString(R.string.cantChangeChannel))
-                                }
-                        )
-            } else {
-                context.toast("No stream")
+            launch {
+                val uri = program.ProgramCard.PrimaryAsset?.Uri
+                if (uri != null) {
+                    try {
+                        val manifest = withContext(IO) { api.getManifest(uri) }
+                        val playbackUri = manifest.getUri()
+                        if (playbackUri != null) {
+                            context.startActivity(buildIntent(context, playbackUri))
+                        } else {
+                            context.toast("No stream")
+                        }
+                    } catch (e: Exception) {
+                        context.toast(
+                                if (e.message != null
+                                        && e.message != "Success") e.message!!
+                                else context.getString(R.string.cantChangeChannel))
+                    }
+                } else {
+                    context.toast("No stream")
+                }
             }
         }
     }
