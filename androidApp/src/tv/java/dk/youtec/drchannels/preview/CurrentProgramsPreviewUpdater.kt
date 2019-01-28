@@ -96,6 +96,7 @@ class CurrentProgramsPreviewUpdater(
             scheduleNextProgramsUpdate(nextProgramFinishTime)
         } else {
             Log.w(TAG, "No program finish time for scheduling next job")
+            scheduleNextProgramsUpdate(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(2))
         }
     }
 
