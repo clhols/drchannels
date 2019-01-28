@@ -26,9 +26,7 @@ android {
 dependencies {
     // Specify Kotlin/JVM stdlib dependency.
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-    implementation "com.soywiz:klock:1.1.1"
 
-    testImplementation "com.soywiz:klock:1.1.1"
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
@@ -70,6 +68,7 @@ kotlin {
                 implementation "org.jetbrains.kotlin:kotlin-stdlib-common"
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.10.0"
                 implementation "io.ktor:ktor-client-core:1.1.2"
+                implementation "com.soywiz:klock:1.1.1"
             }
         }
         commonTest {
@@ -77,6 +76,7 @@ kotlin {
                 implementation 'org.jetbrains.kotlin:kotlin-test-common'
                 implementation 'org.jetbrains.kotlin:kotlin-test-annotations-common'
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
+                implementation "com.soywiz:klock:1.1.1"
             }
         }
         androidLibMain {
@@ -112,12 +112,12 @@ kotlin {
 }
 
 task copyFramework {
-    setGroup("ios")
+    group = "ios"
     def buildType = project.findProperty("kotlin.build.type") ?: "DEBUG"
     dependsOn "link${buildType.toLowerCase().capitalize()}FrameworkIosX64"
 
     doLast {
-        def srcFile = file('build/bin/iosX64/debugFramework/')
+        def srcFile = kotlin.targets.iosX64.binaries.getFramework(buildType).outputFile
         def targetDir = getProperty("configuration.build.dir")
         copy {
             from srcFile
@@ -129,14 +129,13 @@ task copyFramework {
 }
 
 task iosTest {
-    setGroup("ios")
-    def device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
-    dependsOn 'linkTestDebugExecutableIos'
-    group = JavaBasePlugin.VERIFICATION_GROUP
+    group = "ios"
+    def device = "iPhone 8"
+    dependsOn 'linkTestDebugExecutableIosX64'
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
-        def binary = kotlin.targets.ios.compilations.test.getBinary('EXECUTABLE', 'DEBUG')
+        def binary = kotlin.targets.iosX64.binaries.getExecutable('test', 'DEBUG').outputFile
         exec {
             commandLine 'xcrun', 'simctl', 'spawn', device, binary.absolutePath
         }
