@@ -1,5 +1,6 @@
 package dk.youtec.drchannels.preview
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.*
 import android.media.tv.TvContract
@@ -53,6 +54,7 @@ class CurrentProgramsPreviewUpdater(
         return Result.success()
     }
 
+    @SuppressLint("RestrictedApi")
     private fun updatePrograms(previewChannelId: Long) {
         val now = System.currentTimeMillis()
         var nextProgramFinishTime = Long.MAX_VALUE
@@ -96,12 +98,14 @@ class CurrentProgramsPreviewUpdater(
             scheduleNextProgramsUpdate(nextProgramFinishTime)
         } else {
             Log.w(TAG, "No program finish time for scheduling next job")
+            scheduleNextProgramsUpdate(System.currentTimeMillis() + TimeUnit.HOURS.toMillis(2))
         }
     }
 
     /**
      * Removes any existing program from the channel and insert the new one.
      */
+    @SuppressLint("RestrictedApi")
     private fun updateProgram(
             program: Program,
             previewChannelId: Long,
@@ -148,6 +152,7 @@ class CurrentProgramsPreviewUpdater(
         }
     }
 
+    @SuppressLint("RestrictedApi")
     private fun isExistingPreviewProgram(program: PreviewProgram, existingPrograms: List<PreviewProgram>): Boolean {
         return existingPrograms.any {
             it.posterArtUri == program.posterArtUri

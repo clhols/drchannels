@@ -15,7 +15,6 @@ import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.Genre
 import dk.youtec.drapi.MuScheduleBroadcast
-import dk.youtec.drchannels.backend.streamingUrl
 import dk.youtec.drchannels.preview.*
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.coroutines.CoroutineScope
@@ -117,13 +116,15 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
 
         val broadcasts = todaysBroadcasts + tomorrowsBroadcasts
         broadcasts.forEach { broadcast ->
-            programs.add(buildProgram(channel, broadcast, endMs))
+            if (broadcast.EndTime.time < endMs) {
+                programs.add(buildProgram(channel, broadcast))
+            }
         }
 
         return programs
     }
 
-    private fun buildProgram(channel: Channel, broadcast: MuScheduleBroadcast, endMs: Long): Program {
+    private fun buildProgram(channel: Channel, broadcast: MuScheduleBroadcast): Program {
         return with(Program.Builder()) {
 
             setChannelId(channel.id)
@@ -131,7 +132,7 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
             setDescription(broadcast.Description)
 
             setStartTimeUtcMillis(broadcast.StartTime.time)
-            setEndTimeUtcMillis(Math.min(broadcast.EndTime.time, endMs))
+            setEndTimeUtcMillis(broadcast.EndTime.time)
 
             if (broadcast.OnlineGenreText?.isNotBlank() == true) {
                 setBroadcastGenres(arrayOf(broadcast.OnlineGenreText))
@@ -215,3 +216,10 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
         return schedule.Broadcasts.toMutableList()
     }
 }
+
+private val dk.youtec.drapi.Channel.streamingUrl: String
+    get() {
+        val stream = server()!!.Qualities.sortedByDescending { it.Kbps }.first()
+                .Streams.first().Stream
+        return "${server()!!.Server}/$stream"
+    }

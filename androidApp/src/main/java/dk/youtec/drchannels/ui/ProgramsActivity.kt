@@ -7,28 +7,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
-import dk.youtec.drchannels.backend.DrMuReactiveRepository
 import dk.youtec.drchannels.ui.adapter.ProgramAdapter
 import dk.youtec.drchannels.util.serverCalendar
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.Singles
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
+import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.android.synthetic.main.activity_programs.*
+import kotlinx.coroutines.*
 import org.jetbrains.anko.displayMetrics
 import org.jetbrains.anko.toast
+import java.lang.Exception
 import java.util.Calendar.*
+import kotlin.coroutines.CoroutineContext
 
-class ProgramsActivity : AppCompatActivity() {
-    private val api by lazy { DrMuReactiveRepository(this) }
+class ProgramsActivity : AppCompatActivity(), CoroutineScope {
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+    private val api by lazy { DrMuRepository() }
     private var selectedGenre: String = ""
     private var genres: Set<String> = setOf()
     private lateinit var programAdapter: ProgramAdapter
-    private var disposable: Disposable? = null
 
     companion object {
         const val CATEGORY_GROUP = 1
@@ -60,51 +60,52 @@ class ProgramsActivity : AppCompatActivity() {
         loadPrograms(id)
     }
 
+    private fun java.util.Date.format(): String {
+        return serverDateFormat("yyyy-MM-dd HH:mm:ss").format(this)
+    }
+
     private fun loadPrograms(id: String) {
         progressBar.isVisible = true
 
-        val scheduleSingle: Single<Schedule> =
-                Singles.zip(
-                        api.getSchedule(id,
-                                serverCalendar {
-                                    set(SECOND, 0); set(MINUTE, 0); add(DATE,
-                                        1)
-                                }.time)
-                                .subscribeOn(Schedulers.io()),
-                        api.getSchedule(id, serverCalendar { set(SECOND, 0); set(MINUTE, 0) }.time)
-                                .subscribeOn(Schedulers.io()),
-                        api.getSchedule(id,
-                                serverCalendar {
-                                    set(SECOND, 0); set(MINUTE, 0); add(DATE,
-                                        -1)
-                                }.time)
-                                .subscribeOn(Schedulers.io()),
-                        api.getSchedule(id,
-                                serverCalendar {
-                                    set(SECOND, 0); set(MINUTE, 0); add(DATE,
-                                        -2)
-                                }.time)
-                                .subscribeOn(Schedulers.io())
-                ) { tomorrow, today, yesterday, twoDaysAgo ->
-                    Schedule(twoDaysAgo.Broadcasts + yesterday.Broadcasts + today.Broadcasts + tomorrow.Broadcasts,
-                            today.BroadcastDate,
-                            today.ChannelSlug,
-                            today.Channel)
+        try {
+            launch {
+                val tomorrowDeferred = async(Dispatchers.IO) {
+                    api.getSchedule(id, serverCalendar {
+                        set(SECOND, 0); set(MINUTE, 0); add(DATE, 1)
+                    }.time.format())
+                }
+                val todayDeferred = async(Dispatchers.IO) {
+                    api.getSchedule(id, serverCalendar {
+                        set(SECOND, 0); set(MINUTE, 0)
+                    }.time.format())
+                }
+                val yesterdayDeferred = async(Dispatchers.IO) {
+                    api.getSchedule(id,
+                            serverCalendar {
+                                set(SECOND, 0); set(MINUTE, 0); add(DATE, -1)
+                            }.time.format())
+                }
+                val twoDaysAgoDeferred = async(Dispatchers.IO) {
+                    api.getSchedule(id,
+                            serverCalendar {
+                                set(SECOND, 0); set(MINUTE, 0); add(DATE, -2)
+                            }.time.format())
                 }
 
-        disposable?.dispose()
-
-        disposable = scheduleSingle
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeBy(
-                        onSuccess = { schedule ->
-                            onScheduleLoaded(schedule)
-                        },
-                        onError = { e ->
-                            onScheduleError(e)
-                        }
-                )
+                onScheduleLoaded(
+                        Schedule(
+                                (twoDaysAgoDeferred.await().Broadcasts +
+                                        yesterdayDeferred.await().Broadcasts +
+                                        todayDeferred.await().Broadcasts +
+                                        tomorrowDeferred.await().Broadcasts),
+                                todayDeferred.await().BroadcastDate,
+                                todayDeferred.await().ChannelSlug,
+                                todayDeferred.await().Channel
+                        ))
+            }
+        } catch (e: Exception) {
+            onScheduleError(e)
+        }
     }
 
     private fun onScheduleLoaded(schedule: Schedule) {
@@ -139,7 +140,7 @@ class ProgramsActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
-        disposable?.dispose()
+        job.cancel()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

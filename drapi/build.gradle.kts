@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import java.lang.System.getProperty
 
 plugins {
@@ -42,11 +43,20 @@ dependencies {
 }
 
 kotlin {
-
     android {}
-
+    iosArm64 {
+        compilations["main"].apply {
+            outputKinds("framework")
+            source(sourceSets.maybeCreate("iosMain"))
+        }
+        compilations["test"].source(sourceSets.maybeCreate("iosTest"))
+    }
     iosX64 {
-        compilations["main"].outputKinds("framework")
+        compilations["main"].apply {
+            outputKinds("framework")
+            source(sourceSets.maybeCreate("iosMain"))
+        }
+        compilations["test"].source(sourceSets.maybeCreate("iosTest"))
         binaries {
             framework {
                 val buildForDevice = false
@@ -97,13 +107,13 @@ kotlin {
             dependencies {
             }
         }
-        val iosX64Main by getting {
+        val iosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:1.1.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.10.0")
             }
         }
-        val iosX64Test by getting {
+        val iosTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.1.1")
             }
@@ -112,12 +122,14 @@ kotlin {
 }
 
 task("copyFramework") {
+    group = "ios"
     val buildType: String = project.findProperty("kotlin.build.type")?.toString() ?: "DEBUG"
     dependsOn("link${buildType.toLowerCase().capitalize()}FrameworkIosX64")
 
     doLast {
-        val srcFile = file("build/bin/iosX64/debugFramework/")
-        val targetDir = getProperty("configuration.build.dir")
+        val target = kotlin.targets.getByName("iosX64") as KotlinNativeTarget
+        val srcFile = target.binaries.getFramework(buildType).outputFile
+        val targetDir = project.property("configuration.build.dir").toString()
         copy {
             from(srcFile)
             into(targetDir)
@@ -128,13 +140,14 @@ task("copyFramework") {
 }
 
 task("iosTest") {
-    val device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
-    dependsOn("linkTestDebugExecutableIos")
-    group = JavaBasePlugin.VERIFICATION_GROUP
+    group = "ios"
+    val device = "iPhone 8"
+    dependsOn("linkTestDebugExecutableIosX64")
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
-        val binary = kotlin.iosX64().compilations["test"].getBinary("EXECUTABLE", "DEBUG")
+        val target = kotlin.targets.getByName("iosX64") as KotlinNativeTarget
+        val binary = target.binaries.getExecutable("test", "DEBUG").outputFile
         exec {
             commandLine = listOf("xcrun", "simctl", "spawn", device, binary.absolutePath)
         }
