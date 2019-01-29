@@ -58,11 +58,8 @@ kotlin {
         compilations["test"].source(sourceSets.maybeCreate("iosTest"))
         binaries {
             framework {
-                val buildForDevice = false
                 // Disable bitcode embedding for the simulator build.
-                if (!buildForDevice) {
-                    embedBitcode("disable")
-                }
+                embedBitcode("disable")
             }
         }
     }
