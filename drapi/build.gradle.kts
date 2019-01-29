@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import java.lang.System.getProperty
 
 plugins {
     id("com.android.library")
