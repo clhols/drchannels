@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
@@ -42,20 +43,19 @@ dependencies {
 }
 
 kotlin {
-    android {}
-    iosArm64 {
+    fun setupCompilationsForIos(compilations: NamedDomainObjectContainer<KotlinNativeCompilation>) {
         compilations["main"].apply {
             outputKinds("framework")
             source(sourceSets.maybeCreate("iosMain"))
         }
         compilations["test"].source(sourceSets.maybeCreate("iosTest"))
     }
+
+    android {}
+    iosArm32 { setupCompilationsForIos(compilations) }
+    iosArm64 { setupCompilationsForIos(compilations) }
     iosX64 {
-        compilations["main"].apply {
-            outputKinds("framework")
-            source(sourceSets.maybeCreate("iosMain"))
-        }
-        compilations["test"].source(sourceSets.maybeCreate("iosTest"))
+        setupCompilationsForIos(compilations)
         binaries {
             framework {
                 // Disable bitcode embedding for the simulator build.
