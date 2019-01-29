@@ -43,19 +43,19 @@ dependencies {
 }
 
 kotlin {
-    fun setupCompilationsForIos(compilations: NamedDomainObjectContainer<KotlinNativeCompilation>) {
-        compilations["main"].apply {
+    fun NamedDomainObjectContainer<KotlinNativeCompilation>.setupForIos() {
+        this["main"].apply {
             outputKinds("framework")
             source(sourceSets.maybeCreate("iosMain"))
         }
-        compilations["test"].source(sourceSets.maybeCreate("iosTest"))
+        this["test"].source(sourceSets.maybeCreate("iosTest"))
     }
 
     android {}
-    iosArm32 { setupCompilationsForIos(compilations) }
-    iosArm64 { setupCompilationsForIos(compilations) }
+    iosArm32 { compilations.setupForIos() }
+    iosArm64 { compilations.setupForIos() }
     iosX64 {
-        setupCompilationsForIos(compilations)
+        compilations.setupForIos()
         binaries {
             framework {
                 // Disable bitcode embedding for the simulator build.
