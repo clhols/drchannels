@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_programs.*
 import kotlinx.coroutines.*
 import org.jetbrains.anko.displayMetrics
 import org.jetbrains.anko.toast
+import org.koin.android.ext.android.inject
 import java.lang.Exception
 import java.util.Calendar.*
 import kotlin.coroutines.CoroutineContext
@@ -25,7 +26,7 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope {
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
-    private val api by lazy { DrMuRepository() }
+    private val api: DrMuRepository by inject()
     private var selectedGenre: String = ""
     private var genres: Set<String> = setOf()
     private lateinit var programAdapter: ProgramAdapter
@@ -118,7 +119,7 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope {
                 .toSet()
         invalidateOptionsMenu()
 
-        programAdapter = ProgramAdapter(this, schedule, api)
+        programAdapter = ProgramAdapter(this, schedule)
         recyclerView.adapter = programAdapter
         (recyclerView.layoutManager as LinearLayoutManager)
                 .scrollToPositionWithOffset(schedule.Broadcasts.indexOfFirst {

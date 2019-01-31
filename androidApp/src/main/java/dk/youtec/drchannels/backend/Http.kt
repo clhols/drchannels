@@ -2,6 +2,8 @@ package dk.youtec.drchannels.backend
 
 import android.content.Context
 import android.util.Log
+import dk.youtec.drchannels.util.koined
+import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
@@ -22,7 +24,7 @@ fun getHttpResponse(context: Context, urlAddress: String): Response {
                 .url(urlAddress)
                 .build()
 
-        val client = OkHttpClientFactory.getInstance(context)
+        val client: OkHttpClient = koined()
 
         var response: Response? = null
         try {

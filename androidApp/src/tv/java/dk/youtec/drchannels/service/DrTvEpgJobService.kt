@@ -20,6 +20,7 @@ import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import org.koin.android.ext.android.inject
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.CoroutineContext
@@ -30,7 +31,7 @@ import kotlin.coroutines.CoroutineContext
 class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
-    private lateinit var api: DrMuRepository
+    private val api: DrMuRepository by inject()
 
     private val syncFinishedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
@@ -55,8 +56,6 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
 
     override fun onCreate() {
         super.onCreate()
-
-        api = DrMuRepository(cacheDir.absolutePath)
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 syncFinishedReceiver,

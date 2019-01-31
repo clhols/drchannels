@@ -1,6 +1,3 @@
-import org.gradle.kotlin.dsl.extra
-import org.gradle.kotlin.dsl.getValue
-
 plugins {
     id("com.android.library")
 }
@@ -26,6 +23,6 @@ android {
 }
 
 dependencies {
-    implementation("androidx.annotation:annotation:$supportLibVersion")
-    implementation("androidx.legacy:legacy-support-core-utils:$supportLibVersion")
+    implementation("androidx.annotation:annotation:$androidxVersion")
+    implementation("androidx.legacy:legacy-support-core-utils:$androidxVersion")
 }

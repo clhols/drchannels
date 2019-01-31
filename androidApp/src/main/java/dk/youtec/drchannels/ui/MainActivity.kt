@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
 import org.jetbrains.anko.toast
+import org.koin.android.ext.android.inject
 import kotlin.coroutines.CoroutineContext
 
 open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickListener, CoroutineScope {
@@ -35,7 +36,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
-    private val api by lazy { DrMuRepository(cacheDir.absolutePath) }
+    private val api: DrMuRepository by inject()
 
     private lateinit var viewModel: ChannelsViewModel
 

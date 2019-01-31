@@ -31,6 +31,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.anko.defaultSharedPreferences
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.util.ArrayList
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -41,9 +43,9 @@ private val TAG = BasePreviewUpdater::class.java.simpleName
 abstract class BasePreviewUpdater(
         val context: Context,
         workerParams: WorkerParameters
-) : Worker(context, workerParams) {
+) : Worker(context, workerParams), KoinComponent {
     abstract val channelKey: String
-    protected lateinit var api: DrMuRepository
+    protected val api: DrMuRepository by inject()
     private lateinit var contentResolver: ContentResolver
 
     abstract fun getPrograms(): List<ProgramCard>
@@ -52,7 +54,6 @@ abstract class BasePreviewUpdater(
 
     override fun doWork(): Result {
         contentResolver = context.contentResolver
-        api = DrMuRepository(context.cacheDir.absolutePath)
 
         setupPreviewChannel()
 

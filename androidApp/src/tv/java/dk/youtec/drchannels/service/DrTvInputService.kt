@@ -37,6 +37,8 @@ import dk.youtec.drchannels.log.EventLogger
 import dk.youtec.drchannels.player.TvExoPlayer
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.coroutines.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
@@ -334,11 +336,11 @@ class DrTvInputSessionImpl(
 class DrTvInputRecordingSessionImpl(
         context: Context,
         private val inputId: String
-) : BaseTvInputService.RecordingSession(context, inputId), CoroutineScope {
+) : BaseTvInputService.RecordingSession(context, inputId), CoroutineScope, KoinComponent {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
     private val tag = DrTvInputRecordingSessionImpl::class.java.simpleName
-    private val api = DrMuRepository(context.cacheDir.absolutePath)
+    private val api: DrMuRepository by inject()
 
     override fun onTune(uri: Uri) {
         super.onTune(uri)
