@@ -103,12 +103,14 @@ kotlin {
             dependencies {
             }
         }
+
         val iosMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-ios:1.1.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.10.0")
             }
         }
+
         val iosTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.1.1")
