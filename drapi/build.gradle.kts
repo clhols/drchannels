@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeCompilation
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
@@ -43,19 +42,8 @@ dependencies {
 }
 
 kotlin {
-    fun NamedDomainObjectContainer<KotlinNativeCompilation>.setupForIos() {
-        this["main"].apply {
-            outputKinds("framework")
-            source(sourceSets.maybeCreate("iosMain"))
-        }
-        this["test"].source(sourceSets.maybeCreate("iosTest"))
-    }
-
     android {}
-    iosArm32 { compilations.setupForIos() }
-    iosArm64 { compilations.setupForIos() }
-    iosX64 {
-        compilations.setupForIos()
+    iosX64("ios") {
         binaries {
             framework {
                 // Disable bitcode embedding for the simulator build.
@@ -122,10 +110,10 @@ kotlin {
 task("copyFramework") {
     group = "ios"
     val buildType: String = project.findProperty("kotlin.build.type")?.toString() ?: "DEBUG"
-    dependsOn("link${buildType.toLowerCase().capitalize()}FrameworkIosX64")
+    dependsOn("link${buildType.toLowerCase().capitalize()}FrameworkIos")
 
     doLast {
-        val target = kotlin.targets.getByName("iosX64") as KotlinNativeTarget
+        val target = kotlin.targets.getByName("ios") as KotlinNativeTarget
         val srcFile = target.binaries.getFramework(buildType).outputFile
         val targetDir = project.property("configuration.build.dir").toString()
         copy {
@@ -140,11 +128,11 @@ task("copyFramework") {
 task("iosTest") {
     group = "ios"
     val device = "iPhone 8"
-    dependsOn("linkTestDebugExecutableIosX64")
+    dependsOn("linkTestDebugExecutableIos")
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
-        val target = kotlin.targets.getByName("iosX64") as KotlinNativeTarget
+        val target = kotlin.targets.getByName("ios") as KotlinNativeTarget
         val binary = target.binaries.getExecutable("test", "DEBUG").outputFile
         exec {
             commandLine = listOf("xcrun", "simctl", "spawn", device, binary.absolutePath)
