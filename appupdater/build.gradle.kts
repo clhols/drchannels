@@ -29,8 +29,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
-    implementation("androidx.appcompat:appcompat:$supportLibVersion")
-    implementation("androidx.legacy:legacy-support-v4:$supportLibVersion")
+    implementation("androidx.appcompat:appcompat:$androidxVersion")
+    implementation("androidx.legacy:legacy-support-v4:$androidxVersion")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }

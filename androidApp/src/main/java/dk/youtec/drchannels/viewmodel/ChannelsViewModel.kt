@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.*
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import kotlin.coroutines.CoroutineContext
 
 @Keep
@@ -18,11 +20,11 @@ class ChannelsViewModel : ViewModel() {
     }
 }
 
-class ChannelsLiveData : LiveData<List<MuNowNext>>(), CoroutineScope {
+class ChannelsLiveData : LiveData<List<MuNowNext>>(), CoroutineScope, KoinComponent {
     private val tag = javaClass.simpleName
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
-    private val api = DrMuRepository()
+    private val api: DrMuRepository by inject()
     private var job: Job? = null
 
     /**
