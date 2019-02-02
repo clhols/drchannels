@@ -33,6 +33,8 @@ allprojects {
             eachDependency {
                 when (requested.group) {
                     "org.jetbrains.kotlin" -> useVersion(kotlinVersion)
+                    "androidx.annotation" -> useVersion(androidxVersion)
+                    "androidx.exifinterface" -> useVersion(androidxVersion)
                 }
             }
         }
