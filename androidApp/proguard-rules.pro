@@ -32,20 +32,6 @@
 -keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**
 
-# RxJava
--dontwarn sun.misc.**
--dontwarn okio.**
--keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-   long producerIndex;
-   long consumerIndex;
-}
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode producerNode;
-}
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode consumerNode;
-}
-
 # https://github.com/square/okio/issues/60
 -dontwarn okio.**
 -dontwarn javax.annotation.Nullable
