@@ -187,6 +187,7 @@ data class PrimaryAsset(
 data class Manifest(
         val Links: List<Link>,
         val SubtitlesList: List<Subtitle>) {
+    fun getEncryptedUri(): String = Links.firstOrNull { it.Target == "HLS" }?.EncryptedUri ?: ""
     private fun getHlsUri(): String? = Links.firstOrNull { it.Target == "HLS" }?.Uri
     private fun getHdsUri(): String? = Links.firstOrNull { it.Target == "HDS" }?.Uri
     fun getUri(): String? = getHlsUri() ?: getHdsUri()

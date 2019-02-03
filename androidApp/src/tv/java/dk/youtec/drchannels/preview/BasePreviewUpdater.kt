@@ -21,6 +21,7 @@ import androidx.work.*
 import com.google.android.media.tv.companionlibrary.model.Program
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.ProgramCard
+import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.MainActivity
@@ -131,7 +132,7 @@ abstract class BasePreviewUpdater(
     private fun getPreviewProgram(program: ProgramCard, previewChannelId: Long): PreviewProgram? {
         try {
             val playbackUri = program.PrimaryAsset?.Uri?.let { uri ->
-                runBlocking { api.getManifest(uri).getUri() ?: "" }
+                runBlocking { api.getManifest(uri).let { it.getUri() ?: decryptUri(it.getEncryptedUri()) } }
             }
 
             if (playbackUri.isNullOrBlank()) return null
