@@ -153,6 +153,7 @@ abstract class BasePreviewUpdater(
                     .setStartTimeUtcMillis(program.PrimaryBroadcastStartTime?.time ?: 0)
                     .setPosterArtUri(program.PrimaryImageUri.toUri())
                     .setPosterArtAspectRatio(ASPECT_RATIO_16_9)
+                    .setWeight(((program.PrimaryBroadcastStartTime?.time ?: 1) / 1000).toInt())
                     .build()
         } catch (e: Exception) {
             Log.e(TAG, "Exception when adding program", e)
