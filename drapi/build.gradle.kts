@@ -65,26 +65,26 @@ kotlin {
         commonMain {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.10.0")
-                implementation("io.ktor:ktor-client-core:1.1.2")
-                implementation("com.soywiz:klock:1.1.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("com.soywiz:klock:$klockVersion")
             }
         }
         commonTest {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test-common")
                 implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-                implementation("com.soywiz:klock:1.1.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1")
+                implementation("com.soywiz:klock:$klockVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             }
         }
         val androidMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.10.0")
-                implementation("com.squareup.okhttp3:okhttp:3.12.1")
-                implementation("com.squareup.okhttp3:logging-interceptor:3.12.0")
-                implementation("io.ktor:ktor-client-okhttp:1.1.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
+                implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
+                implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
             }
         }
         val androidTest by getting {
@@ -94,14 +94,14 @@ kotlin {
 
         val iosMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-ios:1.1.2")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:0.10.0")
+                implementation("io.ktor:ktor-client-ios:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
             }
         }
 
         val iosTest by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.1.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
             }
         }
     }
