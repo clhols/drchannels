@@ -3,7 +3,7 @@ package dk.youtec.appupdater
 import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.internal.plugins.DefaultExtraPropertiesExtension
+import org.gradle.api.plugins.ExtraPropertiesExtension
 import java.util.*
 
 open class AppUpdaterPlugin : Plugin<Project> {
@@ -26,7 +26,7 @@ open class AppUpdaterPlugin : Plugin<Project> {
             })
         }
 
-        val ext = project.extensions.getByName("ext") as DefaultExtraPropertiesExtension
+        val ext = project.extensions.getByName("ext") as ExtraPropertiesExtension
 
         //Equivalent to project.ext.getVersionCodeTimestamp = { -> }
         ext.set("getVersionCodeTimestamp", closure {
