@@ -113,7 +113,7 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
     kapt("androidx.lifecycle:lifecycle-compiler:$archComponentVersion")
-    implementation("android.arch.work:work-runtime-ktx:1.0.0-beta03")
+    implementation("android.arch.work:work-runtime-ktx:1.0.0-beta04")
 
     androidTestImplementation("androidx.test:core:1.1.0")
     androidTestImplementation("androidx.test:runner:1.1.1")
