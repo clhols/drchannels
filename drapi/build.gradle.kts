@@ -12,7 +12,7 @@ version = "1.0"
 android {
     compileSdkVersion(28)
     defaultConfig {
-        minSdkVersion(18)
+        minSdkVersion(21)
     }
     buildTypes {
         getByName("release") {
