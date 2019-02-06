@@ -9,7 +9,7 @@ android {
     buildToolsVersion(buildToolsVersion)
 
     defaultConfig {
-        minSdkVersion(16)
+        minSdkVersion(18)
         targetSdkVersion(targetSdk)
 
         versionCode = 1
