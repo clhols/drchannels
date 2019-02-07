@@ -211,11 +211,3 @@ fun scheduleCurrentProgramsPreviewUpdate(delay: Long = 0) {
             .build()
     WorkManager.getInstance().enqueue(updatePreviewPrograms)
 }
-
-class CurrentProgramsPreviewUpdateReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context?, intent: Intent?) {
-        Log.d(CurrentProgramsPreviewUpdateReceiver::class.java.simpleName,
-                "Scheduling new current programs preview update from alarm")
-        scheduleCurrentProgramsPreviewUpdate()
-    }
-}
