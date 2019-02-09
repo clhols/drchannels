@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
+import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.ui.view.AspectImageView
@@ -146,8 +147,8 @@ class ProgramAdapter(
                 if (uri != null) {
                     try {
                         val manifest = withContext(IO) { api.getManifest(uri) }
-                        val playbackUri = manifest.getUri()
-                        if (playbackUri != null) {
+                        val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
+                        if (playbackUri.isNotBlank()) {
                             context.startActivity(buildIntent(context, playbackUri))
                         } else {
                             context.toast("No stream")

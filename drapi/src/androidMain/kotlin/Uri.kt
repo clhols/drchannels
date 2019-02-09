@@ -7,16 +7,17 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 fun decryptUri(input: String): String {
-    val n = input.substring(2, 10).toInt(16)
-    val a = input.substring(10 + n)
+    if (input.isNotBlank() && input.length > 10) {
+        val n = input.substring(2, 10).toInt(16)
+        val a = input.substring(10 + n)
 
-    val data = input.substring(10, 10 + n).hexStringToByteArray()
-    val key = hash("SHA-256", "$a:sRBzYNXBzkKgnjj8pGtkACch")
-    val iv = a.hexStringToByteArray()
+        val data = input.substring(10, 10 + n).hexStringToByteArray()
+        val key = hash("SHA-256", "$a:sRBzYNXBzkKgnjj8pGtkACch")
+        val iv = a.hexStringToByteArray()
 
-    val output = decryptAes(data, key, iv)
-
-    return output
+        return decryptAes(data, key, iv)
+    }
+    return ""
 }
 
 private fun decryptAes(
