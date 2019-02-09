@@ -1,6 +1,7 @@
 package dk.youtec.drchannels.util
 
 import android.content.Context
+import androidx.core.content.edit
 import org.jetbrains.anko.defaultSharedPreferences
 
 object SharedPreferences {
@@ -10,29 +11,21 @@ object SharedPreferences {
     fun getLong(context: Context, key: String, default: Long = 0): Long =
             context.defaultSharedPreferences.getLong(key, default)
 
-    fun setString(context: Context, key: String, value: String) {
-        context.defaultSharedPreferences
-                .edit()
-                .putString(key, value)
-                .apply()
-    }
+    fun setString(context: Context, key: String, value: String): Unit =
+            context.defaultSharedPreferences.edit {
+                putString(key, value)
+            }
 
-    fun setInt(context: Context, key: String, value: Int) {
-        context.defaultSharedPreferences
-                .edit()
-                .putInt(key, value)
-                .apply()
-    }
+    fun setInt(context: Context, key: String, value: Int): Unit =
+            context.defaultSharedPreferences.edit {
+                putInt(key, value)
+            }
 
     fun getBoolean(context: Context, key: String, default: Boolean = false): Boolean =
             context.defaultSharedPreferences.getBoolean(key, default)
 
-    fun setBoolean(context: Context, key: String, value: Boolean) {
-        context.defaultSharedPreferences
-                .edit()
-                .putBoolean(key, value)
-                .apply()
-    }
-
-
+    fun setBoolean(context: Context, key: String, value: Boolean): Unit =
+            context.defaultSharedPreferences.edit {
+                putBoolean(key, value)
+            }
 }
