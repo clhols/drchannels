@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.appupdater.updateApp
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuNowNext
+import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
@@ -185,8 +186,8 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 try {
                     val manifest = withContext(Dispatchers.IO) { api.getManifest(uri) }
 
-                    val playbackUri = manifest.getUri()
-                    if (playbackUri != null) {
+                    val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
+                    if (playbackUri.isNotBlank()) {
                         startActivity(
                                 buildIntent(this@MainActivity, playbackUri))
                     } else {

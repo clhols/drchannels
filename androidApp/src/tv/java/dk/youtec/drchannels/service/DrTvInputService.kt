@@ -33,6 +33,7 @@ import com.google.android.media.tv.companionlibrary.model.Program
 import com.google.android.media.tv.companionlibrary.model.RecordedProgram
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
+import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.log.EventLogger
 import dk.youtec.drchannels.player.TvExoPlayer
 import dk.youtec.drchannels.util.serverDateFormat
@@ -393,7 +394,7 @@ class DrTvInputRecordingSessionImpl(
             val endPublish = internalProviderData.get("endPublish") as String?
 
             val manifestResponse = api.getManifest(assetUri)
-            val playbackUrl = manifestResponse.getUri() ?: ""
+            val playbackUrl = manifestResponse.getUri() ?: decryptUri(manifestResponse.getEncryptedUri())
 
             val downloadUrl = manifestResponse.Links
                     .asSequence()
