@@ -14,7 +14,7 @@ object OkHttpClientFactory {
 
     private val TAG = OkHttpClientFactory::class.java.simpleName
     private const val SIZE_OF_CACHE: Long = 10 * 1024 * 1024
-    private var client: OkHttpClient? = null
+    private lateinit var client: OkHttpClient
 
     /**
      * It is an error to have multiple caches accessing the same cache directory simultaneously.
@@ -27,37 +27,26 @@ object OkHttpClientFactory {
 
      * @return singleTon instance of the OkHttpClient.
      */
-    fun getInstance(context: Context): OkHttpClient {
-        return if (client == null) {
-            val builder = OkHttpClient.Builder()
-            builder.connectTimeout(30, TimeUnit.SECONDS)
-            builder.writeTimeout(30, TimeUnit.SECONDS)
-            builder.readTimeout(30, TimeUnit.SECONDS)
+    fun getInstance(context: Context): OkHttpClient =
+            if (!::client.isInitialized) {
+                client = OkHttpClient.Builder().apply {
+                    connectTimeout(30, TimeUnit.SECONDS)
+                    writeTimeout(30, TimeUnit.SECONDS)
+                    readTimeout(30, TimeUnit.SECONDS)
 
-            builder.addNetworkInterceptor(LoggingInterceptor())
+                    addNetworkInterceptor(LoggingInterceptor())
 
-            enableCache(context, builder)
+                    cache(Cache(File(context.cacheDir.absolutePath, "okhttp"), SIZE_OF_CACHE))
+                }.build()
 
-            client = builder.build()
-            client as OkHttpClient
-        } else {
-            client as OkHttpClient
-        }
-    }
-
-    private fun enableCache(context: Context, builder: OkHttpClient.Builder) {
-        try {
-            val cacheDirectory = File(context.cacheDir.absolutePath, "okhttp")
-            val responseCache = Cache(cacheDirectory, SIZE_OF_CACHE)
-            builder.cache(responseCache)
-        } catch (e: Exception) {
-            Log.d(TAG, "Unable to set http cache", e)
-        }
-    }
+                client
+            } else {
+                client
+            }
 
     fun clearCache() {
         try {
-            client?.cache()?.evictAll()
+            client.cache()?.evictAll()
         } catch (e: IOException) {
             Log.e(TAG, e.message, e)
         }
