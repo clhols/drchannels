@@ -61,16 +61,11 @@ abstract class BasePreviewUpdater(
         //Id of preview channel
         val previewChannelId = SharedPreferences.getLong(context, channelKey)
         if (previewChannelId > 0L) {
-            val channel = queryChannel(previewChannelId)
-            if (channel?.isBrowsable == true) {
-                synchronized(BasePreviewUpdater::class.java) {
-                    Log.i(TAG,
-                            "Updating programs for preview channel $channelKey with id $previewChannelId")
-                    //update channel's programs
-                    updatePrograms(previewChannelId)
-                }
-            } else {
-                Log.i(TAG, "Channel $channelKey is not browsable")
+            synchronized(BasePreviewUpdater::class.java) {
+                Log.i(TAG,
+                        "Updating programs for preview channel $channelKey with id $previewChannelId")
+                //update channel's programs
+                updatePrograms(previewChannelId)
             }
         }
         return Result.success()
@@ -132,7 +127,11 @@ abstract class BasePreviewUpdater(
     private fun getPreviewProgram(program: ProgramCard, previewChannelId: Long): PreviewProgram? {
         try {
             val playbackUri = program.PrimaryAsset?.Uri?.let { uri ->
-                runBlocking { api.getManifest(uri).let { it.getUri() ?: decryptUri(it.getEncryptedUri()) } }
+                runBlocking {
+                    api.getManifest(uri).let {
+                        it.getUri() ?: decryptUri(it.getEncryptedUri())
+                    }
+                }
             }
 
             if (playbackUri.isNullOrBlank()) return null
