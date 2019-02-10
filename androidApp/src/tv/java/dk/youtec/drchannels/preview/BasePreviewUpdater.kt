@@ -221,7 +221,7 @@ abstract class BasePreviewUpdater(
         return null
     }
 
-    private fun buildChannel(): Channel {
+    open fun buildChannel(): Channel {
         return with(Channel.Builder()) {
             setType(TvContractCompat.Channels.TYPE_PREVIEW)
             setDisplayName(getChannelName())
