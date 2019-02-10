@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#046099"
+        android:contentDescription="@string/app_name"
+        android:scaleType="center"
+        android:src="@drawable/ic_launcher_foreground" />
+
+    <EditText
+        android:id="@+id/query"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/search_query_hint"
+        android:imeOptions="actionDone"
+        android:inputType="textShortMessage" />
+</LinearLayout>

@@ -32,6 +32,11 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="dk.youtec.drchannels.ui.SearchChannelQueryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name="dk.youtec.drchannels.service.DrTvEpgJobService"

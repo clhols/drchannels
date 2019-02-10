@@ -2,8 +2,14 @@ package dk.youtec.drchannels.preview
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.content.Intent
 import android.os.Build
+import androidx.tvprovider.media.tv.Channel
+import androidx.tvprovider.media.tv.TvContractCompat
 import androidx.work.WorkerParameters
+import dk.youtec.drchannels.R
+import dk.youtec.drchannels.ui.SearchChannelQueryActivity
+import dk.youtec.drchannels.util.SharedPreferences
 import kotlinx.coroutines.runBlocking
 
 @TargetApi(Build.VERSION_CODES.O)
@@ -11,10 +17,24 @@ class SearchPreviewUpdater(
         context: Context,
         workerParams: WorkerParameters
 ) : BasePreviewUpdater(context, workerParams) {
-    private val query = "Tæt på sandheden"
+
+    private val query = SharedPreferences.getString(context, searchChannelKey, "Tæt på sandheden")
     override val channelKey = "searchChannelId"
-    override fun getChannelName(): String = query
+    override fun getChannelName(): String = context.getString(R.string.channelSearch)
     override fun getPrograms() = runBlocking {
         api.search(query).Items
+    }
+
+    override fun buildChannel(): Channel {
+        return Channel.Builder().apply {
+            setType(TvContractCompat.Channels.TYPE_PREVIEW)
+            setDisplayName(getChannelName())
+            setAppLinkIntent(Intent(context, SearchChannelQueryActivity::class.java))
+
+        }.build()
+    }
+
+    companion object {
+        const val searchChannelKey: String = "SEARCH_CHANNEL_KEY"
     }
 }
