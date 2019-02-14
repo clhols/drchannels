@@ -1,6 +1,7 @@
+@file:Suppress("unused")
+
 package dk.youtec.drchannels.backend
 
-import android.content.Context
 import android.util.Log
 import dk.youtec.drchannels.util.koined
 import okhttp3.OkHttpClient
@@ -18,7 +19,7 @@ const val TAG = "http"
  * @return [Response] response of the http request. Remember to close it when done.
  */
 @Throws(IOException::class)
-fun getHttpResponse(context: Context, urlAddress: String): Response {
+fun getHttpResponse(urlAddress: String): Response {
     try {
         val request = Request.Builder()
                 .url(urlAddress)
