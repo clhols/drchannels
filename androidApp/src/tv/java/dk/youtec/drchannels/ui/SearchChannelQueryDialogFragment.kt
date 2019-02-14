@@ -22,7 +22,7 @@ class SearchChannelQueryDialogFragment : DialogFragment() {
         activity?.let {
             val queryEditText = view.findViewById<EditText>(R.id.query)
             queryEditText.setText(SharedPreferences.getString(it, SearchPreviewUpdater.searchChannelKey))
-            queryEditText.setOnEditorActionListener { textView: TextView, actionId: Int, keyEvent: KeyEvent? ->
+            queryEditText.setOnEditorActionListener { textView: TextView, _: Int, _: KeyEvent? ->
                 SharedPreferences.setString(it, SearchPreviewUpdater.searchChannelKey, textView.text.toString())
                 schedulePreviewUpdate<SearchPreviewUpdater>()
                 it.finish()
