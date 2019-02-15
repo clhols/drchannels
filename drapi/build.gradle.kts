@@ -107,7 +107,7 @@ kotlin {
     }
 }
 
-task("copyFramework") {
+task("buildFramework") {
     group = "ios"
     val buildType: String = project.findProperty("kotlin.build.type")?.toString() ?: "DEBUG"
     dependsOn("link${buildType.toLowerCase().capitalize()}FrameworkIos")
