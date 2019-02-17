@@ -100,7 +100,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-hls:$exoPlayerVersion")
     implementation("com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion")
 
-    implementation("org.jetbrains.anko:anko-sdk15:$ankoVersion")
+    implementation("org.jetbrains.anko:anko-sdk21:$ankoVersion")
     implementation("com.squareup.picasso:picasso:$picassoVersion")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.google.android.material:material:$androidxVersion")
