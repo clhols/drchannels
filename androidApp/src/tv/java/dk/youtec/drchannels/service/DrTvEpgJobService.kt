@@ -69,30 +69,27 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
     }
 
     override fun getChannels(): List<Channel> {
-        val drTvChannels = runBlocking { api.getAllActiveDrTvChannels() }
+        val channelList = mutableListOf<Channel>()
+
+        runBlocking { api.getAllActiveDrTvChannels() }
                 .asSequence()
                 .filter { it.server() != null }
                 .filter { !it.WebChannel }
                 .sortedBy { it.Title.replace(" ", "") }
-
-        val channelList = ArrayList<Channel>()
-
-        drTvChannels.forEachIndexed { index, channel ->
-            val internalProviderData = InternalProviderData().apply {
-                videoUrl = channel.streamingUrl
-                videoType = TvContractUtils.SOURCE_TYPE_HLS
-            }
-
-            channelList.add(Channel.Builder()
-                    .setNetworkAffiliation(channel.Slug)
-                    .setDisplayName(channel.Title)
-                    .setDescription(channel.Subtitle)
-                    .setDisplayNumber("${index + 1}")
-                    .setChannelLogo(if (channel.WebChannel) null else channel.PrimaryImageUri)
-                    .setOriginalNetworkId(channel.Slug.hashCode())
-                    .setInternalProviderData(internalProviderData)
-                    .build())
-        }
+                .forEachIndexed { index, channel ->
+                    channelList += Channel.Builder().apply {
+                        setNetworkAffiliation(channel.Slug)
+                        setDisplayName(channel.Title)
+                        setDescription(channel.Subtitle)
+                        setDisplayNumber("${index + 1}")
+                        setChannelLogo(if (channel.WebChannel) null else channel.PrimaryImageUri)
+                        setOriginalNetworkId(channel.Slug.hashCode())
+                        setInternalProviderData(InternalProviderData().apply {
+                            videoUrl = channel.streamingUrl
+                            videoType = TvContractUtils.SOURCE_TYPE_HLS
+                        })
+                    }.build()
+                }
 
         return channelList
     }
@@ -103,7 +100,6 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
             startMs: Long,
             endMs: Long
     ): List<Program> {
-
         val programs = mutableListOf<Program>()
 
         //Get two days of broadcasts
@@ -113,10 +109,9 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
         //Adjust the end time of the last of today's broadcasts to avoid gaps or overlaps in the schedule.
         alignPrograms(todaysBroadcasts, tomorrowsBroadcasts)
 
-        val broadcasts = todaysBroadcasts + tomorrowsBroadcasts
-        broadcasts.forEach { broadcast ->
+        (todaysBroadcasts + tomorrowsBroadcasts).forEach { broadcast ->
             if (broadcast.EndTime.time < endMs) {
-                programs.add(buildProgram(channel, broadcast))
+                programs += buildProgram(channel, broadcast)
             }
         }
 
@@ -124,8 +119,7 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
     }
 
     private fun buildProgram(channel: Channel, broadcast: MuScheduleBroadcast): Program {
-        return with(Program.Builder()) {
-
+        return Program.Builder().apply {
             setChannelId(channel.id)
             setTitle(broadcast.Title)
             setDescription(broadcast.Description)
@@ -188,9 +182,7 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
 
             //Channel uri and downloadable url
             setInternalProviderData(providerData)
-
-            build()
-        }
+        }.build()
     }
 
     /**
