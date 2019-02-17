@@ -212,7 +212,7 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
     private fun getBroadcasts(channel: Channel, date: Date): MutableList<MuScheduleBroadcast> {
         val dateString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
         val schedule = runBlocking { api.getSchedule(channel.networkAffiliation, dateString) }
-        return schedule.Broadcasts.toMutableList()
+        return schedule.Broadcasts.filter { it.StartTime.time < it.EndTime.time }.toMutableList()
     }
 }
 
