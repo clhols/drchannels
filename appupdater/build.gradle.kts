@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    id("kotlin-android-extensions")
     id("kotlinx-serialization")
 }
 
@@ -24,13 +25,15 @@ android {
     }
 }
 
+androidExtensions { isExperimental = true }
+
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
+    implementation("org.jetbrains.kotlin:kotlin-android-extensions-runtime:$kotlinVersion")
     implementation("androidx.appcompat:appcompat:$androidxVersion")
-    implementation("androidx.legacy:legacy-support-v4:$androidxVersion")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
