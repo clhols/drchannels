@@ -1,13 +1,18 @@
 package dk.youtec.appupdater
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
-data class Output(val outputType: OutputType, val apkInfo: ApkInfo, val path: String)
+data class Output(val outputType: OutputType, val apkInfo: ApkInfo, val path: String) : Parcelable
 
+@Parcelize
 @Serializable
-data class OutputType(val type: String)
+data class OutputType(val type: String) : Parcelable
 
+@Parcelize
 @Serializable
 data class ApkInfo(
         val type: String,
@@ -16,4 +21,4 @@ data class ApkInfo(
         val enabled: Boolean,
         val outputFile: String,
         val fullName: String,
-        val baseName: String)
+        val baseName: String) : Parcelable
