@@ -4,7 +4,6 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -16,9 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.appupdater.updateApp
-import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuNowNext
-import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
@@ -29,15 +26,12 @@ import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
 import org.jetbrains.anko.toast
-import org.koin.android.ext.android.inject
 import kotlin.coroutines.CoroutineContext
 
 open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickListener, CoroutineScope {
-    private val tag = javaClass.simpleName
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
-    private val api: DrMuRepository by inject()
 
     private lateinit var viewModel: ChannelsViewModel
 
@@ -75,6 +69,20 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                     handleChannelsChanged(channels)
                     progressBar.isVisible = false
                     swipeRefresh.isRefreshing = false
+                })
+
+        viewModel.playbackUri.observe(this,
+                Observer { uri ->
+                    startActivity(Intent(this, PlayerActivity::class.java).apply {
+                        action = PlayerActivity.ACTION_VIEW
+                        putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
+                        data = uri.toUri()
+                    })
+                })
+
+        viewModel.error.observe(this,
+                Observer {
+                    toast(it)
                 })
 
         if (!isTv()) {
@@ -133,85 +141,9 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
         return true
     }
 
-    private fun loadGenres() {
-        /*
-        disposables.add(
-                api.retrieveEpgGenres()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeBy(
-                                onNext = { genres ->
-                                    genreAdapter.clear()
-                                    genreAdapter.add(Genre(0, getString(R.string.all)))
-                                    genreAdapter.addAll(genres)
-                                    genreAdapter.notifyDataSetChanged()
-                                },
-                                onError = { toast("Error loading genres") }
-                        ))
-                        */
-    }
+    override fun playChannel(muNowNext: MuNowNext) = viewModel.playChannel(muNowNext)
 
-    override fun playChannel(muNowNext: MuNowNext) {
-        launch {
-            try {
-                val name = muNowNext.ChannelSlug
-                val server = withContext(Dispatchers.IO) {
-                    api.getAllActiveDrTvChannels()
-                }
-                        .first { it.Slug == name }
-                        .server() ?: throw Exception("Unable to get streaming server")
-
-                val stream = server
-                        .Qualities
-                        .sortedByDescending { it.Kbps }.first()
-                        .Streams.first().Stream
-                startActivity(
-                        buildIntent(
-                                this@MainActivity,
-                                "${server.Server}/$stream"))
-            } catch (e: Exception) {
-                Log.e(tag, e.message, e)
-                toast(
-                        if (e.message != null
-                                && e.message != "Success") e.message!!
-                        else getString(R.string.cantChangeChannel))
-            }
-        }
-    }
-
-    override fun playProgram(muNowNext: MuNowNext) {
-        val uri = muNowNext.Now?.ProgramCard?.PrimaryAsset?.Uri
-        if (uri != null) {
-            launch {
-                try {
-                    val manifest = withContext(Dispatchers.IO) { api.getManifest(uri) }
-
-                    val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
-                    if (playbackUri.isNotBlank()) {
-                        startActivity(
-                                buildIntent(this@MainActivity, playbackUri))
-                    } else {
-                        toast("No stream")
-                    }
-                } catch (e: Exception) {
-                    toast(
-                            if (e.message != null
-                                    && e.message != "Success") e.message!!
-                            else getString(R.string.cantChangeChannel))
-                }
-            }
-        } else {
-            toast("No stream")
-        }
-    }
-
-    private fun buildIntent(context: Context, uri: String): Intent {
-        return Intent(context, PlayerActivity::class.java).apply {
-            action = PlayerActivity.ACTION_VIEW
-            putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-            data = uri.toUri()
-        }
-    }
+    override fun playProgram(muNowNext: MuNowNext) = viewModel.playProgram(muNowNext)
 
     override fun showChannel(context: Context, channel: MuNowNext) {
         val intent = Intent(context, ProgramsActivity::class.java).apply {
