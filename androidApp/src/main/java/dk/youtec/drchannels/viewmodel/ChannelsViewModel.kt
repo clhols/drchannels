@@ -1,72 +1,81 @@
 package dk.youtec.drchannels.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.annotation.Keep
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuNowNext
+import dk.youtec.drapi.decryptUri
+import dk.youtec.drchannels.R
 import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import kotlin.coroutines.CoroutineContext
 
 @Keep
-class ChannelsViewModel : ViewModel() {
+class ChannelsViewModel(application: Application) : AndroidViewModel(application), KoinComponent {
+    private val api: DrMuRepository by inject()
+    private val tag = ChannelsViewModel::class.java.simpleName
+
     val channels: ChannelsLiveData = ChannelsLiveData()
+    val playbackUri: MutableLiveData<String> = MutableLiveData()
+    val error: MutableLiveData<String> = MutableLiveData()
+
+    fun playChannel(muNowNext: MuNowNext) {
+        viewModelScope.launch {
+            try {
+                val name = muNowNext.ChannelSlug
+                val server = withContext(Dispatchers.IO) {
+                    api.getAllActiveDrTvChannels()
+                }
+                        .first { it.Slug == name }
+                        .server() ?: throw Exception("Unable to get streaming server")
+
+                val stream = server
+                        .Qualities
+                        .sortedByDescending { it.Kbps }.first()
+                        .Streams.first().Stream
+
+                playbackUri.value = "${server.Server}/$stream"
+            } catch (e: Exception) {
+                Log.e(tag, e.message, e)
+                error.value = if (e.message != null && e.message != "Success") {
+                    e.message!!
+                } else {
+                    getApplication<Application>().getString(R.string.cantChangeChannel)
+                }
+            }
+        }
+    }
+
+    fun playProgram(muNowNext: MuNowNext) {
+        val uri = muNowNext.Now?.ProgramCard?.PrimaryAsset?.Uri
+        if (uri != null) {
+            viewModelScope.launch {
+                try {
+                    val manifest = withContext(Dispatchers.IO) { api.getManifest(uri) }
+
+                    val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
+                    if (playbackUri.isNotBlank()) {
+                        this@ChannelsViewModel.playbackUri.value = playbackUri
+                    } else {
+                        error.value = "No stream"
+                    }
+                } catch (e: Exception) {
+                    error.value =
+                            if (e.message != null && e.message != "Success") e.message!!
+                            else getApplication<Application>().getString(R.string.cantChangeChannel)
+                }
+            }
+        } else {
+            error.value = "No stream"
+        }
+    }
 
     override fun onCleared() {
         channels.dispose()
     }
 }
 
-class ChannelsLiveData : LiveData<List<MuNowNext>>(), CoroutineScope, KoinComponent {
-    private val tag = javaClass.simpleName
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
-    private val api: DrMuRepository by inject()
-    private var job: Job? = null
-
-    /**
-     * Subscribe to an internal observable that trigger the network request
-     */
-    fun subscribe() {
-        Log.v(tag, "Subscribing for channel data")
-
-        dispose()
-
-        job = launch {
-            while (true) {
-                value = try {
-                    withContext(Dispatchers.IO) {
-                        api.getScheduleNowNext().filter { it.Now != null }
-                    }
-                } catch (e: Exception) {
-                    Log.e(javaClass.simpleName, "Unable to get channel data")
-                    emptyList()
-                }
-
-                delay(30000)
-            }
-        }
-    }
-
-    /**
-     * Disposes the current subscription
-     */
-    fun dispose() {
-        job?.cancel()
-    }
-
-    override fun getValue(): List<MuNowNext> {
-        return super.getValue().orEmpty()
-    }
-
-    override fun onActive() {
-        subscribe()
-    }
-
-    override fun onInactive() {
-        dispose()
-    }
-}
