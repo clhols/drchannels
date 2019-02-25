@@ -6,9 +6,6 @@ plugins {
     id("kotlinx-serialization")
 }
 
-group = "dk.youtec"
-version = "1.0"
-
 android {
     compileSdkVersion(28)
     defaultConfig {
