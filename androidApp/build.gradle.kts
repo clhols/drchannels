@@ -52,10 +52,10 @@ android {
 
         productFlavors {
             create("mobile") {
-                applicationId = "dk.youtec.drchannels.mobile"
+                applicationIdSuffix = ".mobile"
             }
             create("tv") {
-                applicationId = "dk.youtec.drchannels.tv"
+                applicationIdSuffix = ".tv"
             }
         }
 
