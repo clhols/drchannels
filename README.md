@@ -20,4 +20,4 @@ _Windows:_
 `gradle.bat assembleDebug`
 
 _iOS drapi framework:_
-`./gradlew copyFramework`
+`./gradlew buildFramework`
