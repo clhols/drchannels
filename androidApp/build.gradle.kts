@@ -5,7 +5,7 @@ plugins {
     kotlin("android")
     id("kotlin-kapt")
     id("kotlin-android-extensions")
-    id("com.github.triplet.play")
+    id("com.github.triplet.play") version "2.1.0"
     id("org.sonarqube") version "2.6.2"
     id("dk.youtec.appupdater")
     id("com.github.plnice.canidropjetifier") version "0.4" // ./gradlew -Pandroid.enableJetifier=false canIDropJetifier
@@ -125,9 +125,9 @@ dependencies {
 }
 
 play {
-    jsonFile = project.file("youtec.json")
+    serviceAccountCredentials = project.file("youtec.json")
 
-    setTrack("alpha") // 'production', 'beta' or 'alpha'
+    track = "alpha" // 'production', 'beta' or 'alpha'
 }
 
 val releasePropertiesFile: File = rootProject.file("release.properties")
