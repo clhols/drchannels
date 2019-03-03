@@ -11,7 +11,6 @@ buildscript {
         classpath("com.android.tools.build:gradle:$androidGradlePlugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")
-        classpath("com.github.triplet.gradle:play-publisher:1.2.2")
     }
 }
 
