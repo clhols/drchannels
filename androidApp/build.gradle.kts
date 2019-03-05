@@ -105,17 +105,16 @@ dependencies {
     implementation("com.squareup.picasso:picasso:$picassoVersion")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.google.android.material:material:$androidxVersion")
-    implementation("androidx.legacy:legacy-support-v4:$androidxVersion")
     implementation("androidx.recyclerview:recyclerview:$androidxVersion")
     implementation("androidx.tvprovider:tvprovider:$androidxVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha3")
     implementation("androidx.core:core-ktx:1.0.1")
     implementation("org.koin:koin-android:2.0.0-beta-1")
 
+    implementation("android.arch.work:work-runtime-ktx:1.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
     implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
     kapt("androidx.lifecycle:lifecycle-compiler:$archComponentVersion")
-    implementation("android.arch.work:work-runtime-ktx:1.0.0-rc02")
 
     androidTestImplementation("androidx.test:core:1.1.0")
     androidTestImplementation("androidx.test:runner:1.1.1")
