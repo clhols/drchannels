@@ -77,11 +77,10 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-stdlib")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
                 implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
             }
         }
         val androidTest by getting {
@@ -91,8 +90,8 @@ kotlin {
 
         val iosMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-ios:$ktorVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
+                implementation("io.ktor:ktor-client-ios:$ktorVersion")
             }
         }
 
