@@ -21,5 +21,5 @@ android {
 
 dependencies {
     implementation("androidx.annotation:annotation:$androidxVersion")
-    implementation("androidx.legacy:legacy-support-core-utils:$androidxVersion")
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:$androidxVersion")
 }
