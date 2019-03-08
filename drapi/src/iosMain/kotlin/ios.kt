@@ -1,12 +1,13 @@
 package dk.youtec.drapi
 
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.ios.Ios
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 actual object HttpClientFactory {
-    actual fun create(cacheDir: String?, sizeBytes: Long): HttpClient = HttpClient()
+    actual fun create(cacheDir: String?, sizeBytes: Long): HttpClient = HttpClient(Ios)
 }
 
 @Suppress("unused")
