@@ -9,7 +9,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import kotlin.coroutines.CoroutineContext
 
-class ChannelsLiveData : LiveData<List<MuNowNext>>(), CoroutineScope, KoinComponent {
+class TvChannelsLiveData : LiveData<List<MuNowNext>>(), CoroutineScope, KoinComponent {
     private val tag = javaClass.simpleName
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main

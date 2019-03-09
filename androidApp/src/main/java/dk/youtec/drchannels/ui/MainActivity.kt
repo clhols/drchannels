@@ -20,7 +20,7 @@ import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
 import dk.youtec.drchannels.util.isTv
-import dk.youtec.drchannels.viewmodel.ChannelsViewModel
+import dk.youtec.drchannels.viewmodel.TvChannelsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
@@ -33,7 +33,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private lateinit var viewModel: ChannelsViewModel
+    private lateinit var viewModel: TvChannelsViewModel
 
     companion object {
         init {
@@ -54,15 +54,15 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         swipeRefresh.setOnRefreshListener {
-            viewModel.channels.subscribe()
+            viewModel.tvChannels.subscribe()
         }
 
         viewModel = ViewModelProviders.of(this)
-                .get(ChannelsViewModel::class.java)
+                .get(TvChannelsViewModel::class.java)
 
         progressBar.isVisible = true
 
-        viewModel.channels.observe(
+        viewModel.tvChannels.observe(
                 this,
                 Observer<List<MuNowNext>> { channels ->
                     isEmptyState = channels.isNullOrEmpty()
@@ -110,9 +110,8 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
     }
 
     override fun onDestroy() {
-        super.onDestroy()
-
         job.cancel()
+        super.onDestroy()
     }
 
     private var isEmptyState: Boolean = false
@@ -141,7 +140,7 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
         return true
     }
 
-    override fun playChannel(muNowNext: MuNowNext) = viewModel.playChannel(muNowNext)
+    override fun playTvChannel(muNowNext: MuNowNext) = viewModel.playTvChannel(muNowNext)
 
     override fun playProgram(muNowNext: MuNowNext) = viewModel.playProgram(muNowNext)
 
