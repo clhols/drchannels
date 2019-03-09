@@ -3,7 +3,7 @@ import java.util.*
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("kotlin-kapt")
+    kotlin("kapt")
     id("kotlin-android-extensions")
     id("com.github.triplet.play") version "2.1.0"
     id("org.sonarqube") version "2.6.2"
