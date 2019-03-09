@@ -21,7 +21,7 @@ class ChannelsViewModel(application: Application) : AndroidViewModel(application
 
     val channels: ChannelsLiveData = ChannelsLiveData()
     val playbackUri: MutableLiveData<String> = MutableLiveData()
-    val error: MutableLiveData<String> = MutableLiveData()
+    val error: SingleLiveEvent<String> = SingleLiveEvent()
 
     fun playChannel(muNowNext: MuNowNext) {
         viewModelScope.launch {
