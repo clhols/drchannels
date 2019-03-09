@@ -4,14 +4,15 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.appupdater.updateApp
@@ -25,11 +26,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.consumeEach
 import org.jetbrains.anko.toast
 import kotlin.coroutines.CoroutineContext
 
 open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope {
-    private val job = Job()
+    private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
@@ -43,6 +45,7 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        job = Job()
 
         setContentView(R.layout.activity_main)
 
@@ -62,35 +65,58 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
 
         progressBar.isVisible = true
 
-        viewModel.tvChannels.observe(
-                this,
-                Observer<List<MuNowNext>> { channels ->
-                    isEmptyState = channels.isNullOrEmpty()
-                    handleChannelsChanged(channels)
-                    progressBar.isVisible = false
-                    swipeRefresh.isRefreshing = false
-                })
+        with(viewModel) {
+            // Launch with viewModelScope to avoid this coroutine from being cancelled
+            // when the activity is destroyed and the view model remains alive.
+            // This prevents the channels (tvChannels.stream) from being closed but leaks the activity.
+            viewModelScope.launch {
+                tvChannels.stream.consumeEach { channels ->
+                    // Launch in context of the activity so that the coroutine is cancelled
+                    // when the activity is destroyed.
+                    // This is needed because we "consumeEach" to the channel multiple times
+                    // when the activity is re-created.
+                    // So only the latest activity will handle the consuming.
+                    Log.d("MainActivity", "Tv channels " + this@MainActivity)
+                    this@MainActivity.launch {
+                        Log.d("MainActivity", "Tv channels launch ${this@MainActivity}")
+                        isEmptyState = channels.isNullOrEmpty()
+                        handleChannelsChanged(channels)
+                        progressBar.isVisible = false
+                        swipeRefresh.isRefreshing = false
+                    }
+                }
+            }
 
-        viewModel.playbackUri.observe(this,
-                Observer { uri ->
-                    startActivity(Intent(this, PlayerActivity::class.java).apply {
-                        action = PlayerActivity.ACTION_VIEW
-                        putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-                        data = uri.toUri()
-                    })
-                })
+            viewModelScope.launch {
+                playbackUri.consumeEach { uri ->
+                    Log.d("MainActivity", "Playback uri")
+                    launch {
+                        startActivity(Intent(this@MainActivity, PlayerActivity::class.java).apply {
+                            action = PlayerActivity.ACTION_VIEW
+                            putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
+                            data = uri.toUri()
+                        })
+                    }
+                }
+            }
 
-        viewModel.error.observe(this,
-                Observer {
-                    toast(it)
-                })
+            viewModelScope.launch {
+                error.consumeEach { message ->
+                    launch { toast(message) }
+                }
+            }
+        }
 
-        if (!isTv()) {
-            updateApp(this@MainActivity,
-                    BuildConfig.VERSION_CODE,
-                    "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
-                    "https://www.dropbox.com/s/tw9gpldrwicd3kj/drchannels.apk?dl=1",
-                    "https://www.dropbox.com/s/8miqyro43qn71k0/drchannels.log?dl=1")
+        if (savedInstanceState == null) {
+            viewModel.tvChannels.subscribe()
+
+            if (!isTv()) {
+                updateApp(this@MainActivity,
+                        BuildConfig.VERSION_CODE,
+                        "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
+                        "https://www.dropbox.com/s/tw9gpldrwicd3kj/drchannels.apk?dl=1",
+                        "https://www.dropbox.com/s/8miqyro43qn71k0/drchannels.log?dl=1")
+            }
         }
     }
 

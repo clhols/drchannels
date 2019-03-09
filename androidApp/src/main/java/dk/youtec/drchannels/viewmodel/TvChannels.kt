@@ -1,20 +1,22 @@
 package dk.youtec.drchannels.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import kotlin.coroutines.CoroutineContext
 
-class TvChannelsLiveData : LiveData<List<MuNowNext>>(), CoroutineScope, KoinComponent {
+@ExperimentalCoroutinesApi
+class TvChannels : CoroutineScope, KoinComponent {
     private val tag = javaClass.simpleName
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
     private val api: DrMuRepository by inject()
     private var job: Job? = null
+    val stream = ConflatedBroadcastChannel<List<MuNowNext>>()
 
     /**
      * Subscribe to an internal observable that trigger the network request
@@ -26,14 +28,14 @@ class TvChannelsLiveData : LiveData<List<MuNowNext>>(), CoroutineScope, KoinComp
 
         job = launch {
             while (true) {
-                value = try {
+                stream.send(try {
                     withContext(Dispatchers.IO) {
                         api.getScheduleNowNext().filter { it.Now != null }
                     }
                 } catch (e: Exception) {
                     Log.e(javaClass.simpleName, "Unable to get channel data")
-                    emptyList()
-                }
+                    emptyList<MuNowNext>()
+                })
 
                 delay(30000)
             }
@@ -45,17 +47,5 @@ class TvChannelsLiveData : LiveData<List<MuNowNext>>(), CoroutineScope, KoinComp
      */
     fun dispose() {
         job?.cancel()
-    }
-
-    override fun getValue(): List<MuNowNext> {
-        return super.getValue().orEmpty()
-    }
-
-    override fun onActive() {
-        subscribe()
-    }
-
-    override fun onInactive() {
-        dispose()
     }
 }
