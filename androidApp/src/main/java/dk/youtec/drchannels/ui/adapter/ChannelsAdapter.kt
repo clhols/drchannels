@@ -1,8 +1,6 @@
 package dk.youtec.drchannels.ui.adapter
 
 import android.content.Context
-import androidx.annotation.LayoutRes
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -16,15 +14,13 @@ import androidx.recyclerview.widget.RecyclerView
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.view.AspectImageView
+import dk.youtec.drchannels.util.inflate
 import dk.youtec.drchannels.util.load
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.android.synthetic.main.channels_item.view.*
 import org.jetbrains.anko.image
 import org.jetbrains.anko.selector
 import java.util.Date
-
-fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View =
-        LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 
 class ChannelsAdapter(
         val listener: OnChannelClickListener
@@ -115,7 +111,7 @@ class ChannelsAdapter(
 
             itemView.setOnClickListener {
                 if (adapterPosition in 0..(itemCount - 1)) {
-                    listener.playChannel(getItem(adapterPosition))
+                    listener.playTvChannel(getItem(adapterPosition))
                 }
             }
             itemView.setOnLongClickListener {
@@ -131,7 +127,7 @@ class ChannelsAdapter(
 
     interface OnChannelClickListener {
         fun showChannel(context: Context, channel: MuNowNext)
-        fun playChannel(muNowNext: MuNowNext)
+        fun playTvChannel(muNowNext: MuNowNext)
         fun playProgram(muNowNext: MuNowNext)
     }
 }

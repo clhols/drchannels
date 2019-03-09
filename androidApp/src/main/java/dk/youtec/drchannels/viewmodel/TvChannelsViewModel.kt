@@ -15,15 +15,15 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 @Keep
-class ChannelsViewModel(application: Application) : AndroidViewModel(application), KoinComponent {
+class TvChannelsViewModel(application: Application) : AndroidViewModel(application), KoinComponent {
     private val api: DrMuRepository by inject()
-    private val tag = ChannelsViewModel::class.java.simpleName
+    private val tag = TvChannelsViewModel::class.java.simpleName
 
-    val channels: ChannelsLiveData = ChannelsLiveData()
+    val tvChannels: TvChannelsLiveData = TvChannelsLiveData()
     val playbackUri: MutableLiveData<String> = MutableLiveData()
     val error: SingleLiveEvent<String> = SingleLiveEvent()
 
-    fun playChannel(muNowNext: MuNowNext) {
+    fun playTvChannel(muNowNext: MuNowNext) {
         viewModelScope.launch {
             try {
                 val name = muNowNext.ChannelSlug
@@ -59,7 +59,7 @@ class ChannelsViewModel(application: Application) : AndroidViewModel(application
 
                     val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
                     if (playbackUri.isNotBlank()) {
-                        this@ChannelsViewModel.playbackUri.value = playbackUri
+                        this@TvChannelsViewModel.playbackUri.value = playbackUri
                     } else {
                         error.value = "No stream"
                     }
@@ -75,7 +75,7 @@ class ChannelsViewModel(application: Application) : AndroidViewModel(application
     }
 
     override fun onCleared() {
-        channels.dispose()
+        tvChannels.dispose()
     }
 }
 
