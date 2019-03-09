@@ -20,6 +20,7 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.PlayerActivity
 import dk.youtec.drchannels.ui.view.AspectImageView
 import dk.youtec.drchannels.util.calendar
+import dk.youtec.drchannels.util.inflate
 import dk.youtec.drchannels.util.load
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.android.synthetic.main.program_item.view.*
