@@ -18,7 +18,7 @@ import dk.youtec.appupdater.updateApp
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
-import dk.youtec.drchannels.ui.adapter.ChannelsAdapter
+import dk.youtec.drchannels.ui.adapter.TvChannelsAdapter
 import dk.youtec.drchannels.util.isTv
 import dk.youtec.drchannels.viewmodel.TvChannelsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,7 +28,7 @@ import kotlinx.coroutines.*
 import org.jetbrains.anko.toast
 import kotlin.coroutines.CoroutineContext
 
-open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickListener, CoroutineScope {
+open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope {
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -100,9 +100,9 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
     private fun handleChannelsChanged(channels: List<MuNowNext>) {
         if (!isFinishing) {
             if (recyclerView.adapter != null) {
-                (recyclerView.adapter as ChannelsAdapter?)?.submitList(channels)
+                (recyclerView.adapter as TvChannelsAdapter?)?.submitList(channels)
             } else {
-                recyclerView.adapter = ChannelsAdapter(this).apply {
+                recyclerView.adapter = TvChannelsAdapter(this).apply {
                     submitList(channels)
                 }
             }
@@ -144,10 +144,10 @@ open class MainActivity : AppCompatActivity(), ChannelsAdapter.OnChannelClickLis
 
     override fun playProgram(muNowNext: MuNowNext) = viewModel.playProgram(muNowNext)
 
-    override fun showChannel(context: Context, channel: MuNowNext) {
+    override fun showTvChannel(context: Context, tvChannel: MuNowNext) {
         val intent = Intent(context, ProgramsActivity::class.java).apply {
-            putExtra(ProgramsActivity.CHANNEL_NAME, channel.ChannelSlug.toUpperCase())
-            putExtra(ProgramsActivity.CHANNEL_ID, channel.ChannelSlug)
+            putExtra(ProgramsActivity.CHANNEL_NAME, tvChannel.ChannelSlug.toUpperCase())
+            putExtra(ProgramsActivity.CHANNEL_ID, tvChannel.ChannelSlug)
         }
 
         context.startActivity(intent, ActivityOptions.makeCustomAnimation(context,

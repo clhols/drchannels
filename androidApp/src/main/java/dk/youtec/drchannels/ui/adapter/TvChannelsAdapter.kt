@@ -22,18 +22,18 @@ import org.jetbrains.anko.image
 import org.jetbrains.anko.selector
 import java.util.Date
 
-class ChannelsAdapter(
+class TvChannelsAdapter(
         val listener: OnChannelClickListener
-) : ListAdapter<MuNowNext, ChannelsAdapter.ViewHolder>(ChannelsDiffItemCallback()) {
+) : ListAdapter<MuNowNext, TvChannelsAdapter.ViewHolder>(ChannelsDiffItemCallback()) {
 
     //Toggles if description and image should be shown
     private var showDetails = true
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val channel = getItem(position)
-        val now = channel.Now ?: return
+        val tvChannel = getItem(position)
+        val now = tvChannel.Now ?: return
 
-        holder.channelName.text = channel.ChannelSlug.toUpperCase()
+        holder.channelName.text = tvChannel.ChannelSlug.toUpperCase()
         holder.title.text = now.Title
         holder.nowDescription.text = now.Description
         holder.nowDescription.visibility = if (showDetails) View.VISIBLE else View.GONE
@@ -81,8 +81,8 @@ class ChannelsAdapter(
         }
 
         holder.nextTitle.text =
-                if (channel.Next.isNotEmpty())
-                    holder.nextTitle.context.getString(R.string.next) + ": ${channel.Next.first().Title}"
+                if (tvChannel.Next.isNotEmpty())
+                    holder.nextTitle.context.getString(R.string.next) + ": ${tvChannel.Next.first().Title}"
                 else ""
     }
 
@@ -104,7 +104,7 @@ class ChannelsAdapter(
 
         init {
             more.setOnClickListener {
-                listener.showChannel(it.context, getItem(adapterPosition))
+                listener.showTvChannel(it.context, getItem(adapterPosition))
             }
 
             image.setAspectRatio(292, 189)
@@ -126,7 +126,7 @@ class ChannelsAdapter(
     }
 
     interface OnChannelClickListener {
-        fun showChannel(context: Context, channel: MuNowNext)
+        fun showTvChannel(context: Context, tvChannel: MuNowNext)
         fun playTvChannel(muNowNext: MuNowNext)
         fun playProgram(muNowNext: MuNowNext)
     }
