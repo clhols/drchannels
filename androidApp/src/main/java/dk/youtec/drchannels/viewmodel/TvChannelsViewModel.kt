@@ -20,7 +20,7 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
     private val tag = TvChannelsViewModel::class.java.simpleName
 
     val tvChannels: TvChannelsLiveData = TvChannelsLiveData()
-    val playbackUri: MutableLiveData<String> = MutableLiveData()
+    val playbackUri: SingleLiveEvent<String> = SingleLiveEvent()
     val error: SingleLiveEvent<String> = SingleLiveEvent()
 
     fun playTvChannel(muNowNext: MuNowNext) {
