@@ -73,7 +73,7 @@ class DrTvInputSessionImpl(
     private var player: TvExoPlayer? = null
 
     private fun initPlayer(providerData: InternalProviderData) {
-        Log.d(tag, "Loading providerData " + providerData.toString())
+        Log.d(tag, "Loading providerData $providerData")
 
         val renderersFactory = DefaultRenderersFactory(context)
 
