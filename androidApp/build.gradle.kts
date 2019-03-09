@@ -5,6 +5,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("kotlin-android-extensions")
+    id("io.fabric")
     id("com.github.triplet.play") version "2.1.0"
     id("org.sonarqube") version "2.6.2"
     id("dk.youtec.appupdater")
@@ -110,6 +111,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha3")
     implementation("androidx.core:core-ktx:1.0.1")
     implementation("org.koin:koin-android:2.0.0-beta-1")
+    implementation("com.google.firebase:firebase-core:16.0.7")
+    implementation("com.crashlytics.sdk.android:crashlytics:2.9.9")
 
     implementation("androidx.work:work-runtime-ktx:2.0.0-rc01")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
@@ -140,3 +143,5 @@ if (releasePropertiesFile.exists()) {
         keyPassword = props.getProperty("keyAliasPassword")
     }
 }
+
+apply(mapOf("plugin" to "com.google.gms.google-services"))
