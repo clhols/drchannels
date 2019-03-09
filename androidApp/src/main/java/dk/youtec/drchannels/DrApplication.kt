@@ -1,6 +1,7 @@
 package dk.youtec.drchannels
 
 import android.app.Application
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import dk.youtec.drapi.DrMuRepository
@@ -22,7 +23,9 @@ class DrApplication : Application() {
             androidContext(this@DrApplication)
             modules(module {
                 single { DrMuRepository(cacheDir.absolutePath) }
-                single { OkHttpClientFactory.getInstance(this@DrApplication) }
+                single { this@DrApplication }
+                single { OkHttpClientFactory.getInstance(get()) }
+                single { FirebaseAnalytics.getInstance(get()) }
             })
         }
 
