@@ -34,25 +34,30 @@ fun updateApp(
     Log.v(tag, "Meta has version code $metaAppVersion")
 
     if (metaAppVersion > versionCode) {
-        val changelog = getChangelog(activity, changelogUrl)
-        var message = activity.getString(R.string.newAppVersionReady)
-        if (changelog.isNotBlank()) message += "\n\n$changelog"
+        val message = activity.getString(R.string.newAppVersionReady) +
+                getChangelog(activity, changelogUrl).let {
+                    if (it.isNotBlank()) "\n\n$it" else ""
+                }
 
         if (!activity.isFinishing) {
-            AlertDialog.Builder(activity)
-                    .setTitle(activity.getString(R.string.updateApp))
-                    .setCancelable(true)
-                    .setMessage(message)
-                    .setPositiveButton(activity.getString(R.string.update)) { _, _ ->
-                        activity.startActivity(Intent(activity, UpdateActivity::class.java).apply {
-                            putExtra("apkUrl", apkUrl)
-                        })
-                    }
-                    .create().show()
+            showUpdateDialog(activity, message, apkUrl)
         }
     } else {
         Log.d(tag, "App is the latest version $versionCode")
     }
+}
+
+private fun showUpdateDialog(activity: Activity, message: String, apkUrl: String) {
+    AlertDialog.Builder(activity)
+            .setTitle(activity.getString(R.string.updateApp))
+            .setCancelable(true)
+            .setMessage(message)
+            .setPositiveButton(activity.getString(R.string.update)) { _, _ ->
+                activity.startActivity(Intent(activity, UpdateActivity::class.java).apply {
+                    putExtra("apkUrl", apkUrl)
+                })
+            }
+            .create().show()
 }
 
 private suspend fun getAppVersionFromMeta(
