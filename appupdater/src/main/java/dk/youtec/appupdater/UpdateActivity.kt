@@ -18,13 +18,14 @@ import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
 class UpdateActivity : AppCompatActivity(), CoroutineScope {
-    private val job = Job()
+    private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
     private val tag = UpdateActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        job = Job()
         setContentView(R.layout.activity_update)
         findViewById<ProgressBar?>(R.id.progress)?.visibility = View.VISIBLE
 

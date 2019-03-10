@@ -23,7 +23,7 @@ import java.util.Calendar.*
 import kotlin.coroutines.CoroutineContext
 
 class ProgramsActivity : AppCompatActivity(), CoroutineScope {
-    private val job = Job()
+    private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
     private val api: DrMuRepository by inject()
@@ -42,6 +42,7 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_programs)
+        job = Job()
 
         //Setup toolbar
         toolbar.title = ""
