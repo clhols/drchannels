@@ -85,6 +85,10 @@ kotlin {
         }
         val androidTest by getting {
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
+                implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
             }
         }
 
