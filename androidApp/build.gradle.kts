@@ -111,10 +111,10 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha3")
     implementation("androidx.core:core-ktx:1.0.1")
     implementation("org.koin:koin-android:2.0.0-beta-1")
-    implementation("com.google.firebase:firebase-core:16.0.7")
+    implementation("com.google.firebase:firebase-core:16.0.8")
     implementation("com.crashlytics.sdk.android:crashlytics:2.9.9")
 
-    implementation("androidx.work:work-runtime-ktx:2.0.0-rc01")
+    implementation("androidx.work:work-runtime-ktx:2.0.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
     implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
     kapt("androidx.lifecycle:lifecycle-compiler:$archComponentVersion")
