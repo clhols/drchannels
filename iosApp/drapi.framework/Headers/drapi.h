@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@class DrapiDate, DrapiDateSerializer, DrapiSearchResult, DrapiProgramCard, DrapiMuPaging, DrapiSearchResultCompanion, DrapiSearchResult$serializer, DrapiKotlinArray, DrapiMuPagingCompanion, DrapiMuPaging$serializer, DrapiSchedule, DrapiMuScheduleBroadcast, DrapiScheduleCompanion, DrapiSchedule$serializer, DrapiChannel, DrapiMuStreamingServer, DrapiChannelCompanion, DrapiChannel$serializer, DrapiMuStreamQuality, DrapiMuStreamingServerCompanion, DrapiMuStreamingServer$serializer, DrapiMuStream, DrapiMuStreamQualityCompanion, DrapiMuStreamQuality$serializer, DrapiMuStreamCompanion, DrapiMuStream$serializer, DrapiMuNowNext, DrapiMuNowNextCompanion, DrapiMuNowNext$serializer, DrapiMuScheduleBroadcastCompanion, DrapiMuScheduleBroadcast$serializer, DrapiPrimaryAsset, DrapiInfo, DrapiProgramCardCompanion, DrapiProgramCard$serializer, DrapiInfoCompanion, DrapiInfo$serializer, DrapiPrimaryAssetCompanion, DrapiPrimaryAsset$serializer, DrapiManifest, DrapiLink, DrapiSubtitle, DrapiManifestCompanion, DrapiManifest$serializer, DrapiLinkCompanion, DrapiLink$serializer, DrapiSubtitleCompanion, DrapiSubtitle$serializer, DrapiMostViewed, DrapiMostViewedCompanion, DrapiMostViewed$serializer, DrapiPrograms, DrapiProgramsCompanion, DrapiPrograms$serializer, DrapiPage, DrapiPageCompanion, DrapiPage$serializer, DrapiGenre, DrapiGenreDrama, DrapiGenreDokumentar, DrapiGenreLivsstil, DrapiGenreKultur, DrapiGenreNaturViden, DrapiGenreNyhederAktualitet, DrapiGenreSport, DrapiGenreUnderholdning, DrapiGenreCompanion, DrapiDrMuException, DrapiKotlinException, DrapiKotlinThrowable, DrapiDrMuRepository, DrapiHttpClientFactory, DrapiKtor_client_coreHttpClient, DrapiDrMuRepositoryCallback, DrapiKotlinUnit, DrapiKotlinx_serialization_runtime_nativeEnumDescriptor, DrapiKotlinx_serialization_runtime_nativeSerialKind, DrapiKotlinNothing, DrapiKotlinx_serialization_runtime_nativeUpdateMode, DrapiKtor_client_coreHttpClientConfig, DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher, DrapiKtor_client_coreHttpClientEngineConfig, DrapiKtor_client_coreHttpReceivePipeline, DrapiKtor_client_coreHttpRequestPipeline, DrapiKtor_client_coreHttpResponsePipeline, DrapiKtor_client_coreHttpSendPipeline, DrapiKotlinx_coroutines_core_nativeCancellationException, DrapiKotlinx_serialization_runtime_nativeSerialClassDescImpl, DrapiKotlinEnum, DrapiKtor_utilsAttributeKey, DrapiKotlinAbstractCoroutineContextElement, DrapiKtor_client_coreHttpResponseConfig, DrapiKtor_utilsPipeline, DrapiKtor_utilsPipelinePhase, DrapiKotlinIllegalStateException, DrapiKotlinRuntimeException, DrapiKotlinx_ioCharset, DrapiKotlinx_coroutines_core_nativeAtomicDesc, DrapiKotlinx_ioCharsetDecoder, DrapiKotlinx_ioCharsetEncoder, DrapiKotlinx_coroutines_core_nativeAtomicOp, DrapiKotlinx_coroutines_core_nativeOpDescriptor;
+@class DrapiDate, DrapiDateSerializer, DrapiSearchResult, DrapiProgramCard, DrapiMuPaging, DrapiSearchResultCompanion, DrapiSearchResult$serializer, DrapiKotlinArray, DrapiMuPagingCompanion, DrapiMuPaging$serializer, DrapiSchedule, DrapiMuScheduleBroadcast, DrapiScheduleCompanion, DrapiSchedule$serializer, DrapiChannel, DrapiMuStreamingServer, DrapiChannelCompanion, DrapiChannel$serializer, DrapiMuStreamQuality, DrapiMuStreamingServerCompanion, DrapiMuStreamingServer$serializer, DrapiMuStream, DrapiMuStreamQualityCompanion, DrapiMuStreamQuality$serializer, DrapiMuStreamCompanion, DrapiMuStream$serializer, DrapiMuNowNext, DrapiMuNowNextCompanion, DrapiMuNowNext$serializer, DrapiMuScheduleBroadcastCompanion, DrapiMuScheduleBroadcast$serializer, DrapiPrimaryAsset, DrapiInfo, DrapiProgramCardCompanion, DrapiProgramCard$serializer, DrapiInfoCompanion, DrapiInfo$serializer, DrapiPrimaryAssetCompanion, DrapiPrimaryAsset$serializer, DrapiManifest, DrapiLink, DrapiSubtitle, DrapiManifestCompanion, DrapiManifest$serializer, DrapiLinkCompanion, DrapiLink$serializer, DrapiSubtitleCompanion, DrapiSubtitle$serializer, DrapiMostViewed, DrapiMostViewedCompanion, DrapiMostViewed$serializer, DrapiPrograms, DrapiProgramsCompanion, DrapiPrograms$serializer, DrapiPage, DrapiPageCompanion, DrapiPage$serializer, DrapiGenre, DrapiGenreDrama, DrapiGenreDokumentar, DrapiGenreLivsstil, DrapiGenreKultur, DrapiGenreNaturViden, DrapiGenreNyhederAktualitet, DrapiGenreSport, DrapiGenreUnderholdning, DrapiGenreCompanion, DrapiDrMuRepository, DrapiHttpClientFactory, DrapiKtor_client_coreHttpClient, DrapiDrMuRepositoryCallback, DrapiKotlinUnit, DrapiKotlinx_serialization_runtime_nativeEnumDescriptor, DrapiKotlinx_serialization_runtime_nativeSerialKind, DrapiKotlinNothing, DrapiKotlinx_serialization_runtime_nativeUpdateMode, DrapiKtor_client_coreHttpClientConfig, DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher, DrapiKtor_client_coreHttpClientEngineConfig, DrapiKtor_client_coreHttpReceivePipeline, DrapiKtor_client_coreHttpRequestPipeline, DrapiKtor_client_coreHttpResponsePipeline, DrapiKtor_client_coreHttpSendPipeline, DrapiKotlinThrowable, DrapiKotlinx_coroutines_core_nativeCancellationException, DrapiKotlinx_serialization_runtime_nativeSerialClassDescImpl, DrapiKotlinEnum, DrapiKtor_utilsAttributeKey, DrapiKotlinAbstractCoroutineContextElement, DrapiKtor_client_coreHttpResponseConfig, DrapiKtor_utilsPipeline, DrapiKtor_utilsPipelinePhase, DrapiKotlinIllegalStateException, DrapiKotlinRuntimeException, DrapiKotlinException, DrapiKotlinx_ioCharset, DrapiKotlinx_coroutines_core_nativeAtomicDesc, DrapiKotlinx_ioCharsetDecoder, DrapiKotlinx_ioCharsetEncoder, DrapiKotlinx_coroutines_core_nativeAtomicOp, DrapiKotlinx_coroutines_core_nativeOpDescriptor;
 
 @protocol DrapiKotlinx_serialization_runtime_nativeKSerializer, DrapiKotlinx_serialization_runtime_nativeSerializationStrategy, DrapiKotlinx_serialization_runtime_nativeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialDescriptor, DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy, DrapiKotlinx_serialization_runtime_nativeDecoder, DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer, DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinCoroutineContext, DrapiKotlinx_coroutines_core_nativeJob, DrapiKotlinx_serialization_runtime_nativeCompositeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialContext, DrapiKotlinAnnotation, DrapiKotlinx_serialization_runtime_nativeCompositeDecoder, DrapiKotlinIterator, DrapiKotlinx_ioCloseable, DrapiKtor_client_coreHttpClientEngine, DrapiKtor_utilsAttributes, DrapiKotlinCoroutineContextElement, DrapiKotlinCoroutineContextKey, DrapiKotlinx_coroutines_core_nativeChildHandle, DrapiKotlinx_coroutines_core_nativeChildJob, DrapiKotlinx_coroutines_core_nativeDisposableHandle, DrapiKotlinSequence, DrapiKotlinx_coroutines_core_nativeSelectClause0, DrapiKotlinKClass, DrapiKotlinComparable, DrapiKtor_client_coreHttpClientFeature, DrapiKotlinContinuationInterceptor, DrapiKotlinContinuation, DrapiKotlinx_coroutines_core_nativeRunnable, DrapiKotlinSuspendFunction2, DrapiKotlinx_coroutines_core_nativeParentJob, DrapiKotlinx_coroutines_core_nativeSelectInstance, DrapiKotlinSuspendFunction0, DrapiKotlinKDeclarationContainer, DrapiKotlinKAnnotatedElement, DrapiKotlinKClassifier, DrapiKotlinSuspendFunction;
 
@@ -742,6 +742,7 @@ __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Manifest")))
 @interface DrapiManifest : KotlinBase
 - (instancetype)initWithLinks:(NSArray<DrapiLink *> *)Links SubtitlesList:(NSArray<DrapiSubtitle *> *)SubtitlesList __attribute__((swift_name("init(Links:SubtitlesList:)"))) __attribute__((objc_designated_initializer));
+- (NSString *)getEncryptedUri __attribute__((swift_name("getEncryptedUri()")));
 - (NSString * _Nullable)getUri __attribute__((swift_name("getUri()")));
 - (NSArray<DrapiLink *> *)component1 __attribute__((swift_name("component1()")));
 - (NSArray<DrapiSubtitle *> *)component2 __attribute__((swift_name("component2()")));
@@ -773,16 +774,16 @@ __attribute__((swift_name("Manifest.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Link")))
 @interface DrapiLink : KotlinBase
-- (instancetype)initWithHardSubtitlesType:(NSString *)HardSubtitlesType Uri:(NSString *)Uri EncryptedUri:(NSString *)EncryptedUri FileFormat:(NSString *)FileFormat Target:(NSString *)Target Bitrate:(int32_t)Bitrate __attribute__((swift_name("init(HardSubtitlesType:Uri:EncryptedUri:FileFormat:Target:Bitrate:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithHardSubtitlesType:(NSString *)HardSubtitlesType Uri:(NSString * _Nullable)Uri EncryptedUri:(NSString *)EncryptedUri FileFormat:(NSString *)FileFormat Target:(NSString *)Target Bitrate:(int32_t)Bitrate __attribute__((swift_name("init(HardSubtitlesType:Uri:EncryptedUri:FileFormat:Target:Bitrate:)"))) __attribute__((objc_designated_initializer));
 - (NSString *)component1 __attribute__((swift_name("component1()")));
-- (NSString *)component2 __attribute__((swift_name("component2()")));
+- (NSString * _Nullable)component2 __attribute__((swift_name("component2()")));
 - (NSString *)component3 __attribute__((swift_name("component3()")));
 - (NSString *)component4 __attribute__((swift_name("component4()")));
 - (NSString *)component5 __attribute__((swift_name("component5()")));
 - (int32_t)component6 __attribute__((swift_name("component6()")));
-- (DrapiLink *)doCopyHardSubtitlesType:(NSString *)HardSubtitlesType Uri:(NSString *)Uri EncryptedUri:(NSString *)EncryptedUri FileFormat:(NSString *)FileFormat Target:(NSString *)Target Bitrate:(int32_t)Bitrate __attribute__((swift_name("doCopy(HardSubtitlesType:Uri:EncryptedUri:FileFormat:Target:Bitrate:)")));
+- (DrapiLink *)doCopyHardSubtitlesType:(NSString *)HardSubtitlesType Uri:(NSString * _Nullable)Uri EncryptedUri:(NSString *)EncryptedUri FileFormat:(NSString *)FileFormat Target:(NSString *)Target Bitrate:(int32_t)Bitrate __attribute__((swift_name("doCopy(HardSubtitlesType:Uri:EncryptedUri:FileFormat:Target:Bitrate:)")));
 @property (readonly) NSString *HardSubtitlesType;
-@property (readonly) NSString *Uri;
+@property (readonly) NSString * _Nullable Uri;
 @property (readonly) NSString *EncryptedUri;
 @property (readonly) NSString *FileFormat;
 @property (readonly) NSString *Target;
@@ -1014,38 +1015,6 @@ __attribute__((swift_name("Genre.Companion")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)companion __attribute__((swift_name("init()")));
 - (DrapiGenre *)getByValueValue:(NSString *)value __attribute__((swift_name("getByValue(value:)")));
-@end;
-
-__attribute__((swift_name("KotlinThrowable")))
-@interface DrapiKotlinThrowable : KotlinBase
-- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithCause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
-- (DrapiKotlinArray *)getStackTrace __attribute__((swift_name("getStackTrace()")));
-- (void)printStackTrace __attribute__((swift_name("printStackTrace()")));
-@property (readonly) DrapiKotlinThrowable * _Nullable cause;
-@property (readonly) NSString * _Nullable message;
-@end;
-
-__attribute__((swift_name("KotlinException")))
-@interface DrapiKotlinException : DrapiKotlinThrowable
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
-+ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithCause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
-@end;
-
-__attribute__((objc_subclassing_restricted))
-__attribute__((swift_name("DrMuException")))
-@interface DrapiDrMuException : DrapiKotlinException
-- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-+ (instancetype)new __attribute__((unavailable));
-- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-- (instancetype)initWithCause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @end;
 
 __attribute__((swift_name("DrMuRepository")))
@@ -1491,6 +1460,28 @@ __attribute__((swift_name("Kotlinx_coroutines_core_nativeChildJob")))
 @protocol DrapiKotlinx_coroutines_core_nativeChildJob <DrapiKotlinx_coroutines_core_nativeJob>
 @required
 - (void)parentCancelledParentJob:(id<DrapiKotlinx_coroutines_core_nativeParentJob>)parentJob __attribute__((swift_name("parentCancelled(parentJob:)")));
+@end;
+
+__attribute__((swift_name("KotlinThrowable")))
+@interface DrapiKotlinThrowable : KotlinBase
+- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithCause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
+- (DrapiKotlinArray *)getStackTrace __attribute__((swift_name("getStackTrace()")));
+- (void)printStackTrace __attribute__((swift_name("printStackTrace()")));
+@property (readonly) DrapiKotlinThrowable * _Nullable cause;
+@property (readonly) NSString * _Nullable message;
+@end;
+
+__attribute__((swift_name("KotlinException")))
+@interface DrapiKotlinException : DrapiKotlinThrowable
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
+- (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithMessage:(NSString * _Nullable)message cause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithCause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
 @end;
 
 __attribute__((swift_name("KotlinRuntimeException")))

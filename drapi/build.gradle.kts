@@ -117,7 +117,7 @@ task("buildFramework") {
         val srcFile = target.binaries.getFramework(buildType).outputFile
         val targetDir = project.property("configuration.build.dir").toString()
         copy {
-            from(srcFile)
+            from(srcFile.parent)
             into(targetDir)
             include("drapi.framework/**")
             include("drapi.framework.dSYM")
