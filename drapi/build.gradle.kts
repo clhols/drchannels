@@ -75,7 +75,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             }
         }
-        val androidMain by getting {
+        named("androidMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
@@ -83,7 +83,7 @@ kotlin {
                 implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
             }
         }
-        val androidTest by getting {
+        named("androidTest") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
@@ -92,14 +92,14 @@ kotlin {
             }
         }
 
-        val iosMain by getting {
+        named("iosMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
             }
         }
 
-        val iosTest by getting {
+        named("iosTest") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
             }
