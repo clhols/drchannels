@@ -17,6 +17,17 @@ class Date {
         }
 
     override fun toString(): String = dateTime.toString()
+
+    override fun equals(other: Any?): Boolean {
+        if (other is Date) {
+            return time == other.time
+        }
+        return false
+    }
+
+    override fun hashCode(): Int {
+        return time.hashCode()
+    }
 }
 
 @Serializer(forClass = Date::class)
