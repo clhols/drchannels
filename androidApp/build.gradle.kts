@@ -88,6 +88,12 @@ android {
 
 kapt {
     useBuildCache = true
+    correctErrorTypes = true
+    javacOptions {
+        // Increase the max count of errors from annotation processors.
+        // Default is 100.
+        option("-Xmaxerrs", 500)
+    }
 }
 
 dependencies {
