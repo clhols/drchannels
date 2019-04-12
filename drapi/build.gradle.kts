@@ -45,6 +45,7 @@ kotlin {
             framework {
                 // Disable bitcode embedding for the simulator build.
                 embedBitcode("disable")
+                isStatic = true
             }
         }
     }
