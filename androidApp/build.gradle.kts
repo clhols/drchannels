@@ -114,7 +114,7 @@ dependencies {
     implementation("com.google.android.material:material:$androidxVersion")
     implementation("androidx.recyclerview:recyclerview:$androidxVersion")
     implementation("androidx.tvprovider:tvprovider:$androidxVersion")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha4")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha5")
     implementation("androidx.core:core-ktx:1.0.1")
     implementation("org.koin:koin-android:2.0.0-beta-1")
     implementation("com.google.firebase:firebase-core:16.0.8")
