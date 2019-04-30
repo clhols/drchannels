@@ -18,13 +18,14 @@ import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
 class UpdateActivity : AppCompatActivity(), CoroutineScope {
-    private val job = Job()
+    private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
     private val tag = UpdateActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        job = Job()
         setContentView(R.layout.activity_update)
         findViewById<ProgressBar?>(R.id.progress)?.visibility = View.VISIBLE
 
@@ -53,34 +54,36 @@ class UpdateActivity : AppCompatActivity(), CoroutineScope {
         job.cancel()
     }
 
-    private suspend fun downloadApk(context: Context, apkUrl: String): File? =
-            withContext(Dispatchers.IO) {
-                val httpClient = OkHttpClientFactory.getInstance(context)
+    private suspend fun downloadApk(
+            context: Context,
+            apkUrl: String
+    ): File? = withContext(Dispatchers.IO) {
+        val httpClient = OkHttpClientFactory.getInstance(context)
 
-                val request = Request.Builder()
-                        .url(apkUrl)
-                        .cacheControl(CacheControl.Builder().noStore().build())
-                        .build()
-                val response = httpClient.newCall(request).execute()
-                val source = response.body()?.source()
+        val request = Request.Builder()
+                .url(apkUrl)
+                .cacheControl(CacheControl.Builder().noStore().build())
+                .build()
+        val response = httpClient.newCall(request).execute()
+        val source = response.body()?.source()
 
-                if (source != null) {
-                    val cacheDir = context.externalCacheDir ?: context.cacheDir
-                    val apkCacheFolder = File(cacheDir, "apk").apply { mkdirs() }
-                    val apkFile = File(apkCacheFolder, "app.apk").apply { createNewFile() }
-                    Okio.buffer(Okio.sink(apkFile)).apply {
-                        writeAll(source)
-                        close()
-                    }
-
-                    Log.v(tag,
-                            "Downloaded APK to ${apkFile.absolutePath} with size ${apkFile.length()}")
-
-                    apkFile
-                } else {
-                    null
-                }
+        if (source != null) {
+            val cacheDir = context.externalCacheDir ?: context.cacheDir
+            val apkCacheFolder = File(cacheDir, "apk").apply { mkdirs() }
+            val apkFile = File(apkCacheFolder, "app.apk").apply { createNewFile() }
+            Okio.buffer(Okio.sink(apkFile)).apply {
+                writeAll(source)
+                close()
             }
+
+            Log.v(tag,
+                    "Downloaded APK to ${apkFile.absolutePath} with size ${apkFile.length()}")
+
+            apkFile
+        } else {
+            null
+        }
+    }
 
     private fun installApk(context: Context, apkFile: File) {
         try {

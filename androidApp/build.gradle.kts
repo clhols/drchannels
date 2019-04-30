@@ -5,7 +5,8 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("kotlin-android-extensions")
-    id("com.github.triplet.play") version "2.1.0"
+    id("io.fabric")
+    id("com.github.triplet.play") version "2.2.0"
     id("org.sonarqube") version "2.6.2"
     id("dk.youtec.appupdater")
     id("com.github.plnice.canidropjetifier") version "0.4" // ./gradlew -Pandroid.enableJetifier=false canIDropJetifier
@@ -87,6 +88,12 @@ android {
 
 kapt {
     useBuildCache = true
+    correctErrorTypes = true
+    javacOptions {
+        // Increase the max count of errors from annotation processors.
+        // Default is 100.
+        option("-Xmaxerrs", 500)
+    }
 }
 
 dependencies {
@@ -107,19 +114,24 @@ dependencies {
     implementation("com.google.android.material:material:$androidxVersion")
     implementation("androidx.recyclerview:recyclerview:$androidxVersion")
     implementation("androidx.tvprovider:tvprovider:$androidxVersion")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha3")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha5")
     implementation("androidx.core:core-ktx:1.0.1")
     implementation("org.koin:koin-android:2.0.0-beta-1")
+    implementation("com.google.firebase:firebase-core:16.0.8")
+    implementation("com.crashlytics.sdk.android:crashlytics:2.9.9")
 
-    implementation("androidx.work:work-runtime-ktx:2.0.0-rc01")
+    implementation("androidx.work:work-runtime-ktx:2.0.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
     implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
     kapt("androidx.lifecycle:lifecycle-compiler:$archComponentVersion")
 
     androidTestImplementation("androidx.test:core:1.1.0")
+    androidTestImplementation("androidx.test:core-ktx:1.1.0")
     androidTestImplementation("androidx.test:runner:1.1.1")
     androidTestImplementation("androidx.test:rules:1.1.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.0")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0+")
     androidTestUtil("androidx.test:orchestrator:1.1.1")
 }
 
@@ -140,3 +152,5 @@ if (releasePropertiesFile.exists()) {
         keyPassword = props.getProperty("keyAliasPassword")
     }
 }
+
+apply(mapOf("plugin" to "com.google.gms.google-services"))
