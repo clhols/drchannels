@@ -23,7 +23,7 @@ import java.util.Calendar.*
 import kotlin.coroutines.CoroutineContext
 
 class ProgramsActivity : AppCompatActivity(), CoroutineScope {
-    private val job = Job()
+    private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
     private val api: DrMuRepository by inject()
@@ -42,6 +42,7 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_programs)
+        job = Job()
 
         //Setup toolbar
         toolbar.title = ""
@@ -56,9 +57,9 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope {
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView.requestFocus()
 
-        val id = intent.extras?.getString(CHANNEL_ID) ?: ""
+        val channelId = intent.extras?.getString(CHANNEL_ID) ?: ""
 
-        loadPrograms(id)
+        loadPrograms(channelId)
     }
 
     private fun java.util.Date.format(): String {
@@ -70,28 +71,10 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope {
 
         try {
             launch {
-                val tomorrowDeferred = async(Dispatchers.IO) {
-                    api.getSchedule(id, serverCalendar {
-                        set(SECOND, 0); set(MINUTE, 0); add(DATE, 1)
-                    }.time.format())
-                }
-                val todayDeferred = async(Dispatchers.IO) {
-                    api.getSchedule(id, serverCalendar {
-                        set(SECOND, 0); set(MINUTE, 0)
-                    }.time.format())
-                }
-                val yesterdayDeferred = async(Dispatchers.IO) {
-                    api.getSchedule(id,
-                            serverCalendar {
-                                set(SECOND, 0); set(MINUTE, 0); add(DATE, -1)
-                            }.time.format())
-                }
-                val twoDaysAgoDeferred = async(Dispatchers.IO) {
-                    api.getSchedule(id,
-                            serverCalendar {
-                                set(SECOND, 0); set(MINUTE, 0); add(DATE, -2)
-                            }.time.format())
-                }
+                val tomorrowDeferred    = async(Dispatchers.IO) { getSchedule(id, 1) }
+                val todayDeferred       = async(Dispatchers.IO) { getSchedule(id, 0) }
+                val yesterdayDeferred   = async(Dispatchers.IO) { getSchedule(id, -1) }
+                val twoDaysAgoDeferred  = async(Dispatchers.IO) { getSchedule(id, -2) }
 
                 onScheduleLoaded(
                         Schedule(
@@ -107,6 +90,16 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope {
         } catch (e: Exception) {
             onScheduleError(e)
         }
+    }
+
+    /**
+     * Gets the schedule of [channelId] with [daysOffset] relative to the current date.
+     */
+    private suspend fun getSchedule(channelId: String, daysOffset: Int): Schedule {
+        return api.getSchedule(channelId,
+                serverCalendar {
+                    set(SECOND, 0); set(MINUTE, 0); add(DATE, daysOffset)
+                }.time.format())
     }
 
     private fun onScheduleLoaded(schedule: Schedule) {

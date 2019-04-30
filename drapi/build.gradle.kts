@@ -45,6 +45,7 @@ kotlin {
             framework {
                 // Disable bitcode embedding for the simulator build.
                 embedBitcode("disable")
+                isStatic = true
             }
         }
     }
@@ -75,7 +76,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             }
         }
-        val androidMain by getting {
+        named("androidMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
@@ -83,19 +84,23 @@ kotlin {
                 implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
             }
         }
-        val androidTest by getting {
+        named("androidTest") {
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
+                implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
             }
         }
 
-        val iosMain by getting {
+        named("iosMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
             }
         }
 
-        val iosTest by getting {
+        named("iosTest") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
             }
@@ -113,7 +118,7 @@ task("buildFramework") {
         val srcFile = target.binaries.getFramework(buildType).outputFile
         val targetDir = project.property("configuration.build.dir").toString()
         copy {
-            from(srcFile)
+            from(srcFile.parent)
             into(targetDir)
             include("drapi.framework/**")
             include("drapi.framework.dSYM")

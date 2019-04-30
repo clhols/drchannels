@@ -30,6 +30,7 @@ import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.anko.defaultSharedPreferences
 import org.koin.core.KoinComponent
@@ -268,5 +269,5 @@ internal inline fun <T, R> Iterable<T>.asyncAwaitMap(
         context: CoroutineContext = EmptyCoroutineContext,
         crossinline block: suspend (T) -> R
 ): List<R> = runBlocking(context) {
-    map { async { block(it) } }.map { it.await() }
+    map { async { block(it) } }.awaitAll()
 }
