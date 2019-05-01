@@ -11,6 +11,8 @@ import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.R
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
+import kotlinx.coroutines.flow.flow
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -20,8 +22,18 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
     private val tag = TvChannelsViewModel::class.java.simpleName
 
     val tvChannels = TvChannels()
-    val playbackUri = Channel<String>()
-    val error = Channel<String>()
+    private val playbackUriChannel = Channel<String>(CONFLATED)
+    private val errorChannel = Channel<String>(CONFLATED)
+
+    val tvChannelsStream = flow {
+        for (item in tvChannels.stream) emit(item)
+    }
+    val playbackUri = flow {
+        for (item in playbackUriChannel) emit(item)
+    }
+    val error = flow {
+        for (item in errorChannel) emit(item)
+    }
 
     fun playTvChannel(muNowNext: MuNowNext) {
         viewModelScope.launch {
@@ -38,10 +50,10 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
                         .sortedByDescending { it.Kbps }.first()
                         .Streams.first().Stream
 
-                playbackUri.send("${server.Server}/$stream")
+                playbackUriChannel.offer("${server.Server}/$stream")
             } catch (e: Exception) {
                 Log.e(tag, e.message, e)
-                error.send(if (e.message != null && e.message != "Success") {
+                errorChannel.offer(if (e.message != null && e.message != "Success") {
                     e.message!!
                 } else {
                     getApplication<Application>().getString(R.string.cantChangeChannel)
@@ -59,17 +71,17 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
 
                     val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
                     if (playbackUri.isNotBlank()) {
-                        this@TvChannelsViewModel.playbackUri.send(playbackUri)
+                        this@TvChannelsViewModel.playbackUriChannel.offer(playbackUri)
                     } else {
-                        error.send("No stream")
+                        errorChannel.offer("No stream")
                     }
                 } catch (e: Exception) {
-                    error.send(
+                    errorChannel.offer(
                             if (e.message != null && e.message != "Success") e.message!!
                             else getApplication<Application>().getString(R.string.cantChangeChannel))
                 }
             } else {
-                error.send("No stream")
+                errorChannel.offer("No stream")
             }
         }
     }
@@ -78,8 +90,8 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
         Log.d("", "View model was cleared")
         tvChannels.dispose()
         tvChannels.stream.cancel()
-        playbackUri.cancel()
-        error.cancel()
+        playbackUriChannel.cancel()
+        errorChannel.cancel()
     }
 }
 

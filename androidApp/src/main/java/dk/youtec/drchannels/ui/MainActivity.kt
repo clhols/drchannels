@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.appupdater.updateApp
@@ -26,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.flow.collect
 import org.jetbrains.anko.toast
 import kotlin.coroutines.CoroutineContext
 
@@ -66,43 +65,30 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
         progressBar.isVisible = true
 
         with(viewModel) {
-            // Launch with viewModelScope to avoid this coroutine from being cancelled
-            // when the activity is destroyed and the view model remains alive.
-            // This prevents the channels (tvChannels.stream) from being closed but leaks the activity.
-            viewModelScope.launch {
-                tvChannels.stream.consumeEach { channels ->
-                    // Launch in context of the activity so that the coroutine is cancelled
-                    // when the activity is destroyed.
-                    // This is needed because we "consumeEach" to the channel multiple times
-                    // when the activity is re-created.
-                    // So only the latest activity will handle the consuming.
+            launch {
+                tvChannelsStream.collect { channels ->
                     Log.d("MainActivity", "Tv channels " + this@MainActivity)
-                    this@MainActivity.launch {
-                        Log.d("MainActivity", "Tv channels launch ${this@MainActivity}")
-                        isEmptyState = channels.isNullOrEmpty()
-                        handleChannelsChanged(channels)
-                        progressBar.isVisible = false
-                        swipeRefresh.isRefreshing = false
-                    }
+                    isEmptyState = channels.isNullOrEmpty()
+                    handleChannelsChanged(channels)
+                    progressBar.isVisible = false
+                    swipeRefresh.isRefreshing = false
                 }
             }
 
-            viewModelScope.launch {
-                playbackUri.consumeEach { uri ->
+            launch {
+                playbackUri.collect { uri ->
                     Log.d("MainActivity", "Playback uri")
-                    launch {
-                        startActivity(Intent(this@MainActivity, PlayerActivity::class.java).apply {
-                            action = PlayerActivity.ACTION_VIEW
-                            putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-                            data = uri.toUri()
-                        })
-                    }
+                    startActivity(Intent(this@MainActivity, PlayerActivity::class.java).apply {
+                        action = PlayerActivity.ACTION_VIEW
+                        putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
+                        data = uri.toUri()
+                    })
                 }
             }
 
-            viewModelScope.launch {
-                error.consumeEach { message ->
-                    launch { toast(message) }
+            launch {
+                error.collect { message ->
+                    toast(message)
                 }
             }
         }
