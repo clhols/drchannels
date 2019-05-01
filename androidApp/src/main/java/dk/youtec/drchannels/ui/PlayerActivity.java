@@ -162,7 +162,6 @@ public class PlayerActivity extends Activity
 
     private AdsLoader adsLoader;
     private Uri loadedAdTagUri;
-    private ViewGroup adUiViewGroup;
 
     private boolean useExtensionRenderers = false;
     private static DefaultBandwidthMeter singletonBandwidthMeter = null;
@@ -616,6 +615,9 @@ public class PlayerActivity extends Activity
             mediaSource = null;
             trackSelector = null;
         }
+        if (adsLoader != null) {
+            adsLoader.setPlayer(null);
+        }
         releaseMediaDrm();
     }
 
@@ -689,10 +691,8 @@ public class PlayerActivity extends Activity
                                 .getConstructor(android.content.Context.class, android.net.Uri.class);
                 // LINT.ThenChange(../../../../../../../../proguard-rules.txt)
                 adsLoader = loaderConstructor.newInstance(this, adTagUri);
-                adUiViewGroup = new FrameLayout(this);
-                // The demo app has a non-null overlay frame layout.
-                playerView.getOverlayFrameLayout().addView(adUiViewGroup);
             }
+            adsLoader.setPlayer(player);
             AdsMediaSource.MediaSourceFactory adMediaSourceFactory =
                     new AdsMediaSource.MediaSourceFactory() {
                         @Override
@@ -705,7 +705,7 @@ public class PlayerActivity extends Activity
                             return new int[]{C.TYPE_DASH, C.TYPE_SS, C.TYPE_HLS, C.TYPE_OTHER};
                         }
                     };
-            return new AdsMediaSource(mediaSource, adMediaSourceFactory, adsLoader, adUiViewGroup);
+            return new AdsMediaSource(mediaSource, adMediaSourceFactory, adsLoader, playerView);
         } catch (ClassNotFoundException e) {
             // IMA extension not loaded.
             return null;
