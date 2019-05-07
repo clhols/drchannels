@@ -115,10 +115,10 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:$androidxVersion")
     implementation("androidx.tvprovider:tvprovider:$androidxVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-alpha5")
-    implementation("androidx.core:core-ktx:1.0.1")
+    implementation("androidx.core:core-ktx:1.0.2")
     implementation("org.koin:koin-android:2.0.0-beta-1")
-    implementation("com.google.firebase:firebase-core:16.0.8")
-    implementation("com.crashlytics.sdk.android:crashlytics:2.9.9")
+    implementation("com.google.firebase:firebase-core:16.0.9")
+    implementation("com.crashlytics.sdk.android:crashlytics:2.10.0")
 
     implementation("androidx.work:work-runtime-ktx:2.0.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
