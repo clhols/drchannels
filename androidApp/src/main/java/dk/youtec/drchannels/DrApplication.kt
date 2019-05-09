@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import org.koin.core.logger.PrintLogger
 import org.koin.dsl.module
 
 @Suppress("unused")
@@ -19,7 +20,7 @@ class DrApplication : Application() {
         super.onCreate()
 
         startKoin {
-            logger(Level.DEBUG)
+            logger(PrintLogger(Level.DEBUG))
             androidContext(this@DrApplication)
             modules(module {
                 single { DrMuRepository(cacheDir.absolutePath) }
