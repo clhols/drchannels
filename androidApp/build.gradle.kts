@@ -116,7 +116,7 @@ dependencies {
     implementation("androidx.tvprovider:tvprovider:$androidxVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1")
     implementation("androidx.core:core-ktx:1.0.2")
-    implementation("org.koin:koin-android:2.0.0-beta-1")
+    implementation("org.koin:koin-android:2.0.0-GA")
     implementation("com.google.firebase:firebase-core:16.0.9")
     implementation("com.crashlytics.sdk.android:crashlytics:2.10.0")
 
