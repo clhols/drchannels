@@ -12,6 +12,7 @@ import dk.youtec.drchannels.R
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.flow.flow
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -26,13 +27,13 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
     private val errorChannel = Channel<String>(CONFLATED)
 
     val tvChannelsStream = flow {
-        for (item in tvChannels.stream) emit(item)
+        tvChannels.stream.consumeEach { emit(it) }
     }
     val playbackUri = flow {
-        for (item in playbackUriChannel) emit(item)
+        playbackUriChannel.consumeEach { emit(it) }
     }
     val error = flow {
-        for (item in errorChannel) emit(item)
+        errorChannel.consumeEach { emit(it) }
     }
 
     fun playTvChannel(muNowNext: MuNowNext) {
