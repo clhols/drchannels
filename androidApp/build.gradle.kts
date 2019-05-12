@@ -41,6 +41,10 @@ android {
         }
 
         buildTypes {
+            getByName("debug") {
+                versionCode = 1
+                manifestPlaceholders = mapOf("enableCrashReporting" to false)
+            }
             getByName("release") {
                 isMinifyEnabled = true
                 isShrinkResources = true
@@ -48,6 +52,7 @@ android {
                 proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
 
                 signingConfig = signingConfigs["release"]
+                manifestPlaceholders = mapOf("enableCrashReporting" to true)
             }
         }
 

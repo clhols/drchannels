@@ -30,20 +30,24 @@ fun updateApp(
         metaUrl: String,
         apkUrl: String,
         changelogUrl: String = "") = GlobalScope.launch(Dispatchers.Main) {
-    val metaAppVersion = getAppVersionFromMeta(activity, metaUrl)
-    Log.v(tag, "Meta has version code $metaAppVersion")
-
-    if (metaAppVersion > versionCode) {
-        val message = activity.getString(R.string.newAppVersionReady) +
-                getChangelog(activity, changelogUrl).let {
-                    if (it.isNotBlank()) "\n\n$it" else ""
-                }
-
-        if (!activity.isFinishing) {
-            showUpdateDialog(activity, message, apkUrl)
-        }
+    if (versionCode == 1) {
+        Log.v(tag, "App has debug version code $versionCode")
     } else {
-        Log.d(tag, "App is the latest version $versionCode")
+        val metaAppVersion = getAppVersionFromMeta(activity, metaUrl)
+        Log.v(tag, "Meta has version code $metaAppVersion")
+
+        if (metaAppVersion > versionCode) {
+            val message = activity.getString(R.string.newAppVersionReady) +
+                    getChangelog(activity, changelogUrl).let {
+                        if (it.isNotBlank()) "\n\n$it" else ""
+                    }
+
+            if (!activity.isFinishing) {
+                showUpdateDialog(activity, message, apkUrl)
+            }
+        } else {
+            Log.d(tag, "App is the latest version $versionCode")
+        }
     }
 }
 
