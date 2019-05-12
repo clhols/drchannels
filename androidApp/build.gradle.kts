@@ -42,7 +42,6 @@ android {
 
         buildTypes {
             getByName("debug") {
-                versionCode = 1
                 manifestPlaceholders = mapOf("enableCrashReporting" to false)
             }
             getByName("release") {
