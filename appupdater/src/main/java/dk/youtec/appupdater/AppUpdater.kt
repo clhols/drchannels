@@ -76,7 +76,7 @@ private suspend fun getAppVersionFromMeta(
         val metaString = response.body()?.string() ?: ""
 
         extractVersionCode(metaString)
-    } catch (e: IOException) {
+    } catch (e: Exception) {
         Log.w(tag, e.message)
         BuildConfig.VERSION_CODE
     }
@@ -89,7 +89,7 @@ internal fun extractVersionCode(metaString: String): Int {
     return outputs
             .asSequence()
             .filterIsInstance<Output>()
-            .firstOrNull()?.apkInfo?.versionCode ?: BuildConfig.VERSION_CODE
+            .firstOrNull()?.apkData?.versionCode ?: BuildConfig.VERSION_CODE
 }
 
 private suspend fun getChangelog(
