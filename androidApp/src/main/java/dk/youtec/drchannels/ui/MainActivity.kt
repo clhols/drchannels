@@ -37,7 +37,7 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
 
     companion object {
         init {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
     }
 
