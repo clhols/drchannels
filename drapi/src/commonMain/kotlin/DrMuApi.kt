@@ -145,7 +145,7 @@ data class ProgramCard(
         @Optional val SeasonNumber: Int = 0,
         val PrePremiere: Boolean,
         val ExpiresSoon: Boolean,
-        val OnlineGenreText: String,
+        @Optional val OnlineGenreText: String = "",
         @Optional val PrimaryAsset: PrimaryAsset? = null,
         @Optional val HasPublicPrimaryAsset: Boolean = false,
         @Optional val AssetTargetTypes: String = "",
