@@ -127,7 +127,7 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.0.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
     implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
-    kapt("androidx.lifecycle:lifecycle-compiler:$archComponentVersion")
+    kapt("androidx.lifecycle:lifecycle-common-java8:$archComponentVersion")
 
     androidTestImplementation("androidx.test:core:1.1.0")
     androidTestImplementation("androidx.test:core-ktx:1.1.0")
