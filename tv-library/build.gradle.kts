@@ -20,6 +20,6 @@ android {
 }
 
 dependencies {
-    implementation("androidx.annotation:annotation:$androidxVersion")
+    implementation("androidx.annotation:annotation:1.0.2")
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:$androidxVersion")
 }
