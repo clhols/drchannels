@@ -32,7 +32,7 @@ class ChannelTableViewController: UITableViewController {
             (schedules: [MuNowNext]) -> KotlinUnit in
             print("Got channels result")
             self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in
-                nowNext.now != nil
+                nowNext.Now != nil
             })
             self.tableView.reloadData()
             return KotlinUnit.init()
@@ -66,18 +66,18 @@ class ChannelTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let name = self.channels[indexPath.row].channelSlug
+        let name = self.channels[indexPath.row].ChannelSlug
         
         repo.getAllActiveDrTvChannels(callback: {
             (channels: [Channel]) -> KotlinUnit in
             
             let channel = channels.first(where: { (channel: Channel) -> Bool in
-                channel.slug == name
+                channel.Slug == name
             })
             
             let server = channel?.server()
-            let stream = server?.qualities.first?.streams.first?.stream
-            let url = "\(server!.server)/\(stream!)"
+            let stream = server?.Qualities.first?.Streams.first?.Stream
+            let url = "\(server!.Server)/\(stream!)"
             
             print("Playing url: \(url)")
             
@@ -97,10 +97,10 @@ class ChannelTableViewController: UITableViewController {
         }
 
         let channel = channels[indexPath.row]
-        let imageUri = channel.now?.programCard.primaryImageUri ?? ""
+        let imageUri = channel.Now?.ProgramCard.PrimaryImageUri ?? ""
         
-        cell.titleLabel.text = channel.now?.title ?? "Unknown title"
-        cell.descriptionLabel.text = channel.now?.subtitle ?? "Unknown description"
+        cell.titleLabel.text = channel.Now?.Title ?? "Unknown title"
+        cell.descriptionLabel.text = channel.Now?.Subtitle ?? "Unknown description"
         cell.channelImageView.load(url: URL.init(string: imageUri)!, tableView: self.tableView)
 
         return cell

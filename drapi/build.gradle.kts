@@ -65,14 +65,14 @@ kotlin {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("com.soywiz:klock:$klockVersion")
+                implementation("com.soywiz:klock-metadata:$klockVersion")
             }
         }
         commonTest {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test-common")
                 implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-                implementation("com.soywiz:klock:$klockVersion")
+                implementation("com.soywiz:klock-metadata:$klockVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             }
         }
@@ -82,6 +82,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
                 implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
+                implementation("com.soywiz:klock-android:$klockVersion")
             }
         }
         named("androidTest") {
@@ -97,6 +98,7 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
+                implementation("com.soywiz:klock-iosx64:$klockVersion")
             }
         }
 
