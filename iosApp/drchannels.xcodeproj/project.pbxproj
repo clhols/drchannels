@@ -129,6 +129,7 @@
 				TargetAttributes = {
 					EC82AA7E21D3C04300E0651C = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -320,7 +321,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dk.youtec.drchannels;
 				PRODUCT_NAME = "DR channels";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -341,7 +342,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dk.youtec.drchannels;
 				PRODUCT_NAME = "DR channels";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
