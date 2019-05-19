@@ -319,11 +319,6 @@ class DrTvInputSessionImpl(
         }
     }
 
-    @Suppress("UNUSED_PARAMETER")
-    private fun getOfflineStreamKeys(uri: Uri): List<StreamKey> {
-        return ArrayList()
-    }
-
     private fun buildDataSourceFactory(): DataSource.Factory {
         return DefaultDataSourceFactory(context, buildHttpDataSourceFactory())
     }

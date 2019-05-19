@@ -35,8 +35,8 @@ class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
 
     private val syncFinishedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
-            val syncStatus = intent.getStringExtra(EpgSyncJobService.SYNC_STATUS)
-            if (syncStatus == EpgSyncJobService.SYNC_FINISHED) {
+            val syncStatus = intent.getStringExtra(SYNC_STATUS)
+            if (syncStatus == SYNC_FINISHED) {
                 Log.d("DrTvEpgJobService", "Sync finished, scheduling preview update")
 
                 scheduleCurrentProgramsPreviewUpdate()
