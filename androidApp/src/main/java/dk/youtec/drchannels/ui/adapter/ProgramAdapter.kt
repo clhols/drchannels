@@ -17,7 +17,7 @@ import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
 import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.R
-import dk.youtec.drchannels.ui.PlayerActivity
+import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.ui.view.AspectImageView
 import dk.youtec.drchannels.util.calendar
 import dk.youtec.drchannels.util.inflate

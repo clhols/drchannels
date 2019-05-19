@@ -19,8 +19,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.DayNight.Dialog" />
 
-    <style name="AppTheme.Player" parent="android:Theme.Holo.NoActionBar.Fullscreen">
+    <style name="AppTheme.Player" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+    <style name="TrackSelectionDialogThemeOverlay" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="windowNoTitle">false</item>
     </style>
 
 </resources>
