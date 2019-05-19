@@ -15,7 +15,7 @@ import androidx.tvprovider.media.tv.TvContractCompat
 import androidx.work.*
 import com.google.android.media.tv.companionlibrary.model.Program
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
-import dk.youtec.drchannels.ui.PlayerActivity
+import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.serverDateFormat
 import java.util.*
