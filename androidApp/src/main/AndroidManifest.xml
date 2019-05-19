@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-                android:name="dk.youtec.drchannels.ui.PlayerActivity"
+                android:name="dk.youtec.drchannels.ui.exoplayer.PlayerActivity"
                 android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
                 android:launchMode="singleTop"
                 android:supportsPictureInPicture="true"
