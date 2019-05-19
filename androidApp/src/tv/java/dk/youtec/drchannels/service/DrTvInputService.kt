@@ -15,8 +15,8 @@ import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS
 import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MAX_BUFFER_MS
 import com.google.android.exoplayer2.offline.StreamKey
-import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.source.hls.playlist.DefaultHlsPlaylistParserFactory
@@ -310,10 +310,9 @@ class DrTvInputSessionImpl(
             */
             C.TYPE_HLS -> return HlsMediaSource.Factory(dataSourceFactory)
                     .setPlaylistParserFactory(
-                            DefaultHlsPlaylistParserFactory(getOfflineStreamKeys(uri)))
+                            DefaultHlsPlaylistParserFactory())
                     .createMediaSource(uri)
-            C.TYPE_OTHER -> return ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(
-                    uri)
+            C.TYPE_OTHER -> return ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(uri)
             else -> {
                 throw IllegalStateException("Unsupported type: $type")
             }
