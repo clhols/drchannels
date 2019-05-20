@@ -6,8 +6,8 @@ plugins {
     kotlin("kapt")
     id("kotlin-android-extensions")
     id("io.fabric")
-    id("com.github.triplet.play") version "2.2.0"
-    id("org.sonarqube") version "2.6.2"
+    id("com.github.triplet.play") version "2.2.1"
+    id("org.sonarqube") version "2.7.1"
     id("dk.youtec.appupdater")
     id("com.github.plnice.canidropjetifier") version "0.4" // ./gradlew -Pandroid.enableJetifier=false canIDropJetifier
 }
