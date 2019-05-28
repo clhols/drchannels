@@ -122,7 +122,7 @@ dependencies {
     implementation("androidx.tvprovider:tvprovider:$androidxVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1")
     implementation("androidx.core:core-ktx:1.0.2")
-    implementation("org.koin:koin-android:2.0.0-GA2")
+    implementation("org.koin:koin-android:2.0.1")
 
     implementation(platform("com.google.firebase:firebase-bom:18.1.0"))
     implementation("com.google.firebase:firebase-core")
