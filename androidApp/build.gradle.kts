@@ -135,7 +135,7 @@ dependencies {
 
     androidTestImplementation("androidx.test:core:1.1.0")
     androidTestImplementation("androidx.test:core-ktx:1.1.0")
-    androidTestImplementation("androidx.test:runner:1.1.1")
+    androidTestImplementation("androidx.test:runner:1.2.0")
     androidTestImplementation("androidx.test:rules:1.1.1")
     androidTestImplementation("androidx.test.ext:junit:1.1.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.0")
