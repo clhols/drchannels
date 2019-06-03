@@ -20,12 +20,8 @@ import org.jetbrains.anko.toast
 import org.koin.android.ext.android.inject
 import java.lang.Exception
 import java.util.Calendar.*
-import kotlin.coroutines.CoroutineContext
 
-class ProgramsActivity : AppCompatActivity(), CoroutineScope {
-    private lateinit var job: Job
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
+class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private val api: DrMuRepository by inject()
     private var selectedGenre: String = ""
     private var genres: Set<String> = setOf()
@@ -42,7 +38,6 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_programs)
-        job = Job()
 
         //Setup toolbar
         toolbar.title = ""
@@ -132,9 +127,8 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onDestroy() {
+        cancel()
         super.onDestroy()
-
-        job.cancel()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

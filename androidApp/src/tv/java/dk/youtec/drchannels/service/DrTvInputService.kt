@@ -332,9 +332,7 @@ class DrTvInputSessionImpl(
 class DrTvInputRecordingSessionImpl(
         context: Context,
         private val inputId: String
-) : BaseTvInputService.RecordingSession(context, inputId), CoroutineScope, KoinComponent {
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
+) : BaseTvInputService.RecordingSession(context, inputId), CoroutineScope by MainScope(), KoinComponent {
     private val tag = DrTvInputRecordingSessionImpl::class.java.simpleName
     private val api: DrMuRepository by inject()
 
@@ -358,6 +356,7 @@ class DrTvInputRecordingSessionImpl(
 
     override fun onRelease() {
         Log.d(tag, "onRelease")
+        cancel()
     }
 
     override fun onStopRecording(programToRecord: Program) {
@@ -370,7 +369,7 @@ class DrTvInputRecordingSessionImpl(
         // Additionally, the stream should be recorded and saved as
         // a new file.
 
-        GlobalScope.launch {
+        launch {
             val recordedProgram = getRecordedProgram(programToRecord)
 
             Log.d(tag, "onStopRecording, recorded=$recordedProgram")

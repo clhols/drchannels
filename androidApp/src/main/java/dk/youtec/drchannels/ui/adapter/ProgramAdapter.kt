@@ -24,25 +24,19 @@ import dk.youtec.drchannels.util.inflate
 import dk.youtec.drchannels.util.load
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.android.synthetic.main.program_item.view.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.jetbrains.anko.image
 import org.jetbrains.anko.toast
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.lang.Exception
 import java.util.Date
-import kotlin.coroutines.CoroutineContext
 
 class ProgramAdapter(
         private val context: Context,
         private val schedule: Schedule
-) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>(), CoroutineScope, KoinComponent {
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
+) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>(), CoroutineScope by MainScope(), KoinComponent {
     private val api: DrMuRepository by inject()
 
     private var colorMatrixColorFilter: ColorMatrixColorFilter
@@ -185,5 +179,10 @@ class ProgramAdapter(
             schedule.Broadcasts
         }
         notifyDataSetChanged()
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        cancel()
+        super.onDetachedFromRecyclerView(recyclerView)
     }
 }
