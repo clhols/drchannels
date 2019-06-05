@@ -1,9 +1,9 @@
 //Project dependency versions
 val androidGradlePlugin = "3.5+"
 val kotlinVersion = "1.3.31"
-val compileSdk = 28
-val targetSdk = 28
-val buildToolsVersion = "28.0.3"
+val compileSdk = 29
+val targetSdk = 29
+val buildToolsVersion = "29.0.0"
 val androidxVersion = "1.0.0"
 val archComponentVersion = "2.2.0+"
 val picassoVersion = "2.71828"
