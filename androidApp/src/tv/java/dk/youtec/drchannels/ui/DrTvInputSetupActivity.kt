@@ -80,10 +80,8 @@ class DrTvInputSetupActivity : AppCompatActivity() {
         return with(Channel.Builder()) {
             setType(TvContractCompat.Channels.TYPE_PREVIEW)
             setDisplayName(getString(R.string.currentPrograms))
-            if (BuildConfig.DEBUG) {
-                setAppLinkIntent(Intent(this@DrTvInputSetupActivity,
-                        MainActivity::class.java))
-            }
+            setAppLinkIntent(Intent(this@DrTvInputSetupActivity,
+                    MainActivity::class.java))
             build()
         }
     }

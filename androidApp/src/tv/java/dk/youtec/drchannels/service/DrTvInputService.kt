@@ -15,8 +15,8 @@ import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS
 import com.google.android.exoplayer2.DefaultLoadControl.DEFAULT_MAX_BUFFER_MS
 import com.google.android.exoplayer2.offline.StreamKey
-import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.source.hls.playlist.DefaultHlsPlaylistParserFactory
@@ -294,8 +294,7 @@ class DrTvInputSessionImpl(
 
 
     private fun buildMediaSource(uri: Uri, overrideExtension: String = ""): MediaSource {
-        @C.ContentType val type = Util.inferContentType(uri, overrideExtension)
-        when (type) {
+        when (@C.ContentType val type = Util.inferContentType(uri, overrideExtension)) {
             /*
             C.TYPE_DASH -> return DashMediaSource.Factory(dataSourceFactory)
                     .setManifestParser(
@@ -310,19 +309,13 @@ class DrTvInputSessionImpl(
             */
             C.TYPE_HLS -> return HlsMediaSource.Factory(dataSourceFactory)
                     .setPlaylistParserFactory(
-                            DefaultHlsPlaylistParserFactory(getOfflineStreamKeys(uri)))
+                            DefaultHlsPlaylistParserFactory())
                     .createMediaSource(uri)
-            C.TYPE_OTHER -> return ExtractorMediaSource.Factory(dataSourceFactory).createMediaSource(
-                    uri)
+            C.TYPE_OTHER -> return ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(uri)
             else -> {
                 throw IllegalStateException("Unsupported type: $type")
             }
         }
-    }
-
-    @Suppress("UNUSED_PARAMETER")
-    private fun getOfflineStreamKeys(uri: Uri): List<StreamKey> {
-        return ArrayList()
     }
 
     private fun buildDataSourceFactory(): DataSource.Factory {
@@ -338,9 +331,7 @@ class DrTvInputSessionImpl(
 class DrTvInputRecordingSessionImpl(
         context: Context,
         private val inputId: String
-) : BaseTvInputService.RecordingSession(context, inputId), CoroutineScope, KoinComponent {
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
+) : BaseTvInputService.RecordingSession(context, inputId), CoroutineScope by MainScope(), KoinComponent {
     private val tag = DrTvInputRecordingSessionImpl::class.java.simpleName
     private val api: DrMuRepository by inject()
 
@@ -364,6 +355,7 @@ class DrTvInputRecordingSessionImpl(
 
     override fun onRelease() {
         Log.d(tag, "onRelease")
+        cancel()
     }
 
     override fun onStopRecording(programToRecord: Program) {
@@ -376,7 +368,7 @@ class DrTvInputRecordingSessionImpl(
         // Additionally, the stream should be recorded and saved as
         // a new file.
 
-        GlobalScope.launch {
+        launch {
             val recordedProgram = getRecordedProgram(programToRecord)
 
             Log.d(tag, "onStopRecording, recorded=$recordedProgram")

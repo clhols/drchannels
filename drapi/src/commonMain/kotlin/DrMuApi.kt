@@ -1,6 +1,5 @@
 package dk.youtec.drapi
 
-import kotlinx.serialization.Optional
 import kotlinx.serialization.Serializable
 
 const val API_VERSION = "1.4"
@@ -31,25 +30,25 @@ internal interface IDrMuApi {
 @Serializable
 data class SearchResult(
         val Title: String,
-        @Optional val Subtitle: String = "",
-        @Optional val Description: String = "",
-        @Optional val IsRepremiere: Boolean = false,
-        @Optional val BundleType: String = "",
-        @Optional val ThemeType: String = "",
-        @Optional val Slug: String = "",
+        val Subtitle: String = "",
+        val Description: String = "",
+        val IsRepremiere: Boolean = false,
+        val BundleType: String = "",
+        val ThemeType: String = "",
+        val Slug: String = "",
         val Items: List<ProgramCard>,
         val Paging: MuPaging,
         val TotalSize: Int,
-        @Optional val BackgroundImageUri: String = "",
-        @Optional val SiteUrl: String = "")
+        val BackgroundImageUri: String = "",
+        val SiteUrl: String = "")
 
 @Serializable
 data class MuPaging(
-        @Optional val Title: String = "",
-        @Optional val Source: String = "",
-        @Optional val Next: String = "",
-        @Optional val Previous: String = "",
-        @Optional val TotalSize: Int = 0)
+        val Title: String = "",
+        val Source: String = "",
+        val Next: String = "",
+        val Previous: String = "",
+        val TotalSize: Int = 0)
 
 @Serializable
 data class Schedule(
@@ -62,17 +61,17 @@ data class Schedule(
 data class Channel(
         val Type: String,
         val StreamingServers: List<MuStreamingServer>,
-        @Optional val Url: String = "",
-        @Optional val SourceUrl: String = "",
+        val Url: String = "",
+        val SourceUrl: String = "",
         val WebChannel: Boolean,
         val Slug: String,
         val Urn: String,
         val PrimaryImageUri: String,
-        @Optional val PresentationUri: String = "",
-        @Optional val PresentationUriAutoplay: String = "",
+        val PresentationUri: String = "",
+        val PresentationUriAutoplay: String = "",
         val Title: String,
-        @Optional val ItemLabel: String = "",
-        @Optional val Subtitle: String = "") {
+        val ItemLabel: String = "",
+        val Subtitle: String = "") {
     private fun hlsServer(): MuStreamingServer? = StreamingServers.firstOrNull { it.LinkType == "HLS" }
     private fun hdsServer(): MuStreamingServer? = StreamingServers.firstOrNull { it.LinkType == "HDS" }
     fun server(): MuStreamingServer? = hlsServer() ?: hdsServer()
@@ -93,35 +92,35 @@ data class MuStreamQuality(
 
 @Serializable
 data class MuStream(
-        @Optional val Stream: String = "",
-        @Optional val EncryptedStream: String = "")
+        val Stream: String = "",
+        val EncryptedStream: String = "")
 
 @Serializable
 data class MuNowNext(
         val ChannelSlug: String,
         val Channel: String,
-        @Optional val Now: MuScheduleBroadcast? = null,
+        val Now: MuScheduleBroadcast? = null,
         val Next: List<MuScheduleBroadcast>)
 
 @Serializable
 data class MuScheduleBroadcast(
         val Title: String,
         val Description: String,
-        @Optional val Subtitle: String = "",
+        val Subtitle: String = "",
         @Serializable(with = DateSerializer::class) val StartTime: Date,
         @Serializable(with = DateSerializer::class) val EndTime: Date,
         val ProgramCard: ProgramCard,
-        @Optional val OnlineGenreText: String? = null,
+        val OnlineGenreText: String? = null,
         val ProductionNumber: String,
         val ProgramCardHasPrimaryAsset: Boolean,
         val SeriesHasProgramCardWithPrimaryAsset: Boolean,
         @Serializable(with = DateSerializer::class) val AnnouncedStartTime: Date,
         @Serializable(with = DateSerializer::class) val AnnouncedEndTime: Date,
         val ProductionCountry: String,
-        @Optional val ProductionYear: Int = 0,
-        @Optional val VideoWidescreen: Boolean = false,
-        @Optional val SubtitlesTTV: Boolean = false,
-        @Optional val VideoHD: Boolean = false,
+        val ProductionYear: Int = 0,
+        val VideoWidescreen: Boolean = false,
+        val SubtitlesTTV: Boolean = false,
+        val VideoHD: Boolean = false,
         val WhatsOnUri: String,
         val IsRerun: Boolean) {
     fun getPrimaryAssetUri(): String? = ProgramCard.PrimaryAsset?.Uri
@@ -130,40 +129,40 @@ data class MuScheduleBroadcast(
 @Serializable
 data class ProgramCard(
         val Type: String,
-        @Optional val SeriesTitle: String = "",
-        @Optional val EpisodeTitle: String = "",
-        @Optional val SeriesSlug: String = "",
-        @Optional val SeriesUrn: String = "",
-        @Optional val HostName: String = "",
-        @Optional val SeriesHostName: String = "",
+        val SeriesTitle: String = "",
+        val EpisodeTitle: String = "",
+        val SeriesSlug: String = "",
+        val SeriesUrn: String = "",
+        val HostName: String = "",
+        val SeriesHostName: String = "",
         val PrimaryChannel: String,
-        @Optional val PrimaryChannelSlug: String = "",
-        @Optional val SeasonEpisodeNumberingValid: Boolean = false,
-        @Optional val SeasonTitle: String? = null,
-        @Optional val SeasonSlug: String? = null,
-        @Optional val SeasonUrn: String? = null,
-        @Optional val SeasonNumber: Int = 0,
+        val PrimaryChannelSlug: String = "",
+        val SeasonEpisodeNumberingValid: Boolean = false,
+        val SeasonTitle: String? = null,
+        val SeasonSlug: String? = null,
+        val SeasonUrn: String? = null,
+        val SeasonNumber: Int = 0,
         val PrePremiere: Boolean,
         val ExpiresSoon: Boolean,
-        val OnlineGenreText: String,
-        @Optional val PrimaryAsset: PrimaryAsset? = null,
-        @Optional val HasPublicPrimaryAsset: Boolean = false,
-        @Optional val AssetTargetTypes: String = "",
-        @Serializable(with = DateSerializer::class) @Optional val PrimaryBroadcastStartTime: Date? = null,
+        val OnlineGenreText: String = "",
+        val PrimaryAsset: PrimaryAsset? = null,
+        val HasPublicPrimaryAsset: Boolean = false,
+        val AssetTargetTypes: String = "",
+        @Serializable(with = DateSerializer::class) val PrimaryBroadcastStartTime: Date? = null,
         @Serializable(with = DateSerializer::class) val SortDateTime: Date,
-        @Optional val OnDemandInfo: Info? = null,
+        val OnDemandInfo: Info? = null,
         val Slug: String,
         val Urn: String,
         val PrimaryImageUri: String,
-        @Optional val PresentationUri: String = "",
-        @Optional val PresentationUriAutoplay: String = "",
+        val PresentationUri: String = "",
+        val PresentationUriAutoplay: String = "",
         val Title: String,
-        @Optional val Subtitle: String = "",
-        @Optional val IsNewSeries: Boolean = false,
-        @Optional val OriginalTitle: String = "",
-        @Optional val RectificationStatus: String = "",
-        @Optional val RectificationAuto: Boolean = false,
-        @Optional val RectificationText: String = "")
+        val Subtitle: String = "",
+        val IsNewSeries: Boolean = false,
+        val OriginalTitle: String = "",
+        val RectificationStatus: String = "",
+        val RectificationAuto: Boolean = false,
+        val RectificationText: String = "")
 
 @Serializable
 data class Info(
@@ -175,13 +174,13 @@ data class PrimaryAsset(
         val Kind: String,
         val Uri: String,
         val DurationInMilliseconds: Long,
-        @Optional val Downloadable: Boolean = false,
-        @Optional val RestrictedToDenmark: Boolean = false,
+        val Downloadable: Boolean = false,
+        val RestrictedToDenmark: Boolean = false,
         @Serializable(with = DateSerializer::class) val StartPublish: Date,
         @Serializable(with = DateSerializer::class) val EndPublish: Date,
         val Target: String,
         val Encrypted: Boolean,
-        @Optional val IsLiveStream: Boolean = false)
+        val IsLiveStream: Boolean = false)
 
 @Serializable
 data class Manifest(
@@ -195,12 +194,12 @@ data class Manifest(
 
 @Serializable
 data class Link(
-        @Optional val HardSubtitlesType: String = "None",
-        @Optional val Uri: String? = null,
+        val HardSubtitlesType: String = "None",
+        val Uri: String? = null,
         val EncryptedUri: String,
         val FileFormat: String,
         val Target: String,
-        @Optional val Bitrate: Int = 0)
+        val Bitrate: Int = 0)
 
 @Serializable
 data class Subtitle(
