@@ -5,6 +5,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import dk.youtec.drapi.DrMuRepository
+import dk.youtec.drchannels.backend.OkHttpClientFactory
 import dk.youtec.drchannels.util.koined
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -24,6 +25,7 @@ class DrApplication : Application() {
             modules(module {
                 single { DrMuRepository(cacheDir.absolutePath) }
                 single { this@DrApplication }
+                single { OkHttpClientFactory.getInstance(get()) }
                 single { FirebaseAnalytics.getInstance(get()) }
             })
         }
