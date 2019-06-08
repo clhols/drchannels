@@ -10,8 +10,7 @@ import dk.youtec.drapi.MuNowNext
 import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.R
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
+import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.flow.flow
 import org.koin.core.KoinComponent
@@ -23,8 +22,8 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
     private val tag = TvChannelsViewModel::class.java.simpleName
 
     val tvChannels = TvChannels()
-    private val playbackUriChannel = Channel<String>(CONFLATED)
-    private val errorChannel = Channel<String>(CONFLATED)
+    private val playbackUriChannel = BroadcastChannel<String>(1)
+    private val errorChannel = BroadcastChannel<String>(1)
 
     val tvChannelsStream = flow {
         tvChannels.stream.consumeEach { emit(it) }
