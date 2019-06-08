@@ -25,7 +25,7 @@ import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.MainActivity
-import dk.youtec.drchannels.ui.PlayerActivity
+import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
 import kotlinx.coroutines.Dispatchers

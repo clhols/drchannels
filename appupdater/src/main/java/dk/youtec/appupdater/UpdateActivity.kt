@@ -15,17 +15,12 @@ import okhttp3.Request
 import okio.Okio
 import java.io.File
 import java.io.IOException
-import kotlin.coroutines.CoroutineContext
 
-class UpdateActivity : AppCompatActivity(), CoroutineScope {
-    private lateinit var job: Job
-    override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Main
+class UpdateActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private val tag = UpdateActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        job = Job()
         setContentView(R.layout.activity_update)
         findViewById<ProgressBar?>(R.id.progress)?.visibility = View.VISIBLE
 
@@ -50,8 +45,8 @@ class UpdateActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onDestroy() {
+        cancel()
         super.onDestroy()
-        job.cancel()
     }
 
     private suspend fun downloadApk(

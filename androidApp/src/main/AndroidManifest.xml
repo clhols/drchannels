@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-                android:name="dk.youtec.drchannels.ui.PlayerActivity"
+                android:name="dk.youtec.drchannels.ui.exoplayer.PlayerActivity"
                 android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
                 android:launchMode="singleTop"
                 android:supportsPictureInPicture="true"
@@ -41,6 +41,10 @@
         <meta-data
                 android:name="preloaded_fonts"
                 android:resource="@array/preloaded_fonts"/>
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${enableCrashReporting}" />
 
     </application>
 

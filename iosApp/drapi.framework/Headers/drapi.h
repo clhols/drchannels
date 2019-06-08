@@ -1,8 +1,8 @@
 #import <Foundation/Foundation.h>
 
-@class DrapiDate, DrapiDateSerializer, DrapiSearchResult, DrapiProgramCard, DrapiMuPaging, DrapiSearchResultCompanion, DrapiSearchResult$serializer, DrapiKotlinArray, DrapiMuPagingCompanion, DrapiMuPaging$serializer, DrapiSchedule, DrapiMuScheduleBroadcast, DrapiScheduleCompanion, DrapiSchedule$serializer, DrapiChannel, DrapiMuStreamingServer, DrapiChannelCompanion, DrapiChannel$serializer, DrapiMuStreamQuality, DrapiMuStreamingServerCompanion, DrapiMuStreamingServer$serializer, DrapiMuStream, DrapiMuStreamQualityCompanion, DrapiMuStreamQuality$serializer, DrapiMuStreamCompanion, DrapiMuStream$serializer, DrapiMuNowNext, DrapiMuNowNextCompanion, DrapiMuNowNext$serializer, DrapiMuScheduleBroadcastCompanion, DrapiMuScheduleBroadcast$serializer, DrapiPrimaryAsset, DrapiInfo, DrapiProgramCardCompanion, DrapiProgramCard$serializer, DrapiInfoCompanion, DrapiInfo$serializer, DrapiPrimaryAssetCompanion, DrapiPrimaryAsset$serializer, DrapiManifest, DrapiLink, DrapiSubtitle, DrapiManifestCompanion, DrapiManifest$serializer, DrapiLinkCompanion, DrapiLink$serializer, DrapiSubtitleCompanion, DrapiSubtitle$serializer, DrapiMostViewed, DrapiMostViewedCompanion, DrapiMostViewed$serializer, DrapiPrograms, DrapiProgramsCompanion, DrapiPrograms$serializer, DrapiPage, DrapiPageCompanion, DrapiPage$serializer, DrapiGenre, DrapiGenreDrama, DrapiGenreDokumentar, DrapiGenreLivsstil, DrapiGenreKultur, DrapiGenreNaturViden, DrapiGenreNyhederAktualitet, DrapiGenreSport, DrapiGenreUnderholdning, DrapiGenreCompanion, DrapiDrMuRepository, DrapiHttpClientFactory, DrapiKtor_client_coreHttpClient, DrapiDrMuRepositoryCallback, DrapiKotlinUnit, DrapiKotlinx_serialization_runtime_nativeEnumDescriptor, DrapiKotlinx_serialization_runtime_nativeSerialKind, DrapiKotlinNothing, DrapiKotlinx_serialization_runtime_nativeUpdateMode, DrapiKtor_client_coreHttpClientConfig, DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher, DrapiKtor_client_coreHttpClientEngineConfig, DrapiKtor_client_coreHttpReceivePipeline, DrapiKtor_client_coreHttpRequestPipeline, DrapiKtor_client_coreHttpResponsePipeline, DrapiKtor_client_coreHttpSendPipeline, DrapiKotlinThrowable, DrapiKotlinx_coroutines_core_nativeCancellationException, DrapiKotlinx_serialization_runtime_nativeSerialClassDescImpl, DrapiKotlinEnum, DrapiKtor_utilsAttributeKey, DrapiKotlinAbstractCoroutineContextElement, DrapiKtor_client_coreHttpResponseConfig, DrapiKtor_utilsPipeline, DrapiKtor_utilsPipelinePhase, DrapiKotlinIllegalStateException, DrapiKotlinRuntimeException, DrapiKotlinException, DrapiKotlinx_ioCharset, DrapiKotlinx_coroutines_core_nativeAtomicDesc, DrapiKotlinx_ioCharsetDecoder, DrapiKotlinx_ioCharsetEncoder, DrapiKotlinx_coroutines_core_nativeAtomicOp, DrapiKotlinx_coroutines_core_nativeOpDescriptor;
+@class DrapiDate, DrapiDateSerializer, DrapiSearchResult, DrapiProgramCard, DrapiMuPaging, DrapiSearchResultCompanion, DrapiSearchResult$serializer, DrapiKotlinArray, DrapiMuPagingCompanion, DrapiMuPaging$serializer, DrapiSchedule, DrapiMuScheduleBroadcast, DrapiScheduleCompanion, DrapiSchedule$serializer, DrapiChannel, DrapiMuStreamingServer, DrapiChannelCompanion, DrapiChannel$serializer, DrapiMuStreamQuality, DrapiMuStreamingServerCompanion, DrapiMuStreamingServer$serializer, DrapiMuStream, DrapiMuStreamQualityCompanion, DrapiMuStreamQuality$serializer, DrapiMuStreamCompanion, DrapiMuStream$serializer, DrapiMuNowNext, DrapiMuNowNextCompanion, DrapiMuNowNext$serializer, DrapiMuScheduleBroadcastCompanion, DrapiMuScheduleBroadcast$serializer, DrapiPrimaryAsset, DrapiInfo, DrapiProgramCardCompanion, DrapiProgramCard$serializer, DrapiInfoCompanion, DrapiInfo$serializer, DrapiPrimaryAssetCompanion, DrapiPrimaryAsset$serializer, DrapiManifest, DrapiLink, DrapiSubtitle, DrapiManifestCompanion, DrapiManifest$serializer, DrapiLinkCompanion, DrapiLink$serializer, DrapiSubtitleCompanion, DrapiSubtitle$serializer, DrapiMostViewed, DrapiMostViewedCompanion, DrapiMostViewed$serializer, DrapiPrograms, DrapiProgramsCompanion, DrapiPrograms$serializer, DrapiPage, DrapiPageCompanion, DrapiPage$serializer, DrapiGenre, DrapiGenreDrama, DrapiGenreDokumentar, DrapiGenreLivsstil, DrapiGenreKultur, DrapiGenreNaturViden, DrapiGenreNyhederAktualitet, DrapiGenreSport, DrapiGenreUnderholdning, DrapiGenreCompanion, DrapiDrMuRepository, DrapiHttpClientFactory, DrapiKtor_client_coreHttpClient, DrapiDrMuRepositoryCallback, DrapiKotlinUnit, DrapiKotlinx_serialization_runtime_nativeEnumDescriptor, DrapiKotlinx_serialization_runtime_nativeSerialKind, DrapiKotlinNothing, DrapiKotlinx_serialization_runtime_nativeUpdateMode, DrapiKtor_client_coreHttpClientConfig, DrapiKotlinx_coroutines_coreCoroutineDispatcher, DrapiKtor_client_coreHttpClientEngineConfig, DrapiKtor_client_coreHttpReceivePipeline, DrapiKtor_client_coreHttpRequestPipeline, DrapiKtor_client_coreHttpResponsePipeline, DrapiKtor_client_coreHttpSendPipeline, DrapiKotlinThrowable, DrapiKotlinx_coroutines_coreCancellationException, DrapiKotlinx_serialization_runtime_nativeSerialClassDescImpl, DrapiKotlinEnum, DrapiKtor_utilsAttributeKey, DrapiKotlinAbstractCoroutineContextElement, DrapiKtor_client_coreHttpResponseConfig, DrapiKtor_utilsPipeline, DrapiKtor_utilsPipelinePhase, DrapiKotlinIllegalStateException, DrapiKotlinRuntimeException, DrapiKotlinException, DrapiKotlinx_ioCharset, DrapiKotlinx_coroutines_coreAtomicDesc, DrapiKotlinx_ioCharsetDecoder, DrapiKotlinx_ioCharsetEncoder, DrapiKotlinx_coroutines_coreAtomicOp, DrapiKotlinx_coroutines_coreOpDescriptor;
 
-@protocol DrapiKotlinx_serialization_runtime_nativeKSerializer, DrapiKotlinx_serialization_runtime_nativeSerializationStrategy, DrapiKotlinx_serialization_runtime_nativeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialDescriptor, DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy, DrapiKotlinx_serialization_runtime_nativeDecoder, DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer, DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinCoroutineContext, DrapiKotlinx_coroutines_core_nativeJob, DrapiKotlinx_serialization_runtime_nativeCompositeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialContext, DrapiKotlinAnnotation, DrapiKotlinx_serialization_runtime_nativeCompositeDecoder, DrapiKotlinIterator, DrapiKotlinx_ioCloseable, DrapiKtor_client_coreHttpClientEngine, DrapiKtor_utilsAttributes, DrapiKotlinCoroutineContextElement, DrapiKotlinCoroutineContextKey, DrapiKotlinx_coroutines_core_nativeChildHandle, DrapiKotlinx_coroutines_core_nativeChildJob, DrapiKotlinx_coroutines_core_nativeDisposableHandle, DrapiKotlinSequence, DrapiKotlinx_coroutines_core_nativeSelectClause0, DrapiKotlinKClass, DrapiKotlinComparable, DrapiKtor_client_coreHttpClientFeature, DrapiKotlinContinuationInterceptor, DrapiKotlinContinuation, DrapiKotlinx_coroutines_core_nativeRunnable, DrapiKotlinSuspendFunction2, DrapiKotlinx_coroutines_core_nativeParentJob, DrapiKotlinx_coroutines_core_nativeSelectInstance, DrapiKotlinSuspendFunction0, DrapiKotlinKDeclarationContainer, DrapiKotlinKAnnotatedElement, DrapiKotlinKClassifier, DrapiKotlinSuspendFunction;
+@protocol DrapiKotlinx_serialization_runtime_nativeKSerializer, DrapiKotlinx_serialization_runtime_nativeSerializationStrategy, DrapiKotlinx_serialization_runtime_nativeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialDescriptor, DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy, DrapiKotlinx_serialization_runtime_nativeDecoder, DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer, DrapiKotlinx_coroutines_coreCoroutineScope, DrapiKotlinCoroutineContext, DrapiKotlinx_coroutines_coreJob, DrapiKotlinx_serialization_runtime_nativeCompositeEncoder, DrapiKotlinx_serialization_runtime_nativeSerialModule, DrapiKotlinAnnotation, DrapiKotlinx_serialization_runtime_nativeCompositeDecoder, DrapiKotlinIterator, DrapiKotlinx_ioCloseable, DrapiKtor_client_coreHttpClientEngine, DrapiKtor_utilsAttributes, DrapiKotlinCoroutineContextElement, DrapiKotlinCoroutineContextKey, DrapiKotlinx_coroutines_coreChildHandle, DrapiKotlinx_coroutines_coreChildJob, DrapiKotlinx_coroutines_coreDisposableHandle, DrapiKotlinSequence, DrapiKotlinx_coroutines_coreSelectClause0, DrapiKotlinx_serialization_runtime_nativeSerialModuleCollector, DrapiKotlinKClass, DrapiKotlinComparable, DrapiKtor_client_coreHttpClientFeature, DrapiKotlinContinuationInterceptor, DrapiKotlinContinuation, DrapiKotlinx_coroutines_coreRunnable, DrapiKotlinSuspendFunction2, DrapiKotlinx_coroutines_coreParentJob, DrapiKotlinx_coroutines_coreSelectInstance, DrapiKotlinSuspendFunction0, DrapiKotlinKDeclarationContainer, DrapiKotlinKAnnotatedElement, DrapiKotlinKClassifier, DrapiKotlinSuspendFunction;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -146,14 +146,14 @@ __attribute__((swift_name("Date")))
 @interface DrapiDate : KotlinBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-@property int64_t time;
+@property int64_t time __attribute__((swift_name("time")));
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeSerializationStrategy")))
 @protocol DrapiKotlinx_serialization_runtime_nativeSerializationStrategy
 @required
 - (void)serializeEncoder:(id<DrapiKotlinx_serialization_runtime_nativeEncoder>)encoder obj:(id _Nullable)obj __attribute__((swift_name("serialize(encoder:obj:)")));
-@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor> descriptor;
+@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor> descriptor __attribute__((swift_name("descriptor")));
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeDeserializationStrategy")))
@@ -161,7 +161,7 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeDeserializationSt
 @required
 - (id _Nullable)deserializeDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder __attribute__((swift_name("deserialize(decoder:)")));
 - (id _Nullable)patchDecoder:(id<DrapiKotlinx_serialization_runtime_nativeDecoder>)decoder old:(id _Nullable)old __attribute__((swift_name("patch(decoder:old:)")));
-@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor> descriptor;
+@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor> descriptor __attribute__((swift_name("descriptor")));
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeKSerializer")))
@@ -197,18 +197,18 @@ __attribute__((swift_name("SearchResult")))
 - (NSString *)component11 __attribute__((swift_name("component11()")));
 - (NSString *)component12 __attribute__((swift_name("component12()")));
 - (DrapiSearchResult *)doCopyTitle:(NSString *)Title Subtitle:(NSString *)Subtitle Description:(NSString *)Description IsRepremiere:(BOOL)IsRepremiere BundleType:(NSString *)BundleType ThemeType:(NSString *)ThemeType Slug:(NSString *)Slug Items:(NSArray<DrapiProgramCard *> *)Items Paging:(DrapiMuPaging *)Paging TotalSize:(int32_t)TotalSize BackgroundImageUri:(NSString *)BackgroundImageUri SiteUrl:(NSString *)SiteUrl __attribute__((swift_name("doCopy(Title:Subtitle:Description:IsRepremiere:BundleType:ThemeType:Slug:Items:Paging:TotalSize:BackgroundImageUri:SiteUrl:)")));
-@property (readonly) NSString *Title;
-@property (readonly) NSString *Subtitle;
-@property (readonly) NSString *Description;
-@property (readonly) BOOL IsRepremiere;
-@property (readonly) NSString *BundleType;
-@property (readonly) NSString *ThemeType;
-@property (readonly) NSString *Slug;
-@property (readonly) NSArray<DrapiProgramCard *> *Items;
-@property (readonly) DrapiMuPaging *Paging;
-@property (readonly) int32_t TotalSize;
-@property (readonly) NSString *BackgroundImageUri;
-@property (readonly) NSString *SiteUrl;
+@property (readonly) NSString *Title __attribute__((swift_name("Title")));
+@property (readonly) NSString *Subtitle __attribute__((swift_name("Subtitle")));
+@property (readonly) NSString *Description __attribute__((swift_name("Description")));
+@property (readonly) BOOL IsRepremiere __attribute__((swift_name("IsRepremiere")));
+@property (readonly) NSString *BundleType __attribute__((swift_name("BundleType")));
+@property (readonly) NSString *ThemeType __attribute__((swift_name("ThemeType")));
+@property (readonly) NSString *Slug __attribute__((swift_name("Slug")));
+@property (readonly) NSArray<DrapiProgramCard *> *Items __attribute__((swift_name("Items")));
+@property (readonly) DrapiMuPaging *Paging __attribute__((swift_name("Paging")));
+@property (readonly) int32_t TotalSize __attribute__((swift_name("TotalSize")));
+@property (readonly) NSString *BackgroundImageUri __attribute__((swift_name("BackgroundImageUri")));
+@property (readonly) NSString *SiteUrl __attribute__((swift_name("SiteUrl")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -247,11 +247,11 @@ __attribute__((swift_name("MuPaging")))
 - (NSString *)component4 __attribute__((swift_name("component4()")));
 - (int32_t)component5 __attribute__((swift_name("component5()")));
 - (DrapiMuPaging *)doCopyTitle:(NSString *)Title Source:(NSString *)Source Next:(NSString *)Next Previous:(NSString *)Previous TotalSize:(int32_t)TotalSize __attribute__((swift_name("doCopy(Title:Source:Next:Previous:TotalSize:)")));
-@property (readonly) NSString *Title;
-@property (readonly) NSString *Source;
-@property (readonly) NSString *Next;
-@property (readonly) NSString *Previous;
-@property (readonly) int32_t TotalSize;
+@property (readonly) NSString *Title __attribute__((swift_name("Title")));
+@property (readonly) NSString *Source __attribute__((swift_name("Source")));
+@property (readonly) NSString *Next __attribute__((swift_name("Next")));
+@property (readonly) NSString *Previous __attribute__((swift_name("Previous")));
+@property (readonly) int32_t TotalSize __attribute__((swift_name("TotalSize")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -283,10 +283,10 @@ __attribute__((swift_name("Schedule")))
 - (NSString *)component3 __attribute__((swift_name("component3()")));
 - (NSString *)component4 __attribute__((swift_name("component4()")));
 - (DrapiSchedule *)doCopyBroadcasts:(NSArray<DrapiMuScheduleBroadcast *> *)Broadcasts BroadcastDate:(DrapiDate *)BroadcastDate ChannelSlug:(NSString *)ChannelSlug Channel:(NSString *)Channel __attribute__((swift_name("doCopy(Broadcasts:BroadcastDate:ChannelSlug:Channel:)")));
-@property (readonly) NSArray<DrapiMuScheduleBroadcast *> *Broadcasts;
-@property (readonly) DrapiDate *BroadcastDate;
-@property (readonly) NSString *ChannelSlug;
-@property (readonly) NSString *Channel;
+@property (readonly) NSArray<DrapiMuScheduleBroadcast *> *Broadcasts __attribute__((swift_name("Broadcasts")));
+@property (readonly) DrapiDate *BroadcastDate __attribute__((swift_name("BroadcastDate")));
+@property (readonly) NSString *ChannelSlug __attribute__((swift_name("ChannelSlug")));
+@property (readonly) NSString *Channel __attribute__((swift_name("Channel")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -328,19 +328,19 @@ __attribute__((swift_name("Channel")))
 - (NSString *)component12 __attribute__((swift_name("component12()")));
 - (NSString *)component13 __attribute__((swift_name("component13()")));
 - (DrapiChannel *)doCopyType:(NSString *)Type StreamingServers:(NSArray<DrapiMuStreamingServer *> *)StreamingServers Url:(NSString *)Url SourceUrl:(NSString *)SourceUrl WebChannel:(BOOL)WebChannel Slug:(NSString *)Slug Urn:(NSString *)Urn PrimaryImageUri:(NSString *)PrimaryImageUri PresentationUri:(NSString *)PresentationUri PresentationUriAutoplay:(NSString *)PresentationUriAutoplay Title:(NSString *)Title ItemLabel:(NSString *)ItemLabel Subtitle:(NSString *)Subtitle __attribute__((swift_name("doCopy(Type:StreamingServers:Url:SourceUrl:WebChannel:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:ItemLabel:Subtitle:)")));
-@property (readonly) NSString *Type;
-@property (readonly) NSArray<DrapiMuStreamingServer *> *StreamingServers;
-@property (readonly) NSString *Url;
-@property (readonly) NSString *SourceUrl;
-@property (readonly) BOOL WebChannel;
-@property (readonly) NSString *Slug;
-@property (readonly) NSString *Urn;
-@property (readonly) NSString *PrimaryImageUri;
-@property (readonly) NSString *PresentationUri;
-@property (readonly) NSString *PresentationUriAutoplay;
-@property (readonly) NSString *Title;
-@property (readonly) NSString *ItemLabel;
-@property (readonly) NSString *Subtitle;
+@property (readonly) NSString *Type __attribute__((swift_name("Type")));
+@property (readonly) NSArray<DrapiMuStreamingServer *> *StreamingServers __attribute__((swift_name("StreamingServers")));
+@property (readonly) NSString *Url __attribute__((swift_name("Url")));
+@property (readonly) NSString *SourceUrl __attribute__((swift_name("SourceUrl")));
+@property (readonly) BOOL WebChannel __attribute__((swift_name("WebChannel")));
+@property (readonly) NSString *Slug __attribute__((swift_name("Slug")));
+@property (readonly) NSString *Urn __attribute__((swift_name("Urn")));
+@property (readonly) NSString *PrimaryImageUri __attribute__((swift_name("PrimaryImageUri")));
+@property (readonly) NSString *PresentationUri __attribute__((swift_name("PresentationUri")));
+@property (readonly) NSString *PresentationUriAutoplay __attribute__((swift_name("PresentationUriAutoplay")));
+@property (readonly) NSString *Title __attribute__((swift_name("Title")));
+@property (readonly) NSString *ItemLabel __attribute__((swift_name("ItemLabel")));
+@property (readonly) NSString *Subtitle __attribute__((swift_name("Subtitle")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -373,11 +373,11 @@ __attribute__((swift_name("MuStreamingServer")))
 - (BOOL)component4 __attribute__((swift_name("component4()")));
 - (NSString *)component5 __attribute__((swift_name("component5()")));
 - (DrapiMuStreamingServer *)doCopyServer:(NSString *)Server LinkType:(NSString *)LinkType Qualities:(NSArray<DrapiMuStreamQuality *> *)Qualities DynamicUserQualityChange:(BOOL)DynamicUserQualityChange EncryptedServer:(NSString *)EncryptedServer __attribute__((swift_name("doCopy(Server:LinkType:Qualities:DynamicUserQualityChange:EncryptedServer:)")));
-@property (readonly) NSString *Server;
-@property (readonly) NSString *LinkType;
-@property (readonly) NSArray<DrapiMuStreamQuality *> *Qualities;
-@property (readonly) BOOL DynamicUserQualityChange;
-@property (readonly) NSString *EncryptedServer;
+@property (readonly) NSString *Server __attribute__((swift_name("Server")));
+@property (readonly) NSString *LinkType __attribute__((swift_name("LinkType")));
+@property (readonly) NSArray<DrapiMuStreamQuality *> *Qualities __attribute__((swift_name("Qualities")));
+@property (readonly) BOOL DynamicUserQualityChange __attribute__((swift_name("DynamicUserQualityChange")));
+@property (readonly) NSString *EncryptedServer __attribute__((swift_name("EncryptedServer")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -407,8 +407,8 @@ __attribute__((swift_name("MuStreamQuality")))
 - (int32_t)component1 __attribute__((swift_name("component1()")));
 - (NSArray<DrapiMuStream *> *)component2 __attribute__((swift_name("component2()")));
 - (DrapiMuStreamQuality *)doCopyKbps:(int32_t)Kbps Streams:(NSArray<DrapiMuStream *> *)Streams __attribute__((swift_name("doCopy(Kbps:Streams:)")));
-@property (readonly) int32_t Kbps;
-@property (readonly) NSArray<DrapiMuStream *> *Streams;
+@property (readonly) int32_t Kbps __attribute__((swift_name("Kbps")));
+@property (readonly) NSArray<DrapiMuStream *> *Streams __attribute__((swift_name("Streams")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -438,8 +438,8 @@ __attribute__((swift_name("MuStream")))
 - (NSString *)component1 __attribute__((swift_name("component1()")));
 - (NSString *)component2 __attribute__((swift_name("component2()")));
 - (DrapiMuStream *)doCopyStream:(NSString *)Stream EncryptedStream:(NSString *)EncryptedStream __attribute__((swift_name("doCopy(Stream:EncryptedStream:)")));
-@property (readonly) NSString *Stream;
-@property (readonly) NSString *EncryptedStream;
+@property (readonly) NSString *Stream __attribute__((swift_name("Stream")));
+@property (readonly) NSString *EncryptedStream __attribute__((swift_name("EncryptedStream")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -471,10 +471,10 @@ __attribute__((swift_name("MuNowNext")))
 - (DrapiMuScheduleBroadcast * _Nullable)component3 __attribute__((swift_name("component3()")));
 - (NSArray<DrapiMuScheduleBroadcast *> *)component4 __attribute__((swift_name("component4()")));
 - (DrapiMuNowNext *)doCopyChannelSlug:(NSString *)ChannelSlug Channel:(NSString *)Channel Now:(DrapiMuScheduleBroadcast * _Nullable)Now Next:(NSArray<DrapiMuScheduleBroadcast *> *)Next __attribute__((swift_name("doCopy(ChannelSlug:Channel:Now:Next:)")));
-@property (readonly) NSString *ChannelSlug;
-@property (readonly) NSString *Channel;
-@property (readonly) DrapiMuScheduleBroadcast * _Nullable Now;
-@property (readonly) NSArray<DrapiMuScheduleBroadcast *> *Next;
+@property (readonly) NSString *ChannelSlug __attribute__((swift_name("ChannelSlug")));
+@property (readonly) NSString *Channel __attribute__((swift_name("Channel")));
+@property (readonly) DrapiMuScheduleBroadcast * _Nullable Now __attribute__((swift_name("Now")));
+@property (readonly) NSArray<DrapiMuScheduleBroadcast *> *Next __attribute__((swift_name("Next")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -522,25 +522,25 @@ __attribute__((swift_name("MuScheduleBroadcast")))
 - (NSString *)component18 __attribute__((swift_name("component18()")));
 - (BOOL)component19 __attribute__((swift_name("component19()")));
 - (DrapiMuScheduleBroadcast *)doCopyTitle:(NSString *)Title Description:(NSString *)Description Subtitle:(NSString *)Subtitle StartTime:(DrapiDate *)StartTime EndTime:(DrapiDate *)EndTime ProgramCard:(DrapiProgramCard *)ProgramCard OnlineGenreText:(NSString * _Nullable)OnlineGenreText ProductionNumber:(NSString *)ProductionNumber ProgramCardHasPrimaryAsset:(BOOL)ProgramCardHasPrimaryAsset SeriesHasProgramCardWithPrimaryAsset:(BOOL)SeriesHasProgramCardWithPrimaryAsset AnnouncedStartTime:(DrapiDate *)AnnouncedStartTime AnnouncedEndTime:(DrapiDate *)AnnouncedEndTime ProductionCountry:(NSString *)ProductionCountry ProductionYear:(int32_t)ProductionYear VideoWidescreen:(BOOL)VideoWidescreen SubtitlesTTV:(BOOL)SubtitlesTTV VideoHD:(BOOL)VideoHD WhatsOnUri:(NSString *)WhatsOnUri IsRerun:(BOOL)IsRerun __attribute__((swift_name("doCopy(Title:Description:Subtitle:StartTime:EndTime:ProgramCard:OnlineGenreText:ProductionNumber:ProgramCardHasPrimaryAsset:SeriesHasProgramCardWithPrimaryAsset:AnnouncedStartTime:AnnouncedEndTime:ProductionCountry:ProductionYear:VideoWidescreen:SubtitlesTTV:VideoHD:WhatsOnUri:IsRerun:)")));
-@property (readonly) NSString *Title;
-@property (readonly) NSString *Description;
-@property (readonly) NSString *Subtitle;
-@property (readonly) DrapiDate *StartTime;
-@property (readonly) DrapiDate *EndTime;
-@property (readonly) DrapiProgramCard *ProgramCard;
-@property (readonly) NSString * _Nullable OnlineGenreText;
-@property (readonly) NSString *ProductionNumber;
-@property (readonly) BOOL ProgramCardHasPrimaryAsset;
-@property (readonly) BOOL SeriesHasProgramCardWithPrimaryAsset;
-@property (readonly) DrapiDate *AnnouncedStartTime;
-@property (readonly) DrapiDate *AnnouncedEndTime;
-@property (readonly) NSString *ProductionCountry;
-@property (readonly) int32_t ProductionYear;
-@property (readonly) BOOL VideoWidescreen;
-@property (readonly) BOOL SubtitlesTTV;
-@property (readonly) BOOL VideoHD;
-@property (readonly) NSString *WhatsOnUri;
-@property (readonly) BOOL IsRerun;
+@property (readonly) NSString *Title __attribute__((swift_name("Title")));
+@property (readonly) NSString *Description __attribute__((swift_name("Description")));
+@property (readonly) NSString *Subtitle __attribute__((swift_name("Subtitle")));
+@property (readonly) DrapiDate *StartTime __attribute__((swift_name("StartTime")));
+@property (readonly) DrapiDate *EndTime __attribute__((swift_name("EndTime")));
+@property (readonly) DrapiProgramCard *ProgramCard __attribute__((swift_name("ProgramCard")));
+@property (readonly) NSString * _Nullable OnlineGenreText __attribute__((swift_name("OnlineGenreText")));
+@property (readonly) NSString *ProductionNumber __attribute__((swift_name("ProductionNumber")));
+@property (readonly) BOOL ProgramCardHasPrimaryAsset __attribute__((swift_name("ProgramCardHasPrimaryAsset")));
+@property (readonly) BOOL SeriesHasProgramCardWithPrimaryAsset __attribute__((swift_name("SeriesHasProgramCardWithPrimaryAsset")));
+@property (readonly) DrapiDate *AnnouncedStartTime __attribute__((swift_name("AnnouncedStartTime")));
+@property (readonly) DrapiDate *AnnouncedEndTime __attribute__((swift_name("AnnouncedEndTime")));
+@property (readonly) NSString *ProductionCountry __attribute__((swift_name("ProductionCountry")));
+@property (readonly) int32_t ProductionYear __attribute__((swift_name("ProductionYear")));
+@property (readonly) BOOL VideoWidescreen __attribute__((swift_name("VideoWidescreen")));
+@property (readonly) BOOL SubtitlesTTV __attribute__((swift_name("SubtitlesTTV")));
+@property (readonly) BOOL VideoHD __attribute__((swift_name("VideoHD")));
+@property (readonly) NSString *WhatsOnUri __attribute__((swift_name("WhatsOnUri")));
+@property (readonly) BOOL IsRerun __attribute__((swift_name("IsRerun")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -603,41 +603,41 @@ __attribute__((swift_name("ProgramCard")))
 - (BOOL)component34 __attribute__((swift_name("component34()")));
 - (NSString *)component35 __attribute__((swift_name("component35()")));
 - (DrapiProgramCard *)doCopyType:(NSString *)Type SeriesTitle:(NSString *)SeriesTitle EpisodeTitle:(NSString *)EpisodeTitle SeriesSlug:(NSString *)SeriesSlug SeriesUrn:(NSString *)SeriesUrn HostName:(NSString *)HostName SeriesHostName:(NSString *)SeriesHostName PrimaryChannel:(NSString *)PrimaryChannel PrimaryChannelSlug:(NSString *)PrimaryChannelSlug SeasonEpisodeNumberingValid:(BOOL)SeasonEpisodeNumberingValid SeasonTitle:(NSString * _Nullable)SeasonTitle SeasonSlug:(NSString * _Nullable)SeasonSlug SeasonUrn:(NSString * _Nullable)SeasonUrn SeasonNumber:(int32_t)SeasonNumber PrePremiere:(BOOL)PrePremiere ExpiresSoon:(BOOL)ExpiresSoon OnlineGenreText:(NSString *)OnlineGenreText PrimaryAsset:(DrapiPrimaryAsset * _Nullable)PrimaryAsset HasPublicPrimaryAsset:(BOOL)HasPublicPrimaryAsset AssetTargetTypes:(NSString *)AssetTargetTypes PrimaryBroadcastStartTime:(DrapiDate * _Nullable)PrimaryBroadcastStartTime SortDateTime:(DrapiDate *)SortDateTime OnDemandInfo:(DrapiInfo * _Nullable)OnDemandInfo Slug:(NSString *)Slug Urn:(NSString *)Urn PrimaryImageUri:(NSString *)PrimaryImageUri PresentationUri:(NSString *)PresentationUri PresentationUriAutoplay:(NSString *)PresentationUriAutoplay Title:(NSString *)Title Subtitle:(NSString *)Subtitle IsNewSeries:(BOOL)IsNewSeries OriginalTitle:(NSString *)OriginalTitle RectificationStatus:(NSString *)RectificationStatus RectificationAuto:(BOOL)RectificationAuto RectificationText:(NSString *)RectificationText __attribute__((swift_name("doCopy(Type:SeriesTitle:EpisodeTitle:SeriesSlug:SeriesUrn:HostName:SeriesHostName:PrimaryChannel:PrimaryChannelSlug:SeasonEpisodeNumberingValid:SeasonTitle:SeasonSlug:SeasonUrn:SeasonNumber:PrePremiere:ExpiresSoon:OnlineGenreText:PrimaryAsset:HasPublicPrimaryAsset:AssetTargetTypes:PrimaryBroadcastStartTime:SortDateTime:OnDemandInfo:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:Subtitle:IsNewSeries:OriginalTitle:RectificationStatus:RectificationAuto:RectificationText:)")));
-@property (readonly) NSString *Type;
-@property (readonly) NSString *SeriesTitle;
-@property (readonly) NSString *EpisodeTitle;
-@property (readonly) NSString *SeriesSlug;
-@property (readonly) NSString *SeriesUrn;
-@property (readonly) NSString *HostName;
-@property (readonly) NSString *SeriesHostName;
-@property (readonly) NSString *PrimaryChannel;
-@property (readonly) NSString *PrimaryChannelSlug;
-@property (readonly) BOOL SeasonEpisodeNumberingValid;
-@property (readonly) NSString * _Nullable SeasonTitle;
-@property (readonly) NSString * _Nullable SeasonSlug;
-@property (readonly) NSString * _Nullable SeasonUrn;
-@property (readonly) int32_t SeasonNumber;
-@property (readonly) BOOL PrePremiere;
-@property (readonly) BOOL ExpiresSoon;
-@property (readonly) NSString *OnlineGenreText;
-@property (readonly) DrapiPrimaryAsset * _Nullable PrimaryAsset;
-@property (readonly) BOOL HasPublicPrimaryAsset;
-@property (readonly) NSString *AssetTargetTypes;
-@property (readonly) DrapiDate * _Nullable PrimaryBroadcastStartTime;
-@property (readonly) DrapiDate *SortDateTime;
-@property (readonly) DrapiInfo * _Nullable OnDemandInfo;
-@property (readonly) NSString *Slug;
-@property (readonly) NSString *Urn;
-@property (readonly) NSString *PrimaryImageUri;
-@property (readonly) NSString *PresentationUri;
-@property (readonly) NSString *PresentationUriAutoplay;
-@property (readonly) NSString *Title;
-@property (readonly) NSString *Subtitle;
-@property (readonly) BOOL IsNewSeries;
-@property (readonly) NSString *OriginalTitle;
-@property (readonly) NSString *RectificationStatus;
-@property (readonly) BOOL RectificationAuto;
-@property (readonly) NSString *RectificationText;
+@property (readonly) NSString *Type __attribute__((swift_name("Type")));
+@property (readonly) NSString *SeriesTitle __attribute__((swift_name("SeriesTitle")));
+@property (readonly) NSString *EpisodeTitle __attribute__((swift_name("EpisodeTitle")));
+@property (readonly) NSString *SeriesSlug __attribute__((swift_name("SeriesSlug")));
+@property (readonly) NSString *SeriesUrn __attribute__((swift_name("SeriesUrn")));
+@property (readonly) NSString *HostName __attribute__((swift_name("HostName")));
+@property (readonly) NSString *SeriesHostName __attribute__((swift_name("SeriesHostName")));
+@property (readonly) NSString *PrimaryChannel __attribute__((swift_name("PrimaryChannel")));
+@property (readonly) NSString *PrimaryChannelSlug __attribute__((swift_name("PrimaryChannelSlug")));
+@property (readonly) BOOL SeasonEpisodeNumberingValid __attribute__((swift_name("SeasonEpisodeNumberingValid")));
+@property (readonly) NSString * _Nullable SeasonTitle __attribute__((swift_name("SeasonTitle")));
+@property (readonly) NSString * _Nullable SeasonSlug __attribute__((swift_name("SeasonSlug")));
+@property (readonly) NSString * _Nullable SeasonUrn __attribute__((swift_name("SeasonUrn")));
+@property (readonly) int32_t SeasonNumber __attribute__((swift_name("SeasonNumber")));
+@property (readonly) BOOL PrePremiere __attribute__((swift_name("PrePremiere")));
+@property (readonly) BOOL ExpiresSoon __attribute__((swift_name("ExpiresSoon")));
+@property (readonly) NSString *OnlineGenreText __attribute__((swift_name("OnlineGenreText")));
+@property (readonly) DrapiPrimaryAsset * _Nullable PrimaryAsset __attribute__((swift_name("PrimaryAsset")));
+@property (readonly) BOOL HasPublicPrimaryAsset __attribute__((swift_name("HasPublicPrimaryAsset")));
+@property (readonly) NSString *AssetTargetTypes __attribute__((swift_name("AssetTargetTypes")));
+@property (readonly) DrapiDate * _Nullable PrimaryBroadcastStartTime __attribute__((swift_name("PrimaryBroadcastStartTime")));
+@property (readonly) DrapiDate *SortDateTime __attribute__((swift_name("SortDateTime")));
+@property (readonly) DrapiInfo * _Nullable OnDemandInfo __attribute__((swift_name("OnDemandInfo")));
+@property (readonly) NSString *Slug __attribute__((swift_name("Slug")));
+@property (readonly) NSString *Urn __attribute__((swift_name("Urn")));
+@property (readonly) NSString *PrimaryImageUri __attribute__((swift_name("PrimaryImageUri")));
+@property (readonly) NSString *PresentationUri __attribute__((swift_name("PresentationUri")));
+@property (readonly) NSString *PresentationUriAutoplay __attribute__((swift_name("PresentationUriAutoplay")));
+@property (readonly) NSString *Title __attribute__((swift_name("Title")));
+@property (readonly) NSString *Subtitle __attribute__((swift_name("Subtitle")));
+@property (readonly) BOOL IsNewSeries __attribute__((swift_name("IsNewSeries")));
+@property (readonly) NSString *OriginalTitle __attribute__((swift_name("OriginalTitle")));
+@property (readonly) NSString *RectificationStatus __attribute__((swift_name("RectificationStatus")));
+@property (readonly) BOOL RectificationAuto __attribute__((swift_name("RectificationAuto")));
+@property (readonly) NSString *RectificationText __attribute__((swift_name("RectificationText")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -667,8 +667,8 @@ __attribute__((swift_name("Info")))
 - (DrapiDate *)component1 __attribute__((swift_name("component1()")));
 - (DrapiDate *)component2 __attribute__((swift_name("component2()")));
 - (DrapiInfo *)doCopyStartPublish:(DrapiDate *)StartPublish EndPublish:(DrapiDate *)EndPublish __attribute__((swift_name("doCopy(StartPublish:EndPublish:)")));
-@property (readonly) DrapiDate *StartPublish;
-@property (readonly) DrapiDate *EndPublish;
+@property (readonly) DrapiDate *StartPublish __attribute__((swift_name("StartPublish")));
+@property (readonly) DrapiDate *EndPublish __attribute__((swift_name("EndPublish")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -706,16 +706,16 @@ __attribute__((swift_name("PrimaryAsset")))
 - (BOOL)component9 __attribute__((swift_name("component9()")));
 - (BOOL)component10 __attribute__((swift_name("component10()")));
 - (DrapiPrimaryAsset *)doCopyKind:(NSString *)Kind Uri:(NSString *)Uri DurationInMilliseconds:(int64_t)DurationInMilliseconds Downloadable:(BOOL)Downloadable RestrictedToDenmark:(BOOL)RestrictedToDenmark StartPublish:(DrapiDate *)StartPublish EndPublish:(DrapiDate *)EndPublish Target:(NSString *)Target Encrypted:(BOOL)Encrypted IsLiveStream:(BOOL)IsLiveStream __attribute__((swift_name("doCopy(Kind:Uri:DurationInMilliseconds:Downloadable:RestrictedToDenmark:StartPublish:EndPublish:Target:Encrypted:IsLiveStream:)")));
-@property (readonly) NSString *Kind;
-@property (readonly) NSString *Uri;
-@property (readonly) int64_t DurationInMilliseconds;
-@property (readonly) BOOL Downloadable;
-@property (readonly) BOOL RestrictedToDenmark;
-@property (readonly) DrapiDate *StartPublish;
-@property (readonly) DrapiDate *EndPublish;
-@property (readonly) NSString *Target;
-@property (readonly) BOOL Encrypted;
-@property (readonly) BOOL IsLiveStream;
+@property (readonly) NSString *Kind __attribute__((swift_name("Kind")));
+@property (readonly) NSString *Uri __attribute__((swift_name("Uri")));
+@property (readonly) int64_t DurationInMilliseconds __attribute__((swift_name("DurationInMilliseconds")));
+@property (readonly) BOOL Downloadable __attribute__((swift_name("Downloadable")));
+@property (readonly) BOOL RestrictedToDenmark __attribute__((swift_name("RestrictedToDenmark")));
+@property (readonly) DrapiDate *StartPublish __attribute__((swift_name("StartPublish")));
+@property (readonly) DrapiDate *EndPublish __attribute__((swift_name("EndPublish")));
+@property (readonly) NSString *Target __attribute__((swift_name("Target")));
+@property (readonly) BOOL Encrypted __attribute__((swift_name("Encrypted")));
+@property (readonly) BOOL IsLiveStream __attribute__((swift_name("IsLiveStream")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -747,8 +747,8 @@ __attribute__((swift_name("Manifest")))
 - (NSArray<DrapiLink *> *)component1 __attribute__((swift_name("component1()")));
 - (NSArray<DrapiSubtitle *> *)component2 __attribute__((swift_name("component2()")));
 - (DrapiManifest *)doCopyLinks:(NSArray<DrapiLink *> *)Links SubtitlesList:(NSArray<DrapiSubtitle *> *)SubtitlesList __attribute__((swift_name("doCopy(Links:SubtitlesList:)")));
-@property (readonly) NSArray<DrapiLink *> *Links;
-@property (readonly) NSArray<DrapiSubtitle *> *SubtitlesList;
+@property (readonly) NSArray<DrapiLink *> *Links __attribute__((swift_name("Links")));
+@property (readonly) NSArray<DrapiSubtitle *> *SubtitlesList __attribute__((swift_name("SubtitlesList")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -782,12 +782,12 @@ __attribute__((swift_name("Link")))
 - (NSString *)component5 __attribute__((swift_name("component5()")));
 - (int32_t)component6 __attribute__((swift_name("component6()")));
 - (DrapiLink *)doCopyHardSubtitlesType:(NSString *)HardSubtitlesType Uri:(NSString * _Nullable)Uri EncryptedUri:(NSString *)EncryptedUri FileFormat:(NSString *)FileFormat Target:(NSString *)Target Bitrate:(int32_t)Bitrate __attribute__((swift_name("doCopy(HardSubtitlesType:Uri:EncryptedUri:FileFormat:Target:Bitrate:)")));
-@property (readonly) NSString *HardSubtitlesType;
-@property (readonly) NSString * _Nullable Uri;
-@property (readonly) NSString *EncryptedUri;
-@property (readonly) NSString *FileFormat;
-@property (readonly) NSString *Target;
-@property (readonly) int32_t Bitrate;
+@property (readonly) NSString *HardSubtitlesType __attribute__((swift_name("HardSubtitlesType")));
+@property (readonly) NSString * _Nullable Uri __attribute__((swift_name("Uri")));
+@property (readonly) NSString *EncryptedUri __attribute__((swift_name("EncryptedUri")));
+@property (readonly) NSString *FileFormat __attribute__((swift_name("FileFormat")));
+@property (readonly) NSString *Target __attribute__((swift_name("Target")));
+@property (readonly) int32_t Bitrate __attribute__((swift_name("Bitrate")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -819,10 +819,10 @@ __attribute__((swift_name("Subtitle")))
 - (NSString *)component3 __attribute__((swift_name("component3()")));
 - (NSString *)component4 __attribute__((swift_name("component4()")));
 - (DrapiSubtitle *)doCopyLanguage:(NSString *)Language MimeType:(NSString *)MimeType Type:(NSString *)Type Uri:(NSString *)Uri __attribute__((swift_name("doCopy(Language:MimeType:Type:Uri:)")));
-@property (readonly) NSString *Language;
-@property (readonly) NSString *MimeType;
-@property (readonly) NSString *Type;
-@property (readonly) NSString *Uri;
+@property (readonly) NSString *Language __attribute__((swift_name("Language")));
+@property (readonly) NSString *MimeType __attribute__((swift_name("MimeType")));
+@property (readonly) NSString *Type __attribute__((swift_name("Type")));
+@property (readonly) NSString *Uri __attribute__((swift_name("Uri")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -853,9 +853,9 @@ __attribute__((swift_name("MostViewed")))
 - (DrapiMuPaging *)component2 __attribute__((swift_name("component2()")));
 - (int32_t)component3 __attribute__((swift_name("component3()")));
 - (DrapiMostViewed *)doCopyItems:(NSArray<DrapiProgramCard *> *)Items Paging:(DrapiMuPaging *)Paging TotalSize:(int32_t)TotalSize __attribute__((swift_name("doCopy(Items:Paging:TotalSize:)")));
-@property (readonly) NSArray<DrapiProgramCard *> *Items;
-@property (readonly) DrapiMuPaging *Paging;
-@property (readonly) int32_t TotalSize;
+@property (readonly) NSArray<DrapiProgramCard *> *Items __attribute__((swift_name("Items")));
+@property (readonly) DrapiMuPaging *Paging __attribute__((swift_name("Paging")));
+@property (readonly) int32_t TotalSize __attribute__((swift_name("TotalSize")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -886,9 +886,9 @@ __attribute__((swift_name("Programs")))
 - (DrapiMuPaging *)component2 __attribute__((swift_name("component2()")));
 - (int32_t)component3 __attribute__((swift_name("component3()")));
 - (DrapiPrograms *)doCopyItems:(NSArray<DrapiProgramCard *> *)Items Paging:(DrapiMuPaging *)Paging TotalSize:(int32_t)TotalSize __attribute__((swift_name("doCopy(Items:Paging:TotalSize:)")));
-@property (readonly) NSArray<DrapiProgramCard *> *Items;
-@property (readonly) DrapiMuPaging *Paging;
-@property (readonly) int32_t TotalSize;
+@property (readonly) NSArray<DrapiProgramCard *> *Items __attribute__((swift_name("Items")));
+@property (readonly) DrapiMuPaging *Paging __attribute__((swift_name("Paging")));
+@property (readonly) int32_t TotalSize __attribute__((swift_name("TotalSize")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -917,7 +917,7 @@ __attribute__((swift_name("Page")))
 - (instancetype)initWithPrograms:(DrapiPrograms *)Programs __attribute__((swift_name("init(Programs:)"))) __attribute__((objc_designated_initializer));
 - (DrapiPrograms *)component1 __attribute__((swift_name("component1()")));
 - (DrapiPage *)doCopyPrograms:(DrapiPrograms *)Programs __attribute__((swift_name("doCopy(Programs:)")));
-@property (readonly) DrapiPrograms *Programs;
+@property (readonly) DrapiPrograms *Programs __attribute__((swift_name("Programs")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1034,37 +1034,37 @@ __attribute__((swift_name("HttpClientFactory")))
 - (DrapiKtor_client_coreHttpClient *)createCacheDir:(NSString * _Nullable)cacheDir sizeBytes:(int64_t)sizeBytes __attribute__((swift_name("create(cacheDir:sizeBytes:)")));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeCoroutineScope")))
-@protocol DrapiKotlinx_coroutines_core_nativeCoroutineScope
+__attribute__((swift_name("Kotlinx_coroutines_coreCoroutineScope")))
+@protocol DrapiKotlinx_coroutines_coreCoroutineScope
 @required
-@property (readonly) id<DrapiKotlinCoroutineContext> coroutineContext;
+@property (readonly) id<DrapiKotlinCoroutineContext> coroutineContext __attribute__((swift_name("coroutineContext")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("DrMuRepositoryCallback")))
-@interface DrapiDrMuRepositoryCallback : DrapiDrMuRepository <DrapiKotlinx_coroutines_core_nativeCoroutineScope>
+@interface DrapiDrMuRepositoryCallback : DrapiDrMuRepository <DrapiKotlinx_coroutines_coreCoroutineScope>
 - (instancetype)initWithCoroutineContext:(id<DrapiKotlinCoroutineContext>)coroutineContext __attribute__((swift_name("init(coroutineContext:)"))) __attribute__((objc_designated_initializer));
 - (instancetype)initWithCacheDir:(NSString * _Nullable)cacheDir sizeBytes:(int64_t)sizeBytes __attribute__((swift_name("init(cacheDir:sizeBytes:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-- (id<DrapiKotlinx_coroutines_core_nativeJob>)getAllActiveDrTvChannelsCallback:(DrapiKotlinUnit *(^)(NSArray<DrapiChannel *> *))callback __attribute__((swift_name("getAllActiveDrTvChannels(callback:)")));
-- (id<DrapiKotlinx_coroutines_core_nativeJob>)getManifestUri:(NSString *)uri callback:(DrapiKotlinUnit *(^)(DrapiManifest *))callback __attribute__((swift_name("getManifest(uri:callback:)")));
-- (id<DrapiKotlinx_coroutines_core_nativeJob>)getScheduleId:(NSString *)id date:(NSString *)date callback:(DrapiKotlinUnit *(^)(DrapiSchedule *))callback __attribute__((swift_name("getSchedule(id:date:callback:)")));
-- (id<DrapiKotlinx_coroutines_core_nativeJob>)getScheduleNowNextId:(NSString *)id callback:(DrapiKotlinUnit *(^)(DrapiMuNowNext *))callback __attribute__((swift_name("getScheduleNowNext(id:callback:)")));
-- (id<DrapiKotlinx_coroutines_core_nativeJob>)getScheduleNowNextCallback:(DrapiKotlinUnit *(^)(NSArray<DrapiMuNowNext *> *))callback __attribute__((swift_name("getScheduleNowNext(callback:)")));
-- (id<DrapiKotlinx_coroutines_core_nativeJob>)searchQuery:(NSString *)query callback:(DrapiKotlinUnit *(^)(DrapiSearchResult *))callback __attribute__((swift_name("search(query:callback:)")));
-- (id<DrapiKotlinx_coroutines_core_nativeJob>)getMostViewedChannel:(NSString *)channel channelType:(NSString *)channelType limit:(int32_t)limit callback:(DrapiKotlinUnit *(^)(DrapiMostViewed *))callback __attribute__((swift_name("getMostViewed(channel:channelType:limit:callback:)")));
+- (id<DrapiKotlinx_coroutines_coreJob>)getAllActiveDrTvChannelsCallback:(DrapiKotlinUnit *(^)(NSArray<DrapiChannel *> *))callback __attribute__((swift_name("getAllActiveDrTvChannels(callback:)")));
+- (id<DrapiKotlinx_coroutines_coreJob>)getManifestUri:(NSString *)uri callback:(DrapiKotlinUnit *(^)(DrapiManifest *))callback __attribute__((swift_name("getManifest(uri:callback:)")));
+- (id<DrapiKotlinx_coroutines_coreJob>)getScheduleId:(NSString *)id date:(NSString *)date callback:(DrapiKotlinUnit *(^)(DrapiSchedule *))callback __attribute__((swift_name("getSchedule(id:date:callback:)")));
+- (id<DrapiKotlinx_coroutines_coreJob>)getScheduleNowNextId:(NSString *)id callback:(DrapiKotlinUnit *(^)(DrapiMuNowNext *))callback __attribute__((swift_name("getScheduleNowNext(id:callback:)")));
+- (id<DrapiKotlinx_coroutines_coreJob>)getScheduleNowNextCallback:(DrapiKotlinUnit *(^)(NSArray<DrapiMuNowNext *> *))callback __attribute__((swift_name("getScheduleNowNext(callback:)")));
+- (id<DrapiKotlinx_coroutines_coreJob>)searchQuery:(NSString *)query callback:(DrapiKotlinUnit *(^)(DrapiSearchResult *))callback __attribute__((swift_name("search(query:callback:)")));
+- (id<DrapiKotlinx_coroutines_coreJob>)getMostViewedChannel:(NSString *)channel channelType:(NSString *)channelType limit:(int32_t)limit callback:(DrapiKotlinUnit *(^)(DrapiMostViewed *))callback __attribute__((swift_name("getMostViewed(channel:channelType:limit:callback:)")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("DrMuApiKt")))
 @interface DrapiDrMuApiKt : KotlinBase
-@property (class, readonly) NSString *API_VERSION;
-@property (class, readonly) NSString *API_URL;
+@property (class, readonly) NSString *API_VERSION __attribute__((swift_name("API_VERSION")));
+@property (class, readonly) NSString *API_URL __attribute__((swift_name("API_URL")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("DrMuRepositoryKt")))
 @interface DrapiDrMuRepositoryKt : KotlinBase
-@property (class, readonly) int64_t defaultCacheSize;
+@property (class, readonly) int64_t defaultCacheSize __attribute__((swift_name("defaultCacheSize")));
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeEncoder")))
@@ -1087,7 +1087,7 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeEncoder")))
 - (void)encodeShortValue:(int16_t)value __attribute__((swift_name("encodeShort(value:)")));
 - (void)encodeStringValue:(NSString *)value __attribute__((swift_name("encodeString(value:)")));
 - (void)encodeUnit __attribute__((swift_name("encodeUnit()")));
-@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialContext> context;
+@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialModule> context __attribute__((swift_name("context")));
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeSerialDescriptor")))
@@ -1099,10 +1099,10 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeSerialDescriptor"
 - (NSString *)getElementNameIndex:(int32_t)index __attribute__((swift_name("getElementName(index:)")));
 - (NSArray<id<DrapiKotlinAnnotation>> *)getEntityAnnotations __attribute__((swift_name("getEntityAnnotations()")));
 - (BOOL)isElementOptionalIndex:(int32_t)index __attribute__((swift_name("isElementOptional(index:)")));
-@property (readonly) int32_t elementsCount;
-@property (readonly) BOOL isNullable;
-@property (readonly) DrapiKotlinx_serialization_runtime_nativeSerialKind *kind;
-@property (readonly) NSString *name;
+@property (readonly) int32_t elementsCount __attribute__((swift_name("elementsCount")));
+@property (readonly) BOOL isNullable __attribute__((swift_name("isNullable")));
+@property (readonly) DrapiKotlinx_serialization_runtime_nativeSerialKind *kind __attribute__((swift_name("kind")));
+@property (readonly) NSString *name __attribute__((swift_name("name")));
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeDecoder")))
@@ -1126,8 +1126,8 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeDecoder")))
 - (void)decodeUnit __attribute__((swift_name("decodeUnit()")));
 - (id _Nullable)updateNullableSerializableValueDeserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer old:(id _Nullable)old __attribute__((swift_name("updateNullableSerializableValue(deserializer:old:)")));
 - (id _Nullable)updateSerializableValueDeserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer old:(id _Nullable)old __attribute__((swift_name("updateSerializableValue(deserializer:old:)")));
-@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialContext> context;
-@property (readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *updateMode;
+@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialModule> context __attribute__((swift_name("context")));
+@property (readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *updateMode __attribute__((swift_name("updateMode")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1139,7 +1139,7 @@ __attribute__((swift_name("KotlinArray")))
 - (id _Nullable)getIndex:(int32_t)index __attribute__((swift_name("get(index:)")));
 - (id<DrapiKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
 - (void)setIndex:(int32_t)index value:(id _Nullable)value __attribute__((swift_name("set(index:value:)")));
-@property (readonly) int32_t size;
+@property (readonly) int32_t size __attribute__((swift_name("size")));
 @end;
 
 __attribute__((swift_name("Kotlinx_ioCloseable")))
@@ -1150,16 +1150,17 @@ __attribute__((swift_name("Kotlinx_ioCloseable")))
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Ktor_client_coreHttpClient")))
-@interface DrapiKtor_client_coreHttpClient : KotlinBase <DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinx_ioCloseable>
+@interface DrapiKtor_client_coreHttpClient : KotlinBase <DrapiKotlinx_coroutines_coreCoroutineScope, DrapiKotlinx_ioCloseable>
 - (instancetype)initWithEngine:(id<DrapiKtor_client_coreHttpClientEngine>)engine userConfig:(DrapiKtor_client_coreHttpClientConfig *)userConfig __attribute__((swift_name("init(engine:userConfig:)"))) __attribute__((objc_designated_initializer));
 - (DrapiKtor_client_coreHttpClient *)configBlock:(DrapiKotlinUnit *(^)(DrapiKtor_client_coreHttpClientConfig *))block __attribute__((swift_name("config(block:)")));
-@property (readonly) id<DrapiKtor_utilsAttributes> attributes;
-@property (readonly) DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher *dispatcher;
-@property (readonly) DrapiKtor_client_coreHttpClientEngineConfig *engineConfig;
-@property (readonly) DrapiKtor_client_coreHttpReceivePipeline *receivePipeline;
-@property (readonly) DrapiKtor_client_coreHttpRequestPipeline *requestPipeline;
-@property (readonly) DrapiKtor_client_coreHttpResponsePipeline *responsePipeline;
-@property (readonly) DrapiKtor_client_coreHttpSendPipeline *sendPipeline;
+@property (readonly) id<DrapiKtor_utilsAttributes> attributes __attribute__((swift_name("attributes")));
+@property (readonly) DrapiKotlinx_coroutines_coreCoroutineDispatcher *dispatcher __attribute__((swift_name("dispatcher")));
+@property (readonly) id<DrapiKtor_client_coreHttpClientEngine> engine __attribute__((swift_name("engine")));
+@property (readonly) DrapiKtor_client_coreHttpClientEngineConfig *engineConfig __attribute__((swift_name("engineConfig")));
+@property (readonly) DrapiKtor_client_coreHttpReceivePipeline *receivePipeline __attribute__((swift_name("receivePipeline")));
+@property (readonly) DrapiKtor_client_coreHttpRequestPipeline *requestPipeline __attribute__((swift_name("requestPipeline")));
+@property (readonly) DrapiKtor_client_coreHttpResponsePipeline *responsePipeline __attribute__((swift_name("responsePipeline")));
+@property (readonly) DrapiKtor_client_coreHttpSendPipeline *sendPipeline __attribute__((swift_name("sendPipeline")));
 @end;
 
 __attribute__((swift_name("KotlinCoroutineContext")))
@@ -1174,26 +1175,26 @@ __attribute__((swift_name("KotlinCoroutineContext")))
 __attribute__((swift_name("KotlinCoroutineContextElement")))
 @protocol DrapiKotlinCoroutineContextElement <DrapiKotlinCoroutineContext>
 @required
-@property (readonly) id<DrapiKotlinCoroutineContextKey> key;
+@property (readonly) id<DrapiKotlinCoroutineContextKey> key __attribute__((swift_name("key")));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeJob")))
-@protocol DrapiKotlinx_coroutines_core_nativeJob <DrapiKotlinCoroutineContextElement>
+__attribute__((swift_name("Kotlinx_coroutines_coreJob")))
+@protocol DrapiKotlinx_coroutines_coreJob <DrapiKotlinCoroutineContextElement>
 @required
-- (id<DrapiKotlinx_coroutines_core_nativeChildHandle>)attachChildChild:(id<DrapiKotlinx_coroutines_core_nativeChildJob>)child __attribute__((swift_name("attachChild(child:)")));
+- (id<DrapiKotlinx_coroutines_coreChildHandle>)attachChildChild:(id<DrapiKotlinx_coroutines_coreChildJob>)child __attribute__((swift_name("attachChild(child:)")));
 - (void)cancel __attribute__((swift_name("cancel()")));
 - (BOOL)cancelCause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("cancel(cause:)")));
-- (BOOL)cancel0 __attribute__((swift_name("cancel0()")));
-- (DrapiKotlinx_coroutines_core_nativeCancellationException *)getCancellationException __attribute__((swift_name("getCancellationException()")));
-- (id<DrapiKotlinx_coroutines_core_nativeDisposableHandle>)invokeOnCompletionOnCancelling:(BOOL)onCancelling invokeImmediately:(BOOL)invokeImmediately handler:(DrapiKotlinUnit *(^)(DrapiKotlinThrowable * _Nullable))handler __attribute__((swift_name("invokeOnCompletion(onCancelling:invokeImmediately:handler:)")));
-- (id<DrapiKotlinx_coroutines_core_nativeDisposableHandle>)invokeOnCompletionHandler:(DrapiKotlinUnit *(^)(DrapiKotlinThrowable * _Nullable))handler __attribute__((swift_name("invokeOnCompletion(handler:)")));
-- (id<DrapiKotlinx_coroutines_core_nativeJob>)plusOther:(id<DrapiKotlinx_coroutines_core_nativeJob>)other __attribute__((swift_name("plus(other:)")));
+- (void)cancelCause_:(DrapiKotlinx_coroutines_coreCancellationException * _Nullable)cause __attribute__((swift_name("cancel(cause_:)")));
+- (DrapiKotlinx_coroutines_coreCancellationException *)getCancellationException __attribute__((swift_name("getCancellationException()")));
+- (id<DrapiKotlinx_coroutines_coreDisposableHandle>)invokeOnCompletionOnCancelling:(BOOL)onCancelling invokeImmediately:(BOOL)invokeImmediately handler:(DrapiKotlinUnit *(^)(DrapiKotlinThrowable * _Nullable))handler __attribute__((swift_name("invokeOnCompletion(onCancelling:invokeImmediately:handler:)")));
+- (id<DrapiKotlinx_coroutines_coreDisposableHandle>)invokeOnCompletionHandler:(DrapiKotlinUnit *(^)(DrapiKotlinThrowable * _Nullable))handler __attribute__((swift_name("invokeOnCompletion(handler:)")));
+- (id<DrapiKotlinx_coroutines_coreJob>)plusOther:(id<DrapiKotlinx_coroutines_coreJob>)other __attribute__((swift_name("plus(other:)")));
 - (BOOL)start __attribute__((swift_name("start()")));
-@property (readonly) id<DrapiKotlinSequence> children;
-@property (readonly) BOOL isActive;
-@property (readonly) BOOL isCancelled;
-@property (readonly) BOOL isCompleted;
-@property (readonly) id<DrapiKotlinx_coroutines_core_nativeSelectClause0> onJoin;
+@property (readonly) id<DrapiKotlinSequence> children __attribute__((swift_name("children")));
+@property (readonly) BOOL isActive __attribute__((swift_name("isActive")));
+@property (readonly) BOOL isCancelled __attribute__((swift_name("isCancelled")));
+@property (readonly) BOOL isCompleted __attribute__((swift_name("isCompleted")));
+@property (readonly) id<DrapiKotlinx_coroutines_coreSelectClause0> onJoin __attribute__((swift_name("onJoin")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1222,7 +1223,7 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeCompositeEncoder"
 - (void)encodeUnitElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index __attribute__((swift_name("encodeUnitElement(desc:index:)")));
 - (void)endStructureDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc __attribute__((swift_name("endStructure(desc:)")));
 - (BOOL)shouldEncodeElementDefaultDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index __attribute__((swift_name("shouldEncodeElementDefault(desc:index:)")));
-@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialContext> context;
+@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialModule> context __attribute__((swift_name("context")));
 @end;
 
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeSerialClassDescImpl")))
@@ -1234,17 +1235,20 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeSerialClassDescIm
 - (void)pushDescriptorDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc __attribute__((swift_name("pushDescriptor(desc:)")));
 @end;
 
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Kotlinx_serialization_runtime_nativeEnumDescriptor")))
 @interface DrapiKotlinx_serialization_runtime_nativeEnumDescriptor : DrapiKotlinx_serialization_runtime_nativeSerialClassDescImpl
 - (instancetype)initWithName:(NSString *)name choices:(DrapiKotlinArray *)choices __attribute__((swift_name("init(name:choices:)"))) __attribute__((objc_designated_initializer));
 - (instancetype)initWithName:(NSString *)name generatedSerializer:(id<DrapiKotlinx_serialization_runtime_nativeGeneratedSerializer> _Nullable)generatedSerializer __attribute__((swift_name("init(name:generatedSerializer:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @end;
 
-__attribute__((swift_name("Kotlinx_serialization_runtime_nativeSerialContext")))
-@protocol DrapiKotlinx_serialization_runtime_nativeSerialContext
+__attribute__((swift_name("Kotlinx_serialization_runtime_nativeSerialModule")))
+@protocol DrapiKotlinx_serialization_runtime_nativeSerialModule
 @required
-- (id<DrapiKotlinx_serialization_runtime_nativeKSerializer> _Nullable)getKclass:(id<DrapiKotlinKClass>)kclass __attribute__((swift_name("get(kclass:)")));
-- (id<DrapiKotlinx_serialization_runtime_nativeKSerializer> _Nullable)getByValueValue:(id)value __attribute__((swift_name("getByValue(value:)")));
+- (void)dumpToCollector:(id<DrapiKotlinx_serialization_runtime_nativeSerialModuleCollector>)collector __attribute__((swift_name("dumpTo(collector:)")));
+- (id<DrapiKotlinx_serialization_runtime_nativeKSerializer> _Nullable)getContextualKclass:(id<DrapiKotlinKClass>)kclass __attribute__((swift_name("getContextual(kclass:)")));
+- (id<DrapiKotlinx_serialization_runtime_nativeKSerializer> _Nullable)getPolymorphicBaseClass:(id<DrapiKotlinKClass>)baseClass value:(id)value __attribute__((swift_name("getPolymorphic(baseClass:value:)")));
+- (id<DrapiKotlinx_serialization_runtime_nativeKSerializer> _Nullable)getPolymorphicBaseClass:(id<DrapiKotlinKClass>)baseClass serializedClassName:(NSString *)serializedClassName __attribute__((swift_name("getPolymorphic(baseClass:serializedClassName:)")));
 @end;
 
 __attribute__((swift_name("KotlinAnnotation")))
@@ -1276,8 +1280,8 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeCompositeDecoder"
 - (void)endStructureDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc __attribute__((swift_name("endStructure(desc:)")));
 - (id _Nullable)updateNullableSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index deserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer old:(id _Nullable)old __attribute__((swift_name("updateNullableSerializableElement(desc:index:deserializer:old:)")));
 - (id _Nullable)updateSerializableElementDesc:(id<DrapiKotlinx_serialization_runtime_nativeSerialDescriptor>)desc index:(int32_t)index deserializer:(id<DrapiKotlinx_serialization_runtime_nativeDeserializationStrategy>)deserializer old:(id _Nullable)old __attribute__((swift_name("updateSerializableElement(desc:index:deserializer:old:)")));
-@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialContext> context;
-@property (readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *updateMode;
+@property (readonly) id<DrapiKotlinx_serialization_runtime_nativeSerialModule> context __attribute__((swift_name("context")));
+@property (readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *updateMode __attribute__((swift_name("updateMode")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1295,8 +1299,8 @@ __attribute__((swift_name("KotlinEnum")))
 @interface DrapiKotlinEnum : KotlinBase <DrapiKotlinComparable>
 - (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer));
 - (int32_t)compareToOther:(DrapiKotlinEnum *)other __attribute__((swift_name("compareTo(other:)")));
-@property (readonly) NSString *name;
-@property (readonly) int32_t ordinal;
+@property (readonly) NSString *name __attribute__((swift_name("name")));
+@property (readonly) int32_t ordinal __attribute__((swift_name("ordinal")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1304,9 +1308,9 @@ __attribute__((swift_name("Kotlinx_serialization_runtime_nativeUpdateMode")))
 @interface DrapiKotlinx_serialization_runtime_nativeUpdateMode : DrapiKotlinEnum
 + (instancetype)alloc __attribute__((unavailable));
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
-@property (class, readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *banned;
-@property (class, readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *overwrite;
-@property (class, readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *update;
+@property (class, readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *banned __attribute__((swift_name("banned")));
+@property (class, readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *overwrite __attribute__((swift_name("overwrite")));
+@property (class, readonly) DrapiKotlinx_serialization_runtime_nativeUpdateMode *update __attribute__((swift_name("update")));
 - (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (int32_t)compareToOther:(DrapiKotlinx_serialization_runtime_nativeUpdateMode *)other __attribute__((swift_name("compareTo(other:)")));
 @end;
@@ -1319,10 +1323,11 @@ __attribute__((swift_name("KotlinIterator")))
 @end;
 
 __attribute__((swift_name("Ktor_client_coreHttpClientEngine")))
-@protocol DrapiKtor_client_coreHttpClientEngine <DrapiKotlinx_coroutines_core_nativeCoroutineScope, DrapiKotlinx_ioCloseable>
+@protocol DrapiKtor_client_coreHttpClientEngine <DrapiKotlinx_coroutines_coreCoroutineScope, DrapiKotlinx_ioCloseable>
 @required
-@property (readonly) DrapiKtor_client_coreHttpClientEngineConfig *config;
-@property (readonly) DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher *dispatcher;
+- (void)installClient:(DrapiKtor_client_coreHttpClient *)client __attribute__((swift_name("install(client:)")));
+@property (readonly) DrapiKtor_client_coreHttpClientEngineConfig *config __attribute__((swift_name("config")));
+@property (readonly) DrapiKotlinx_coroutines_coreCoroutineDispatcher *dispatcher __attribute__((swift_name("dispatcher")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1336,9 +1341,9 @@ __attribute__((swift_name("Ktor_client_coreHttpClientConfig")))
 - (void)installFeature:(id<DrapiKtor_client_coreHttpClientFeature>)feature configure:(DrapiKotlinUnit *(^)(id))configure __attribute__((swift_name("install(feature:configure:)")));
 - (void)installKey:(NSString *)key block:(DrapiKotlinUnit *(^)(DrapiKtor_client_coreHttpClient *))block __attribute__((swift_name("install(key:block:)")));
 - (void)plusAssignOther:(DrapiKtor_client_coreHttpClientConfig *)other __attribute__((swift_name("plusAssign(other:)")));
-@property BOOL expectSuccess;
-@property BOOL followRedirects;
-@property BOOL useDefaultTransformers;
+@property BOOL expectSuccess __attribute__((swift_name("expectSuccess")));
+@property BOOL followRedirects __attribute__((swift_name("followRedirects")));
+@property BOOL useDefaultTransformers __attribute__((swift_name("useDefaultTransformers")));
 @end;
 
 __attribute__((swift_name("Ktor_utilsAttributes")))
@@ -1352,7 +1357,7 @@ __attribute__((swift_name("Ktor_utilsAttributes")))
 - (void)removeKey:(DrapiKtor_utilsAttributeKey *)key __attribute__((swift_name("remove(key:)")));
 - (id)takeKey:(DrapiKtor_utilsAttributeKey *)key __attribute__((swift_name("take(key:)")));
 - (id _Nullable)takeOrNullKey:(DrapiKtor_utilsAttributeKey *)key __attribute__((swift_name("takeOrNull(key:)")));
-@property (readonly) NSArray<DrapiKtor_utilsAttributeKey *> *allKeys;
+@property (readonly) NSArray<DrapiKtor_utilsAttributeKey *> *allKeys __attribute__((swift_name("allKeys")));
 @end;
 
 __attribute__((swift_name("KotlinAbstractCoroutineContextElement")))
@@ -1367,25 +1372,25 @@ __attribute__((swift_name("KotlinContinuationInterceptor")))
 - (void)releaseInterceptedContinuationContinuation:(id<DrapiKotlinContinuation>)continuation __attribute__((swift_name("releaseInterceptedContinuation(continuation:)")));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeCoroutineDispatcher")))
-@interface DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher : DrapiKotlinAbstractCoroutineContextElement <DrapiKotlinContinuationInterceptor>
+__attribute__((swift_name("Kotlinx_coroutines_coreCoroutineDispatcher")))
+@interface DrapiKotlinx_coroutines_coreCoroutineDispatcher : DrapiKotlinAbstractCoroutineContextElement <DrapiKotlinContinuationInterceptor>
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (instancetype)initWithKey:(id<DrapiKotlinCoroutineContextKey>)key __attribute__((swift_name("init(key:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
-- (void)dispatchContext:(id<DrapiKotlinCoroutineContext>)context block:(id<DrapiKotlinx_coroutines_core_nativeRunnable>)block __attribute__((swift_name("dispatch(context:block:)")));
-- (void)dispatchYieldContext:(id<DrapiKotlinCoroutineContext>)context block:(id<DrapiKotlinx_coroutines_core_nativeRunnable>)block __attribute__((swift_name("dispatchYield(context:block:)")));
+- (void)dispatchContext:(id<DrapiKotlinCoroutineContext>)context block:(id<DrapiKotlinx_coroutines_coreRunnable>)block __attribute__((swift_name("dispatch(context:block:)")));
+- (void)dispatchYieldContext:(id<DrapiKotlinCoroutineContext>)context block:(id<DrapiKotlinx_coroutines_coreRunnable>)block __attribute__((swift_name("dispatchYield(context:block:)")));
 - (BOOL)isDispatchNeededContext:(id<DrapiKotlinCoroutineContext>)context __attribute__((swift_name("isDispatchNeeded(context:)")));
-- (DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher *)plusOther_:(DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher *)other __attribute__((swift_name("plus(other_:)")));
+- (DrapiKotlinx_coroutines_coreCoroutineDispatcher *)plusOther_:(DrapiKotlinx_coroutines_coreCoroutineDispatcher *)other __attribute__((swift_name("plus(other_:)")));
 @end;
 
 __attribute__((swift_name("Ktor_client_coreHttpClientEngineConfig")))
 @interface DrapiKtor_client_coreHttpClientEngineConfig : KotlinBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-@property DrapiKotlinx_coroutines_core_nativeCoroutineDispatcher * _Nullable dispatcher;
-@property BOOL pipelining;
-@property (readonly) DrapiKtor_client_coreHttpResponseConfig *response;
-@property int32_t threadsCount;
+@property DrapiKotlinx_coroutines_coreCoroutineDispatcher * _Nullable dispatcher __attribute__((swift_name("dispatcher")));
+@property BOOL pipelining __attribute__((swift_name("pipelining")));
+@property (readonly) DrapiKtor_client_coreHttpResponseConfig *response __attribute__((swift_name("response")));
+@property int32_t threadsCount __attribute__((swift_name("threadsCount")));
 @end;
 
 __attribute__((swift_name("Ktor_utilsPipeline")))
@@ -1398,9 +1403,9 @@ __attribute__((swift_name("Ktor_utilsPipeline")))
 - (void)insertPhaseBeforeReference:(DrapiKtor_utilsPipelinePhase *)reference phase:(DrapiKtor_utilsPipelinePhase *)phase __attribute__((swift_name("insertPhaseBefore(reference:phase:)")));
 - (void)interceptPhase:(DrapiKtor_utilsPipelinePhase *)phase block:(id<DrapiKotlinSuspendFunction2>)block __attribute__((swift_name("intercept(phase:block:)")));
 - (void)mergeFrom:(DrapiKtor_utilsPipeline *)from __attribute__((swift_name("merge(from:)")));
-@property (readonly) id<DrapiKtor_utilsAttributes> attributes;
-@property (readonly) BOOL isEmpty;
-@property (readonly) NSArray<DrapiKtor_utilsPipelinePhase *> *items;
+@property (readonly) id<DrapiKtor_utilsAttributes> attributes __attribute__((swift_name("attributes")));
+@property (readonly) BOOL isEmpty __attribute__((swift_name("isEmpty")));
+@property (readonly) NSArray<DrapiKtor_utilsPipelinePhase *> *items __attribute__((swift_name("items")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1444,22 +1449,22 @@ __attribute__((swift_name("KotlinCoroutineContextKey")))
 @required
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeDisposableHandle")))
-@protocol DrapiKotlinx_coroutines_core_nativeDisposableHandle
+__attribute__((swift_name("Kotlinx_coroutines_coreDisposableHandle")))
+@protocol DrapiKotlinx_coroutines_coreDisposableHandle
 @required
 - (void)dispose __attribute__((swift_name("dispose()")));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeChildHandle")))
-@protocol DrapiKotlinx_coroutines_core_nativeChildHandle <DrapiKotlinx_coroutines_core_nativeDisposableHandle>
+__attribute__((swift_name("Kotlinx_coroutines_coreChildHandle")))
+@protocol DrapiKotlinx_coroutines_coreChildHandle <DrapiKotlinx_coroutines_coreDisposableHandle>
 @required
 - (BOOL)childCancelledCause:(DrapiKotlinThrowable *)cause __attribute__((swift_name("childCancelled(cause:)")));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeChildJob")))
-@protocol DrapiKotlinx_coroutines_core_nativeChildJob <DrapiKotlinx_coroutines_core_nativeJob>
+__attribute__((swift_name("Kotlinx_coroutines_coreChildJob")))
+@protocol DrapiKotlinx_coroutines_coreChildJob <DrapiKotlinx_coroutines_coreJob>
 @required
-- (void)parentCancelledParentJob:(id<DrapiKotlinx_coroutines_core_nativeParentJob>)parentJob __attribute__((swift_name("parentCancelled(parentJob:)")));
+- (void)parentCancelledParentJob:(id<DrapiKotlinx_coroutines_coreParentJob>)parentJob __attribute__((swift_name("parentCancelled(parentJob:)")));
 @end;
 
 __attribute__((swift_name("KotlinThrowable")))
@@ -1471,8 +1476,8 @@ __attribute__((swift_name("KotlinThrowable")))
 - (instancetype)initWithMessage:(NSString * _Nullable)message cause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(message:cause:)"))) __attribute__((objc_designated_initializer));
 - (DrapiKotlinArray *)getStackTrace __attribute__((swift_name("getStackTrace()")));
 - (void)printStackTrace __attribute__((swift_name("printStackTrace()")));
-@property (readonly) DrapiKotlinThrowable * _Nullable cause;
-@property (readonly) NSString * _Nullable message;
+@property (readonly) DrapiKotlinThrowable * _Nullable cause __attribute__((swift_name("cause")));
+@property (readonly) NSString * _Nullable message __attribute__((swift_name("message")));
 @end;
 
 __attribute__((swift_name("KotlinException")))
@@ -1502,8 +1507,8 @@ __attribute__((swift_name("KotlinIllegalStateException")))
 - (instancetype)initWithCause:(DrapiKotlinThrowable * _Nullable)cause __attribute__((swift_name("init(cause:)"))) __attribute__((objc_designated_initializer));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeCancellationException")))
-@interface DrapiKotlinx_coroutines_core_nativeCancellationException : DrapiKotlinIllegalStateException
+__attribute__((swift_name("Kotlinx_coroutines_coreCancellationException")))
+@interface DrapiKotlinx_coroutines_coreCancellationException : DrapiKotlinIllegalStateException
 - (instancetype)initWithMessage:(NSString * _Nullable)message __attribute__((swift_name("init(message:)"))) __attribute__((objc_designated_initializer));
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 + (instancetype)new __attribute__((unavailable));
@@ -1517,10 +1522,17 @@ __attribute__((swift_name("KotlinSequence")))
 - (id<DrapiKotlinIterator>)iterator __attribute__((swift_name("iterator()")));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeSelectClause0")))
-@protocol DrapiKotlinx_coroutines_core_nativeSelectClause0
+__attribute__((swift_name("Kotlinx_coroutines_coreSelectClause0")))
+@protocol DrapiKotlinx_coroutines_coreSelectClause0
 @required
-- (void)registerSelectClause0Select:(id<DrapiKotlinx_coroutines_core_nativeSelectInstance>)select block:(id<DrapiKotlinSuspendFunction0>)block __attribute__((swift_name("registerSelectClause0(select:block:)")));
+- (void)registerSelectClause0Select:(id<DrapiKotlinx_coroutines_coreSelectInstance>)select block:(id<DrapiKotlinSuspendFunction0>)block __attribute__((swift_name("registerSelectClause0(select:block:)")));
+@end;
+
+__attribute__((swift_name("Kotlinx_serialization_runtime_nativeSerialModuleCollector")))
+@protocol DrapiKotlinx_serialization_runtime_nativeSerialModuleCollector
+@required
+- (void)contextualKClass:(id<DrapiKotlinKClass>)kClass serializer:(id<DrapiKotlinx_serialization_runtime_nativeKSerializer>)serializer __attribute__((swift_name("contextual(kClass:serializer:)")));
+- (void)polymorphicBaseClass:(id<DrapiKotlinKClass>)baseClass actualClass:(id<DrapiKotlinKClass>)actualClass actualSerializer:(id<DrapiKotlinx_serialization_runtime_nativeKSerializer>)actualSerializer __attribute__((swift_name("polymorphic(baseClass:actualClass:actualSerializer:)")));
 @end;
 
 __attribute__((swift_name("KotlinKDeclarationContainer")))
@@ -1542,8 +1554,8 @@ __attribute__((swift_name("KotlinKClass")))
 @protocol DrapiKotlinKClass <DrapiKotlinKDeclarationContainer, DrapiKotlinKAnnotatedElement, DrapiKotlinKClassifier>
 @required
 - (BOOL)isInstanceValue:(id _Nullable)value __attribute__((swift_name("isInstance(value:)")));
-@property (readonly) NSString * _Nullable qualifiedName;
-@property (readonly) NSString * _Nullable simpleName;
+@property (readonly) NSString * _Nullable qualifiedName __attribute__((swift_name("qualifiedName")));
+@property (readonly) NSString * _Nullable simpleName __attribute__((swift_name("simpleName")));
 @end;
 
 __attribute__((swift_name("Ktor_client_coreHttpClientFeature")))
@@ -1551,25 +1563,25 @@ __attribute__((swift_name("Ktor_client_coreHttpClientFeature")))
 @required
 - (void)installFeature:(id)feature scope:(DrapiKtor_client_coreHttpClient *)scope __attribute__((swift_name("install(feature:scope:)")));
 - (id)prepareBlock:(DrapiKotlinUnit *(^)(id))block __attribute__((swift_name("prepare(block:)")));
-@property (readonly) DrapiKtor_utilsAttributeKey *key;
+@property (readonly) DrapiKtor_utilsAttributeKey *key __attribute__((swift_name("key")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Ktor_utilsAttributeKey")))
 @interface DrapiKtor_utilsAttributeKey : KotlinBase
 - (instancetype)initWithName:(NSString *)name __attribute__((swift_name("init(name:)"))) __attribute__((objc_designated_initializer));
-@property (readonly) NSString *name;
+@property (readonly) NSString *name __attribute__((swift_name("name")));
 @end;
 
 __attribute__((swift_name("KotlinContinuation")))
 @protocol DrapiKotlinContinuation
 @required
 - (void)resumeWithResult:(id _Nullable)result __attribute__((swift_name("resumeWith(result:)")));
-@property (readonly) id<DrapiKotlinCoroutineContext> context;
+@property (readonly) id<DrapiKotlinCoroutineContext> context __attribute__((swift_name("context")));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeRunnable")))
-@protocol DrapiKotlinx_coroutines_core_nativeRunnable
+__attribute__((swift_name("Kotlinx_coroutines_coreRunnable")))
+@protocol DrapiKotlinx_coroutines_coreRunnable
 @required
 - (void)run __attribute__((swift_name("run()")));
 @end;
@@ -1578,14 +1590,14 @@ __attribute__((swift_name("Ktor_client_coreHttpResponseConfig")))
 @interface DrapiKtor_client_coreHttpResponseConfig : KotlinBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-@property DrapiKotlinx_ioCharset *defaultCharset;
+@property DrapiKotlinx_ioCharset *defaultCharset __attribute__((swift_name("defaultCharset")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Ktor_utilsPipelinePhase")))
 @interface DrapiKtor_utilsPipelinePhase : KotlinBase
 - (instancetype)initWithName:(NSString *)name __attribute__((swift_name("init(name:)"))) __attribute__((objc_designated_initializer));
-@property (readonly) NSString *name;
+@property (readonly) NSString *name __attribute__((swift_name("name")));
 @end;
 
 __attribute__((swift_name("KotlinSuspendFunction")))
@@ -1598,22 +1610,22 @@ __attribute__((swift_name("KotlinSuspendFunction2")))
 @required
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeParentJob")))
-@protocol DrapiKotlinx_coroutines_core_nativeParentJob <DrapiKotlinx_coroutines_core_nativeJob>
+__attribute__((swift_name("Kotlinx_coroutines_coreParentJob")))
+@protocol DrapiKotlinx_coroutines_coreParentJob <DrapiKotlinx_coroutines_coreJob>
 @required
 - (DrapiKotlinThrowable *)getChildJobCancellationCause __attribute__((swift_name("getChildJobCancellationCause()")));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeSelectInstance")))
-@protocol DrapiKotlinx_coroutines_core_nativeSelectInstance
+__attribute__((swift_name("Kotlinx_coroutines_coreSelectInstance")))
+@protocol DrapiKotlinx_coroutines_coreSelectInstance
 @required
-- (void)disposeOnSelectHandle:(id<DrapiKotlinx_coroutines_core_nativeDisposableHandle>)handle __attribute__((swift_name("disposeOnSelect(handle:)")));
-- (id _Nullable)performAtomicIfNotSelectedDesc:(DrapiKotlinx_coroutines_core_nativeAtomicDesc *)desc __attribute__((swift_name("performAtomicIfNotSelected(desc:)")));
-- (id _Nullable)performAtomicTrySelectDesc:(DrapiKotlinx_coroutines_core_nativeAtomicDesc *)desc __attribute__((swift_name("performAtomicTrySelect(desc:)")));
+- (void)disposeOnSelectHandle:(id<DrapiKotlinx_coroutines_coreDisposableHandle>)handle __attribute__((swift_name("disposeOnSelect(handle:)")));
+- (id _Nullable)performAtomicIfNotSelectedDesc:(DrapiKotlinx_coroutines_coreAtomicDesc *)desc __attribute__((swift_name("performAtomicIfNotSelected(desc:)")));
+- (id _Nullable)performAtomicTrySelectDesc:(DrapiKotlinx_coroutines_coreAtomicDesc *)desc __attribute__((swift_name("performAtomicTrySelect(desc:)")));
 - (void)resumeSelectCancellableWithExceptionException:(DrapiKotlinThrowable *)exception __attribute__((swift_name("resumeSelectCancellableWithException(exception:)")));
 - (BOOL)trySelectIdempotent:(id _Nullable)idempotent __attribute__((swift_name("trySelect(idempotent:)")));
-@property (readonly) id<DrapiKotlinContinuation> completion;
-@property (readonly) BOOL isSelected;
+@property (readonly) id<DrapiKotlinContinuation> completion __attribute__((swift_name("completion")));
+@property (readonly) BOOL isSelected __attribute__((swift_name("isSelected")));
 @end;
 
 __attribute__((swift_name("KotlinSuspendFunction0")))
@@ -1628,12 +1640,12 @@ __attribute__((swift_name("Kotlinx_ioCharset")))
 - (DrapiKotlinx_ioCharsetEncoder *)doNewEncoder __attribute__((swift_name("doNewEncoder()")));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeAtomicDesc")))
-@interface DrapiKotlinx_coroutines_core_nativeAtomicDesc : KotlinBase
+__attribute__((swift_name("Kotlinx_coroutines_coreAtomicDesc")))
+@interface DrapiKotlinx_coroutines_coreAtomicDesc : KotlinBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-- (void)completeOp:(DrapiKotlinx_coroutines_core_nativeAtomicOp *)op failure:(id _Nullable)failure __attribute__((swift_name("complete(op:failure:)")));
-- (id _Nullable)prepareOp:(DrapiKotlinx_coroutines_core_nativeAtomicOp *)op __attribute__((swift_name("prepare(op:)")));
+- (void)completeOp:(DrapiKotlinx_coroutines_coreAtomicOp *)op failure:(id _Nullable)failure __attribute__((swift_name("complete(op:failure:)")));
+- (id _Nullable)prepareOp:(DrapiKotlinx_coroutines_coreAtomicOp *)op __attribute__((swift_name("prepare(op:)")));
 @end;
 
 __attribute__((swift_name("Kotlinx_ioCharsetDecoder")))
@@ -1646,21 +1658,21 @@ __attribute__((swift_name("Kotlinx_ioCharsetEncoder")))
 - (instancetype)initWith_charset:(DrapiKotlinx_ioCharset *)_charset __attribute__((swift_name("init(_charset:)"))) __attribute__((objc_designated_initializer));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeOpDescriptor")))
-@interface DrapiKotlinx_coroutines_core_nativeOpDescriptor : KotlinBase
+__attribute__((swift_name("Kotlinx_coroutines_coreOpDescriptor")))
+@interface DrapiKotlinx_coroutines_coreOpDescriptor : KotlinBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (id _Nullable)performAffected:(id _Nullable)affected __attribute__((swift_name("perform(affected:)")));
 @end;
 
-__attribute__((swift_name("Kotlinx_coroutines_core_nativeAtomicOp")))
-@interface DrapiKotlinx_coroutines_core_nativeAtomicOp : DrapiKotlinx_coroutines_core_nativeOpDescriptor
+__attribute__((swift_name("Kotlinx_coroutines_coreAtomicOp")))
+@interface DrapiKotlinx_coroutines_coreAtomicOp : DrapiKotlinx_coroutines_coreOpDescriptor
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (void)completeAffected:(id _Nullable)affected failure:(id _Nullable)failure __attribute__((swift_name("complete(affected:failure:)")));
 - (id _Nullable)prepareAffected:(id _Nullable)affected __attribute__((swift_name("prepare(affected:)")));
 - (BOOL)tryDecideDecision:(id _Nullable)decision __attribute__((swift_name("tryDecide(decision:)")));
-@property (readonly) BOOL isDecided;
+@property (readonly) BOOL isDecided __attribute__((swift_name("isDecided")));
 @end;
 
 NS_ASSUME_NONNULL_END

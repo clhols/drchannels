@@ -19,6 +19,7 @@ import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.adapter.TvChannelsAdapter
+import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.isTv
 import dk.youtec.drchannels.viewmodel.TvChannelsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,24 +28,18 @@ import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import org.jetbrains.anko.toast
-import kotlin.coroutines.CoroutineContext
 
-open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope {
-    private lateinit var job: Job
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
-
+open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope by MainScope() {
     private lateinit var viewModel: TvChannelsViewModel
 
     companion object {
         init {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        job = Job()
 
         setContentView(R.layout.activity_main)
 
@@ -122,7 +117,7 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
     }
 
     override fun onDestroy() {
-        job.cancel()
+        cancel()
         super.onDestroy()
     }
 

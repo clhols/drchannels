@@ -9,6 +9,7 @@
     android:focusable="true"
     android:nextFocusRight="@id/more"
     android:foreground="?android:attr/selectableItemBackground"
+    android:background="@color/channelBodyBackground"
     android:orientation="vertical">
 
     <LinearLayout

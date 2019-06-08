@@ -6,8 +6,8 @@ plugins {
     kotlin("kapt")
     id("kotlin-android-extensions")
     id("io.fabric")
-    id("com.github.triplet.play") version "2.2.0"
-    id("org.sonarqube") version "2.6.2"
+    id("com.github.triplet.play") version "2.2.1"
+    id("org.sonarqube") version "2.7.1"
     id("dk.youtec.appupdater")
     id("com.github.plnice.canidropjetifier") version "0.4" // ./gradlew -Pandroid.enableJetifier=false canIDropJetifier
 }
@@ -41,6 +41,9 @@ android {
         }
 
         buildTypes {
+            getByName("debug") {
+                manifestPlaceholders = mapOf("enableCrashReporting" to false)
+            }
             getByName("release") {
                 isMinifyEnabled = true
                 isShrinkResources = true
@@ -48,6 +51,7 @@ android {
                 proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
 
                 signingConfig = signingConfigs["release"]
+                manifestPlaceholders = mapOf("enableCrashReporting" to true)
             }
         }
 
@@ -79,6 +83,8 @@ android {
         exclude("META-INF/ktor-utils.kotlin_module")
         exclude("META-INF/kotlinx-coroutines-io.kotlin_module")
         exclude("META-INF/ktor-client-core.kotlin_module")
+        exclude("META-INF/kotlinx-coroutines-core.kotlin_module")
+        exclude("META-INF/ktor-http-cio.kotlin_module")
     }
 
     testOptions {
@@ -116,23 +122,25 @@ dependencies {
     implementation("androidx.tvprovider:tvprovider:$androidxVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1")
     implementation("androidx.core:core-ktx:1.0.2")
-    implementation("org.koin:koin-android:2.0.0-GA")
-    implementation("com.google.firebase:firebase-core:16.0.9")
-    implementation("com.crashlytics.sdk.android:crashlytics:2.10.0")
+    implementation("org.koin:koin-android:2.0.1")
+
+    implementation(platform("com.google.firebase:firebase-bom:18.1.0"))
+    implementation("com.google.firebase:firebase-core")
+    implementation("com.crashlytics.sdk.android:crashlytics")
 
     implementation("androidx.work:work-runtime-ktx:2.0.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
     implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
-    kapt("androidx.lifecycle:lifecycle-compiler:$archComponentVersion")
+    kapt("androidx.lifecycle:lifecycle-common-java8:$archComponentVersion")
 
-    androidTestImplementation("androidx.test:core:1.1.0")
-    androidTestImplementation("androidx.test:core-ktx:1.1.0")
-    androidTestImplementation("androidx.test:runner:1.1.1")
-    androidTestImplementation("androidx.test:rules:1.1.1")
-    androidTestImplementation("androidx.test.ext:junit:1.1.0")
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0+")
-    androidTestUtil("androidx.test:orchestrator:1.1.1")
+    androidTestImplementation("androidx.test:core:1.2.0")
+    androidTestImplementation("androidx.test:core-ktx:1.2.0")
+    androidTestImplementation("androidx.test:runner:1.2.0")
+    androidTestImplementation("androidx.test:rules:1.2.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.1")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+    androidTestUtil("androidx.test:orchestrator:1.2.0")
 }
 
 play {

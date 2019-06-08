@@ -110,13 +110,13 @@ class TvChannelsAdapter(
             image.setAspectRatio(292, 189)
 
             itemView.setOnClickListener {
-                if (adapterPosition in 0..(itemCount - 1)) {
+                if (adapterPosition in 0 until itemCount) {
                     listener.playTvChannel(getItem(adapterPosition))
                 }
             }
             itemView.setOnLongClickListener {
                 it.context.selector(it.context.getString(R.string.channelAction), listOf(it.context.getString(R.string.startOverAction))) { _, _ ->
-                    if (adapterPosition in 0..(itemCount - 1)) {
+                    if (adapterPosition in 0 until itemCount) {
                         listener.playProgram(getItem(adapterPosition))
                     }
                 }

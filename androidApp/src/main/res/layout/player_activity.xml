@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,58 +14,49 @@
      limitations under the License.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
     android:keepScreenOn="true">
 
-    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/player_view"
+    <com.google.android.exoplayer2.ui.PlayerView android:id="@+id/player_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true"
         app:use_controller="@bool/isNotTv"
         app:hide_on_touch="true"
         app:fastforward_increment="10000"
-        app:rewind_increment="20000" />
+        app:rewind_increment="20000"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#88000000"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/controls_root"
-            android:layout_width="wrap_content"
+        <TextView android:id="@+id/debug_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:textSize="10sp"
+            android:visibility="gone"
+            tools:ignore="SmallSp"/>
+
+        <LinearLayout android:id="@+id/controls_root"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="gone">
 
-            <Button
-                android:id="@+id/retry_button"
+            <Button android:id="@+id/select_tracks_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/retry"
-                android:visibility="gone" />
+                android:text="@string/track_selection_title"
+                android:enabled="false"/>
 
         </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/debug_text_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:textSize="16sp"
-            android:visibility="gone"
-            tools:ignore="SmallSp" />
 
     </LinearLayout>
 

@@ -17,9 +17,7 @@ import dk.youtec.drapi.Genre
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drchannels.preview.*
 import dk.youtec.drchannels.util.serverDateFormat
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -28,15 +26,13 @@ import kotlin.coroutines.CoroutineContext
 /**
  * EpgSyncJobService that periodically runs to update channels and programs.
  */
-class DrTvEpgJobService : EpgSyncJobService(), CoroutineScope {
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
+class DrTvEpgJobService : EpgSyncJobService() {
     private val api: DrMuRepository by inject()
 
     private val syncFinishedReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
-            val syncStatus = intent.getStringExtra(EpgSyncJobService.SYNC_STATUS)
-            if (syncStatus == EpgSyncJobService.SYNC_FINISHED) {
+            val syncStatus = intent.getStringExtra(SYNC_STATUS)
+            if (syncStatus == SYNC_FINISHED) {
                 Log.d("DrTvEpgJobService", "Sync finished, scheduling preview update")
 
                 scheduleCurrentProgramsPreviewUpdate()
