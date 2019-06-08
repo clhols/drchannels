@@ -24,7 +24,7 @@ class UpdateActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         setContentView(R.layout.activity_update)
         findViewById<ProgressBar?>(R.id.progress)?.visibility = View.VISIBLE
 
-        val apkUrl = intent.getStringExtra("apkUrl")
+        val apkUrl = intent.getStringExtra("apkUrl") ?: ""
 
         launch {
             try {

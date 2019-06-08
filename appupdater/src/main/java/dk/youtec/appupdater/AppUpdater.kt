@@ -77,7 +77,7 @@ private suspend fun getAppVersionFromMeta(
 
         extractVersionCode(metaString)
     } catch (e: Exception) {
-        Log.w(tag, e.message)
+        Log.w(tag, e.message ?: "")
         BuildConfig.VERSION_CODE
     }
 }
