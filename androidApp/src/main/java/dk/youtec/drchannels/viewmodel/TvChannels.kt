@@ -16,10 +16,10 @@ class TvChannels : CoroutineScope, KoinComponent {
         get() = Dispatchers.Main
     private val api: DrMuRepository by inject()
     private var job: Job? = null
-    val stream = ConflatedBroadcastChannel<List<MuNowNext>>()
+    val channels = ConflatedBroadcastChannel<List<MuNowNext>>()
 
     /**
-     * Subscribe to an internal observable that trigger the network request
+     * Start a coroutine that offers the list of channels every 30 seconds.
      */
     fun subscribe() {
         Log.v(tag, "Subscribing for channel data")
@@ -28,7 +28,7 @@ class TvChannels : CoroutineScope, KoinComponent {
 
         job = launch {
             while (true) {
-                stream.offer(try {
+                channels.offer(try {
                     withContext(Dispatchers.IO) {
                         api.getScheduleNowNext().filter { it.Now != null }
                     }
