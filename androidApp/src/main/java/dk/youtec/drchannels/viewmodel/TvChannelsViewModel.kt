@@ -21,12 +21,12 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
     private val api: DrMuRepository by inject()
     private val tag = TvChannelsViewModel::class.java.simpleName
 
-    val tvChannels = TvChannels()
+    private val tvChannels = TvChannels()
     private val playbackUriChannel = BroadcastChannel<String>(1)
     private val errorChannel = BroadcastChannel<String>(1)
 
-    val tvChannelsStream = flow {
-        tvChannels.stream.consumeEach { emit(it) }
+    val channels = flow {
+        tvChannels.channels.consumeEach { emit(it) }
     }
     val playbackUri = flow {
         playbackUriChannel.consumeEach { emit(it) }
@@ -86,10 +86,14 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
+    fun reload() {
+        tvChannels.subscribe()
+    }
+
     override fun onCleared() {
         Log.d("", "View model was cleared")
         tvChannels.dispose()
-        tvChannels.stream.cancel()
+        tvChannels.channels.cancel()
         playbackUriChannel.cancel()
         errorChannel.cancel()
     }

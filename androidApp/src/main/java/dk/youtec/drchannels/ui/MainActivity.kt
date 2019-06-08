@@ -51,7 +51,7 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
         swipeRefresh.setOnRefreshListener {
-            viewModel.tvChannels.subscribe()
+            viewModel.reload()
         }
 
         viewModel = ViewModelProviders.of(this)
@@ -61,7 +61,7 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
 
         with(viewModel) {
             launch {
-                tvChannelsStream.collect { channels ->
+                channels.collect { channels ->
                     Log.d("MainActivity", "Tv channels " + this@MainActivity)
                     isEmptyState = channels.isNullOrEmpty()
                     handleChannelsChanged(channels)
@@ -89,7 +89,7 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
         }
 
         if (savedInstanceState == null) {
-            viewModel.tvChannels.subscribe()
+            viewModel.reload()
 
             if (!isTv()) {
                 updateApp(this@MainActivity,
