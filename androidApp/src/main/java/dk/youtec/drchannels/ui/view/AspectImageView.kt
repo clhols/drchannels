@@ -28,11 +28,9 @@ class AspectImageView : AppCompatImageView {
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        if (measurer != null) {
-            measurer!!.measure(widthMeasureSpec, heightMeasureSpec)
-            setMeasuredDimension(measurer!!.measuredWidth, measurer!!.measuredHeight)
-        } else {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        }
+      measurer?.run {
+        measure(widthMeasureSpec, heightMeasureSpec)
+        setMeasuredDimension(measuredWidth, measuredHeight)
+      } ?: super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 }
