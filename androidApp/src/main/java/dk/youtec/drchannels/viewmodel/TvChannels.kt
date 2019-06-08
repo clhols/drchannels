@@ -4,8 +4,7 @@ import android.util.Log
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import kotlin.coroutines.CoroutineContext
@@ -17,7 +16,7 @@ class TvChannels : CoroutineScope, KoinComponent {
         get() = Dispatchers.Main
     private val api: DrMuRepository by inject()
     private var job: Job? = null
-    val stream = Channel<List<MuNowNext>>(CONFLATED)
+    val stream = ConflatedBroadcastChannel<List<MuNowNext>>()
 
     /**
      * Subscribe to an internal observable that trigger the network request
