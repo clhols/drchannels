@@ -4,13 +4,16 @@ import android.app.Application
 import android.util.Log
 import androidx.annotation.Keep
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.R
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
+import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.flow.flow
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
@@ -19,9 +22,19 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
     private val api: DrMuRepository by inject()
     private val tag = TvChannelsViewModel::class.java.simpleName
 
-    val tvChannels: TvChannelsLiveData = TvChannelsLiveData()
-    val playbackUri: SingleLiveEvent<String> = SingleLiveEvent()
-    val error: SingleLiveEvent<String> = SingleLiveEvent()
+    val tvChannels = TvChannels()
+    private val playbackUriChannel = Channel<String>(CONFLATED)
+    private val errorChannel = Channel<String>(CONFLATED)
+
+    val tvChannelsStream = flow {
+        tvChannels.stream.consumeEach { emit(it) }
+    }
+    val playbackUri = flow {
+        playbackUriChannel.consumeEach { emit(it) }
+    }
+    val error = flow {
+        errorChannel.consumeEach { emit(it) }
+    }
 
     fun playTvChannel(muNowNext: MuNowNext) {
         viewModelScope.launch {
@@ -38,44 +51,48 @@ class TvChannelsViewModel(application: Application) : AndroidViewModel(applicati
                         .sortedByDescending { it.Kbps }.first()
                         .Streams.first().Stream
 
-                playbackUri.value = "${server.Server}/$stream"
+                playbackUriChannel.offer("${server.Server}/$stream")
             } catch (e: Exception) {
                 Log.e(tag, e.message, e)
-                error.value = if (e.message != null && e.message != "Success") {
+                errorChannel.offer(if (e.message != null && e.message != "Success") {
                     e.message!!
                 } else {
                     getApplication<Application>().getString(R.string.cantChangeChannel)
-                }
+                })
             }
         }
     }
 
     fun playProgram(muNowNext: MuNowNext) {
-        val uri = muNowNext.Now?.ProgramCard?.PrimaryAsset?.Uri
-        if (uri != null) {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            val uri = muNowNext.Now?.ProgramCard?.PrimaryAsset?.Uri
+            if (uri != null) {
                 try {
                     val manifest = withContext(Dispatchers.IO) { api.getManifest(uri) }
 
                     val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
                     if (playbackUri.isNotBlank()) {
-                        this@TvChannelsViewModel.playbackUri.value = playbackUri
+                        this@TvChannelsViewModel.playbackUriChannel.offer(playbackUri)
                     } else {
-                        error.value = "No stream"
+                        errorChannel.offer("No stream")
                     }
                 } catch (e: Exception) {
-                    error.value =
+                    errorChannel.offer(
                             if (e.message != null && e.message != "Success") e.message!!
-                            else getApplication<Application>().getString(R.string.cantChangeChannel)
+                            else getApplication<Application>().getString(R.string.cantChangeChannel))
                 }
+            } else {
+                errorChannel.offer("No stream")
             }
-        } else {
-            error.value = "No stream"
         }
     }
 
     override fun onCleared() {
+        Log.d("", "View model was cleared")
         tvChannels.dispose()
+        tvChannels.stream.cancel()
+        playbackUriChannel.cancel()
+        errorChannel.cancel()
     }
 }
 
