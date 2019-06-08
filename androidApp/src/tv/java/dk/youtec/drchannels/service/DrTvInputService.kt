@@ -294,8 +294,7 @@ class DrTvInputSessionImpl(
 
 
     private fun buildMediaSource(uri: Uri, overrideExtension: String = ""): MediaSource {
-        @C.ContentType val type = Util.inferContentType(uri, overrideExtension)
-        when (type) {
+        when (@C.ContentType val type = Util.inferContentType(uri, overrideExtension)) {
             /*
             C.TYPE_DASH -> return DashMediaSource.Factory(dataSourceFactory)
                     .setManifestParser(
