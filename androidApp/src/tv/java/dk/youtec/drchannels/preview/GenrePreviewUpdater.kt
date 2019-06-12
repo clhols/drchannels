@@ -5,8 +5,8 @@ import android.content.Context
 import android.os.Build
 import androidx.work.WorkerParameters
 import dk.youtec.drapi.Genre
-import dk.youtec.drchannels.R
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @TargetApi(Build.VERSION_CODES.O)
 class GenrePreviewUpdater(
@@ -16,7 +16,7 @@ class GenrePreviewUpdater(
     private val genre = workerParams.inputData.getString("genre") ?: "unknownGenre"
     override val channelKey = "${genre}ChannelId"
     override fun getChannelName(): String = genre
-    override fun getPrograms() = runBlocking {
+    override suspend fun getPrograms() = withContext(Dispatchers.IO) {
         api.getPageTvPrograms(Genre.getByValue(genre)).Programs.Items
     }
 }

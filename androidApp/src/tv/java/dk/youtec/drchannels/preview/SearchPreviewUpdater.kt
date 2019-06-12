@@ -10,7 +10,8 @@ import androidx.work.WorkerParameters
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.SearchChannelQueryActivity
 import dk.youtec.drchannels.util.SharedPreferences
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @TargetApi(Build.VERSION_CODES.O)
 class SearchPreviewUpdater(
@@ -21,7 +22,7 @@ class SearchPreviewUpdater(
     private val query = SharedPreferences.getString(context, searchChannelKey, "Tæt på sandheden")
     override val channelKey = "searchChannelId"
     override fun getChannelName(): String = context.getString(R.string.channelSearch)
-    override fun getPrograms() = runBlocking {
+    override suspend fun getPrograms() = withContext(Dispatchers.IO) {
         api.search(query).Items
     }
 

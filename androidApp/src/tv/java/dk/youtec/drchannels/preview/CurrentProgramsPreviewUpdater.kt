@@ -18,6 +18,8 @@ import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.serverDateFormat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -27,10 +29,10 @@ private val TAG = CurrentProgramsPreviewUpdater::class.java.simpleName
 class CurrentProgramsPreviewUpdater(
         val context: Context,
         workerParams: WorkerParameters
-) : Worker(context, workerParams) {
+) : CoroutineWorker(context, workerParams) {
     private lateinit var contentResolver: ContentResolver
 
-    override fun doWork(): Result {
+    override suspend fun doWork(): Result {
         contentResolver = context.contentResolver
         val channelKey = "channelId"
         //Id of preview channel
@@ -42,12 +44,10 @@ class CurrentProgramsPreviewUpdater(
                     ?.use { cursor ->
                         if (cursor.moveToNext()) {
                             val channel = Channel.fromCursor(cursor)
-                            synchronized(CurrentProgramsPreviewUpdater::class.java) {
                                 Log.v(TAG,
                                         "Updating programs for channel ${channel.displayName} with id ${channel.id}")
                                 //update channel's programs
                                 updatePrograms(previewChannelId)
-                            }
                         }
                     }
         }
@@ -55,7 +55,7 @@ class CurrentProgramsPreviewUpdater(
     }
 
     @SuppressLint("RestrictedApi")
-    private fun updatePrograms(previewChannelId: Long) {
+    private suspend fun updatePrograms(previewChannelId: Long) {
         val now = System.currentTimeMillis()
         var nextProgramFinishTime = Long.MAX_VALUE
 
@@ -178,7 +178,7 @@ class CurrentProgramsPreviewUpdater(
      * @return List of programs.
      * @hide
      */
-    private fun getPreviewPrograms(channelId: Long): List<PreviewProgram> {
+    private suspend fun getPreviewPrograms(channelId: Long): List<PreviewProgram> = withContext(Dispatchers.IO) {
         val uri = TvContract.buildPreviewProgramsUriForChannel(channelId)
         val programs = ArrayList<PreviewProgram>()
         // TvProvider returns programs in chronological order by default.
@@ -192,7 +192,7 @@ class CurrentProgramsPreviewUpdater(
         } catch (e: Exception) {
             Log.w(TAG, "Unable to get preview programs for $channelId", e)
         }
-        return programs
+        programs
     }
 }
 
