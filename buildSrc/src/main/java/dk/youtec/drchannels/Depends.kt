@@ -5,6 +5,7 @@ val compileSdk = 29
 val targetSdk = 29
 val buildToolsVersion = "29.0.0"
 val androidxVersion = "1.0.0"
+val appcompatVersion = "1.1.0-beta01"
 val archComponentVersion = "2.2.0+"
 val picassoVersion = "2.71828"
 val coroutinesVersion = "1.3.0-M1"
