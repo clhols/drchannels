@@ -71,15 +71,22 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 val yesterdayDeferred   = async(Dispatchers.IO) { getSchedule(id, -1) }
                 val twoDaysAgoDeferred  = async(Dispatchers.IO) { getSchedule(id, -2) }
 
+                val tomorrow = tomorrowDeferred.await()
+                val today = todayDeferred.await()
+                val yesterday = yesterdayDeferred.await()
+                val twoDaysAgo = twoDaysAgoDeferred.await()
+
+                val allBroadcasts = twoDaysAgo.Broadcasts +
+                        yesterday.Broadcasts +
+                        today.Broadcasts +
+                        tomorrow.Broadcasts
+
                 onScheduleLoaded(
                         Schedule(
-                                (twoDaysAgoDeferred.await().Broadcasts +
-                                        yesterdayDeferred.await().Broadcasts +
-                                        todayDeferred.await().Broadcasts +
-                                        tomorrowDeferred.await().Broadcasts),
-                                todayDeferred.await().BroadcastDate,
-                                todayDeferred.await().ChannelSlug,
-                                todayDeferred.await().Channel
+                                allBroadcasts,
+                                today.BroadcastDate,
+                                today.ChannelSlug,
+                                today.Channel
                         ))
             }
         } catch (e: Exception) {
