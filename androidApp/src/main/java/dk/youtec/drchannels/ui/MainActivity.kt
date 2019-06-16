@@ -106,13 +106,13 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
      */
     private fun handleChannelsChanged(channels: List<MuNowNext>) {
         if (!isFinishing) {
-            if (recyclerView.adapter != null) {
-                (recyclerView.adapter as TvChannelsAdapter?)?.submitList(channels)
-            } else {
-                recyclerView.adapter = TvChannelsAdapter(this).apply {
-                    submitList(channels)
-                }
-            }
+            getAdapter().submitList(channels)
+        }
+    }
+
+    private fun getAdapter(): TvChannelsAdapter {
+        return (recyclerView.adapter as? TvChannelsAdapter) ?: TvChannelsAdapter(this).also {
+            recyclerView.adapter = it
         }
     }
 
