@@ -23,7 +23,6 @@ import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.isTv
 import dk.youtec.drchannels.viewmodel.TvChannelsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
@@ -43,8 +42,9 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
 
         setContentView(R.layout.activity_main)
 
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar.apply {
+            title = ""
+        })
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
