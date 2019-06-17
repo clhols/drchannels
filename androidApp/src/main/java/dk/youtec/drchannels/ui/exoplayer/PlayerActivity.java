@@ -56,6 +56,8 @@ import com.google.android.exoplayer2.upstream.HttpDataSource;
 import com.google.android.exoplayer2.util.ErrorMessageProvider;
 import com.google.android.exoplayer2.util.EventLogger;
 import com.google.android.exoplayer2.util.Util;
+import com.google.android.gms.cast.framework.CastButtonFactory;
+import com.google.android.gms.cast.framework.CastContext;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -68,6 +70,7 @@ import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -83,8 +86,12 @@ import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.mediarouter.app.MediaRouteButton;
+import androidx.mediarouter.media.MediaRouteSelector;
 
 import dk.youtec.drchannels.R;
+
+import static androidx.mediarouter.media.MediaControlIntent.CATEGORY_LIVE_VIDEO;
 
 /** An activity that plays media using {@link SimpleExoPlayer}. */
 public class PlayerActivity extends AppCompatActivity
@@ -156,6 +163,10 @@ public class PlayerActivity extends AppCompatActivity
     private Uri loadedAdTagUri;
 
     private boolean useExtensionRenderers = false;
+    private CastContext castContext;
+    private PlayerControlView castControlView;
+    private PlayerManager playerManager;
+    private MediaRouteButton mediaRouteButton;
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -231,6 +242,9 @@ public class PlayerActivity extends AppCompatActivity
         selectTracksButton = findViewById(R.id.select_tracks_button);
         selectTracksButton.setOnClickListener(this);
 
+        castContext = CastContext.getSharedInstance(this);
+        castControlView = (PlayerControlView) ((ViewGroup)findViewById(R.id.exo_controller_parent)).getChildAt(0);
+
         playerView = findViewById(R.id.player_view);
         playerView.setControllerVisibilityListener(this);
         playerView.setErrorMessageProvider(new PlayerErrorMessageProvider());
@@ -260,11 +274,17 @@ public class PlayerActivity extends AppCompatActivity
             trackSelectorParameters = new DefaultTrackSelector.ParametersBuilder().build();
             clearStartPosition();
         }
+
+        mediaRouteButton = findViewById(R.id.media_route_button);
+        mediaRouteButton.setRouteSelector(new MediaRouteSelector.Builder()
+                .addControlCategory(CATEGORY_LIVE_VIDEO)
+                .build());
+        CastButtonFactory.setUpMediaRouteButton(this, mediaRouteButton);
     }
 
     @Override
     public void onNewIntent(Intent intent) {
-    super.onNewIntent(intent);
+        super.onNewIntent(intent);
         releasePlayer();
         releaseAdsLoader();
         clearStartPosition();
@@ -319,6 +339,7 @@ public class PlayerActivity extends AppCompatActivity
     public void onDestroy() {
         super.onDestroy();
         releaseAdsLoader();
+        playerManager.release();
     }
 
     @Override
@@ -353,7 +374,7 @@ public class PlayerActivity extends AppCompatActivity
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         // See whether the player view wants to handle media or DPAD keys events.
-        return playerView.dispatchKeyEvent(event) || super.dispatchKeyEvent(event);
+        return playerManager.dispatchKeyEvent(event) || super.dispatchKeyEvent(event);
     }
 
     // OnClickListener methods
@@ -494,6 +515,16 @@ public class PlayerActivity extends AppCompatActivity
             debugViewHelper = new DebugTextViewHelper(player, debugTextView);
             debugViewHelper.start();
 
+            playerManager =
+                    PlayerManager.createPlayerManager(
+                            /* queuePositionListener= */ (previousIndex, newIndex) -> {
+                                Log.d("PlayerActivity", "onQueuePositionChanged");
+                            },
+                            playerView,
+                            castControlView,
+                            /* context= */ this,
+                            castContext);
+
             MediaSource[] mediaSources = new MediaSource[uris.length];
             for (int i = 0; i < uris.length; i++) {
                 mediaSources[i] = buildMediaSource(uris[i], extensions[i]);
@@ -516,12 +547,17 @@ public class PlayerActivity extends AppCompatActivity
             } else {
                 releaseAdsLoader();
             }
+
+            playerManager.addItem(uris[0].toString());
         }
+        /*
         boolean haveStartPosition = startWindow != C.INDEX_UNSET;
         if (haveStartPosition) {
             player.seekTo(startWindow, startPosition);
         }
         player.prepare(mediaSource, !haveStartPosition, false);
+        */
+        playerManager.selectQueueItem(0);
         updateButtonVisibility();
     }
 

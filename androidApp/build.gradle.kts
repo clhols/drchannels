@@ -113,6 +113,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-core:$exoPlayerVersion")
     implementation("com.google.android.exoplayer:exoplayer-hls:$exoPlayerVersion")
     implementation("com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion")
+    implementation("com.google.android.exoplayer:extension-cast:$exoPlayerVersion")
 
     implementation("org.jetbrains.anko:anko-sdk21:$ankoVersion")
     implementation("com.squareup.picasso:picasso:$picassoVersion")
@@ -121,7 +122,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:$androidxVersion")
     implementation("androidx.tvprovider:tvprovider:$androidxVersion")
     implementation("androidx.appcompat:appcompat:$appcompatVersion")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta1")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta2")
     implementation("androidx.core:core-ktx:1.0.2")
     implementation("org.koin:koin-android:2.0.1")
 
