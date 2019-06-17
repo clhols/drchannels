@@ -339,7 +339,7 @@ public class PlayerActivity extends AppCompatActivity
     public void onDestroy() {
         super.onDestroy();
         releaseAdsLoader();
-        //playerManager.release();
+        playerManager.release();
     }
 
     @Override
