@@ -257,7 +257,7 @@ import java.util.ArrayList;
         currentItemIndex = C.INDEX_UNSET;
         mediaQueue.clear();
         castPlayer.setSessionAvailabilityListener(null);
-        castPlayer.release();
+        //castPlayer.release();
         localPlayerView.setPlayer(null);
         exoPlayer.release();
     }

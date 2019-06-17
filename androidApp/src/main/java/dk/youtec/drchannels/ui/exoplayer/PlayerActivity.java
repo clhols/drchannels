@@ -339,7 +339,6 @@ public class PlayerActivity extends AppCompatActivity
     public void onDestroy() {
         super.onDestroy();
         releaseAdsLoader();
-        playerManager.release();
     }
 
     @Override
@@ -617,6 +616,7 @@ public class PlayerActivity extends AppCompatActivity
             updateStartPosition();
             debugViewHelper.stop();
             debugViewHelper = null;
+            playerManager.release();
             player.release();
             player = null;
             mediaSource = null;
