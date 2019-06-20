@@ -14,7 +14,7 @@ plugins {
 
 android {
     compileSdkVersion(compileSdk)
-    buildToolsVersion(buildToolsVersion)
+    buildToolsVersion(buildTools)
 
     flavorDimensions("app")
 
