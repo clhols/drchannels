@@ -114,8 +114,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-hls:$exoPlayerVersion")
     implementation("com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion")
 
-    implementation("org.jetbrains.anko:anko-sdk21:$ankoVersion")
-    implementation("com.squareup.picasso:picasso:$picassoVersion")
+    implementation("com.facebook.fresco:fresco:2.0.0")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.google.android.material:material:$androidxVersion")
     implementation("androidx.recyclerview:recyclerview:$androidxVersion")

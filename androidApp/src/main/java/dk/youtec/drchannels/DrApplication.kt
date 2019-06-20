@@ -1,13 +1,10 @@
 package dk.youtec.drchannels
 
 import android.app.Application
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.squareup.picasso.OkHttp3Downloader
-import com.squareup.picasso.Picasso
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.backend.OkHttpClientFactory
-import dk.youtec.drchannels.util.koined
-import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
@@ -30,9 +27,6 @@ class DrApplication : Application() {
             })
         }
 
-        Picasso.setSingletonInstance(
-                Picasso.Builder(this)
-                        .downloader(OkHttp3Downloader(koined<OkHttpClient>()))
-                        .build())
+        Fresco.initialize(this)
     }
 }

@@ -21,12 +21,12 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.adapter.TvChannelsAdapter
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.isTv
+import dk.youtec.drchannels.util.toast
 import dk.youtec.drchannels.viewmodel.TvChannelsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import org.jetbrains.anko.toast
 
 open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope by MainScope() {
     private lateinit var viewModel: TvChannelsViewModel
