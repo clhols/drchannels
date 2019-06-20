@@ -2,9 +2,9 @@ package dk.youtec.drchannels.ui.view
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatImageView
+import com.facebook.drawee.view.SimpleDraweeView
 
-class AspectImageView : AppCompatImageView {
+class AspectImageView : SimpleDraweeView {
 
     private var measurer: ViewAspectRatioMeasurer? = null
 

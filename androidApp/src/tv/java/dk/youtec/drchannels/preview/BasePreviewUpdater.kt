@@ -27,9 +27,9 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.MainActivity
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
+import dk.youtec.drchannels.util.defaultSharedPreferences
 import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
 import kotlinx.coroutines.*
-import org.jetbrains.anko.defaultSharedPreferences
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.util.ArrayList
