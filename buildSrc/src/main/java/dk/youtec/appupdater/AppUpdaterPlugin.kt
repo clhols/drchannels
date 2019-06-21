@@ -1,6 +1,5 @@
 package dk.youtec.appupdater
 
-import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtraPropertiesExtension
@@ -15,7 +14,7 @@ open class AppUpdaterPlugin : Plugin<Project> {
             create("tagProject", TagProjectTask::class.java).setMustRunAfter(listOf(
                     generateProjectChangeLog))
 
-            whenTaskAdded(Action {
+            whenTaskAdded {
                 if (name.startsWith("generate")
                         && name.endsWith("ReleaseBuildConfig")) {
                     //println("Task name: ${task.name}")
@@ -23,7 +22,7 @@ open class AppUpdaterPlugin : Plugin<Project> {
                     dependsOn("tagProject")
                     dependsOn("generateProjectChangeLog")
                 }
-            })
+            }
         }
 
         val ext = project.extensions.getByName("ext") as ExtraPropertiesExtension
