@@ -1,5 +1,5 @@
 //Project dependency versions
-val androidGradlePlugin = "3.5+"
+val androidGradlePlugin = "3.6+"
 val kotlinVersion = "1.3.40"
 val compileSdk = 29
 val targetSdk = 29
