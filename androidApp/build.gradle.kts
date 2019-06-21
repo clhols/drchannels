@@ -1,3 +1,4 @@
+import groovy.lang.Closure
 import java.util.*
 
 plugins {
@@ -26,7 +27,7 @@ android {
         targetSdkVersion(targetSdk)
 
         applicationId = "dk.youtec.drchannels"
-        versionCode = versionCodeTimestamp
+        versionCode = (project.ext.get("getVersionCodeTimestamp") as Closure<Int>).invoke()
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["clearPackageData"] = "true"

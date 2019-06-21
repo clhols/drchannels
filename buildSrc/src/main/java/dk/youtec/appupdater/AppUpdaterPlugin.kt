@@ -32,7 +32,7 @@ open class AppUpdaterPlugin : Plugin<Project> {
             if (project.hasProperty("devBuild")) {
                 1
             } else {
-                dateFormat("yyMMddHHmm").format(Date()).toInt()
+                dateFormat("yyMMddHH00").format(Date()).toInt()
             }
         })
     }
