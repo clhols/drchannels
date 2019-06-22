@@ -21,13 +21,12 @@ import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.adapter.TvChannelsAdapter
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.isTv
+import dk.youtec.drchannels.util.toast
 import dk.youtec.drchannels.viewmodel.TvChannelsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import org.jetbrains.anko.toast
 
 open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope by MainScope() {
     private lateinit var viewModel: TvChannelsViewModel
@@ -43,8 +42,9 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
 
         setContentView(R.layout.activity_main)
 
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar.apply {
+            title = ""
+        })
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
@@ -106,13 +106,13 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
      */
     private fun handleChannelsChanged(channels: List<MuNowNext>) {
         if (!isFinishing) {
-            if (recyclerView.adapter != null) {
-                (recyclerView.adapter as TvChannelsAdapter?)?.submitList(channels)
-            } else {
-                recyclerView.adapter = TvChannelsAdapter(this).apply {
-                    submitList(channels)
-                }
-            }
+            getAdapter().submitList(channels)
+        }
+    }
+
+    private fun getAdapter(): TvChannelsAdapter {
+        return (recyclerView.adapter as? TvChannelsAdapter) ?: TvChannelsAdapter(this).also {
+            recyclerView.adapter = it
         }
     }
 

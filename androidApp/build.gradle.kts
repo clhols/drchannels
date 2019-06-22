@@ -1,3 +1,4 @@
+import groovy.lang.Closure
 import java.util.*
 
 plugins {
@@ -9,12 +10,11 @@ plugins {
     id("com.github.triplet.play") version "2.2.1"
     id("org.sonarqube") version "2.7.1"
     id("dk.youtec.appupdater")
-    id("com.github.plnice.canidropjetifier") version "0.4" // ./gradlew -Pandroid.enableJetifier=false canIDropJetifier
 }
 
 android {
     compileSdkVersion(compileSdk)
-    buildToolsVersion(buildToolsVersion)
+    buildToolsVersion(buildTools)
 
     flavorDimensions("app")
 
@@ -27,7 +27,7 @@ android {
         targetSdkVersion(targetSdk)
 
         applicationId = "dk.youtec.drchannels"
-        versionCode = versionCodeTimestamp
+        versionCode = (project.ext.get("getVersionCodeTimestamp") as Closure<Int>).invoke()
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["clearPackageData"] = "true"
@@ -115,8 +115,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion")
     implementation("com.google.android.exoplayer:extension-cast:$exoPlayerVersion")
 
-    implementation("org.jetbrains.anko:anko-sdk21:$ankoVersion")
-    implementation("com.squareup.picasso:picasso:$picassoVersion")
+    implementation("com.facebook.fresco:fresco:2.0.0")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.google.android.material:material:$androidxVersion")
     implementation("androidx.recyclerview:recyclerview:$androidxVersion")
@@ -126,7 +125,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.0.2")
     implementation("org.koin:koin-android:2.0.1")
 
-    implementation(platform("com.google.firebase:firebase-bom:18.1.0"))
+    implementation(platform("com.google.firebase:firebase-bom:20.0.0"))
     implementation("com.google.firebase:firebase-core")
     implementation("com.crashlytics.sdk.android:crashlytics")
 

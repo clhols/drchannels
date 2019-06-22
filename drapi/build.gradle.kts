@@ -46,6 +46,7 @@ kotlin {
                 // Disable bitcode embedding for the simulator build.
                 embedBitcode("disable")
                 isStatic = true
+                freeCompilerArgs.add("-Xobjc-generics")
             }
         }
     }

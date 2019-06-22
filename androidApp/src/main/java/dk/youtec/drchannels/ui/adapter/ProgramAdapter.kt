@@ -21,13 +21,11 @@ import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.ui.view.AspectImageView
 import dk.youtec.drchannels.util.calendar
 import dk.youtec.drchannels.util.inflate
-import dk.youtec.drchannels.util.load
 import dk.youtec.drchannels.util.serverDateFormat
+import dk.youtec.drchannels.util.toast
 import kotlinx.android.synthetic.main.program_item.view.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import org.jetbrains.anko.image
-import org.jetbrains.anko.toast
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.lang.Exception
@@ -80,10 +78,10 @@ class ProgramAdapter(
         holder.image.apply {
             if (!program.ProgramCard.PrimaryImageUri.isEmpty()) {
                 isVisible = true
-                load(program.ProgramCard.PrimaryImageUri)
+                setImageURI(program.ProgramCard.PrimaryImageUri)
             } else {
                 isVisible = false
-                image = null
+                setImageURI("")
             }
         }
 

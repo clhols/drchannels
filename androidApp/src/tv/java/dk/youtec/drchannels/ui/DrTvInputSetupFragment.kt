@@ -11,7 +11,7 @@ import com.google.android.media.tv.companionlibrary.ChannelSetupFragment
 import com.google.android.media.tv.companionlibrary.EpgSyncJobService
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.service.DrTvEpgJobService
-import org.jetbrains.anko.toast
+import dk.youtec.drchannels.util.toast
 import java.util.concurrent.TimeUnit
 
 class DrTvInputSetupFragment: ChannelSetupFragment() {
@@ -58,7 +58,7 @@ class DrTvInputSetupFragment: ChannelSetupFragment() {
 
         if (scanErrorReason != null) {
             activity.setResult(Activity.RESULT_CANCELED)
-            toast(R.string.error_setup_channels)
+            activity.toast(R.string.error_setup_channels)
         } else {
             activity.setResult(Activity.RESULT_OK)
         }

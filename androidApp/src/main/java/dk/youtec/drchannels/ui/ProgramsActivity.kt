@@ -11,12 +11,12 @@ import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.adapter.ProgramAdapter
+import dk.youtec.drchannels.util.displayMetrics
 import dk.youtec.drchannels.util.serverCalendar
 import dk.youtec.drchannels.util.serverDateFormat
+import dk.youtec.drchannels.util.toast
 import kotlinx.android.synthetic.main.activity_programs.*
 import kotlinx.coroutines.*
-import org.jetbrains.anko.displayMetrics
-import org.jetbrains.anko.toast
 import org.koin.android.ext.android.inject
 import java.lang.Exception
 import java.util.Calendar.*

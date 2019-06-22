@@ -37,7 +37,7 @@ class SearchChannelQueryDialogFragment : DialogFragment() {
         return dialog
     }
 
-    override fun onDismiss(dialog: DialogInterface?) {
+    override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         activity?.finish()
     }

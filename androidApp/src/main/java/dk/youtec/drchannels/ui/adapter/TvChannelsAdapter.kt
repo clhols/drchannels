@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,11 +16,8 @@ import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.view.AspectImageView
 import dk.youtec.drchannels.util.inflate
-import dk.youtec.drchannels.util.load
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.android.synthetic.main.channels_item.view.*
-import org.jetbrains.anko.image
-import org.jetbrains.anko.selector
 import java.util.Date
 
 class TvChannelsAdapter(
@@ -73,10 +71,10 @@ class TvChannelsAdapter(
         holder.image.apply {
             if (!now.ProgramCard.PrimaryImageUri.isEmpty() && showDetails) {
                 visibility = View.VISIBLE
-                load(now.ProgramCard.PrimaryImageUri)
+                setImageURI(now.ProgramCard.PrimaryImageUri)
             } else {
                 visibility = View.GONE
-                image = null
+                setImageURI("")
             }
         }
 
@@ -115,11 +113,14 @@ class TvChannelsAdapter(
                 }
             }
             itemView.setOnLongClickListener {
-                it.context.selector(it.context.getString(R.string.channelAction), listOf(it.context.getString(R.string.startOverAction))) { _, _ ->
-                    if (adapterPosition in 0 until itemCount) {
-                        listener.playProgram(getItem(adapterPosition))
-                    }
-                }
+                AlertDialog.Builder(it.context)
+                        .setTitle(R.string.channelAction)
+                        .setItems(arrayOf(it.context.getString(R.string.startOverAction))) { _, _ ->
+                            if (adapterPosition in 0 until itemCount) {
+                                listener.playProgram(getItem(adapterPosition))
+                            }
+                        }
+                        .show()
                 true
             }
         }

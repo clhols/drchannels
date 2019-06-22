@@ -2,7 +2,6 @@ package dk.youtec.drchannels.util
 
 import android.content.Context
 import androidx.core.content.edit
-import org.jetbrains.anko.defaultSharedPreferences
 
 object SharedPreferences {
     fun getString(context: Context, key: String, default: String = ""): String =
