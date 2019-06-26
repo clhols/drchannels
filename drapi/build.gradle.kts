@@ -83,7 +83,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
                 implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
-                implementation("com.soywiz.korlibs.klock:klock-android:$klockVersion")
             }
         }
         named("androidTest") {
@@ -92,7 +91,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
                 implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
-                implementation("com.soywiz.korlibs.klock:klock-android:$klockVersion")
             }
         }
 
