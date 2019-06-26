@@ -29,13 +29,12 @@ class ChannelTableViewController: UITableViewController {
     
     private func loadChannels() {
         repo.getScheduleNowNext(callback: {
-            (schedules: [MuNowNext]) -> KotlinUnit in
+            (schedules: [MuNowNext]) -> Void in
             print("Got channels result")
             self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in
                 nowNext.Now != nil
             })
             self.tableView.reloadData()
-            return KotlinUnit.init()
         })
     }
     
@@ -69,7 +68,7 @@ class ChannelTableViewController: UITableViewController {
         let name = self.channels[indexPath.row].ChannelSlug
         
         repo.getAllActiveDrTvChannels(callback: {
-            (channels: [Channel]) -> KotlinUnit in
+            (channels: [Channel]) -> Void in
             
             let channel = channels.first(where: { (channel: Channel) -> Bool in
                 channel.Slug == name
@@ -82,8 +81,6 @@ class ChannelTableViewController: UITableViewController {
             print("Playing url: \(url)")
             
             self.playVideo(uri: url)
-            
-            return KotlinUnit.init()
         })
     }
 

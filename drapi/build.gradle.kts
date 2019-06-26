@@ -133,7 +133,7 @@ task("buildFramework") {
 task("iosTest") {
     group = "ios"
     val device = "iPhone 8"
-    dependsOn("linkTestDebugExecutableIos")
+    dependsOn("linkDebugTestIos")
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
