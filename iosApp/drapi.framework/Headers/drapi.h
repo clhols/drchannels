@@ -1162,7 +1162,8 @@ __attribute__((swift_name("Kotlinx_coroutines_coreCoroutineScope")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("DrMuRepositoryCallback")))
 @interface DrapiDrMuRepositoryCallback : DrapiDrMuRepository <DrapiKotlinx_coroutines_coreCoroutineScope>
-- (instancetype)initWithCoroutineContext:(id<DrapiKotlinCoroutineContext>)coroutineContext __attribute__((swift_name("init(coroutineContext:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
++ (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (instancetype)initWithCacheDir:(NSString * _Nullable)cacheDir sizeBytes:(int64_t)sizeBytes __attribute__((swift_name("init(cacheDir:sizeBytes:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 - (id<DrapiKotlinx_coroutines_coreJob>)getAllActiveDrTvChannelsCallback:(void (^)(NSArray<DrapiChannel *> *))callback __attribute__((swift_name("getAllActiveDrTvChannels(callback:)")));
 - (id<DrapiKotlinx_coroutines_coreJob>)getManifestUri:(NSString *)uri callback:(void (^)(DrapiManifest *))callback __attribute__((swift_name("getManifest(uri:callback:)")));

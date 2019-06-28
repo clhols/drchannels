@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		EC588A9421D3C1380010E814 /* ChannelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC588A9121D3C1370010E814 /* ChannelTableViewController.swift */; };
 		EC588A9521D3C1380010E814 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC588A9221D3C1370010E814 /* ChannelTableViewCell.swift */; };
-		EC588A9621D3C1380010E814 /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC588A9321D3C1370010E814 /* UI.swift */; };
 		EC82AA8321D3C04300E0651C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC82AA8221D3C04300E0651C /* AppDelegate.swift */; };
 		EC82AA8821D3C04300E0651C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC82AA8621D3C04300E0651C /* Main.storyboard */; };
 		EC82AA8A21D3C04400E0651C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC82AA8921D3C04400E0651C /* Assets.xcassets */; };
@@ -34,7 +33,6 @@
 /* Begin PBXFileReference section */
 		EC588A9121D3C1370010E814 /* ChannelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewController.swift; sourceTree = "<group>"; };
 		EC588A9221D3C1370010E814 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
-		EC588A9321D3C1370010E814 /* UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		EC82AA7F21D3C04300E0651C /* DR channels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DR channels.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC82AA8221D3C04300E0651C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC82AA8721D3C04300E0651C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -79,7 +77,6 @@
 			children = (
 				EC588A9221D3C1370010E814 /* ChannelTableViewCell.swift */,
 				EC588A9121D3C1370010E814 /* ChannelTableViewController.swift */,
-				EC588A9321D3C1370010E814 /* UI.swift */,
 				EC82AA8221D3C04300E0651C /* AppDelegate.swift */,
 				EC82AA8621D3C04300E0651C /* Main.storyboard */,
 				EC82AA8921D3C04400E0651C /* Assets.xcassets */,
@@ -169,7 +166,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC588A9421D3C1380010E814 /* ChannelTableViewController.swift in Sources */,
-				EC588A9621D3C1380010E814 /* UI.swift in Sources */,
 				EC82AA8321D3C04300E0651C /* AppDelegate.swift in Sources */,
 				EC588A9521D3C1380010E814 /* ChannelTableViewCell.swift in Sources */,
 			);
