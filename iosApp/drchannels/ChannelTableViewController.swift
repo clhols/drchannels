@@ -16,8 +16,7 @@ class ChannelTableViewController: UITableViewController {
     var channels = [MuNowNext]()
     
     lazy var repo: DrMuRepositoryCallback = {
-        DrMuRepositoryCallback(
-            coroutineContext: UI() as KotlinCoroutineContext)
+        DrMuRepositoryCallback()
     }()
     
     override func viewDidLoad() {
