@@ -136,7 +136,7 @@ task("iosTest") {
 
     doLast {
         val target = kotlin.targets.getByName("ios") as KotlinNativeTarget
-        val binary = target.binaries.getExecutable("test", "DEBUG").outputFile
+        val binary = target.binaries.getTest("DEBUG").outputFile
         exec {
             commandLine = listOf("xcrun", "simctl", "spawn", device, binary.absolutePath)
         }
