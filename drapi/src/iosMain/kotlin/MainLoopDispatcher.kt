@@ -5,7 +5,7 @@ import platform.darwin.*
 import kotlin.coroutines.CoroutineContext
 
 @UseExperimental(InternalCoroutinesApi::class)
-internal object MainLoopDispatcher : CoroutineDispatcher(), Delay {
+object MainLoopDispatcher : CoroutineDispatcher(), Delay {
 
     override fun dispatch(context: CoroutineContext, block: Runnable) {
         dispatch_async(dispatch_get_main_queue()) {

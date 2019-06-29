@@ -1,0 +1,6 @@
+framework module logic {
+    umbrella header "logic.h"
+
+    export *
+    module * { export * }
+}

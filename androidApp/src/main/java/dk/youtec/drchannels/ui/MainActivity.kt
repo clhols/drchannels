@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
@@ -27,9 +26,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
+import androidx.lifecycle.ViewModelProviders
+import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
+import dk.youtec.drchannels.viewmodel.TvChannelsViewModelFactory
+
 
 open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope by MainScope() {
-    private val viewModel: TvChannelsViewModel by viewModels()
+    private lateinit var viewModel: TvChannelsViewModel
 
     companion object {
         init {
@@ -45,6 +48,9 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
         setSupportActionBar(toolbar.apply {
             title = ""
         })
+
+        val factory = TvChannelsViewModelFactory(TvChannelsViewModelImpl(coroutineContext))
+        viewModel= ViewModelProviders.of(this, factory).get(TvChannelsViewModel::class.java)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
