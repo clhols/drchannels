@@ -123,7 +123,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat:$appcompatVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta2")
     implementation("androidx.core:core-ktx:1.0.2")
-    implementation("androidx.activity:activity-ktx:1.0.0-beta01")
     implementation("org.koin:koin-android:2.0.1")
 
     implementation(platform("com.google.firebase:firebase-bom:20.0.0"))
