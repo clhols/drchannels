@@ -4,10 +4,9 @@ import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlin.coroutines.CoroutineContext
 
 @ExperimentalCoroutinesApi
-class TvChannels(val api: DrMuRepository, override val coroutineContext: CoroutineContext) : CoroutineScope {
+class TvChannels(val api: DrMuRepository, private val viewModelScope: CoroutineScope) {
     private var job: Job? = null
     val channels = ConflatedBroadcastChannel<List<MuNowNext>>()
 
@@ -17,7 +16,7 @@ class TvChannels(val api: DrMuRepository, override val coroutineContext: Corouti
     fun subscribe() {
         dispose()
 
-        job = launch {
+        job = viewModelScope.launch {
             while (true) {
                 channels.offer(try {
                     withContext(Dispatchers.Default) {

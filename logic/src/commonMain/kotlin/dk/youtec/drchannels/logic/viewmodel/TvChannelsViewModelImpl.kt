@@ -5,15 +5,15 @@ import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.asFlow
-import kotlin.coroutines.CoroutineContext
 
-@ExperimentalCoroutinesApi @FlowPreview
+@ExperimentalCoroutinesApi
+@FlowPreview
 open class TvChannelsViewModelImpl(
-        override val coroutineContext: CoroutineContext
-) : CoroutineScope, TvChannelsViewModel {
+        private val viewModelScope: CoroutineScope
+) : TvChannelsViewModel {
     private val api: DrMuRepository = DrMuRepository()
 
-    private val tvChannels = TvChannels(api, coroutineContext)
+    private val tvChannels = TvChannels(api, viewModelScope)
     private val playbackUriChannel = BroadcastChannel<String>(1)
     private val errorChannel = BroadcastChannel<String>(1)
 
@@ -22,7 +22,7 @@ open class TvChannelsViewModelImpl(
     override val error = errorChannel.asFlow()
 
     override fun playTvChannel(muNowNext: MuNowNext) {
-        launch {
+        viewModelScope.launch {
             try {
                 val name = muNowNext.ChannelSlug
                 val server = withContext(Dispatchers.Default) {
@@ -47,7 +47,7 @@ open class TvChannelsViewModelImpl(
     }
 
     override fun playProgram(muNowNext: MuNowNext) {
-        launch {
+        viewModelScope.launch {
             val uri = muNowNext.Now?.ProgramCard?.PrimaryAsset?.Uri
             if (uri != null) {
                 try {
