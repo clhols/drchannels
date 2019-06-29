@@ -1,13 +1,12 @@
 import dk.youtec.drapi.DrMuRepositoryCallback
 import dk.youtec.drapi.MuNowNext
-import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
 open class DrMuApiTests {
-    private val service = DrMuRepositoryCallback(Dispatchers.Default)
+    private val service = DrMuRepositoryCallback()
 
     @Test
     fun testApi() {
