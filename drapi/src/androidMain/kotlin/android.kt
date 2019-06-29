@@ -19,8 +19,10 @@ actual object HttpClientFactory {
             }
 
             // https://square.github.io/okhttp/3.x/okhttp/okhttp3/Interceptor.html
-            addInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
-                Log.v("http", message)
+            addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+                override fun log(message: String) {
+                    Log.v("http", message)
+                }
             }).apply { level = HttpLoggingInterceptor.Level.BASIC })
             //addNetworkInterceptor(interceptor)
         }
