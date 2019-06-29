@@ -2,23 +2,21 @@ package dk.youtec.drchannels.viewmodel
 
 import androidx.annotation.Keep
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModel
+import kotlinx.coroutines.flow.Flow
 
 @Keep
-class TvChannelsViewModel(
-        private val viewModel: dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
-) : ViewModel(), TvChannelsViewModel by viewModel {
-    override fun onCleared() {
-        viewModel.onCleared()
-    }
-}
+class TvChannelsViewModel : ViewModel(), TvChannelsViewModel {
+    private val viewModel = dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl(viewModelScope)
 
-class TvChannelsViewModelFactory(
-        private val viewModel: dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return TvChannelsViewModel(viewModel) as T
-    }
+    override val channels: Flow<List<MuNowNext>> = viewModel.channels
+    override val playbackUri: Flow<String> = viewModel.playbackUri
+    override val error: Flow<String> = viewModel.error
 
+    override fun playTvChannel(muNowNext: MuNowNext) = viewModel.playTvChannel(muNowNext)
+    override fun playProgram(muNowNext: MuNowNext) = viewModel.playProgram(muNowNext)
+    override fun reload() = viewModel.reload()
+    override fun onCleared() = viewModel.onCleared()
 }
