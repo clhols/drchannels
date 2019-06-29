@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.appupdater.updateApp
@@ -29,7 +29,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 
 open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope by MainScope() {
-    private lateinit var viewModel: TvChannelsViewModel
+    private val viewModel: TvChannelsViewModel by viewModels()
 
     companion object {
         init {
@@ -53,9 +53,6 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
         swipeRefresh.setOnRefreshListener {
             viewModel.reload()
         }
-
-        viewModel = ViewModelProviders.of(this)
-                .get(TvChannelsViewModel::class.java)
 
         progressBar.isVisible = true
 
