@@ -46,7 +46,7 @@ object OkHttpClientFactory {
 
     fun clearCache() {
         try {
-            client.cache()?.evictAll()
+            client.cache?.evictAll()
         } catch (e: IOException) {
             Log.e(TAG, e.message, e)
         }
@@ -58,13 +58,13 @@ object OkHttpClientFactory {
             val request = chain.request()
 
             val startTime = System.nanoTime()
-            Log.v(TAG, "Sending request ${request.url()}")
+            Log.v(TAG, "Sending request ${request.url}")
 
             val response = chain.proceed(request)
 
             Log.v(TAG, String.format(
                     "Received response for %s in %.1fms%n",
-                    response.request().url(),
+                    response.request.url,
                     (System.nanoTime() - startTime) / 1e6))
 
             return response

@@ -12,7 +12,8 @@ import androidx.core.content.FileProvider
 import kotlinx.coroutines.*
 import okhttp3.CacheControl
 import okhttp3.Request
-import okio.Okio
+import okio.buffer
+import okio.sink
 import java.io.File
 import java.io.IOException
 
@@ -60,13 +61,13 @@ class UpdateActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 .cacheControl(CacheControl.Builder().noStore().build())
                 .build()
         val response = httpClient.newCall(request).execute()
-        val source = response.body()?.source()
+        val source = response.body?.source()
 
         if (source != null) {
             val cacheDir = context.externalCacheDir ?: context.cacheDir
             val apkCacheFolder = File(cacheDir, "apk").apply { mkdirs() }
             val apkFile = File(apkCacheFolder, "app.apk").apply { createNewFile() }
-            Okio.buffer(Okio.sink(apkFile)).apply {
+            apkFile.sink().buffer().apply {
                 writeAll(source)
                 close()
             }

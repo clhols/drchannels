@@ -73,7 +73,7 @@ private suspend fun getAppVersionFromMeta(
 
         val request = Request.Builder().url(metaUrl).build()
         val response = httpClient.newCall(request).execute()
-        val metaString = response.body()?.string() ?: ""
+        val metaString = response.body?.string() ?: ""
 
         extractVersionCode(metaString)
     } catch (e: IOException) {
@@ -102,7 +102,7 @@ private suspend fun getChangelog(
 
             val request = Request.Builder().url(changelogUrl).build()
             val response = httpClient.newCall(request).execute()
-            response.body()?.string() ?: ""
+            response.body?.string() ?: ""
         } catch (e: IOException) {
             Log.e(tag, e.message, e)
             ""
