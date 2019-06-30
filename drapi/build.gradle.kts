@@ -50,6 +50,7 @@ kotlin {
             }
         }
     }
+    js()
 
     sourceSets {
         all {
@@ -77,6 +78,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             }
         }
+
         named("androidMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
@@ -101,10 +103,16 @@ kotlin {
                 implementation("com.soywiz.korlibs.klock:klock-iosx64:$klockVersion")
             }
         }
-
         named("iosTest") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
+            }
+        }
+
+        named("jsMain") {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializationVersion")
+                implementation("io.ktor:ktor-client-js:$ktorVersion")
             }
         }
     }
