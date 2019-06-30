@@ -52,7 +52,7 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView.requestFocus()
 
-        val channelId = intent.extras?.getString(CHANNEL_ID) ?: ""
+        val channelId = intent.extras?.getString(CHANNEL_ID) ?: intent.data?.pathSegments?.lastOrNull() ?: ""
 
         loadPrograms(channelId)
     }
