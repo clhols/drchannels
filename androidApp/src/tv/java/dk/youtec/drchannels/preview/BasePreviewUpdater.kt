@@ -231,7 +231,6 @@ abstract class BasePreviewUpdater(
 /**
  * Schedules a new task to update the preview channel if no other task is pending or running.
  */
-@Synchronized
 inline fun <reified W : CoroutineWorker> schedulePreviewUpdate(input: Data = Data.EMPTY) {
     val tag = "schedulePreviewUpdate" + W::class.java.simpleName
     lateinit var observer: Observer<MutableList<WorkInfo>>

@@ -23,7 +23,7 @@ class SearchPreviewUpdater(
     override val channelKey = "searchChannelId"
     override fun getChannelName(): String = context.getString(R.string.channelSearch)
     override suspend fun getPrograms() = withContext(Dispatchers.IO) {
-        api.search(query).Items
+        api.search(query).Items.sortedByDescending { it.SortDateTime.time }
     }
 
     override fun buildChannel(): Channel {
