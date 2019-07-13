@@ -118,7 +118,7 @@ abstract class BasePreviewUpdater(
     }
 
     /**
-     * Removes any existing program from the channel and insert the new one.
+     * Convert a ProgramCard to a PreviewProgram.
      */
     private suspend fun getPreviewProgram(program: ProgramCard, previewChannelId: Long): PreviewProgram? {
         try {
