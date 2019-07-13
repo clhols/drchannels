@@ -29,10 +29,11 @@ import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.defaultSharedPreferences
 import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
+import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import java.util.ArrayList
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -136,11 +137,16 @@ abstract class BasePreviewUpdater(
                 data = playbackUri.toUri()
             }
 
+            val dateTime = if (program.PrimaryBroadcastStartTime != null) {
+                " - " + serverDateFormat("d/M HH:mm")
+                        .format(Date(program.PrimaryBroadcastStartTime!!.time))
+            } else ""
+
             return PreviewProgram.Builder()
                     .setChannelId(previewChannelId)
                     .setType(TvContractCompat.PreviewPrograms.TYPE_TV_SERIES)
                     .setTitle(program.Title)
-                    .setDescription(program.OnlineGenreText)
+                    .setDescription("${program.OnlineGenreText} $dateTime")
                     .setDurationMillis(program.PrimaryAsset?.DurationInMilliseconds?.toInt() ?: 0)
                     .setIntent(intent)
                     .setInternalProviderId(program.PrimaryAsset?.Uri)
