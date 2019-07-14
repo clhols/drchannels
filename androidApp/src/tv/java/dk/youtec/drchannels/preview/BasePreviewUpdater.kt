@@ -137,16 +137,11 @@ abstract class BasePreviewUpdater(
                 data = playbackUri.toUri()
             }
 
-            val dateTime = if (program.PrimaryBroadcastStartTime != null) {
-                " - " + serverDateFormat("d/M HH:mm")
-                        .format(Date(program.PrimaryBroadcastStartTime!!.time))
-            } else ""
-
             return PreviewProgram.Builder()
                     .setChannelId(previewChannelId)
                     .setType(TvContractCompat.PreviewPrograms.TYPE_TV_SERIES)
                     .setTitle(program.Title)
-                    .setDescription("${program.OnlineGenreText} $dateTime")
+                    .setDescription(getDescription(program))
                     .setDurationMillis(program.PrimaryAsset?.DurationInMilliseconds?.toInt() ?: 0)
                     .setIntent(intent)
                     .setInternalProviderId(program.PrimaryAsset?.Uri)
@@ -159,6 +154,15 @@ abstract class BasePreviewUpdater(
             Log.e(TAG, "Exception when adding program", e)
             return null
         }
+    }
+
+    private fun getDescription(program: ProgramCard): String {
+        var description = program.OnlineGenreText
+        if (description.isNotEmpty()) description += " - "
+        description += if (program.PrimaryBroadcastStartTime != null) {
+            serverDateFormat("d/M HH:mm").format(Date(program.PrimaryBroadcastStartTime!!.time))
+        } else ""
+        return description
     }
 
     /**
