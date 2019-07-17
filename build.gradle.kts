@@ -13,7 +13,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
         classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")
         classpath("com.google.gms:google-services:4.3.0")
-        classpath("io.fabric.tools:gradle:1.28.1")
+        classpath("io.fabric.tools:gradle:1.30.0")
     }
 }
 
