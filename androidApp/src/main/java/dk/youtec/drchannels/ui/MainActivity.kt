@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
+import android.view.View
 
 open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope by MainScope() {
     private val viewModel: TvChannelsViewModel by viewModels()
@@ -40,11 +41,9 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-        setSupportActionBar(toolbar.apply {
-            title = ""
-        })
+        setContentView(R.layout.activity_main)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
