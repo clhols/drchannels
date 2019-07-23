@@ -11,7 +11,7 @@ open class DrMuApiTests {
     @Test
     fun testApi() {
         service.getScheduleNowNext {
-            println(it.first().Now?.Title)
+            println(it.first().now?.title)
         }
     }
 
