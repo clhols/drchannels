@@ -20,7 +20,7 @@ class TvChannels(val api: DrMuRepository, private val viewModelScope: CoroutineS
             while (true) {
                 channels.offer(try {
                     withContext(Dispatchers.Default) {
-                        api.getScheduleNowNext().filter { it.Now != null }
+                        api.getScheduleNowNext().filter { it.now != null }
                     }
                 } catch (e: Exception) {
                     emptyList<MuNowNext>()

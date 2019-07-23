@@ -8,9 +8,14 @@
 
 @class DrapiDate, DrapiProgramCard, DrapiMuPaging, DrapiSearchResult, DrapiKotlinArray<T>, DrapiMuScheduleBroadcast, DrapiSchedule, DrapiMuStreamingServer, DrapiChannel, DrapiMuStreamQuality, DrapiMuStream, DrapiMuNowNext, DrapiPrimaryAsset, DrapiInfo, DrapiLink, DrapiSubtitle, DrapiManifest, DrapiMostViewed, DrapiPrograms, DrapiPage, DrapiGenre, DrapiKtor_client_coreHttpClient, DrapiDrMuRepository, DrapiKotlinx_serialization_runtimeEnumDescriptor, DrapiKotlinx_serialization_runtimeSerialKind, DrapiKotlinNothing, DrapiKotlinx_serialization_runtimeUpdateMode, DrapiKtor_client_coreHttpClientEngineConfig, DrapiKtor_client_coreHttpClientConfig<T>, DrapiKotlinx_coroutines_coreCoroutineDispatcher, DrapiKtor_client_coreHttpReceivePipeline, DrapiKtor_client_coreHttpRequestPipeline, DrapiKtor_client_coreHttpResponsePipeline, DrapiKtor_client_coreHttpSendPipeline, DrapiKotlinThrowable, DrapiKotlinx_coroutines_coreCancellationException, DrapiKotlinx_serialization_runtimeSerialClassDescImpl, DrapiKotlinEnum<E>, DrapiKtor_client_coreHttpResponseConfig, DrapiKtor_utilsAttributeKey<T>, DrapiKotlinAbstractCoroutineContextElement, DrapiKtor_utilsPipelinePhase, DrapiKtor_utilsPipeline<TSubject, TContext>, DrapiKtor_client_coreHttpResponse, DrapiKtor_client_coreHttpClientCall, DrapiKtor_client_coreHttpRequestBuilder, DrapiKtor_client_coreHttpResponseContainer, DrapiKotlinException, DrapiKotlinRuntimeException, DrapiKotlinIllegalStateException, DrapiKotlinx_ioCharset, DrapiKtor_utilsGMTDate, DrapiKtor_httpHttpStatusCode, DrapiKtor_httpHttpProtocolVersion, DrapiKtor_httpHeadersBuilder, DrapiKtor_client_coreHttpRequestData, DrapiKtor_httpURLBuilder, DrapiKtor_httpHttpMethod, DrapiKtor_client_coreTypeInfo, DrapiKotlinx_coroutines_coreAtomicDesc, DrapiKotlinx_ioCharsetDecoder, DrapiKotlinx_ioCharsetEncoder, DrapiKotlinx_ioByteOrder, DrapiKtor_utilsWeekDay, DrapiKtor_utilsMonth, DrapiKtor_httpOutgoingContent, DrapiKtor_httpUrl, DrapiKtor_utilsStringValuesBuilder, DrapiKtor_httpURLProtocol, DrapiKtor_httpParametersBuilder, DrapiKotlinx_coroutines_coreAtomicOp<__contravariant T>, DrapiKotlinx_ioIoBuffer, DrapiKtor_httpContentType, DrapiKotlinx_coroutines_coreOpDescriptor, DrapiKotlinByteArray, DrapiKotlinDoubleArray, DrapiKotlinFloatArray, DrapiKotlinIntArray, DrapiKotlinLongArray, DrapiKotlinShortArray, DrapiKotlinCharArray, DrapiKtor_httpHeaderValueParam, DrapiKtor_httpHeaderValueWithParameters, DrapiKotlinByteIterator, DrapiKotlinDoubleIterator, DrapiKotlinFloatIterator, DrapiKotlinIntIterator, DrapiKotlinLongIterator, DrapiKotlinShortIterator, DrapiKotlinCharIterator;
 
-@protocol DrapiKotlinx_serialization_runtimeEncoder, DrapiKotlinx_serialization_runtimeSerialDescriptor, DrapiKotlinx_serialization_runtimeDecoder, DrapiKotlinCoroutineContext, DrapiKotlinx_coroutines_coreJob, DrapiKotlinx_serialization_runtimeCompositeEncoder, DrapiKotlinx_serialization_runtimeSerialModule, DrapiKotlinAnnotation, DrapiKotlinx_serialization_runtimeCompositeDecoder, DrapiKotlinIterator, DrapiKtor_client_coreHttpClientEngine, DrapiKtor_utilsAttributes, DrapiKotlinCoroutineContextElement, DrapiKotlinCoroutineContextKey, DrapiKotlinx_coroutines_coreChildHandle, DrapiKotlinx_coroutines_coreChildJob, DrapiKotlinx_coroutines_coreDisposableHandle, DrapiKotlinSequence, DrapiKotlinx_coroutines_coreSelectClause0, DrapiKotlinx_serialization_runtimeSerialModuleCollector, DrapiKotlinKClass, DrapiKtor_client_coreHttpClientFeature, DrapiKotlinContinuation, DrapiKotlinx_coroutines_coreRunnable, DrapiKotlinSuspendFunction2, DrapiKotlinx_coroutines_coreParentJob, DrapiKotlinx_coroutines_coreSelectInstance, DrapiKotlinSuspendFunction0, DrapiKtor_httpHeaders, DrapiKotlinx_coroutines_ioByteReadChannel, DrapiKtor_client_coreHttpRequest, DrapiKotlinMapEntry, DrapiKotlinx_coroutines_ioReadSession, DrapiKtor_client_coreType, DrapiKtor_httpParameters, DrapiKotlinAppendable, DrapiKotlinx_ioObjectPool;
+@protocol DrapiKotlinx_serialization_runtimeEncoder, DrapiKotlinx_serialization_runtimeSerialDescriptor, DrapiKotlinx_serialization_runtimeSerializationStrategy, DrapiKotlinx_serialization_runtimeDecoder, DrapiKotlinx_serialization_runtimeDeserializationStrategy, DrapiKotlinx_serialization_runtimeKSerializer, DrapiKotlinx_serialization_runtimeGeneratedSerializer, DrapiKotlinCoroutineContext, DrapiKotlinx_coroutines_coreCoroutineScope, DrapiKotlinx_coroutines_coreJob, DrapiKotlinx_serialization_runtimeCompositeEncoder, DrapiKotlinx_serialization_runtimeSerialModule, DrapiKotlinAnnotation, DrapiKotlinx_serialization_runtimeCompositeDecoder, DrapiKotlinIterator, DrapiKotlinx_ioCloseable, DrapiKtor_client_coreHttpClientEngine, DrapiKtor_utilsAttributes, DrapiKotlinCoroutineContextElement, DrapiKotlinCoroutineContextKey, DrapiKotlinx_coroutines_coreChildHandle, DrapiKotlinx_coroutines_coreChildJob, DrapiKotlinx_coroutines_coreDisposableHandle, DrapiKotlinSequence, DrapiKotlinx_coroutines_coreSelectClause0, DrapiKotlinx_serialization_runtimeSerialModuleCollector, DrapiKotlinKClass, DrapiKotlinComparable, DrapiKtor_client_coreHttpClientFeature, DrapiKotlinContinuation, DrapiKotlinContinuationInterceptor, DrapiKotlinx_coroutines_coreRunnable, DrapiKotlinSuspendFunction2, DrapiKotlinx_coroutines_coreParentJob, DrapiKotlinx_coroutines_coreSelectInstance, DrapiKotlinSuspendFunction0, DrapiKotlinKDeclarationContainer, DrapiKotlinKAnnotatedElement, DrapiKotlinKClassifier, DrapiKotlinSuspendFunction, DrapiKtor_httpHeaders, DrapiKtor_httpHttpMessage, DrapiKotlinx_coroutines_ioByteReadChannel, DrapiKtor_client_coreHttpRequest, DrapiKtor_httpHttpMessageBuilder, DrapiKotlinMapEntry, DrapiKtor_utilsStringValues, DrapiKotlinx_coroutines_ioReadSession, DrapiKtor_client_coreType, DrapiKtor_httpParameters, DrapiKotlinx_ioInput, DrapiKotlinAppendable, DrapiKotlinx_ioOutput, DrapiKotlinx_ioObjectPool;
 
 NS_ASSUME_NONNULL_BEGIN
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunknown-warning-option"
+#pragma clang diagnostic ignored "-Wnullability"
+#pragma clang diagnostic ignored "-Wnullability-completeness"
+#pragma clang diagnostic ignored "-Wswift-name-attribute"
 
 @interface KotlinBase : NSObject
 - (instancetype)init __attribute__((unavailable));
@@ -193,8 +198,8 @@ __attribute__((swift_name("DateSerializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("SearchResult")))
 @interface DrapiSearchResult : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Title:(NSString * _Nullable)Title Subtitle:(NSString * _Nullable)Subtitle Description:(NSString * _Nullable)Description IsRepremiere:(BOOL)IsRepremiere BundleType:(NSString * _Nullable)BundleType ThemeType:(NSString * _Nullable)ThemeType Slug:(NSString * _Nullable)Slug Items:(NSArray<DrapiProgramCard *> * _Nullable)Items Paging:(DrapiMuPaging * _Nullable)Paging TotalSize:(int32_t)TotalSize BackgroundImageUri:(NSString * _Nullable)BackgroundImageUri SiteUrl:(NSString * _Nullable)SiteUrl serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Title:Subtitle:Description:IsRepremiere:BundleType:ThemeType:Slug:Items:Paging:TotalSize:BackgroundImageUri:SiteUrl:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithTitle:(NSString *)Title Subtitle:(NSString *)Subtitle Description:(NSString *)Description IsRepremiere:(BOOL)IsRepremiere BundleType:(NSString *)BundleType ThemeType:(NSString *)ThemeType Slug:(NSString *)Slug Items:(NSArray<DrapiProgramCard *> *)Items Paging:(DrapiMuPaging *)Paging TotalSize:(int32_t)TotalSize BackgroundImageUri:(NSString *)BackgroundImageUri SiteUrl:(NSString *)SiteUrl __attribute__((swift_name("init(Title:Subtitle:Description:IsRepremiere:BundleType:ThemeType:Slug:Items:Paging:TotalSize:BackgroundImageUri:SiteUrl:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 title:(NSString * _Nullable)title subtitle:(NSString * _Nullable)subtitle description:(NSString * _Nullable)description isRepremiere:(BOOL)isRepremiere bundleType:(NSString * _Nullable)bundleType themeType:(NSString * _Nullable)themeType slug:(NSString * _Nullable)slug items:(NSArray<DrapiProgramCard *> * _Nullable)items paging:(DrapiMuPaging * _Nullable)paging totalSize:(int32_t)totalSize backgroundImageUri:(NSString * _Nullable)backgroundImageUri siteUrl:(NSString * _Nullable)siteUrl serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:title:subtitle:description:isRepremiere:bundleType:themeType:slug:items:paging:totalSize:backgroundImageUri:siteUrl:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithTitle:(NSString *)title subtitle:(NSString *)subtitle description:(NSString *)description isRepremiere:(BOOL)isRepremiere bundleType:(NSString *)bundleType themeType:(NSString *)themeType slug:(NSString *)slug items:(NSArray<DrapiProgramCard *> *)items paging:(DrapiMuPaging *)paging totalSize:(int32_t)totalSize backgroundImageUri:(NSString *)backgroundImageUri siteUrl:(NSString *)siteUrl __attribute__((swift_name("init(title:subtitle:description:isRepremiere:bundleType:themeType:slug:items:paging:totalSize:backgroundImageUri:siteUrl:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
@@ -210,19 +215,19 @@ __attribute__((swift_name("SearchResult")))
 - (int32_t)component10 __attribute__((swift_name("component10()")));
 - (NSString *)component11 __attribute__((swift_name("component11()")));
 - (NSString *)component12 __attribute__((swift_name("component12()")));
-- (DrapiSearchResult *)doCopyTitle:(NSString *)Title Subtitle:(NSString *)Subtitle Description:(NSString *)Description IsRepremiere:(BOOL)IsRepremiere BundleType:(NSString *)BundleType ThemeType:(NSString *)ThemeType Slug:(NSString *)Slug Items:(NSArray<DrapiProgramCard *> *)Items Paging:(DrapiMuPaging *)Paging TotalSize:(int32_t)TotalSize BackgroundImageUri:(NSString *)BackgroundImageUri SiteUrl:(NSString *)SiteUrl __attribute__((swift_name("doCopy(Title:Subtitle:Description:IsRepremiere:BundleType:ThemeType:Slug:Items:Paging:TotalSize:BackgroundImageUri:SiteUrl:)")));
-@property (readonly) NSString *Title __attribute__((swift_name("Title")));
-@property (readonly) NSString *Subtitle __attribute__((swift_name("Subtitle")));
-@property (readonly) NSString *Description __attribute__((swift_name("Description")));
-@property (readonly) BOOL IsRepremiere __attribute__((swift_name("IsRepremiere")));
-@property (readonly) NSString *BundleType __attribute__((swift_name("BundleType")));
-@property (readonly) NSString *ThemeType __attribute__((swift_name("ThemeType")));
-@property (readonly) NSString *Slug __attribute__((swift_name("Slug")));
-@property (readonly) NSArray<DrapiProgramCard *> *Items __attribute__((swift_name("Items")));
-@property (readonly) DrapiMuPaging *Paging __attribute__((swift_name("Paging")));
-@property (readonly) int32_t TotalSize __attribute__((swift_name("TotalSize")));
-@property (readonly) NSString *BackgroundImageUri __attribute__((swift_name("BackgroundImageUri")));
-@property (readonly) NSString *SiteUrl __attribute__((swift_name("SiteUrl")));
+- (DrapiSearchResult *)doCopyTitle:(NSString *)title subtitle:(NSString *)subtitle description:(NSString *)description isRepremiere:(BOOL)isRepremiere bundleType:(NSString *)bundleType themeType:(NSString *)themeType slug:(NSString *)slug items:(NSArray<DrapiProgramCard *> *)items paging:(DrapiMuPaging *)paging totalSize:(int32_t)totalSize backgroundImageUri:(NSString *)backgroundImageUri siteUrl:(NSString *)siteUrl __attribute__((swift_name("doCopy(title:subtitle:description:isRepremiere:bundleType:themeType:slug:items:paging:totalSize:backgroundImageUri:siteUrl:)")));
+@property (readonly) NSString *title __attribute__((swift_name("title")));
+@property (readonly) NSString *subtitle __attribute__((swift_name("subtitle")));
+@property (readonly, getter=description_) NSString *description __attribute__((swift_name("description")));
+@property (readonly) BOOL isRepremiere __attribute__((swift_name("isRepremiere")));
+@property (readonly) NSString *bundleType __attribute__((swift_name("bundleType")));
+@property (readonly) NSString *themeType __attribute__((swift_name("themeType")));
+@property (readonly) NSString *slug __attribute__((swift_name("slug")));
+@property (readonly) NSArray<DrapiProgramCard *> *items __attribute__((swift_name("items")));
+@property (readonly) DrapiMuPaging *paging __attribute__((swift_name("paging")));
+@property (readonly) int32_t totalSize __attribute__((swift_name("totalSize")));
+@property (readonly) NSString *backgroundImageUri __attribute__((swift_name("backgroundImageUri")));
+@property (readonly) NSString *siteUrl __attribute__((swift_name("siteUrl")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -256,8 +261,8 @@ __attribute__((swift_name("SearchResult.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuPaging")))
 @interface DrapiMuPaging : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Title:(NSString * _Nullable)Title Source:(NSString * _Nullable)Source Next:(NSString * _Nullable)Next Previous:(NSString * _Nullable)Previous TotalSize:(int32_t)TotalSize serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Title:Source:Next:Previous:TotalSize:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithTitle:(NSString *)Title Source:(NSString *)Source Next:(NSString *)Next Previous:(NSString *)Previous TotalSize:(int32_t)TotalSize __attribute__((swift_name("init(Title:Source:Next:Previous:TotalSize:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 title:(NSString * _Nullable)title source:(NSString * _Nullable)source next:(NSString * _Nullable)next previous:(NSString * _Nullable)previous totalSize:(int32_t)totalSize serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:title:source:next:previous:totalSize:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithTitle:(NSString *)title source:(NSString *)source next:(NSString *)next previous:(NSString *)previous totalSize:(int32_t)totalSize __attribute__((swift_name("init(title:source:next:previous:totalSize:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
@@ -266,12 +271,12 @@ __attribute__((swift_name("MuPaging")))
 - (NSString *)component3 __attribute__((swift_name("component3()")));
 - (NSString *)component4 __attribute__((swift_name("component4()")));
 - (int32_t)component5 __attribute__((swift_name("component5()")));
-- (DrapiMuPaging *)doCopyTitle:(NSString *)Title Source:(NSString *)Source Next:(NSString *)Next Previous:(NSString *)Previous TotalSize:(int32_t)TotalSize __attribute__((swift_name("doCopy(Title:Source:Next:Previous:TotalSize:)")));
-@property (readonly) NSString *Title __attribute__((swift_name("Title")));
-@property (readonly) NSString *Source __attribute__((swift_name("Source")));
-@property (readonly) NSString *Next __attribute__((swift_name("Next")));
-@property (readonly) NSString *Previous __attribute__((swift_name("Previous")));
-@property (readonly) int32_t TotalSize __attribute__((swift_name("TotalSize")));
+- (DrapiMuPaging *)doCopyTitle:(NSString *)title source:(NSString *)source next:(NSString *)next previous:(NSString *)previous totalSize:(int32_t)totalSize __attribute__((swift_name("doCopy(title:source:next:previous:totalSize:)")));
+@property (readonly) NSString *title __attribute__((swift_name("title")));
+@property (readonly) NSString *source __attribute__((swift_name("source")));
+@property (readonly) NSString *next __attribute__((swift_name("next")));
+@property (readonly) NSString *previous __attribute__((swift_name("previous")));
+@property (readonly) int32_t totalSize __attribute__((swift_name("totalSize")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -299,8 +304,8 @@ __attribute__((swift_name("MuPaging.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Schedule")))
 @interface DrapiSchedule : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Broadcasts:(NSArray<DrapiMuScheduleBroadcast *> * _Nullable)Broadcasts BroadcastDate:(DrapiDate * _Nullable)BroadcastDate ChannelSlug:(NSString * _Nullable)ChannelSlug Channel:(NSString * _Nullable)Channel serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Broadcasts:BroadcastDate:ChannelSlug:Channel:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithBroadcasts:(NSArray<DrapiMuScheduleBroadcast *> *)Broadcasts BroadcastDate:(DrapiDate *)BroadcastDate ChannelSlug:(NSString *)ChannelSlug Channel:(NSString *)Channel __attribute__((swift_name("init(Broadcasts:BroadcastDate:ChannelSlug:Channel:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 broadcasts:(NSArray<DrapiMuScheduleBroadcast *> * _Nullable)broadcasts broadcastDate:(DrapiDate * _Nullable)broadcastDate channelSlug:(NSString * _Nullable)channelSlug channel:(NSString * _Nullable)channel serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:broadcasts:broadcastDate:channelSlug:channel:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithBroadcasts:(NSArray<DrapiMuScheduleBroadcast *> *)broadcasts broadcastDate:(DrapiDate *)broadcastDate channelSlug:(NSString *)channelSlug channel:(NSString *)channel __attribute__((swift_name("init(broadcasts:broadcastDate:channelSlug:channel:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
@@ -308,11 +313,11 @@ __attribute__((swift_name("Schedule")))
 - (DrapiDate *)component2 __attribute__((swift_name("component2()")));
 - (NSString *)component3 __attribute__((swift_name("component3()")));
 - (NSString *)component4 __attribute__((swift_name("component4()")));
-- (DrapiSchedule *)doCopyBroadcasts:(NSArray<DrapiMuScheduleBroadcast *> *)Broadcasts BroadcastDate:(DrapiDate *)BroadcastDate ChannelSlug:(NSString *)ChannelSlug Channel:(NSString *)Channel __attribute__((swift_name("doCopy(Broadcasts:BroadcastDate:ChannelSlug:Channel:)")));
-@property (readonly) NSArray<DrapiMuScheduleBroadcast *> *Broadcasts __attribute__((swift_name("Broadcasts")));
-@property (readonly) DrapiDate *BroadcastDate __attribute__((swift_name("BroadcastDate")));
-@property (readonly) NSString *ChannelSlug __attribute__((swift_name("ChannelSlug")));
-@property (readonly) NSString *Channel __attribute__((swift_name("Channel")));
+- (DrapiSchedule *)doCopyBroadcasts:(NSArray<DrapiMuScheduleBroadcast *> *)broadcasts broadcastDate:(DrapiDate *)broadcastDate channelSlug:(NSString *)channelSlug channel:(NSString *)channel __attribute__((swift_name("doCopy(broadcasts:broadcastDate:channelSlug:channel:)")));
+@property (readonly) NSArray<DrapiMuScheduleBroadcast *> *broadcasts __attribute__((swift_name("broadcasts")));
+@property (readonly) DrapiDate *broadcastDate __attribute__((swift_name("broadcastDate")));
+@property (readonly) NSString *channelSlug __attribute__((swift_name("channelSlug")));
+@property (readonly) NSString *channel __attribute__((swift_name("channel")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -340,8 +345,8 @@ __attribute__((swift_name("Schedule.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Channel")))
 @interface DrapiChannel : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Type:(NSString * _Nullable)Type StreamingServers:(NSArray<DrapiMuStreamingServer *> * _Nullable)StreamingServers Url:(NSString * _Nullable)Url SourceUrl:(NSString * _Nullable)SourceUrl WebChannel:(BOOL)WebChannel Slug:(NSString * _Nullable)Slug Urn:(NSString * _Nullable)Urn PrimaryImageUri:(NSString * _Nullable)PrimaryImageUri PresentationUri:(NSString * _Nullable)PresentationUri PresentationUriAutoplay:(NSString * _Nullable)PresentationUriAutoplay Title:(NSString * _Nullable)Title ItemLabel:(NSString * _Nullable)ItemLabel Subtitle:(NSString * _Nullable)Subtitle serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Type:StreamingServers:Url:SourceUrl:WebChannel:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:ItemLabel:Subtitle:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithType:(NSString *)Type StreamingServers:(NSArray<DrapiMuStreamingServer *> *)StreamingServers Url:(NSString *)Url SourceUrl:(NSString *)SourceUrl WebChannel:(BOOL)WebChannel Slug:(NSString *)Slug Urn:(NSString *)Urn PrimaryImageUri:(NSString *)PrimaryImageUri PresentationUri:(NSString *)PresentationUri PresentationUriAutoplay:(NSString *)PresentationUriAutoplay Title:(NSString *)Title ItemLabel:(NSString *)ItemLabel Subtitle:(NSString *)Subtitle __attribute__((swift_name("init(Type:StreamingServers:Url:SourceUrl:WebChannel:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:ItemLabel:Subtitle:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 type:(NSString * _Nullable)type streamingServers:(NSArray<DrapiMuStreamingServer *> * _Nullable)streamingServers url:(NSString * _Nullable)url sourceUrl:(NSString * _Nullable)sourceUrl webChannel:(BOOL)webChannel slug:(NSString * _Nullable)slug urn:(NSString * _Nullable)urn primaryImageUri:(NSString * _Nullable)primaryImageUri presentationUri:(NSString * _Nullable)presentationUri presentationUriAutoplay:(NSString * _Nullable)presentationUriAutoplay title:(NSString * _Nullable)title itemLabel:(NSString * _Nullable)itemLabel subtitle:(NSString * _Nullable)subtitle serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:type:streamingServers:url:sourceUrl:webChannel:slug:urn:primaryImageUri:presentationUri:presentationUriAutoplay:title:itemLabel:subtitle:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithType:(NSString *)type streamingServers:(NSArray<DrapiMuStreamingServer *> *)streamingServers url:(NSString *)url sourceUrl:(NSString *)sourceUrl webChannel:(BOOL)webChannel slug:(NSString *)slug urn:(NSString *)urn primaryImageUri:(NSString *)primaryImageUri presentationUri:(NSString *)presentationUri presentationUriAutoplay:(NSString *)presentationUriAutoplay title:(NSString *)title itemLabel:(NSString *)itemLabel subtitle:(NSString *)subtitle __attribute__((swift_name("init(type:streamingServers:url:sourceUrl:webChannel:slug:urn:primaryImageUri:presentationUri:presentationUriAutoplay:title:itemLabel:subtitle:)"))) __attribute__((objc_designated_initializer));
 - (DrapiMuStreamingServer * _Nullable)server __attribute__((swift_name("server()")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
@@ -359,20 +364,20 @@ __attribute__((swift_name("Channel")))
 - (NSString *)component11 __attribute__((swift_name("component11()")));
 - (NSString *)component12 __attribute__((swift_name("component12()")));
 - (NSString *)component13 __attribute__((swift_name("component13()")));
-- (DrapiChannel *)doCopyType:(NSString *)Type StreamingServers:(NSArray<DrapiMuStreamingServer *> *)StreamingServers Url:(NSString *)Url SourceUrl:(NSString *)SourceUrl WebChannel:(BOOL)WebChannel Slug:(NSString *)Slug Urn:(NSString *)Urn PrimaryImageUri:(NSString *)PrimaryImageUri PresentationUri:(NSString *)PresentationUri PresentationUriAutoplay:(NSString *)PresentationUriAutoplay Title:(NSString *)Title ItemLabel:(NSString *)ItemLabel Subtitle:(NSString *)Subtitle __attribute__((swift_name("doCopy(Type:StreamingServers:Url:SourceUrl:WebChannel:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:ItemLabel:Subtitle:)")));
-@property (readonly) NSString *Type __attribute__((swift_name("Type")));
-@property (readonly) NSArray<DrapiMuStreamingServer *> *StreamingServers __attribute__((swift_name("StreamingServers")));
-@property (readonly) NSString *Url __attribute__((swift_name("Url")));
-@property (readonly) NSString *SourceUrl __attribute__((swift_name("SourceUrl")));
-@property (readonly) BOOL WebChannel __attribute__((swift_name("WebChannel")));
-@property (readonly) NSString *Slug __attribute__((swift_name("Slug")));
-@property (readonly) NSString *Urn __attribute__((swift_name("Urn")));
-@property (readonly) NSString *PrimaryImageUri __attribute__((swift_name("PrimaryImageUri")));
-@property (readonly) NSString *PresentationUri __attribute__((swift_name("PresentationUri")));
-@property (readonly) NSString *PresentationUriAutoplay __attribute__((swift_name("PresentationUriAutoplay")));
-@property (readonly) NSString *Title __attribute__((swift_name("Title")));
-@property (readonly) NSString *ItemLabel __attribute__((swift_name("ItemLabel")));
-@property (readonly) NSString *Subtitle __attribute__((swift_name("Subtitle")));
+- (DrapiChannel *)doCopyType:(NSString *)type streamingServers:(NSArray<DrapiMuStreamingServer *> *)streamingServers url:(NSString *)url sourceUrl:(NSString *)sourceUrl webChannel:(BOOL)webChannel slug:(NSString *)slug urn:(NSString *)urn primaryImageUri:(NSString *)primaryImageUri presentationUri:(NSString *)presentationUri presentationUriAutoplay:(NSString *)presentationUriAutoplay title:(NSString *)title itemLabel:(NSString *)itemLabel subtitle:(NSString *)subtitle __attribute__((swift_name("doCopy(type:streamingServers:url:sourceUrl:webChannel:slug:urn:primaryImageUri:presentationUri:presentationUriAutoplay:title:itemLabel:subtitle:)")));
+@property (readonly) NSString *type __attribute__((swift_name("type")));
+@property (readonly) NSArray<DrapiMuStreamingServer *> *streamingServers __attribute__((swift_name("streamingServers")));
+@property (readonly) NSString *url __attribute__((swift_name("url")));
+@property (readonly) NSString *sourceUrl __attribute__((swift_name("sourceUrl")));
+@property (readonly) BOOL webChannel __attribute__((swift_name("webChannel")));
+@property (readonly) NSString *slug __attribute__((swift_name("slug")));
+@property (readonly) NSString *urn __attribute__((swift_name("urn")));
+@property (readonly) NSString *primaryImageUri __attribute__((swift_name("primaryImageUri")));
+@property (readonly) NSString *presentationUri __attribute__((swift_name("presentationUri")));
+@property (readonly) NSString *presentationUriAutoplay __attribute__((swift_name("presentationUriAutoplay")));
+@property (readonly) NSString *title __attribute__((swift_name("title")));
+@property (readonly) NSString *itemLabel __attribute__((swift_name("itemLabel")));
+@property (readonly) NSString *subtitle __attribute__((swift_name("subtitle")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -400,8 +405,8 @@ __attribute__((swift_name("Channel.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuStreamingServer")))
 @interface DrapiMuStreamingServer : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Server:(NSString * _Nullable)Server LinkType:(NSString * _Nullable)LinkType Qualities:(NSArray<DrapiMuStreamQuality *> * _Nullable)Qualities DynamicUserQualityChange:(BOOL)DynamicUserQualityChange EncryptedServer:(NSString * _Nullable)EncryptedServer serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Server:LinkType:Qualities:DynamicUserQualityChange:EncryptedServer:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithServer:(NSString *)Server LinkType:(NSString *)LinkType Qualities:(NSArray<DrapiMuStreamQuality *> *)Qualities DynamicUserQualityChange:(BOOL)DynamicUserQualityChange EncryptedServer:(NSString *)EncryptedServer __attribute__((swift_name("init(Server:LinkType:Qualities:DynamicUserQualityChange:EncryptedServer:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 server:(NSString * _Nullable)server linkType:(NSString * _Nullable)linkType qualities:(NSArray<DrapiMuStreamQuality *> * _Nullable)qualities dynamicUserQualityChange:(BOOL)dynamicUserQualityChange encryptedServer:(NSString * _Nullable)encryptedServer serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:server:linkType:qualities:dynamicUserQualityChange:encryptedServer:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithServer:(NSString *)server linkType:(NSString *)linkType qualities:(NSArray<DrapiMuStreamQuality *> *)qualities dynamicUserQualityChange:(BOOL)dynamicUserQualityChange encryptedServer:(NSString *)encryptedServer __attribute__((swift_name("init(server:linkType:qualities:dynamicUserQualityChange:encryptedServer:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
@@ -410,12 +415,12 @@ __attribute__((swift_name("MuStreamingServer")))
 - (NSArray<DrapiMuStreamQuality *> *)component3 __attribute__((swift_name("component3()")));
 - (BOOL)component4 __attribute__((swift_name("component4()")));
 - (NSString *)component5 __attribute__((swift_name("component5()")));
-- (DrapiMuStreamingServer *)doCopyServer:(NSString *)Server LinkType:(NSString *)LinkType Qualities:(NSArray<DrapiMuStreamQuality *> *)Qualities DynamicUserQualityChange:(BOOL)DynamicUserQualityChange EncryptedServer:(NSString *)EncryptedServer __attribute__((swift_name("doCopy(Server:LinkType:Qualities:DynamicUserQualityChange:EncryptedServer:)")));
-@property (readonly) NSString *Server __attribute__((swift_name("Server")));
-@property (readonly) NSString *LinkType __attribute__((swift_name("LinkType")));
-@property (readonly) NSArray<DrapiMuStreamQuality *> *Qualities __attribute__((swift_name("Qualities")));
-@property (readonly) BOOL DynamicUserQualityChange __attribute__((swift_name("DynamicUserQualityChange")));
-@property (readonly) NSString *EncryptedServer __attribute__((swift_name("EncryptedServer")));
+- (DrapiMuStreamingServer *)doCopyServer:(NSString *)server linkType:(NSString *)linkType qualities:(NSArray<DrapiMuStreamQuality *> *)qualities dynamicUserQualityChange:(BOOL)dynamicUserQualityChange encryptedServer:(NSString *)encryptedServer __attribute__((swift_name("doCopy(server:linkType:qualities:dynamicUserQualityChange:encryptedServer:)")));
+@property (readonly) NSString *server __attribute__((swift_name("server")));
+@property (readonly) NSString *linkType __attribute__((swift_name("linkType")));
+@property (readonly) NSArray<DrapiMuStreamQuality *> *qualities __attribute__((swift_name("qualities")));
+@property (readonly) BOOL dynamicUserQualityChange __attribute__((swift_name("dynamicUserQualityChange")));
+@property (readonly) NSString *encryptedServer __attribute__((swift_name("encryptedServer")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -443,16 +448,16 @@ __attribute__((swift_name("MuStreamingServer.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuStreamQuality")))
 @interface DrapiMuStreamQuality : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Kbps:(int32_t)Kbps Streams:(NSArray<DrapiMuStream *> * _Nullable)Streams serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Kbps:Streams:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithKbps:(int32_t)Kbps Streams:(NSArray<DrapiMuStream *> *)Streams __attribute__((swift_name("init(Kbps:Streams:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 kbps:(int32_t)kbps streams:(NSArray<DrapiMuStream *> * _Nullable)streams serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:kbps:streams:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithKbps:(int32_t)kbps streams:(NSArray<DrapiMuStream *> *)streams __attribute__((swift_name("init(kbps:streams:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 - (int32_t)component1 __attribute__((swift_name("component1()")));
 - (NSArray<DrapiMuStream *> *)component2 __attribute__((swift_name("component2()")));
-- (DrapiMuStreamQuality *)doCopyKbps:(int32_t)Kbps Streams:(NSArray<DrapiMuStream *> *)Streams __attribute__((swift_name("doCopy(Kbps:Streams:)")));
-@property (readonly) int32_t Kbps __attribute__((swift_name("Kbps")));
-@property (readonly) NSArray<DrapiMuStream *> *Streams __attribute__((swift_name("Streams")));
+- (DrapiMuStreamQuality *)doCopyKbps:(int32_t)kbps streams:(NSArray<DrapiMuStream *> *)streams __attribute__((swift_name("doCopy(kbps:streams:)")));
+@property (readonly) int32_t kbps __attribute__((swift_name("kbps")));
+@property (readonly) NSArray<DrapiMuStream *> *streams __attribute__((swift_name("streams")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -480,16 +485,16 @@ __attribute__((swift_name("MuStreamQuality.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuStream")))
 @interface DrapiMuStream : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Stream:(NSString * _Nullable)Stream EncryptedStream:(NSString * _Nullable)EncryptedStream serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Stream:EncryptedStream:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithStream:(NSString *)Stream EncryptedStream:(NSString *)EncryptedStream __attribute__((swift_name("init(Stream:EncryptedStream:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 stream:(NSString * _Nullable)stream encryptedStream:(NSString * _Nullable)encryptedStream serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:stream:encryptedStream:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithStream:(NSString *)stream encryptedStream:(NSString *)encryptedStream __attribute__((swift_name("init(stream:encryptedStream:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 - (NSString *)component1 __attribute__((swift_name("component1()")));
 - (NSString *)component2 __attribute__((swift_name("component2()")));
-- (DrapiMuStream *)doCopyStream:(NSString *)Stream EncryptedStream:(NSString *)EncryptedStream __attribute__((swift_name("doCopy(Stream:EncryptedStream:)")));
-@property (readonly) NSString *Stream __attribute__((swift_name("Stream")));
-@property (readonly) NSString *EncryptedStream __attribute__((swift_name("EncryptedStream")));
+- (DrapiMuStream *)doCopyStream:(NSString *)stream encryptedStream:(NSString *)encryptedStream __attribute__((swift_name("doCopy(stream:encryptedStream:)")));
+@property (readonly) NSString *stream __attribute__((swift_name("stream")));
+@property (readonly) NSString *encryptedStream __attribute__((swift_name("encryptedStream")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -517,8 +522,8 @@ __attribute__((swift_name("MuStream.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuNowNext")))
 @interface DrapiMuNowNext : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 ChannelSlug:(NSString * _Nullable)ChannelSlug Channel:(NSString * _Nullable)Channel Now:(DrapiMuScheduleBroadcast * _Nullable)Now Next:(NSArray<DrapiMuScheduleBroadcast *> * _Nullable)Next serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:ChannelSlug:Channel:Now:Next:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithChannelSlug:(NSString *)ChannelSlug Channel:(NSString *)Channel Now:(DrapiMuScheduleBroadcast * _Nullable)Now Next:(NSArray<DrapiMuScheduleBroadcast *> *)Next __attribute__((swift_name("init(ChannelSlug:Channel:Now:Next:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 channelSlug:(NSString * _Nullable)channelSlug channel:(NSString * _Nullable)channel now:(DrapiMuScheduleBroadcast * _Nullable)now next:(NSArray<DrapiMuScheduleBroadcast *> * _Nullable)next serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:channelSlug:channel:now:next:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithChannelSlug:(NSString *)channelSlug channel:(NSString *)channel now:(DrapiMuScheduleBroadcast * _Nullable)now next:(NSArray<DrapiMuScheduleBroadcast *> *)next __attribute__((swift_name("init(channelSlug:channel:now:next:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
@@ -526,11 +531,11 @@ __attribute__((swift_name("MuNowNext")))
 - (NSString *)component2 __attribute__((swift_name("component2()")));
 - (DrapiMuScheduleBroadcast * _Nullable)component3 __attribute__((swift_name("component3()")));
 - (NSArray<DrapiMuScheduleBroadcast *> *)component4 __attribute__((swift_name("component4()")));
-- (DrapiMuNowNext *)doCopyChannelSlug:(NSString *)ChannelSlug Channel:(NSString *)Channel Now:(DrapiMuScheduleBroadcast * _Nullable)Now Next:(NSArray<DrapiMuScheduleBroadcast *> *)Next __attribute__((swift_name("doCopy(ChannelSlug:Channel:Now:Next:)")));
-@property (readonly) NSString *ChannelSlug __attribute__((swift_name("ChannelSlug")));
-@property (readonly) NSString *Channel __attribute__((swift_name("Channel")));
-@property (readonly) DrapiMuScheduleBroadcast * _Nullable Now __attribute__((swift_name("Now")));
-@property (readonly) NSArray<DrapiMuScheduleBroadcast *> *Next __attribute__((swift_name("Next")));
+- (DrapiMuNowNext *)doCopyChannelSlug:(NSString *)channelSlug channel:(NSString *)channel now:(DrapiMuScheduleBroadcast * _Nullable)now next:(NSArray<DrapiMuScheduleBroadcast *> *)next __attribute__((swift_name("doCopy(channelSlug:channel:now:next:)")));
+@property (readonly) NSString *channelSlug __attribute__((swift_name("channelSlug")));
+@property (readonly) NSString *channel __attribute__((swift_name("channel")));
+@property (readonly) DrapiMuScheduleBroadcast * _Nullable now __attribute__((swift_name("now")));
+@property (readonly) NSArray<DrapiMuScheduleBroadcast *> *next __attribute__((swift_name("next")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -558,8 +563,8 @@ __attribute__((swift_name("MuNowNext.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MuScheduleBroadcast")))
 @interface DrapiMuScheduleBroadcast : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Title:(NSString * _Nullable)Title Description:(NSString * _Nullable)Description Subtitle:(NSString * _Nullable)Subtitle StartTime:(DrapiDate * _Nullable)StartTime EndTime:(DrapiDate * _Nullable)EndTime ProgramCard:(DrapiProgramCard * _Nullable)ProgramCard OnlineGenreText:(NSString * _Nullable)OnlineGenreText ProductionNumber:(NSString * _Nullable)ProductionNumber ProgramCardHasPrimaryAsset:(BOOL)ProgramCardHasPrimaryAsset SeriesHasProgramCardWithPrimaryAsset:(BOOL)SeriesHasProgramCardWithPrimaryAsset AnnouncedStartTime:(DrapiDate * _Nullable)AnnouncedStartTime AnnouncedEndTime:(DrapiDate * _Nullable)AnnouncedEndTime ProductionCountry:(NSString * _Nullable)ProductionCountry ProductionYear:(int32_t)ProductionYear VideoWidescreen:(BOOL)VideoWidescreen SubtitlesTTV:(BOOL)SubtitlesTTV VideoHD:(BOOL)VideoHD WhatsOnUri:(NSString * _Nullable)WhatsOnUri IsRerun:(BOOL)IsRerun serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Title:Description:Subtitle:StartTime:EndTime:ProgramCard:OnlineGenreText:ProductionNumber:ProgramCardHasPrimaryAsset:SeriesHasProgramCardWithPrimaryAsset:AnnouncedStartTime:AnnouncedEndTime:ProductionCountry:ProductionYear:VideoWidescreen:SubtitlesTTV:VideoHD:WhatsOnUri:IsRerun:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithTitle:(NSString *)Title Description:(NSString *)Description Subtitle:(NSString *)Subtitle StartTime:(DrapiDate *)StartTime EndTime:(DrapiDate *)EndTime ProgramCard:(DrapiProgramCard *)ProgramCard OnlineGenreText:(NSString * _Nullable)OnlineGenreText ProductionNumber:(NSString *)ProductionNumber ProgramCardHasPrimaryAsset:(BOOL)ProgramCardHasPrimaryAsset SeriesHasProgramCardWithPrimaryAsset:(BOOL)SeriesHasProgramCardWithPrimaryAsset AnnouncedStartTime:(DrapiDate *)AnnouncedStartTime AnnouncedEndTime:(DrapiDate *)AnnouncedEndTime ProductionCountry:(NSString *)ProductionCountry ProductionYear:(int32_t)ProductionYear VideoWidescreen:(BOOL)VideoWidescreen SubtitlesTTV:(BOOL)SubtitlesTTV VideoHD:(BOOL)VideoHD WhatsOnUri:(NSString *)WhatsOnUri IsRerun:(BOOL)IsRerun __attribute__((swift_name("init(Title:Description:Subtitle:StartTime:EndTime:ProgramCard:OnlineGenreText:ProductionNumber:ProgramCardHasPrimaryAsset:SeriesHasProgramCardWithPrimaryAsset:AnnouncedStartTime:AnnouncedEndTime:ProductionCountry:ProductionYear:VideoWidescreen:SubtitlesTTV:VideoHD:WhatsOnUri:IsRerun:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 title:(NSString * _Nullable)title description:(NSString * _Nullable)description subtitle:(NSString * _Nullable)subtitle startTime:(DrapiDate * _Nullable)startTime endTime:(DrapiDate * _Nullable)endTime programCard:(DrapiProgramCard * _Nullable)programCard onlineGenreText:(NSString * _Nullable)onlineGenreText productionNumber:(NSString * _Nullable)productionNumber programCardHasPrimaryAsset:(BOOL)programCardHasPrimaryAsset seriesHasProgramCardWithPrimaryAsset:(BOOL)seriesHasProgramCardWithPrimaryAsset announcedStartTime:(DrapiDate * _Nullable)announcedStartTime announcedEndTime:(DrapiDate * _Nullable)announcedEndTime productionCountry:(NSString * _Nullable)productionCountry productionYear:(int32_t)productionYear videoWidescreen:(BOOL)videoWidescreen subtitlesTTV:(BOOL)subtitlesTTV videoHD:(BOOL)videoHD whatsOnUri:(NSString * _Nullable)whatsOnUri isRerun:(BOOL)isRerun serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:title:description:subtitle:startTime:endTime:programCard:onlineGenreText:productionNumber:programCardHasPrimaryAsset:seriesHasProgramCardWithPrimaryAsset:announcedStartTime:announcedEndTime:productionCountry:productionYear:videoWidescreen:subtitlesTTV:videoHD:whatsOnUri:isRerun:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithTitle:(NSString *)title description:(NSString *)description subtitle:(NSString *)subtitle startTime:(DrapiDate *)startTime endTime:(DrapiDate *)endTime programCard:(DrapiProgramCard *)programCard onlineGenreText:(NSString * _Nullable)onlineGenreText productionNumber:(NSString *)productionNumber programCardHasPrimaryAsset:(BOOL)programCardHasPrimaryAsset seriesHasProgramCardWithPrimaryAsset:(BOOL)seriesHasProgramCardWithPrimaryAsset announcedStartTime:(DrapiDate *)announcedStartTime announcedEndTime:(DrapiDate *)announcedEndTime productionCountry:(NSString *)productionCountry productionYear:(int32_t)productionYear videoWidescreen:(BOOL)videoWidescreen subtitlesTTV:(BOOL)subtitlesTTV videoHD:(BOOL)videoHD whatsOnUri:(NSString *)whatsOnUri isRerun:(BOOL)isRerun __attribute__((swift_name("init(title:description:subtitle:startTime:endTime:programCard:onlineGenreText:productionNumber:programCardHasPrimaryAsset:seriesHasProgramCardWithPrimaryAsset:announcedStartTime:announcedEndTime:productionCountry:productionYear:videoWidescreen:subtitlesTTV:videoHD:whatsOnUri:isRerun:)"))) __attribute__((objc_designated_initializer));
 - (NSString * _Nullable)getPrimaryAssetUri __attribute__((swift_name("getPrimaryAssetUri()")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
@@ -583,26 +588,26 @@ __attribute__((swift_name("MuScheduleBroadcast")))
 - (BOOL)component17 __attribute__((swift_name("component17()")));
 - (NSString *)component18 __attribute__((swift_name("component18()")));
 - (BOOL)component19 __attribute__((swift_name("component19()")));
-- (DrapiMuScheduleBroadcast *)doCopyTitle:(NSString *)Title Description:(NSString *)Description Subtitle:(NSString *)Subtitle StartTime:(DrapiDate *)StartTime EndTime:(DrapiDate *)EndTime ProgramCard:(DrapiProgramCard *)ProgramCard OnlineGenreText:(NSString * _Nullable)OnlineGenreText ProductionNumber:(NSString *)ProductionNumber ProgramCardHasPrimaryAsset:(BOOL)ProgramCardHasPrimaryAsset SeriesHasProgramCardWithPrimaryAsset:(BOOL)SeriesHasProgramCardWithPrimaryAsset AnnouncedStartTime:(DrapiDate *)AnnouncedStartTime AnnouncedEndTime:(DrapiDate *)AnnouncedEndTime ProductionCountry:(NSString *)ProductionCountry ProductionYear:(int32_t)ProductionYear VideoWidescreen:(BOOL)VideoWidescreen SubtitlesTTV:(BOOL)SubtitlesTTV VideoHD:(BOOL)VideoHD WhatsOnUri:(NSString *)WhatsOnUri IsRerun:(BOOL)IsRerun __attribute__((swift_name("doCopy(Title:Description:Subtitle:StartTime:EndTime:ProgramCard:OnlineGenreText:ProductionNumber:ProgramCardHasPrimaryAsset:SeriesHasProgramCardWithPrimaryAsset:AnnouncedStartTime:AnnouncedEndTime:ProductionCountry:ProductionYear:VideoWidescreen:SubtitlesTTV:VideoHD:WhatsOnUri:IsRerun:)")));
-@property (readonly) NSString *Title __attribute__((swift_name("Title")));
-@property (readonly) NSString *Description __attribute__((swift_name("Description")));
-@property (readonly) NSString *Subtitle __attribute__((swift_name("Subtitle")));
-@property (readonly) DrapiDate *StartTime __attribute__((swift_name("StartTime")));
-@property (readonly) DrapiDate *EndTime __attribute__((swift_name("EndTime")));
-@property (readonly) DrapiProgramCard *ProgramCard __attribute__((swift_name("ProgramCard")));
-@property (readonly) NSString * _Nullable OnlineGenreText __attribute__((swift_name("OnlineGenreText")));
-@property (readonly) NSString *ProductionNumber __attribute__((swift_name("ProductionNumber")));
-@property (readonly) BOOL ProgramCardHasPrimaryAsset __attribute__((swift_name("ProgramCardHasPrimaryAsset")));
-@property (readonly) BOOL SeriesHasProgramCardWithPrimaryAsset __attribute__((swift_name("SeriesHasProgramCardWithPrimaryAsset")));
-@property (readonly) DrapiDate *AnnouncedStartTime __attribute__((swift_name("AnnouncedStartTime")));
-@property (readonly) DrapiDate *AnnouncedEndTime __attribute__((swift_name("AnnouncedEndTime")));
-@property (readonly) NSString *ProductionCountry __attribute__((swift_name("ProductionCountry")));
-@property (readonly) int32_t ProductionYear __attribute__((swift_name("ProductionYear")));
-@property (readonly) BOOL VideoWidescreen __attribute__((swift_name("VideoWidescreen")));
-@property (readonly) BOOL SubtitlesTTV __attribute__((swift_name("SubtitlesTTV")));
-@property (readonly) BOOL VideoHD __attribute__((swift_name("VideoHD")));
-@property (readonly) NSString *WhatsOnUri __attribute__((swift_name("WhatsOnUri")));
-@property (readonly) BOOL IsRerun __attribute__((swift_name("IsRerun")));
+- (DrapiMuScheduleBroadcast *)doCopyTitle:(NSString *)title description:(NSString *)description subtitle:(NSString *)subtitle startTime:(DrapiDate *)startTime endTime:(DrapiDate *)endTime programCard:(DrapiProgramCard *)programCard onlineGenreText:(NSString * _Nullable)onlineGenreText productionNumber:(NSString *)productionNumber programCardHasPrimaryAsset:(BOOL)programCardHasPrimaryAsset seriesHasProgramCardWithPrimaryAsset:(BOOL)seriesHasProgramCardWithPrimaryAsset announcedStartTime:(DrapiDate *)announcedStartTime announcedEndTime:(DrapiDate *)announcedEndTime productionCountry:(NSString *)productionCountry productionYear:(int32_t)productionYear videoWidescreen:(BOOL)videoWidescreen subtitlesTTV:(BOOL)subtitlesTTV videoHD:(BOOL)videoHD whatsOnUri:(NSString *)whatsOnUri isRerun:(BOOL)isRerun __attribute__((swift_name("doCopy(title:description:subtitle:startTime:endTime:programCard:onlineGenreText:productionNumber:programCardHasPrimaryAsset:seriesHasProgramCardWithPrimaryAsset:announcedStartTime:announcedEndTime:productionCountry:productionYear:videoWidescreen:subtitlesTTV:videoHD:whatsOnUri:isRerun:)")));
+@property (readonly) NSString *title __attribute__((swift_name("title")));
+@property (readonly, getter=description_) NSString *description __attribute__((swift_name("description")));
+@property (readonly) NSString *subtitle __attribute__((swift_name("subtitle")));
+@property (readonly) DrapiDate *startTime __attribute__((swift_name("startTime")));
+@property (readonly) DrapiDate *endTime __attribute__((swift_name("endTime")));
+@property (readonly) DrapiProgramCard *programCard __attribute__((swift_name("programCard")));
+@property (readonly) NSString * _Nullable onlineGenreText __attribute__((swift_name("onlineGenreText")));
+@property (readonly) NSString *productionNumber __attribute__((swift_name("productionNumber")));
+@property (readonly) BOOL programCardHasPrimaryAsset __attribute__((swift_name("programCardHasPrimaryAsset")));
+@property (readonly) BOOL seriesHasProgramCardWithPrimaryAsset __attribute__((swift_name("seriesHasProgramCardWithPrimaryAsset")));
+@property (readonly) DrapiDate *announcedStartTime __attribute__((swift_name("announcedStartTime")));
+@property (readonly) DrapiDate *announcedEndTime __attribute__((swift_name("announcedEndTime")));
+@property (readonly) NSString *productionCountry __attribute__((swift_name("productionCountry")));
+@property (readonly) int32_t productionYear __attribute__((swift_name("productionYear")));
+@property (readonly) BOOL videoWidescreen __attribute__((swift_name("videoWidescreen")));
+@property (readonly) BOOL subtitlesTTV __attribute__((swift_name("subtitlesTTV")));
+@property (readonly) BOOL videoHD __attribute__((swift_name("videoHD")));
+@property (readonly) NSString *whatsOnUri __attribute__((swift_name("whatsOnUri")));
+@property (readonly) BOOL isRerun __attribute__((swift_name("isRerun")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -630,8 +635,8 @@ __attribute__((swift_name("MuScheduleBroadcast.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ProgramCard")))
 @interface DrapiProgramCard : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 seen2:(int32_t)seen2 Type:(NSString * _Nullable)Type SeriesTitle:(NSString * _Nullable)SeriesTitle EpisodeTitle:(NSString * _Nullable)EpisodeTitle SeriesSlug:(NSString * _Nullable)SeriesSlug SeriesUrn:(NSString * _Nullable)SeriesUrn HostName:(NSString * _Nullable)HostName SeriesHostName:(NSString * _Nullable)SeriesHostName PrimaryChannel:(NSString * _Nullable)PrimaryChannel PrimaryChannelSlug:(NSString * _Nullable)PrimaryChannelSlug SeasonEpisodeNumberingValid:(BOOL)SeasonEpisodeNumberingValid SeasonTitle:(NSString * _Nullable)SeasonTitle SeasonSlug:(NSString * _Nullable)SeasonSlug SeasonUrn:(NSString * _Nullable)SeasonUrn SeasonNumber:(int32_t)SeasonNumber PrePremiere:(BOOL)PrePremiere ExpiresSoon:(BOOL)ExpiresSoon OnlineGenreText:(NSString * _Nullable)OnlineGenreText PrimaryAsset:(DrapiPrimaryAsset * _Nullable)PrimaryAsset HasPublicPrimaryAsset:(BOOL)HasPublicPrimaryAsset AssetTargetTypes:(NSString * _Nullable)AssetTargetTypes PrimaryBroadcastStartTime:(DrapiDate * _Nullable)PrimaryBroadcastStartTime SortDateTime:(DrapiDate * _Nullable)SortDateTime OnDemandInfo:(DrapiInfo * _Nullable)OnDemandInfo Slug:(NSString * _Nullable)Slug Urn:(NSString * _Nullable)Urn PrimaryImageUri:(NSString * _Nullable)PrimaryImageUri PresentationUri:(NSString * _Nullable)PresentationUri PresentationUriAutoplay:(NSString * _Nullable)PresentationUriAutoplay Title:(NSString * _Nullable)Title Subtitle:(NSString * _Nullable)Subtitle IsNewSeries:(BOOL)IsNewSeries OriginalTitle:(NSString * _Nullable)OriginalTitle RectificationStatus:(NSString * _Nullable)RectificationStatus RectificationAuto:(BOOL)RectificationAuto RectificationText:(NSString * _Nullable)RectificationText serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:seen2:Type:SeriesTitle:EpisodeTitle:SeriesSlug:SeriesUrn:HostName:SeriesHostName:PrimaryChannel:PrimaryChannelSlug:SeasonEpisodeNumberingValid:SeasonTitle:SeasonSlug:SeasonUrn:SeasonNumber:PrePremiere:ExpiresSoon:OnlineGenreText:PrimaryAsset:HasPublicPrimaryAsset:AssetTargetTypes:PrimaryBroadcastStartTime:SortDateTime:OnDemandInfo:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:Subtitle:IsNewSeries:OriginalTitle:RectificationStatus:RectificationAuto:RectificationText:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithType:(NSString *)Type SeriesTitle:(NSString *)SeriesTitle EpisodeTitle:(NSString *)EpisodeTitle SeriesSlug:(NSString *)SeriesSlug SeriesUrn:(NSString *)SeriesUrn HostName:(NSString *)HostName SeriesHostName:(NSString *)SeriesHostName PrimaryChannel:(NSString *)PrimaryChannel PrimaryChannelSlug:(NSString *)PrimaryChannelSlug SeasonEpisodeNumberingValid:(BOOL)SeasonEpisodeNumberingValid SeasonTitle:(NSString * _Nullable)SeasonTitle SeasonSlug:(NSString * _Nullable)SeasonSlug SeasonUrn:(NSString * _Nullable)SeasonUrn SeasonNumber:(int32_t)SeasonNumber PrePremiere:(BOOL)PrePremiere ExpiresSoon:(BOOL)ExpiresSoon OnlineGenreText:(NSString *)OnlineGenreText PrimaryAsset:(DrapiPrimaryAsset * _Nullable)PrimaryAsset HasPublicPrimaryAsset:(BOOL)HasPublicPrimaryAsset AssetTargetTypes:(NSString *)AssetTargetTypes PrimaryBroadcastStartTime:(DrapiDate * _Nullable)PrimaryBroadcastStartTime SortDateTime:(DrapiDate *)SortDateTime OnDemandInfo:(DrapiInfo * _Nullable)OnDemandInfo Slug:(NSString *)Slug Urn:(NSString *)Urn PrimaryImageUri:(NSString *)PrimaryImageUri PresentationUri:(NSString *)PresentationUri PresentationUriAutoplay:(NSString *)PresentationUriAutoplay Title:(NSString *)Title Subtitle:(NSString *)Subtitle IsNewSeries:(BOOL)IsNewSeries OriginalTitle:(NSString *)OriginalTitle RectificationStatus:(NSString *)RectificationStatus RectificationAuto:(BOOL)RectificationAuto RectificationText:(NSString *)RectificationText __attribute__((swift_name("init(Type:SeriesTitle:EpisodeTitle:SeriesSlug:SeriesUrn:HostName:SeriesHostName:PrimaryChannel:PrimaryChannelSlug:SeasonEpisodeNumberingValid:SeasonTitle:SeasonSlug:SeasonUrn:SeasonNumber:PrePremiere:ExpiresSoon:OnlineGenreText:PrimaryAsset:HasPublicPrimaryAsset:AssetTargetTypes:PrimaryBroadcastStartTime:SortDateTime:OnDemandInfo:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:Subtitle:IsNewSeries:OriginalTitle:RectificationStatus:RectificationAuto:RectificationText:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 seen2:(int32_t)seen2 type:(NSString * _Nullable)type seriesTitle:(NSString * _Nullable)seriesTitle episodeTitle:(NSString * _Nullable)episodeTitle seriesSlug:(NSString * _Nullable)seriesSlug seriesUrn:(NSString * _Nullable)seriesUrn hostName:(NSString * _Nullable)hostName seriesHostName:(NSString * _Nullable)seriesHostName primaryChannel:(NSString * _Nullable)primaryChannel primaryChannelSlug:(NSString * _Nullable)primaryChannelSlug seasonEpisodeNumberingValid:(BOOL)seasonEpisodeNumberingValid seasonTitle:(NSString * _Nullable)seasonTitle seasonSlug:(NSString * _Nullable)seasonSlug seasonUrn:(NSString * _Nullable)seasonUrn seasonNumber:(int32_t)seasonNumber prePremiere:(BOOL)prePremiere expiresSoon:(BOOL)expiresSoon onlineGenreText:(NSString * _Nullable)onlineGenreText primaryAsset:(DrapiPrimaryAsset * _Nullable)primaryAsset hasPublicPrimaryAsset:(BOOL)hasPublicPrimaryAsset assetTargetTypes:(NSString * _Nullable)assetTargetTypes primaryBroadcastStartTime:(DrapiDate * _Nullable)primaryBroadcastStartTime sortDateTime:(DrapiDate * _Nullable)sortDateTime onDemandInfo:(DrapiInfo * _Nullable)onDemandInfo slug:(NSString * _Nullable)slug urn:(NSString * _Nullable)urn primaryImageUri:(NSString * _Nullable)primaryImageUri presentationUri:(NSString * _Nullable)presentationUri presentationUriAutoplay:(NSString * _Nullable)presentationUriAutoplay title:(NSString * _Nullable)title subtitle:(NSString * _Nullable)subtitle isNewSeries:(BOOL)isNewSeries originalTitle:(NSString * _Nullable)originalTitle rectificationStatus:(NSString * _Nullable)rectificationStatus rectificationAuto:(BOOL)rectificationAuto rectificationText:(NSString * _Nullable)rectificationText serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:seen2:type:seriesTitle:episodeTitle:seriesSlug:seriesUrn:hostName:seriesHostName:primaryChannel:primaryChannelSlug:seasonEpisodeNumberingValid:seasonTitle:seasonSlug:seasonUrn:seasonNumber:prePremiere:expiresSoon:onlineGenreText:primaryAsset:hasPublicPrimaryAsset:assetTargetTypes:primaryBroadcastStartTime:sortDateTime:onDemandInfo:slug:urn:primaryImageUri:presentationUri:presentationUriAutoplay:title:subtitle:isNewSeries:originalTitle:rectificationStatus:rectificationAuto:rectificationText:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithType:(NSString *)type seriesTitle:(NSString *)seriesTitle episodeTitle:(NSString *)episodeTitle seriesSlug:(NSString *)seriesSlug seriesUrn:(NSString *)seriesUrn hostName:(NSString *)hostName seriesHostName:(NSString *)seriesHostName primaryChannel:(NSString *)primaryChannel primaryChannelSlug:(NSString *)primaryChannelSlug seasonEpisodeNumberingValid:(BOOL)seasonEpisodeNumberingValid seasonTitle:(NSString * _Nullable)seasonTitle seasonSlug:(NSString * _Nullable)seasonSlug seasonUrn:(NSString * _Nullable)seasonUrn seasonNumber:(int32_t)seasonNumber prePremiere:(BOOL)prePremiere expiresSoon:(BOOL)expiresSoon onlineGenreText:(NSString *)onlineGenreText primaryAsset:(DrapiPrimaryAsset * _Nullable)primaryAsset hasPublicPrimaryAsset:(BOOL)hasPublicPrimaryAsset assetTargetTypes:(NSString *)assetTargetTypes primaryBroadcastStartTime:(DrapiDate * _Nullable)primaryBroadcastStartTime sortDateTime:(DrapiDate *)sortDateTime onDemandInfo:(DrapiInfo * _Nullable)onDemandInfo slug:(NSString *)slug urn:(NSString *)urn primaryImageUri:(NSString *)primaryImageUri presentationUri:(NSString *)presentationUri presentationUriAutoplay:(NSString *)presentationUriAutoplay title:(NSString *)title subtitle:(NSString *)subtitle isNewSeries:(BOOL)isNewSeries originalTitle:(NSString *)originalTitle rectificationStatus:(NSString *)rectificationStatus rectificationAuto:(BOOL)rectificationAuto rectificationText:(NSString *)rectificationText __attribute__((swift_name("init(type:seriesTitle:episodeTitle:seriesSlug:seriesUrn:hostName:seriesHostName:primaryChannel:primaryChannelSlug:seasonEpisodeNumberingValid:seasonTitle:seasonSlug:seasonUrn:seasonNumber:prePremiere:expiresSoon:onlineGenreText:primaryAsset:hasPublicPrimaryAsset:assetTargetTypes:primaryBroadcastStartTime:sortDateTime:onDemandInfo:slug:urn:primaryImageUri:presentationUri:presentationUriAutoplay:title:subtitle:isNewSeries:originalTitle:rectificationStatus:rectificationAuto:rectificationText:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
@@ -670,42 +675,42 @@ __attribute__((swift_name("ProgramCard")))
 - (NSString *)component33 __attribute__((swift_name("component33()")));
 - (BOOL)component34 __attribute__((swift_name("component34()")));
 - (NSString *)component35 __attribute__((swift_name("component35()")));
-- (DrapiProgramCard *)doCopyType:(NSString *)Type SeriesTitle:(NSString *)SeriesTitle EpisodeTitle:(NSString *)EpisodeTitle SeriesSlug:(NSString *)SeriesSlug SeriesUrn:(NSString *)SeriesUrn HostName:(NSString *)HostName SeriesHostName:(NSString *)SeriesHostName PrimaryChannel:(NSString *)PrimaryChannel PrimaryChannelSlug:(NSString *)PrimaryChannelSlug SeasonEpisodeNumberingValid:(BOOL)SeasonEpisodeNumberingValid SeasonTitle:(NSString * _Nullable)SeasonTitle SeasonSlug:(NSString * _Nullable)SeasonSlug SeasonUrn:(NSString * _Nullable)SeasonUrn SeasonNumber:(int32_t)SeasonNumber PrePremiere:(BOOL)PrePremiere ExpiresSoon:(BOOL)ExpiresSoon OnlineGenreText:(NSString *)OnlineGenreText PrimaryAsset:(DrapiPrimaryAsset * _Nullable)PrimaryAsset HasPublicPrimaryAsset:(BOOL)HasPublicPrimaryAsset AssetTargetTypes:(NSString *)AssetTargetTypes PrimaryBroadcastStartTime:(DrapiDate * _Nullable)PrimaryBroadcastStartTime SortDateTime:(DrapiDate *)SortDateTime OnDemandInfo:(DrapiInfo * _Nullable)OnDemandInfo Slug:(NSString *)Slug Urn:(NSString *)Urn PrimaryImageUri:(NSString *)PrimaryImageUri PresentationUri:(NSString *)PresentationUri PresentationUriAutoplay:(NSString *)PresentationUriAutoplay Title:(NSString *)Title Subtitle:(NSString *)Subtitle IsNewSeries:(BOOL)IsNewSeries OriginalTitle:(NSString *)OriginalTitle RectificationStatus:(NSString *)RectificationStatus RectificationAuto:(BOOL)RectificationAuto RectificationText:(NSString *)RectificationText __attribute__((swift_name("doCopy(Type:SeriesTitle:EpisodeTitle:SeriesSlug:SeriesUrn:HostName:SeriesHostName:PrimaryChannel:PrimaryChannelSlug:SeasonEpisodeNumberingValid:SeasonTitle:SeasonSlug:SeasonUrn:SeasonNumber:PrePremiere:ExpiresSoon:OnlineGenreText:PrimaryAsset:HasPublicPrimaryAsset:AssetTargetTypes:PrimaryBroadcastStartTime:SortDateTime:OnDemandInfo:Slug:Urn:PrimaryImageUri:PresentationUri:PresentationUriAutoplay:Title:Subtitle:IsNewSeries:OriginalTitle:RectificationStatus:RectificationAuto:RectificationText:)")));
-@property (readonly) NSString *Type __attribute__((swift_name("Type")));
-@property (readonly) NSString *SeriesTitle __attribute__((swift_name("SeriesTitle")));
-@property (readonly) NSString *EpisodeTitle __attribute__((swift_name("EpisodeTitle")));
-@property (readonly) NSString *SeriesSlug __attribute__((swift_name("SeriesSlug")));
-@property (readonly) NSString *SeriesUrn __attribute__((swift_name("SeriesUrn")));
-@property (readonly) NSString *HostName __attribute__((swift_name("HostName")));
-@property (readonly) NSString *SeriesHostName __attribute__((swift_name("SeriesHostName")));
-@property (readonly) NSString *PrimaryChannel __attribute__((swift_name("PrimaryChannel")));
-@property (readonly) NSString *PrimaryChannelSlug __attribute__((swift_name("PrimaryChannelSlug")));
-@property (readonly) BOOL SeasonEpisodeNumberingValid __attribute__((swift_name("SeasonEpisodeNumberingValid")));
-@property (readonly) NSString * _Nullable SeasonTitle __attribute__((swift_name("SeasonTitle")));
-@property (readonly) NSString * _Nullable SeasonSlug __attribute__((swift_name("SeasonSlug")));
-@property (readonly) NSString * _Nullable SeasonUrn __attribute__((swift_name("SeasonUrn")));
-@property (readonly) int32_t SeasonNumber __attribute__((swift_name("SeasonNumber")));
-@property (readonly) BOOL PrePremiere __attribute__((swift_name("PrePremiere")));
-@property (readonly) BOOL ExpiresSoon __attribute__((swift_name("ExpiresSoon")));
-@property (readonly) NSString *OnlineGenreText __attribute__((swift_name("OnlineGenreText")));
-@property (readonly) DrapiPrimaryAsset * _Nullable PrimaryAsset __attribute__((swift_name("PrimaryAsset")));
-@property (readonly) BOOL HasPublicPrimaryAsset __attribute__((swift_name("HasPublicPrimaryAsset")));
-@property (readonly) NSString *AssetTargetTypes __attribute__((swift_name("AssetTargetTypes")));
-@property (readonly) DrapiDate * _Nullable PrimaryBroadcastStartTime __attribute__((swift_name("PrimaryBroadcastStartTime")));
-@property (readonly) DrapiDate *SortDateTime __attribute__((swift_name("SortDateTime")));
-@property (readonly) DrapiInfo * _Nullable OnDemandInfo __attribute__((swift_name("OnDemandInfo")));
-@property (readonly) NSString *Slug __attribute__((swift_name("Slug")));
-@property (readonly) NSString *Urn __attribute__((swift_name("Urn")));
-@property (readonly) NSString *PrimaryImageUri __attribute__((swift_name("PrimaryImageUri")));
-@property (readonly) NSString *PresentationUri __attribute__((swift_name("PresentationUri")));
-@property (readonly) NSString *PresentationUriAutoplay __attribute__((swift_name("PresentationUriAutoplay")));
-@property (readonly) NSString *Title __attribute__((swift_name("Title")));
-@property (readonly) NSString *Subtitle __attribute__((swift_name("Subtitle")));
-@property (readonly) BOOL IsNewSeries __attribute__((swift_name("IsNewSeries")));
-@property (readonly) NSString *OriginalTitle __attribute__((swift_name("OriginalTitle")));
-@property (readonly) NSString *RectificationStatus __attribute__((swift_name("RectificationStatus")));
-@property (readonly) BOOL RectificationAuto __attribute__((swift_name("RectificationAuto")));
-@property (readonly) NSString *RectificationText __attribute__((swift_name("RectificationText")));
+- (DrapiProgramCard *)doCopyType:(NSString *)type seriesTitle:(NSString *)seriesTitle episodeTitle:(NSString *)episodeTitle seriesSlug:(NSString *)seriesSlug seriesUrn:(NSString *)seriesUrn hostName:(NSString *)hostName seriesHostName:(NSString *)seriesHostName primaryChannel:(NSString *)primaryChannel primaryChannelSlug:(NSString *)primaryChannelSlug seasonEpisodeNumberingValid:(BOOL)seasonEpisodeNumberingValid seasonTitle:(NSString * _Nullable)seasonTitle seasonSlug:(NSString * _Nullable)seasonSlug seasonUrn:(NSString * _Nullable)seasonUrn seasonNumber:(int32_t)seasonNumber prePremiere:(BOOL)prePremiere expiresSoon:(BOOL)expiresSoon onlineGenreText:(NSString *)onlineGenreText primaryAsset:(DrapiPrimaryAsset * _Nullable)primaryAsset hasPublicPrimaryAsset:(BOOL)hasPublicPrimaryAsset assetTargetTypes:(NSString *)assetTargetTypes primaryBroadcastStartTime:(DrapiDate * _Nullable)primaryBroadcastStartTime sortDateTime:(DrapiDate *)sortDateTime onDemandInfo:(DrapiInfo * _Nullable)onDemandInfo slug:(NSString *)slug urn:(NSString *)urn primaryImageUri:(NSString *)primaryImageUri presentationUri:(NSString *)presentationUri presentationUriAutoplay:(NSString *)presentationUriAutoplay title:(NSString *)title subtitle:(NSString *)subtitle isNewSeries:(BOOL)isNewSeries originalTitle:(NSString *)originalTitle rectificationStatus:(NSString *)rectificationStatus rectificationAuto:(BOOL)rectificationAuto rectificationText:(NSString *)rectificationText __attribute__((swift_name("doCopy(type:seriesTitle:episodeTitle:seriesSlug:seriesUrn:hostName:seriesHostName:primaryChannel:primaryChannelSlug:seasonEpisodeNumberingValid:seasonTitle:seasonSlug:seasonUrn:seasonNumber:prePremiere:expiresSoon:onlineGenreText:primaryAsset:hasPublicPrimaryAsset:assetTargetTypes:primaryBroadcastStartTime:sortDateTime:onDemandInfo:slug:urn:primaryImageUri:presentationUri:presentationUriAutoplay:title:subtitle:isNewSeries:originalTitle:rectificationStatus:rectificationAuto:rectificationText:)")));
+@property (readonly) NSString *type __attribute__((swift_name("type")));
+@property (readonly) NSString *seriesTitle __attribute__((swift_name("seriesTitle")));
+@property (readonly) NSString *episodeTitle __attribute__((swift_name("episodeTitle")));
+@property (readonly) NSString *seriesSlug __attribute__((swift_name("seriesSlug")));
+@property (readonly) NSString *seriesUrn __attribute__((swift_name("seriesUrn")));
+@property (readonly) NSString *hostName __attribute__((swift_name("hostName")));
+@property (readonly) NSString *seriesHostName __attribute__((swift_name("seriesHostName")));
+@property (readonly) NSString *primaryChannel __attribute__((swift_name("primaryChannel")));
+@property (readonly) NSString *primaryChannelSlug __attribute__((swift_name("primaryChannelSlug")));
+@property (readonly) BOOL seasonEpisodeNumberingValid __attribute__((swift_name("seasonEpisodeNumberingValid")));
+@property (readonly) NSString * _Nullable seasonTitle __attribute__((swift_name("seasonTitle")));
+@property (readonly) NSString * _Nullable seasonSlug __attribute__((swift_name("seasonSlug")));
+@property (readonly) NSString * _Nullable seasonUrn __attribute__((swift_name("seasonUrn")));
+@property (readonly) int32_t seasonNumber __attribute__((swift_name("seasonNumber")));
+@property (readonly) BOOL prePremiere __attribute__((swift_name("prePremiere")));
+@property (readonly) BOOL expiresSoon __attribute__((swift_name("expiresSoon")));
+@property (readonly) NSString *onlineGenreText __attribute__((swift_name("onlineGenreText")));
+@property (readonly) DrapiPrimaryAsset * _Nullable primaryAsset __attribute__((swift_name("primaryAsset")));
+@property (readonly) BOOL hasPublicPrimaryAsset __attribute__((swift_name("hasPublicPrimaryAsset")));
+@property (readonly) NSString *assetTargetTypes __attribute__((swift_name("assetTargetTypes")));
+@property (readonly) DrapiDate * _Nullable primaryBroadcastStartTime __attribute__((swift_name("primaryBroadcastStartTime")));
+@property (readonly) DrapiDate *sortDateTime __attribute__((swift_name("sortDateTime")));
+@property (readonly) DrapiInfo * _Nullable onDemandInfo __attribute__((swift_name("onDemandInfo")));
+@property (readonly) NSString *slug __attribute__((swift_name("slug")));
+@property (readonly) NSString *urn __attribute__((swift_name("urn")));
+@property (readonly) NSString *primaryImageUri __attribute__((swift_name("primaryImageUri")));
+@property (readonly) NSString *presentationUri __attribute__((swift_name("presentationUri")));
+@property (readonly) NSString *presentationUriAutoplay __attribute__((swift_name("presentationUriAutoplay")));
+@property (readonly) NSString *title __attribute__((swift_name("title")));
+@property (readonly) NSString *subtitle __attribute__((swift_name("subtitle")));
+@property (readonly) BOOL isNewSeries __attribute__((swift_name("isNewSeries")));
+@property (readonly) NSString *originalTitle __attribute__((swift_name("originalTitle")));
+@property (readonly) NSString *rectificationStatus __attribute__((swift_name("rectificationStatus")));
+@property (readonly) BOOL rectificationAuto __attribute__((swift_name("rectificationAuto")));
+@property (readonly) NSString *rectificationText __attribute__((swift_name("rectificationText")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -733,16 +738,16 @@ __attribute__((swift_name("ProgramCard.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Info")))
 @interface DrapiInfo : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 StartPublish:(DrapiDate * _Nullable)StartPublish EndPublish:(DrapiDate * _Nullable)EndPublish serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:StartPublish:EndPublish:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithStartPublish:(DrapiDate *)StartPublish EndPublish:(DrapiDate *)EndPublish __attribute__((swift_name("init(StartPublish:EndPublish:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 startPublish:(DrapiDate * _Nullable)startPublish endPublish:(DrapiDate * _Nullable)endPublish serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:startPublish:endPublish:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithStartPublish:(DrapiDate *)startPublish endPublish:(DrapiDate *)endPublish __attribute__((swift_name("init(startPublish:endPublish:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 - (DrapiDate *)component1 __attribute__((swift_name("component1()")));
 - (DrapiDate *)component2 __attribute__((swift_name("component2()")));
-- (DrapiInfo *)doCopyStartPublish:(DrapiDate *)StartPublish EndPublish:(DrapiDate *)EndPublish __attribute__((swift_name("doCopy(StartPublish:EndPublish:)")));
-@property (readonly) DrapiDate *StartPublish __attribute__((swift_name("StartPublish")));
-@property (readonly) DrapiDate *EndPublish __attribute__((swift_name("EndPublish")));
+- (DrapiInfo *)doCopyStartPublish:(DrapiDate *)startPublish endPublish:(DrapiDate *)endPublish __attribute__((swift_name("doCopy(startPublish:endPublish:)")));
+@property (readonly) DrapiDate *startPublish __attribute__((swift_name("startPublish")));
+@property (readonly) DrapiDate *endPublish __attribute__((swift_name("endPublish")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -770,8 +775,8 @@ __attribute__((swift_name("Info.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("PrimaryAsset")))
 @interface DrapiPrimaryAsset : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Kind:(NSString * _Nullable)Kind Uri:(NSString * _Nullable)Uri DurationInMilliseconds:(int64_t)DurationInMilliseconds Downloadable:(BOOL)Downloadable RestrictedToDenmark:(BOOL)RestrictedToDenmark StartPublish:(DrapiDate * _Nullable)StartPublish EndPublish:(DrapiDate * _Nullable)EndPublish Target:(NSString * _Nullable)Target Encrypted:(BOOL)Encrypted IsLiveStream:(BOOL)IsLiveStream serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Kind:Uri:DurationInMilliseconds:Downloadable:RestrictedToDenmark:StartPublish:EndPublish:Target:Encrypted:IsLiveStream:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithKind:(NSString *)Kind Uri:(NSString *)Uri DurationInMilliseconds:(int64_t)DurationInMilliseconds Downloadable:(BOOL)Downloadable RestrictedToDenmark:(BOOL)RestrictedToDenmark StartPublish:(DrapiDate *)StartPublish EndPublish:(DrapiDate *)EndPublish Target:(NSString *)Target Encrypted:(BOOL)Encrypted IsLiveStream:(BOOL)IsLiveStream __attribute__((swift_name("init(Kind:Uri:DurationInMilliseconds:Downloadable:RestrictedToDenmark:StartPublish:EndPublish:Target:Encrypted:IsLiveStream:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 kind:(NSString * _Nullable)kind uri:(NSString * _Nullable)uri durationInMilliseconds:(int64_t)durationInMilliseconds downloadable:(BOOL)downloadable restrictedToDenmark:(BOOL)restrictedToDenmark startPublish:(DrapiDate * _Nullable)startPublish endPublish:(DrapiDate * _Nullable)endPublish target:(NSString * _Nullable)target encrypted:(BOOL)encrypted isLiveStream:(BOOL)isLiveStream serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:kind:uri:durationInMilliseconds:downloadable:restrictedToDenmark:startPublish:endPublish:target:encrypted:isLiveStream:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithKind:(NSString *)kind uri:(NSString *)uri durationInMilliseconds:(int64_t)durationInMilliseconds downloadable:(BOOL)downloadable restrictedToDenmark:(BOOL)restrictedToDenmark startPublish:(DrapiDate *)startPublish endPublish:(DrapiDate *)endPublish target:(NSString *)target encrypted:(BOOL)encrypted isLiveStream:(BOOL)isLiveStream __attribute__((swift_name("init(kind:uri:durationInMilliseconds:downloadable:restrictedToDenmark:startPublish:endPublish:target:encrypted:isLiveStream:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
@@ -785,17 +790,17 @@ __attribute__((swift_name("PrimaryAsset")))
 - (NSString *)component8 __attribute__((swift_name("component8()")));
 - (BOOL)component9 __attribute__((swift_name("component9()")));
 - (BOOL)component10 __attribute__((swift_name("component10()")));
-- (DrapiPrimaryAsset *)doCopyKind:(NSString *)Kind Uri:(NSString *)Uri DurationInMilliseconds:(int64_t)DurationInMilliseconds Downloadable:(BOOL)Downloadable RestrictedToDenmark:(BOOL)RestrictedToDenmark StartPublish:(DrapiDate *)StartPublish EndPublish:(DrapiDate *)EndPublish Target:(NSString *)Target Encrypted:(BOOL)Encrypted IsLiveStream:(BOOL)IsLiveStream __attribute__((swift_name("doCopy(Kind:Uri:DurationInMilliseconds:Downloadable:RestrictedToDenmark:StartPublish:EndPublish:Target:Encrypted:IsLiveStream:)")));
-@property (readonly) NSString *Kind __attribute__((swift_name("Kind")));
-@property (readonly) NSString *Uri __attribute__((swift_name("Uri")));
-@property (readonly) int64_t DurationInMilliseconds __attribute__((swift_name("DurationInMilliseconds")));
-@property (readonly) BOOL Downloadable __attribute__((swift_name("Downloadable")));
-@property (readonly) BOOL RestrictedToDenmark __attribute__((swift_name("RestrictedToDenmark")));
-@property (readonly) DrapiDate *StartPublish __attribute__((swift_name("StartPublish")));
-@property (readonly) DrapiDate *EndPublish __attribute__((swift_name("EndPublish")));
-@property (readonly) NSString *Target __attribute__((swift_name("Target")));
-@property (readonly) BOOL Encrypted __attribute__((swift_name("Encrypted")));
-@property (readonly) BOOL IsLiveStream __attribute__((swift_name("IsLiveStream")));
+- (DrapiPrimaryAsset *)doCopyKind:(NSString *)kind uri:(NSString *)uri durationInMilliseconds:(int64_t)durationInMilliseconds downloadable:(BOOL)downloadable restrictedToDenmark:(BOOL)restrictedToDenmark startPublish:(DrapiDate *)startPublish endPublish:(DrapiDate *)endPublish target:(NSString *)target encrypted:(BOOL)encrypted isLiveStream:(BOOL)isLiveStream __attribute__((swift_name("doCopy(kind:uri:durationInMilliseconds:downloadable:restrictedToDenmark:startPublish:endPublish:target:encrypted:isLiveStream:)")));
+@property (readonly) NSString *kind __attribute__((swift_name("kind")));
+@property (readonly) NSString *uri __attribute__((swift_name("uri")));
+@property (readonly) int64_t durationInMilliseconds __attribute__((swift_name("durationInMilliseconds")));
+@property (readonly) BOOL downloadable __attribute__((swift_name("downloadable")));
+@property (readonly) BOOL restrictedToDenmark __attribute__((swift_name("restrictedToDenmark")));
+@property (readonly) DrapiDate *startPublish __attribute__((swift_name("startPublish")));
+@property (readonly) DrapiDate *endPublish __attribute__((swift_name("endPublish")));
+@property (readonly) NSString *target __attribute__((swift_name("target")));
+@property (readonly) BOOL encrypted __attribute__((swift_name("encrypted")));
+@property (readonly) BOOL isLiveStream __attribute__((swift_name("isLiveStream")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -823,8 +828,8 @@ __attribute__((swift_name("PrimaryAsset.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Manifest")))
 @interface DrapiManifest : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Links:(NSArray<DrapiLink *> * _Nullable)Links SubtitlesList:(NSArray<DrapiSubtitle *> * _Nullable)SubtitlesList serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Links:SubtitlesList:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithLinks:(NSArray<DrapiLink *> *)Links SubtitlesList:(NSArray<DrapiSubtitle *> *)SubtitlesList __attribute__((swift_name("init(Links:SubtitlesList:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 links:(NSArray<DrapiLink *> * _Nullable)links subtitlesList:(NSArray<DrapiSubtitle *> * _Nullable)subtitlesList serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:links:subtitlesList:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithLinks:(NSArray<DrapiLink *> *)links subtitlesList:(NSArray<DrapiSubtitle *> *)subtitlesList __attribute__((swift_name("init(links:subtitlesList:)"))) __attribute__((objc_designated_initializer));
 - (NSString *)getEncryptedUri __attribute__((swift_name("getEncryptedUri()")));
 - (NSString * _Nullable)getUri __attribute__((swift_name("getUri()")));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
@@ -832,9 +837,9 @@ __attribute__((swift_name("Manifest")))
 - (NSString *)description __attribute__((swift_name("description()")));
 - (NSArray<DrapiLink *> *)component1 __attribute__((swift_name("component1()")));
 - (NSArray<DrapiSubtitle *> *)component2 __attribute__((swift_name("component2()")));
-- (DrapiManifest *)doCopyLinks:(NSArray<DrapiLink *> *)Links SubtitlesList:(NSArray<DrapiSubtitle *> *)SubtitlesList __attribute__((swift_name("doCopy(Links:SubtitlesList:)")));
-@property (readonly) NSArray<DrapiLink *> *Links __attribute__((swift_name("Links")));
-@property (readonly) NSArray<DrapiSubtitle *> *SubtitlesList __attribute__((swift_name("SubtitlesList")));
+- (DrapiManifest *)doCopyLinks:(NSArray<DrapiLink *> *)links subtitlesList:(NSArray<DrapiSubtitle *> *)subtitlesList __attribute__((swift_name("doCopy(links:subtitlesList:)")));
+@property (readonly) NSArray<DrapiLink *> *links __attribute__((swift_name("links")));
+@property (readonly) NSArray<DrapiSubtitle *> *subtitlesList __attribute__((swift_name("subtitlesList")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -862,8 +867,8 @@ __attribute__((swift_name("Manifest.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Link")))
 @interface DrapiLink : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 HardSubtitlesType:(NSString * _Nullable)HardSubtitlesType Uri:(NSString * _Nullable)Uri EncryptedUri:(NSString * _Nullable)EncryptedUri FileFormat:(NSString * _Nullable)FileFormat Target:(NSString * _Nullable)Target Bitrate:(int32_t)Bitrate serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:HardSubtitlesType:Uri:EncryptedUri:FileFormat:Target:Bitrate:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithHardSubtitlesType:(NSString *)HardSubtitlesType Uri:(NSString * _Nullable)Uri EncryptedUri:(NSString *)EncryptedUri FileFormat:(NSString *)FileFormat Target:(NSString *)Target Bitrate:(int32_t)Bitrate __attribute__((swift_name("init(HardSubtitlesType:Uri:EncryptedUri:FileFormat:Target:Bitrate:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 hardSubtitlesType:(NSString * _Nullable)hardSubtitlesType uri:(NSString * _Nullable)uri encryptedUri:(NSString * _Nullable)encryptedUri fileFormat:(NSString * _Nullable)fileFormat target:(NSString * _Nullable)target bitrate:(int32_t)bitrate serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:hardSubtitlesType:uri:encryptedUri:fileFormat:target:bitrate:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithHardSubtitlesType:(NSString *)hardSubtitlesType uri:(NSString * _Nullable)uri encryptedUri:(NSString *)encryptedUri fileFormat:(NSString *)fileFormat target:(NSString *)target bitrate:(int32_t)bitrate __attribute__((swift_name("init(hardSubtitlesType:uri:encryptedUri:fileFormat:target:bitrate:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
@@ -873,13 +878,13 @@ __attribute__((swift_name("Link")))
 - (NSString *)component4 __attribute__((swift_name("component4()")));
 - (NSString *)component5 __attribute__((swift_name("component5()")));
 - (int32_t)component6 __attribute__((swift_name("component6()")));
-- (DrapiLink *)doCopyHardSubtitlesType:(NSString *)HardSubtitlesType Uri:(NSString * _Nullable)Uri EncryptedUri:(NSString *)EncryptedUri FileFormat:(NSString *)FileFormat Target:(NSString *)Target Bitrate:(int32_t)Bitrate __attribute__((swift_name("doCopy(HardSubtitlesType:Uri:EncryptedUri:FileFormat:Target:Bitrate:)")));
-@property (readonly) NSString *HardSubtitlesType __attribute__((swift_name("HardSubtitlesType")));
-@property (readonly) NSString * _Nullable Uri __attribute__((swift_name("Uri")));
-@property (readonly) NSString *EncryptedUri __attribute__((swift_name("EncryptedUri")));
-@property (readonly) NSString *FileFormat __attribute__((swift_name("FileFormat")));
-@property (readonly) NSString *Target __attribute__((swift_name("Target")));
-@property (readonly) int32_t Bitrate __attribute__((swift_name("Bitrate")));
+- (DrapiLink *)doCopyHardSubtitlesType:(NSString *)hardSubtitlesType uri:(NSString * _Nullable)uri encryptedUri:(NSString *)encryptedUri fileFormat:(NSString *)fileFormat target:(NSString *)target bitrate:(int32_t)bitrate __attribute__((swift_name("doCopy(hardSubtitlesType:uri:encryptedUri:fileFormat:target:bitrate:)")));
+@property (readonly) NSString *hardSubtitlesType __attribute__((swift_name("hardSubtitlesType")));
+@property (readonly) NSString * _Nullable uri __attribute__((swift_name("uri")));
+@property (readonly) NSString *encryptedUri __attribute__((swift_name("encryptedUri")));
+@property (readonly) NSString *fileFormat __attribute__((swift_name("fileFormat")));
+@property (readonly) NSString *target __attribute__((swift_name("target")));
+@property (readonly) int32_t bitrate __attribute__((swift_name("bitrate")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -907,8 +912,8 @@ __attribute__((swift_name("Link.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Subtitle")))
 @interface DrapiSubtitle : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Language:(NSString * _Nullable)Language MimeType:(NSString * _Nullable)MimeType Type:(NSString * _Nullable)Type Uri:(NSString * _Nullable)Uri serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Language:MimeType:Type:Uri:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithLanguage:(NSString *)Language MimeType:(NSString *)MimeType Type:(NSString *)Type Uri:(NSString *)Uri __attribute__((swift_name("init(Language:MimeType:Type:Uri:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 language:(NSString * _Nullable)language mimeType:(NSString * _Nullable)mimeType type:(NSString * _Nullable)type uri:(NSString * _Nullable)uri serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:language:mimeType:type:uri:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithLanguage:(NSString *)language mimeType:(NSString *)mimeType type:(NSString *)type uri:(NSString *)uri __attribute__((swift_name("init(language:mimeType:type:uri:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
@@ -916,11 +921,11 @@ __attribute__((swift_name("Subtitle")))
 - (NSString *)component2 __attribute__((swift_name("component2()")));
 - (NSString *)component3 __attribute__((swift_name("component3()")));
 - (NSString *)component4 __attribute__((swift_name("component4()")));
-- (DrapiSubtitle *)doCopyLanguage:(NSString *)Language MimeType:(NSString *)MimeType Type:(NSString *)Type Uri:(NSString *)Uri __attribute__((swift_name("doCopy(Language:MimeType:Type:Uri:)")));
-@property (readonly) NSString *Language __attribute__((swift_name("Language")));
-@property (readonly) NSString *MimeType __attribute__((swift_name("MimeType")));
-@property (readonly) NSString *Type __attribute__((swift_name("Type")));
-@property (readonly) NSString *Uri __attribute__((swift_name("Uri")));
+- (DrapiSubtitle *)doCopyLanguage:(NSString *)language mimeType:(NSString *)mimeType type:(NSString *)type uri:(NSString *)uri __attribute__((swift_name("doCopy(language:mimeType:type:uri:)")));
+@property (readonly) NSString *language __attribute__((swift_name("language")));
+@property (readonly) NSString *mimeType __attribute__((swift_name("mimeType")));
+@property (readonly) NSString *type __attribute__((swift_name("type")));
+@property (readonly) NSString *uri __attribute__((swift_name("uri")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -948,18 +953,18 @@ __attribute__((swift_name("Subtitle.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MostViewed")))
 @interface DrapiMostViewed : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Items:(NSArray<DrapiProgramCard *> * _Nullable)Items Paging:(DrapiMuPaging * _Nullable)Paging TotalSize:(int32_t)TotalSize serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Items:Paging:TotalSize:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithItems:(NSArray<DrapiProgramCard *> *)Items Paging:(DrapiMuPaging *)Paging TotalSize:(int32_t)TotalSize __attribute__((swift_name("init(Items:Paging:TotalSize:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 items:(NSArray<DrapiProgramCard *> * _Nullable)items paging:(DrapiMuPaging * _Nullable)paging totalSize:(int32_t)totalSize serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:items:paging:totalSize:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithItems:(NSArray<DrapiProgramCard *> *)items paging:(DrapiMuPaging *)paging totalSize:(int32_t)totalSize __attribute__((swift_name("init(items:paging:totalSize:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 - (NSArray<DrapiProgramCard *> *)component1 __attribute__((swift_name("component1()")));
 - (DrapiMuPaging *)component2 __attribute__((swift_name("component2()")));
 - (int32_t)component3 __attribute__((swift_name("component3()")));
-- (DrapiMostViewed *)doCopyItems:(NSArray<DrapiProgramCard *> *)Items Paging:(DrapiMuPaging *)Paging TotalSize:(int32_t)TotalSize __attribute__((swift_name("doCopy(Items:Paging:TotalSize:)")));
-@property (readonly) NSArray<DrapiProgramCard *> *Items __attribute__((swift_name("Items")));
-@property (readonly) DrapiMuPaging *Paging __attribute__((swift_name("Paging")));
-@property (readonly) int32_t TotalSize __attribute__((swift_name("TotalSize")));
+- (DrapiMostViewed *)doCopyItems:(NSArray<DrapiProgramCard *> *)items paging:(DrapiMuPaging *)paging totalSize:(int32_t)totalSize __attribute__((swift_name("doCopy(items:paging:totalSize:)")));
+@property (readonly) NSArray<DrapiProgramCard *> *items __attribute__((swift_name("items")));
+@property (readonly) DrapiMuPaging *paging __attribute__((swift_name("paging")));
+@property (readonly) int32_t totalSize __attribute__((swift_name("totalSize")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -987,18 +992,18 @@ __attribute__((swift_name("MostViewed.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Programs")))
 @interface DrapiPrograms : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Items:(NSArray<DrapiProgramCard *> * _Nullable)Items Paging:(DrapiMuPaging * _Nullable)Paging TotalSize:(int32_t)TotalSize serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Items:Paging:TotalSize:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithItems:(NSArray<DrapiProgramCard *> *)Items Paging:(DrapiMuPaging *)Paging TotalSize:(int32_t)TotalSize __attribute__((swift_name("init(Items:Paging:TotalSize:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 items:(NSArray<DrapiProgramCard *> * _Nullable)items paging:(DrapiMuPaging * _Nullable)paging totalSize:(int32_t)totalSize serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:items:paging:totalSize:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithItems:(NSArray<DrapiProgramCard *> *)items paging:(DrapiMuPaging *)paging totalSize:(int32_t)totalSize __attribute__((swift_name("init(items:paging:totalSize:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 - (NSArray<DrapiProgramCard *> *)component1 __attribute__((swift_name("component1()")));
 - (DrapiMuPaging *)component2 __attribute__((swift_name("component2()")));
 - (int32_t)component3 __attribute__((swift_name("component3()")));
-- (DrapiPrograms *)doCopyItems:(NSArray<DrapiProgramCard *> *)Items Paging:(DrapiMuPaging *)Paging TotalSize:(int32_t)TotalSize __attribute__((swift_name("doCopy(Items:Paging:TotalSize:)")));
-@property (readonly) NSArray<DrapiProgramCard *> *Items __attribute__((swift_name("Items")));
-@property (readonly) DrapiMuPaging *Paging __attribute__((swift_name("Paging")));
-@property (readonly) int32_t TotalSize __attribute__((swift_name("TotalSize")));
+- (DrapiPrograms *)doCopyItems:(NSArray<DrapiProgramCard *> *)items paging:(DrapiMuPaging *)paging totalSize:(int32_t)totalSize __attribute__((swift_name("doCopy(items:paging:totalSize:)")));
+@property (readonly) NSArray<DrapiProgramCard *> *items __attribute__((swift_name("items")));
+@property (readonly) DrapiMuPaging *paging __attribute__((swift_name("paging")));
+@property (readonly) int32_t totalSize __attribute__((swift_name("totalSize")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -1026,14 +1031,14 @@ __attribute__((swift_name("Programs.$serializer")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Page")))
 @interface DrapiPage : KotlinBase
-- (instancetype)initWithSeen1:(int32_t)seen1 Programs:(DrapiPrograms * _Nullable)Programs serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:Programs:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
-- (instancetype)initWithPrograms:(DrapiPrograms *)Programs __attribute__((swift_name("init(Programs:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithSeen1:(int32_t)seen1 programs:(DrapiPrograms * _Nullable)programs serializationConstructorMarker:(id _Nullable)serializationConstructorMarker __attribute__((swift_name("init(seen1:programs:serializationConstructorMarker:)"))) __attribute__((objc_designated_initializer));
+- (instancetype)initWithPrograms:(DrapiPrograms *)programs __attribute__((swift_name("init(programs:)"))) __attribute__((objc_designated_initializer));
 - (BOOL)isEqual:(id _Nullable)other __attribute__((swift_name("isEqual(_:)")));
 - (NSUInteger)hash __attribute__((swift_name("hash()")));
 - (NSString *)description __attribute__((swift_name("description()")));
 - (DrapiPrograms *)component1 __attribute__((swift_name("component1()")));
-- (DrapiPage *)doCopyPrograms:(DrapiPrograms *)Programs __attribute__((swift_name("doCopy(Programs:)")));
-@property (readonly) DrapiPrograms *Programs __attribute__((swift_name("Programs")));
+- (DrapiPage *)doCopyPrograms:(DrapiPrograms *)programs __attribute__((swift_name("doCopy(programs:)")));
+@property (readonly) DrapiPrograms *programs __attribute__((swift_name("programs")));
 @end;
 
 __attribute__((objc_subclassing_restricted))
@@ -2565,4 +2570,5 @@ __attribute__((swift_name("KotlinCharIterator")))
 - (unichar)nextChar __attribute__((swift_name("nextChar()")));
 @end;
 
+#pragma clang diagnostic pop
 NS_ASSUME_NONNULL_END

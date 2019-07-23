@@ -29,17 +29,17 @@ class TvChannelsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tvChannel = getItem(position)
-        val now = tvChannel.Now ?: return
+        val now = tvChannel.now ?: return
 
-        holder.channelName.text = tvChannel.ChannelSlug.toUpperCase()
-        holder.title.text = now.Title
-        holder.nowDescription.text = now.Description
+        holder.channelName.text = tvChannel.channelSlug.toUpperCase()
+        holder.title.text = now.title
+        holder.nowDescription.text = now.description
         holder.nowDescription.visibility = if (showDetails) View.VISIBLE else View.GONE
 
         //Show time interval
         val localDateFormat = serverDateFormat("HH:mm")
-        val startTime = localDateFormat.format(Date(now.StartTime.time))
-        val endTime = localDateFormat.format(Date(now.EndTime.time))
+        val startTime = localDateFormat.format(Date(now.startTime.time))
+        val endTime = localDateFormat.format(Date(now.endTime.time))
 
         holder.time.text = buildString {
             append(startTime)
@@ -48,17 +48,17 @@ class TvChannelsAdapter(
         }
 
         //Progress
-        val programDuration = now.EndTime.time - now.StartTime.time
-        val programTime = System.currentTimeMillis() - now.StartTime.time
+        val programDuration = now.endTime.time - now.startTime.time
+        val programTime = System.currentTimeMillis() - now.startTime.time
         val percentage = 100 * programTime.toFloat() / programDuration
         holder.progress.progress = percentage.toInt()
 
         //Genre icon
         holder.genre.apply {
             setImageResource(0)
-            if (now.OnlineGenreText == "Sport") {
+            if (now.onlineGenreText == "Sport") {
                 //Sport genre
-                setImageResource(R.drawable.ic_genre_dot_black);
+                setImageResource(R.drawable.ic_genre_dot_black)
                 setColorFilter(
                         ContextCompat.getColor(
                                 context,
@@ -69,9 +69,9 @@ class TvChannelsAdapter(
         //holder.mTimeLeft.text = "(" + (channel.now.endTime - System.currentTimeMillis()) / 60 + " min left)"
 
         holder.image.apply {
-            if (!now.ProgramCard.PrimaryImageUri.isEmpty() && showDetails) {
+            if (!now.programCard.primaryImageUri.isEmpty() && showDetails) {
                 visibility = View.VISIBLE
-                setImageURI(now.ProgramCard.PrimaryImageUri)
+                setImageURI(now.programCard.primaryImageUri)
             } else {
                 visibility = View.GONE
                 setImageURI("")
@@ -79,8 +79,8 @@ class TvChannelsAdapter(
         }
 
         holder.nextTitle.text =
-                if (tvChannel.Next.isNotEmpty())
-                    holder.nextTitle.context.getString(R.string.next) + ": ${tvChannel.Next.first().Title}"
+                if (tvChannel.next.isNotEmpty())
+                    holder.nextTitle.context.getString(R.string.next) + ": ${tvChannel.next.first().title}"
                 else ""
     }
 
@@ -135,7 +135,7 @@ class TvChannelsAdapter(
 
 class ChannelsDiffItemCallback : DiffUtil.ItemCallback<MuNowNext>() {
     override fun areItemsTheSame(oldItem: MuNowNext, newItem: MuNowNext): Boolean =
-            oldItem.ChannelSlug == newItem.ChannelSlug
+            oldItem.channelSlug == newItem.channelSlug
 
     override fun areContentsTheSame(oldItem: MuNowNext, newItem: MuNowNext): Boolean =
             oldItem == newItem

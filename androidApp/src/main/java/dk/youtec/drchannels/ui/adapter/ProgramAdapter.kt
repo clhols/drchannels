@@ -41,7 +41,7 @@ class ProgramAdapter(
     private var resources: Resources
     private var genreFilter: String = ""
     private val todaysDate: String = serverDateFormat("dd/MM").format(calendar().time)
-    var broadcasts: List<MuScheduleBroadcast> = schedule.Broadcasts
+    var broadcasts: List<MuScheduleBroadcast> = schedule.broadcasts
 
     init {
         val matrix = ColorMatrix().apply {
@@ -55,16 +55,16 @@ class ProgramAdapter(
         val program = broadcasts[position]
 
         //Title and description
-        holder.title.text = program.Title
-        holder.nowDescription.text = program.Description
+        holder.title.text = program.title
+        holder.nowDescription.text = program.description
 
         //Time
         val localDateFormat = serverDateFormat("dd/MM")
-        val startDate = localDateFormat.format(Date(program.StartTime.time))
+        val startDate = localDateFormat.format(Date(program.startTime.time))
 
         val localTimeFormat = serverDateFormat("HH:mm")
-        val startTime = localTimeFormat.format(Date(program.StartTime.time))
-        val endTime = localTimeFormat.format(Date(program.EndTime.time))
+        val startTime = localTimeFormat.format(Date(program.startTime.time))
+        val endTime = localTimeFormat.format(Date(program.endTime.time))
 
         holder.time.text = if (startDate == todaysDate)
             "$startTime - $endTime"
@@ -73,12 +73,12 @@ class ProgramAdapter(
 
         //Header color
         holder.live.isVisible = System.currentTimeMillis() in
-                ((program.StartTime.time + 1)..program.EndTime.time)
+                ((program.startTime.time + 1)..program.endTime.time)
 
         holder.image.apply {
-            if (!program.ProgramCard.PrimaryImageUri.isEmpty()) {
+            if (program.programCard.primaryImageUri.isNotEmpty()) {
                 isVisible = true
-                setImageURI(program.ProgramCard.PrimaryImageUri)
+                setImageURI(program.programCard.primaryImageUri)
             } else {
                 isVisible = false
                 setImageURI("")
@@ -86,7 +86,7 @@ class ProgramAdapter(
         }
 
         //Set view enabled state
-        holder.enabled = program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() ?: false
+        holder.enabled = program.programCard.primaryAsset?.uri?.isNotEmpty() ?: false
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -128,15 +128,15 @@ class ProgramAdapter(
             val program = broadcasts[adapterPosition]
 
             when {
-                program.StartTime.time < System.currentTimeMillis() -> playProgram(program)
-                program.ProgramCard.PrimaryAsset?.Uri?.isNotEmpty() == true -> playProgram(program)
+                program.startTime.time < System.currentTimeMillis() -> playProgram(program)
+                program.programCard.primaryAsset?.uri?.isNotEmpty() == true -> playProgram(program)
                 else -> it.context.toast(it.context.getString(R.string.upcomingTransmission))
             }
         }
 
         private fun playProgram(program: MuScheduleBroadcast) {
             launch {
-                val uri = program.ProgramCard.PrimaryAsset?.Uri
+                val uri = program.programCard.primaryAsset?.uri
                 if (uri != null) {
                     try {
                         val manifest = withContext(IO) { api.getManifest(uri) }
@@ -172,9 +172,9 @@ class ProgramAdapter(
     fun setGenreFilter(genre: String = "") {
         genreFilter = genre
         broadcasts = if (genreFilter.isNotBlank()) {
-            schedule.Broadcasts.filter { it.OnlineGenreText == genreFilter }
+            schedule.broadcasts.filter { it.onlineGenreText == genreFilter }
         } else {
-            schedule.Broadcasts
+            schedule.broadcasts
         }
         notifyDataSetChanged()
     }
