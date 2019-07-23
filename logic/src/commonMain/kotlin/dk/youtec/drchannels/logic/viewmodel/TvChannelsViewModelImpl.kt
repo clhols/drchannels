@@ -24,18 +24,18 @@ open class TvChannelsViewModelImpl(
     override fun playTvChannel(muNowNext: MuNowNext) {
         viewModelScope.launch {
             try {
-                val name = muNowNext.ChannelSlug
+                val name = muNowNext.channelSlug
                 val server = withContext(Dispatchers.Default) {
                     api.getAllActiveDrTvChannels()
                 }
-                        .first { it.Slug == name }
+                        .first { it.slug == name }
                         .server() ?: throw Exception("Unable to get streaming server")
 
                 val stream = server
-                        .Qualities.maxBy { it.Kbps }!!
-                        .Streams.first().Stream
+                        .qualities.maxBy { it.kbps }!!
+                        .streams.first().stream
 
-                playbackUriChannel.offer("${server.Server}/$stream")
+                playbackUriChannel.offer("${server.server}/$stream")
             } catch (e: Exception) {
                 errorChannel.offer(if (e.message != null && e.message != "Success") {
                     e.message!!
@@ -48,7 +48,7 @@ open class TvChannelsViewModelImpl(
 
     override fun playProgram(muNowNext: MuNowNext) {
         viewModelScope.launch {
-            val uri = muNowNext.Now?.ProgramCard?.PrimaryAsset?.Uri
+            val uri = muNowNext.now?.programCard?.primaryAsset?.uri
             if (uri != null) {
                 try {
                     val manifest = withContext(Dispatchers.Default) { api.getManifest(uri) }

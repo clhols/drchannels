@@ -149,8 +149,8 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
 
     override fun showTvChannel(context: Context, tvChannel: MuNowNext) {
         val intent = Intent(context, ProgramsActivity::class.java).apply {
-            putExtra(ProgramsActivity.CHANNEL_NAME, tvChannel.ChannelSlug.toUpperCase())
-            putExtra(ProgramsActivity.CHANNEL_ID, tvChannel.ChannelSlug)
+            putExtra(ProgramsActivity.CHANNEL_NAME, tvChannel.channelSlug.toUpperCase())
+            putExtra(ProgramsActivity.CHANNEL_ID, tvChannel.channelSlug)
         }
 
         context.startActivity(intent, ActivityOptions.makeCustomAnimation(context,
