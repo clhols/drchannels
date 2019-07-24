@@ -40,7 +40,6 @@ kotlin {
                 languageVersion = "1.3"
                 apiVersion = "1.3"
                 enableLanguageFeature("InlineClasses")
-                useExperimentalAnnotation("kotlin.ExperimentalUnsignedTypes")
                 progressiveMode = true
             }
         }
