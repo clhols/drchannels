@@ -5,13 +5,13 @@ import android.preference.PreferenceManager
 import android.widget.Toast
 import androidx.annotation.StringRes
 
-inline fun Context.toast(@StringRes message: Int): Toast = Toast
+fun Context.toast(@StringRes message: Int): Toast = Toast
         .makeText(this, message, Toast.LENGTH_SHORT)
         .apply {
             show()
         }
 
-inline fun Context.toast(message: CharSequence): Toast = Toast
+fun Context.toast(message: CharSequence): Toast = Toast
         .makeText(this, message, Toast.LENGTH_SHORT)
         .apply {
             show()

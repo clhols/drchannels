@@ -38,7 +38,7 @@ fun getHttpResponse(urlAddress: String): Response {
             if (e.code != 404) {
                 Log.w(TAG, e.message, e)
             } else {
-                Log.w(TAG, e.message)
+                Log.w(TAG, e.message!!)
             }
             closeResponse(response)
             throw e
