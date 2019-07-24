@@ -79,14 +79,14 @@ abstract class BasePreviewUpdater(
         //Get expired programs
         val expiredPrograms = existingPreviewPrograms.filterNot { existing ->
             newPreviewProgramCards.any {
-                existing.title == it.Title && existing.description == it.OnlineGenreText
+                existing.title == it.title && existing.description == it.onlineGenreText
             }
         }
 
         //Get new programs
         val newProgramCards = newPreviewProgramCards.filterNot { new ->
             existingPreviewPrograms.any {
-                new.Title == it.title && new.OnlineGenreText == it.description
+                new.title == it.title && new.onlineGenreText == it.description
             }
         }
 
@@ -123,7 +123,7 @@ abstract class BasePreviewUpdater(
      */
     private suspend fun getPreviewProgram(program: ProgramCard, previewChannelId: Long): PreviewProgram? {
         try {
-            val playbackUri = program.PrimaryAsset?.Uri?.let { uri ->
+            val playbackUri = program.primaryAsset?.uri?.let { uri ->
                 api.getManifest(uri).let {
                     it.getUri() ?: decryptUri(it.getEncryptedUri())
                 }
@@ -140,15 +140,15 @@ abstract class BasePreviewUpdater(
             return PreviewProgram.Builder()
                     .setChannelId(previewChannelId)
                     .setType(TvContractCompat.PreviewPrograms.TYPE_TV_SERIES)
-                    .setTitle(program.Title)
+                    .setTitle(program.title)
                     .setDescription(getDescription(program))
-                    .setDurationMillis(program.PrimaryAsset?.DurationInMilliseconds?.toInt() ?: 0)
+                    .setDurationMillis(program.primaryAsset?.durationInMilliseconds?.toInt() ?: 0)
                     .setIntent(intent)
-                    .setInternalProviderId(program.PrimaryAsset?.Uri)
-                    .setStartTimeUtcMillis(program.PrimaryBroadcastStartTime?.time ?: 0)
-                    .setPosterArtUri(program.PrimaryImageUri.toUri())
+                    .setInternalProviderId(program.primaryAsset?.uri)
+                    .setStartTimeUtcMillis(program.primaryBroadcastStartTime?.time ?: 0)
+                    .setPosterArtUri(program.primaryImageUri.toUri())
                     .setPosterArtAspectRatio(ASPECT_RATIO_16_9)
-                    .setWeight(((program.PrimaryBroadcastStartTime?.time ?: 1) / 1000).toInt())
+                    .setWeight(((program.primaryBroadcastStartTime?.time ?: 1) / 1000).toInt())
                     .build()
         } catch (e: Exception) {
             Log.e(TAG, "Exception when adding program", e)
@@ -157,10 +157,10 @@ abstract class BasePreviewUpdater(
     }
 
     private fun getDescription(program: ProgramCard): String {
-        var description = program.OnlineGenreText
+        var description = program.onlineGenreText
         if (description.isNotEmpty()) description += " - "
-        description += if (program.PrimaryBroadcastStartTime != null) {
-            serverDateFormat("d/M HH:mm").format(Date(program.PrimaryBroadcastStartTime!!.time))
+        description += if (program.primaryBroadcastStartTime != null) {
+            serverDateFormat("d/M HH:mm").format(Date(program.primaryBroadcastStartTime!!.time))
         } else ""
         return description
     }
@@ -197,7 +197,7 @@ abstract class BasePreviewUpdater(
             val channelUri = contentResolver.insert(
                     TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
 
-            val channelId = ContentUris.parseId(channelUri)
+            val channelId = ContentUris.parseId(channelUri!!)
 
             ChannelLogoUtils.storeChannelLogo(context,
                     channelId,

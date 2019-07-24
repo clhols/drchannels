@@ -16,6 +16,6 @@ class MostViewedPreviewUpdater(
     override val channelKey = "mostViewedChannelId"
     override fun getChannelName(): String = context.getString(R.string.mostViewed)
     override suspend fun getPrograms() = withContext(Dispatchers.IO) {
-        api.getMostViewed("", "TV", 10).Items
+        api.getMostViewed("", "TV", 10).items
     }
 }

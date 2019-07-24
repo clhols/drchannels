@@ -17,6 +17,6 @@ class GenrePreviewUpdater(
     override val channelKey = "${genre}ChannelId"
     override fun getChannelName(): String = genre
     override suspend fun getPrograms() = withContext(Dispatchers.IO) {
-        api.getPageTvPrograms(Genre.getByValue(genre)).Programs.Items
+        api.getPageTvPrograms(Genre.getByValue(genre)).programs.items
     }
 }
