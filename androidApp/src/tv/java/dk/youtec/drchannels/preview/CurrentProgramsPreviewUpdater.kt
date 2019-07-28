@@ -146,7 +146,7 @@ class CurrentProgramsPreviewUpdater(
                     TvContractCompat.PreviewPrograms.CONTENT_URI,
                     previewProgram.toContentValues()
             )
-            val newPreviewId = ContentUris.parseId(programUri)
+            val newPreviewId = ContentUris.parseId(programUri!!)
 
             Log.d(TAG, "Added program ${previewProgram.title} with preview id $newPreviewId")
         }

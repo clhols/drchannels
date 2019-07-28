@@ -15,12 +15,12 @@ open class DrMuRepositoryTest {
         val title = "Film"
         val searchResult = DrMuRepository().search(title)
 
-        assertTrue(searchResult.Items.isNotEmpty())
+        assertTrue(searchResult.items.isNotEmpty())
     }
     @Test
     fun testGenre() = runBlocking {
         val searchResult = DrMuRepository().getPageTvPrograms(Genre.Sport)
 
-        assertTrue(searchResult.Programs.Items.isNotEmpty())
+        assertTrue(searchResult.programs.items.isNotEmpty())
     }
 }

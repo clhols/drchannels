@@ -78,6 +78,7 @@ android {
 
     packagingOptions {
         exclude("META-INF/ktor-http.kotlin_module")
+        exclude("META-INF/kotlinx-serialization-runtime.kotlin_module")
         exclude("META-INF/kotlinx-io.kotlin_module")
         exclude("META-INF/atomicfu.kotlin_module")
         exclude("META-INF/ktor-utils.kotlin_module")
@@ -92,6 +93,8 @@ android {
     }
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> { kotlinOptions.jvmTarget = "1.8" }
+
 kapt {
     useBuildCache = true
     correctErrorTypes = true
@@ -103,7 +106,7 @@ kapt {
 }
 
 dependencies {
-    implementation(project(":drapi"))
+    implementation(project(":logic"))
     implementation(project(":tv-library"))
     implementation(project(":appupdater"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
@@ -123,13 +126,14 @@ dependencies {
     implementation("androidx.appcompat:appcompat:$appcompatVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta2")
     implementation("androidx.core:core-ktx:1.0.2")
+    implementation("androidx.activity:activity-ktx:1.1.0-alpha01")
     implementation("org.koin:koin-android:2.0.1")
 
-    implementation(platform("com.google.firebase:firebase-bom:20.0.0"))
+    implementation(platform("com.google.firebase:firebase-bom:20.1.0"))
     implementation("com.google.firebase:firebase-core")
     implementation("com.crashlytics.sdk.android:crashlytics")
 
-    implementation("androidx.work:work-runtime-ktx:2.0.1")
+    implementation("androidx.work:work-runtime-ktx:2.1.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
     implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
     kapt("androidx.lifecycle:lifecycle-common-java8:$archComponentVersion")

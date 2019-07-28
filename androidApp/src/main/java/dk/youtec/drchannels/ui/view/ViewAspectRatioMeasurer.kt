@@ -1,6 +1,7 @@
 package dk.youtec.drchannels.ui.view
 
 import android.view.View.MeasureSpec
+import kotlin.math.min
 
 /**
  * This class is a helper to measure views that require a specific aspect ratio.<br></br>
@@ -69,15 +70,15 @@ class ViewAspectRatioMeasurer(val aspectRatio: Double) {
       /*
 			 * Possibility 2: Width dynamic, height fixed
 			 */
-      measuredWidth = Math.min(widthSize.toDouble(), heightSize * aspectRatio).toInt()
-      measuredHeight = (measuredWidth!! / aspectRatio).toInt()
+      measuredWidth = min(widthSize.toDouble(), heightSize * aspectRatio).toInt()
+      measuredHeight = (measuredWidth / aspectRatio).toInt()
 
     } else if (widthMode == MeasureSpec.EXACTLY) {
       /*
 			 * Possibility 3: Width fixed, height dynamic
 			 */
-      measuredHeight = Math.min(heightSize.toDouble(), widthSize / aspectRatio).toInt()
-      measuredWidth = (measuredHeight!! * aspectRatio).toInt()
+      measuredHeight = min(heightSize.toDouble(), widthSize / aspectRatio).toInt()
+      measuredWidth = (measuredHeight * aspectRatio).toInt()
 
     } else {
       /*
@@ -85,10 +86,10 @@ class ViewAspectRatioMeasurer(val aspectRatio: Double) {
 			 */
       if (widthSize > heightSize * aspectRatio) {
         measuredHeight = heightSize
-        measuredWidth = (measuredHeight!! * aspectRatio).toInt()
+        measuredWidth = (measuredHeight * aspectRatio).toInt()
       } else {
         measuredWidth = widthSize
-        measuredHeight = (measuredWidth!! / aspectRatio).toInt()
+        measuredHeight = (measuredWidth / aspectRatio).toInt()
       }
 
     }

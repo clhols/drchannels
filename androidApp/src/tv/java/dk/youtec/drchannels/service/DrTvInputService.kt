@@ -389,11 +389,11 @@ class DrTvInputRecordingSessionImpl(
             val manifestResponse = api.getManifest(assetUri)
             val playbackUrl = manifestResponse.getUri() ?: decryptUri(manifestResponse.getEncryptedUri())
 
-            val downloadUrl = manifestResponse.Links
+            val downloadUrl = manifestResponse.links
                     .asSequence()
-                    .sortedByDescending { it.Bitrate }
-                    .firstOrNull { it.Target == "Download" }
-                    ?.Uri ?: ""
+                    .sortedByDescending { it.bitrate }
+                    .firstOrNull { it.target == "Download" }
+                    ?.uri ?: ""
 
             if (playbackUrl.isNotEmpty()) {
                 internalProviderData.videoUrl = playbackUrl

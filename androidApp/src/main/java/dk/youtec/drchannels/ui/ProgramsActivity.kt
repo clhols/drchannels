@@ -52,7 +52,7 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView.requestFocus()
 
-        val channelId = intent.extras?.getString(CHANNEL_ID) ?: ""
+        val channelId = intent.extras?.getString(CHANNEL_ID) ?: intent.data?.pathSegments?.lastOrNull() ?: ""
 
         loadPrograms(channelId)
     }
@@ -76,17 +76,17 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 val yesterday = yesterdayDeferred.await()
                 val twoDaysAgo = twoDaysAgoDeferred.await()
 
-                val allBroadcasts = twoDaysAgo.Broadcasts +
-                        yesterday.Broadcasts +
-                        today.Broadcasts +
-                        tomorrow.Broadcasts
+                val allBroadcasts = twoDaysAgo.broadcasts +
+                        yesterday.broadcasts +
+                        today.broadcasts +
+                        tomorrow.broadcasts
 
                 onScheduleLoaded(
                         Schedule(
                                 allBroadcasts,
-                                today.BroadcastDate,
-                                today.ChannelSlug,
-                                today.Channel
+                                today.broadcastDate,
+                                today.channelSlug,
+                                today.channel
                         ))
             }
         } catch (e: Exception) {
@@ -107,9 +107,9 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
     private fun onScheduleLoaded(schedule: Schedule) {
         progressBar.isVisible = false
 
-        genres = schedule.Broadcasts
+        genres = schedule.broadcasts
                 .asSequence()
-                .map { it.OnlineGenreText ?: "" }
+                .map { it.onlineGenreText ?: "" }
                 .filter { it.isNotBlank() }
                 .toSet()
         invalidateOptionsMenu()
@@ -117,8 +117,8 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         programAdapter = ProgramAdapter(this, schedule)
         recyclerView.adapter = programAdapter
         (recyclerView.layoutManager as LinearLayoutManager)
-                .scrollToPositionWithOffset(schedule.Broadcasts.indexOfFirst {
-                    it.EndTime.time >= System.currentTimeMillis()
+                .scrollToPositionWithOffset(schedule.broadcasts.indexOfFirst {
+                    it.endTime.time >= System.currentTimeMillis()
                 }, displayMetrics.heightPixels / 6)
     }
 
@@ -181,7 +181,7 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         programAdapter.setGenreFilter(genre)
         val broadcasts = programAdapter.broadcasts
         val index = broadcasts.indexOfFirst {
-            it.EndTime.time >= System.currentTimeMillis()
+            it.endTime.time >= System.currentTimeMillis()
         }
         if (index >= 0) {
             recyclerView.smoothScrollToPosition(index)

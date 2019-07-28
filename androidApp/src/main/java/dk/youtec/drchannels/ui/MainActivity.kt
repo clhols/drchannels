@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.appupdater.updateApp
@@ -27,9 +27,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
+import android.view.View
 
 open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope by MainScope() {
-    private lateinit var viewModel: TvChannelsViewModel
+    private val viewModel: TvChannelsViewModel by viewModels()
 
     companion object {
         init {
@@ -40,11 +41,9 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-        setSupportActionBar(toolbar.apply {
-            title = ""
-        })
+        setContentView(R.layout.activity_main)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(
@@ -53,9 +52,6 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
         swipeRefresh.setOnRefreshListener {
             viewModel.reload()
         }
-
-        viewModel = ViewModelProviders.of(this)
-                .get(TvChannelsViewModel::class.java)
 
         progressBar.isVisible = true
 
@@ -153,8 +149,8 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
 
     override fun showTvChannel(context: Context, tvChannel: MuNowNext) {
         val intent = Intent(context, ProgramsActivity::class.java).apply {
-            putExtra(ProgramsActivity.CHANNEL_NAME, tvChannel.ChannelSlug.toUpperCase())
-            putExtra(ProgramsActivity.CHANNEL_ID, tvChannel.ChannelSlug)
+            putExtra(ProgramsActivity.CHANNEL_NAME, tvChannel.channelSlug.toUpperCase())
+            putExtra(ProgramsActivity.CHANNEL_ID, tvChannel.channelSlug)
         }
 
         context.startActivity(intent, ActivityOptions.makeCustomAnimation(context,

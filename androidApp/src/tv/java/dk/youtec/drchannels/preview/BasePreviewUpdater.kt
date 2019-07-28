@@ -29,10 +29,11 @@ import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.defaultSharedPreferences
 import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
+import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
-import java.util.ArrayList
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -78,14 +79,14 @@ abstract class BasePreviewUpdater(
         //Get expired programs
         val expiredPrograms = existingPreviewPrograms.filterNot { existing ->
             newPreviewProgramCards.any {
-                existing.title == it.Title && existing.description == it.OnlineGenreText
+                existing.title == it.title && existing.description == it.onlineGenreText
             }
         }
 
         //Get new programs
         val newProgramCards = newPreviewProgramCards.filterNot { new ->
             existingPreviewPrograms.any {
-                new.Title == it.title && new.OnlineGenreText == it.description
+                new.title == it.title && new.onlineGenreText == it.description
             }
         }
 
@@ -118,11 +119,11 @@ abstract class BasePreviewUpdater(
     }
 
     /**
-     * Removes any existing program from the channel and insert the new one.
+     * Convert a ProgramCard to a PreviewProgram.
      */
     private suspend fun getPreviewProgram(program: ProgramCard, previewChannelId: Long): PreviewProgram? {
         try {
-            val playbackUri = program.PrimaryAsset?.Uri?.let { uri ->
+            val playbackUri = program.primaryAsset?.uri?.let { uri ->
                 api.getManifest(uri).let {
                     it.getUri() ?: decryptUri(it.getEncryptedUri())
                 }
@@ -139,20 +140,29 @@ abstract class BasePreviewUpdater(
             return PreviewProgram.Builder()
                     .setChannelId(previewChannelId)
                     .setType(TvContractCompat.PreviewPrograms.TYPE_TV_SERIES)
-                    .setTitle(program.Title)
-                    .setDescription(program.OnlineGenreText)
-                    .setDurationMillis(program.PrimaryAsset?.DurationInMilliseconds?.toInt() ?: 0)
+                    .setTitle(program.title)
+                    .setDescription(getDescription(program))
+                    .setDurationMillis(program.primaryAsset?.durationInMilliseconds?.toInt() ?: 0)
                     .setIntent(intent)
-                    .setInternalProviderId(program.PrimaryAsset?.Uri)
-                    .setStartTimeUtcMillis(program.PrimaryBroadcastStartTime?.time ?: 0)
-                    .setPosterArtUri(program.PrimaryImageUri.toUri())
+                    .setInternalProviderId(program.primaryAsset?.uri)
+                    .setStartTimeUtcMillis(program.primaryBroadcastStartTime?.time ?: 0)
+                    .setPosterArtUri(program.primaryImageUri.toUri())
                     .setPosterArtAspectRatio(ASPECT_RATIO_16_9)
-                    .setWeight(((program.PrimaryBroadcastStartTime?.time ?: 1) / 1000).toInt())
+                    .setWeight(((program.primaryBroadcastStartTime?.time ?: 1) / 1000).toInt())
                     .build()
         } catch (e: Exception) {
             Log.e(TAG, "Exception when adding program", e)
             return null
         }
+    }
+
+    private fun getDescription(program: ProgramCard): String {
+        var description = program.onlineGenreText
+        if (description.isNotEmpty()) description += " - "
+        description += if (program.primaryBroadcastStartTime != null) {
+            serverDateFormat("d/M HH:mm").format(Date(program.primaryBroadcastStartTime!!.time))
+        } else ""
+        return description
     }
 
     /**
@@ -187,7 +197,7 @@ abstract class BasePreviewUpdater(
             val channelUri = contentResolver.insert(
                     TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
 
-            val channelId = ContentUris.parseId(channelUri)
+            val channelId = ContentUris.parseId(channelUri!!)
 
             ChannelLogoUtils.storeChannelLogo(context,
                     channelId,
@@ -231,7 +241,6 @@ abstract class BasePreviewUpdater(
 /**
  * Schedules a new task to update the preview channel if no other task is pending or running.
  */
-@Synchronized
 inline fun <reified W : CoroutineWorker> schedulePreviewUpdate(input: Data = Data.EMPTY) {
     val tag = "schedulePreviewUpdate" + W::class.java.simpleName
     lateinit var observer: Observer<MutableList<WorkInfo>>

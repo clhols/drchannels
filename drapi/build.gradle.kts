@@ -50,6 +50,7 @@ kotlin {
             }
         }
     }
+    js()
 
     sourceSets {
         all {
@@ -66,24 +67,24 @@ kotlin {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("com.soywiz:klock-metadata:$klockVersion")
+                implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
             }
         }
         commonTest {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test-common")
                 implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-                implementation("com.soywiz:klock-metadata:$klockVersion")
+                implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             }
         }
+
         named("androidMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
                 implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
-                implementation("com.soywiz:klock-android:$klockVersion")
             }
         }
         named("androidTest") {
@@ -92,7 +93,6 @@ kotlin {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
                 implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
-                implementation("com.soywiz:klock-android:$klockVersion")
             }
         }
 
@@ -100,13 +100,19 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
-                implementation("com.soywiz:klock-iosx64:$klockVersion")
+                implementation("com.soywiz.korlibs.klock:klock-iosx64:$klockVersion")
             }
         }
-
         named("iosTest") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
+            }
+        }
+
+        named("jsMain") {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializationVersion")
+                implementation("io.ktor:ktor-client-js:$ktorVersion")
             }
         }
     }
@@ -133,12 +139,12 @@ task("buildFramework") {
 task("iosTest") {
     group = "ios"
     val device = "iPhone 8"
-    dependsOn("linkTestDebugExecutableIos")
+    dependsOn("linkDebugTestIos")
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
         val target = kotlin.targets.getByName("ios") as KotlinNativeTarget
-        val binary = target.binaries.getExecutable("test", "DEBUG").outputFile
+        val binary = target.binaries.getTest("DEBUG").outputFile
         exec {
             commandLine = listOf("xcrun", "simctl", "spawn", device, binary.absolutePath)
         }

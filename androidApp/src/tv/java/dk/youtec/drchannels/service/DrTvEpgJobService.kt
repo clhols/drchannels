@@ -70,16 +70,16 @@ class DrTvEpgJobService : EpgSyncJobService() {
         runBlocking { api.getAllActiveDrTvChannels() }
                 .asSequence()
                 .filter { it.server() != null }
-                .filter { !it.WebChannel }
-                .sortedBy { it.Title.replace(" ", "") }
+                .filter { !it.webChannel }
+                .sortedBy { it.title.replace(" ", "") }
                 .forEachIndexed { index, channel ->
                     channelList += Channel.Builder().apply {
-                        setNetworkAffiliation(channel.Slug)
-                        setDisplayName(channel.Title)
-                        setDescription(channel.Subtitle)
+                        setNetworkAffiliation(channel.slug)
+                        setDisplayName(channel.title)
+                        setDescription(channel.subtitle)
                         setDisplayNumber("${index + 1}")
-                        setChannelLogo(if (channel.WebChannel) null else channel.PrimaryImageUri)
-                        setOriginalNetworkId(channel.Slug.hashCode())
+                        setChannelLogo(if (channel.webChannel) null else channel.primaryImageUri)
+                        setOriginalNetworkId(channel.slug.hashCode())
                         setInternalProviderData(InternalProviderData().apply {
                             videoUrl = channel.streamingUrl
                             videoType = TvContractUtils.SOURCE_TYPE_HLS
@@ -106,7 +106,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
         alignPrograms(todaysBroadcasts, tomorrowsBroadcasts)
 
         (todaysBroadcasts + tomorrowsBroadcasts).forEach { broadcast ->
-            if (broadcast.EndTime.time < endMs) {
+            if (broadcast.endTime.time < endMs) {
                 programs += buildProgram(channel, broadcast)
             }
         }
@@ -117,25 +117,25 @@ class DrTvEpgJobService : EpgSyncJobService() {
     private fun buildProgram(channel: Channel, broadcast: MuScheduleBroadcast): Program {
         return Program.Builder().apply {
             setChannelId(channel.id)
-            setTitle(broadcast.Title)
-            setDescription(broadcast.Description)
+            setTitle(broadcast.title)
+            setDescription(broadcast.description)
 
-            setStartTimeUtcMillis(broadcast.StartTime.time)
-            setEndTimeUtcMillis(broadcast.EndTime.time)
+            setStartTimeUtcMillis(broadcast.startTime.time)
+            setEndTimeUtcMillis(broadcast.endTime.time)
 
-            if (broadcast.OnlineGenreText?.isNotBlank() == true) {
-                setBroadcastGenres(arrayOf(broadcast.OnlineGenreText))
+            if (broadcast.onlineGenreText?.isNotBlank() == true) {
+                setBroadcastGenres(arrayOf(broadcast.onlineGenreText))
             }
 
-            setEpisodeTitle(broadcast.Subtitle)
+            setEpisodeTitle(broadcast.subtitle)
 
-            setSeasonTitle(broadcast.ProgramCard.SeasonTitle)
-            if (broadcast.ProgramCard.SeasonNumber > 0) {
-                setSeasonNumber(broadcast.ProgramCard.SeasonNumber)
+            setSeasonTitle(broadcast.programCard.seasonTitle)
+            if (broadcast.programCard.seasonNumber > 0) {
+                setSeasonNumber(broadcast.programCard.seasonNumber)
             }
-            setPosterArtUri(broadcast.ProgramCard.PrimaryImageUri)
+            setPosterArtUri(broadcast.programCard.primaryImageUri)
 
-            if (broadcast.VideoHD && broadcast.VideoWidescreen) {
+            if (broadcast.videoHD && broadcast.videoWidescreen) {
                 setVideoHeight(720)
                 setVideoWidth(1280)
             }
@@ -145,30 +145,30 @@ class DrTvEpgJobService : EpgSyncJobService() {
                 videoUrl = channel.internalProviderData.videoUrl
             }
 
-            setRecordingProhibited(broadcast.ProgramCard.PrimaryAsset == null)
+            setRecordingProhibited(broadcast.programCard.primaryAsset == null)
 
-            broadcast.ProgramCard.PrimaryAsset?.let { primaryAsset ->
+            broadcast.programCard.primaryAsset?.let { primaryAsset ->
 
-                val onDemandInfo = broadcast.ProgramCard.OnDemandInfo
+                val onDemandInfo = broadcast.programCard.onDemandInfo
                 if (onDemandInfo != null) {
-                    providerData.put("endPublish", onDemandInfo.EndPublish.time)
+                    providerData.put("endPublish", onDemandInfo.endPublish.time)
                 }
 
-                providerData.put("assetUri", primaryAsset.Uri)
+                providerData.put("assetUri", primaryAsset.uri)
 
-                if (primaryAsset.Downloadable) {
+                if (primaryAsset.downloadable) {
                     /*
-                        val manifestResponse = api.getManifest(primaryAsset.Uri)
-                        manifestResponse?.Links
+                        val manifestResponse = api.getManifest(primaryAsset.uri)
+                        manifestResponse?.links
                                 ?.asSequence()
-                                ?.firstOrNull { it.Target == "HLS" }
+                                ?.firstOrNull { it.target == "HLS" }
                                 ?.Uri?.let { playbackUrl ->
                             providerData.put("playbackUrl", playbackUrl)
                         }
-                        manifestResponse?.Links
+                        manifestResponse?.links
                                 ?.asSequence()
-                                ?.sortedByDescending { it.Bitrate }
-                                ?.firstOrNull { it.Target == "Download" }
+                                ?.sortedByDescending { it.bitrate }
+                                ?.firstOrNull { it.target == "Download" }
                                 ?.Uri?.let { downloadUrl ->
                             providerData.put("downloadUrl", downloadUrl)
                         }
@@ -188,10 +188,10 @@ class DrTvEpgJobService : EpgSyncJobService() {
         if (todaysBroadcasts.isNotEmpty() && tomorrowsBroadcasts.isNotEmpty()) {
             val lastBroadcast = todaysBroadcasts.last()
             val firstBroadcast = tomorrowsBroadcasts.first()
-            lastBroadcast.EndTime.time = firstBroadcast.StartTime.time
+            lastBroadcast.endTime.time = firstBroadcast.startTime.time
 
             // If the first broadcast eliminates the last, then remove the last.
-            if (lastBroadcast.StartTime.time >= lastBroadcast.EndTime.time) {
+            if (lastBroadcast.startTime.time >= lastBroadcast.endTime.time) {
                 todaysBroadcasts.removeAt(todaysBroadcasts.lastIndex)
             }
         }
@@ -200,13 +200,13 @@ class DrTvEpgJobService : EpgSyncJobService() {
     private fun getBroadcasts(channel: Channel, date: Date): MutableList<MuScheduleBroadcast> {
         val dateString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
         val schedule = runBlocking { api.getSchedule(channel.networkAffiliation, dateString) }
-        return schedule.Broadcasts.filter { it.StartTime.time < it.EndTime.time }.toMutableList()
+        return schedule.broadcasts.filter { it.startTime.time < it.endTime.time }.toMutableList()
     }
 }
 
 private val dk.youtec.drapi.Channel.streamingUrl: String
     get() {
-        val stream = server()!!.Qualities.sortedByDescending { it.Kbps }.first()
-                .Streams.first().Stream
-        return "${server()!!.Server}/$stream"
+        val stream = server()!!.qualities.maxBy { it.kbps }!!
+                .streams.first().stream
+        return "${server()!!.server}/$stream"
     }

@@ -404,6 +404,13 @@ public class PlayerActivity extends AppCompatActivity
     @Override
     public void onVisibilityChange(int visibility) {
         debugRootView.setVisibility(visibility);
+
+        //Hide the statusbar together with controls
+        getWindow().getDecorView().setSystemUiVisibility(
+                visibility == View.VISIBLE ?
+                        View.SYSTEM_UI_FLAG_VISIBLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN :
+                        View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        );
     }
 
     // Internal methods
@@ -723,7 +730,7 @@ public class PlayerActivity extends AppCompatActivity
 
     // User controls
 
-  private void updateButtonVisibility() {
+    private void updateButtonVisibility() {
     selectTracksButton.setEnabled(
         player != null && TrackSelectionDialog.willHaveContent(trackSelector));
     }
@@ -761,7 +768,7 @@ public class PlayerActivity extends AppCompatActivity
             if (playbackState == Player.STATE_ENDED) {
                 showControls();
             }
-      updateButtonVisibility();
+            updateButtonVisibility();
         }
 
         @Override

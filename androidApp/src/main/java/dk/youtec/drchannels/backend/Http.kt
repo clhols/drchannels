@@ -31,14 +31,14 @@ fun getHttpResponse(urlAddress: String): Response {
         try {
             response = client.newCall(request).execute()
             if (!response.isSuccessful)
-                throw HttpException(response.code(), "Unexpected code $response")
+                throw HttpException(response.code, "Unexpected code $response")
 
             return response
         } catch (e: HttpException) {
             if (e.code != 404) {
                 Log.w(TAG, e.message, e)
             } else {
-                Log.w(TAG, e.message)
+                Log.w(TAG, e.message!!)
             }
             closeResponse(response)
             throw e
@@ -50,7 +50,7 @@ fun getHttpResponse(urlAddress: String): Response {
 }
 
 fun closeResponse(response: Response?) {
-    response?.body()?.close()
+    response?.body?.close()
 }
 
 class HttpException(val code: Int, httpMessage: String) : IOException(httpMessage)

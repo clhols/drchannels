@@ -28,6 +28,6 @@ pluginManagement {
 
 enableFeaturePreview("GRADLE_METADATA")
 
-include(":androidApp", ":tv-library", ":appupdater", ":drapi")
+include(":androidApp", ":tv-library", ":appupdater", ":drapi", ":logic")
 
 rootProject.buildFileName = "build.gradle.kts"

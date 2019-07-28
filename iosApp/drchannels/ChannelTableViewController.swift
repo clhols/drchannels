@@ -16,8 +16,7 @@ class ChannelTableViewController: UITableViewController {
     var channels = [MuNowNext]()
     
     lazy var repo: DrMuRepositoryCallback = {
-        DrMuRepositoryCallback(
-            coroutineContext: UI() as KotlinCoroutineContext)
+        DrMuRepositoryCallback()
     }()
     
     override func viewDidLoad() {
@@ -29,13 +28,10 @@ class ChannelTableViewController: UITableViewController {
     
     private func loadChannels() {
         repo.getScheduleNowNext(callback: {
-            (schedules: [MuNowNext]) -> KotlinUnit in
+            (schedules: [MuNowNext]) -> Void in
             print("Got channels result")
-            self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in
-                nowNext.Now != nil
-            })
+            self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in nowNext.now != nil })
             self.tableView.reloadData()
-            return KotlinUnit.init()
         })
     }
     
@@ -66,24 +62,22 @@ class ChannelTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let name = self.channels[indexPath.row].ChannelSlug
+        let name = self.channels[indexPath.row].channelSlug
         
         repo.getAllActiveDrTvChannels(callback: {
-            (channels: [Channel]) -> KotlinUnit in
+            (channels: [Channel]) -> Void in
             
             let channel = channels.first(where: { (channel: Channel) -> Bool in
-                channel.Slug == name
+                channel.slug == name
             })
             
             let server = channel?.server()
-            let stream = server?.Qualities.first?.Streams.first?.Stream
-            let url = "\(server!.Server)/\(stream!)"
+            let stream = server?.qualities.first?.streams.first?.stream
+            let url = "\(server!.server)/\(stream!)"
             
             print("Playing url: \(url)")
             
             self.playVideo(uri: url)
-            
-            return KotlinUnit.init()
         })
     }
 
@@ -97,10 +91,10 @@ class ChannelTableViewController: UITableViewController {
         }
 
         let channel = channels[indexPath.row]
-        let imageUri = channel.Now?.ProgramCard.PrimaryImageUri ?? ""
+        let imageUri = channel.now?.programCard.primaryImageUri ?? ""
         
-        cell.titleLabel.text = channel.Now?.Title ?? "Unknown title"
-        cell.descriptionLabel.text = channel.Now?.Subtitle ?? "Unknown description"
+        cell.titleLabel.text = channel.now?.title ?? "Unknown title"
+        cell.descriptionLabel.text = channel.now?.subtitle ?? "Unknown description"
         cell.channelImageView.load(url: URL.init(string: imageUri)!, tableView: self.tableView)
 
         return cell
