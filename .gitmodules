@@ -1,0 +1,3 @@
+[submodule "appupdater"]
+	path = appupdater
+	url = https://github.com/clhols/appupdater.git
