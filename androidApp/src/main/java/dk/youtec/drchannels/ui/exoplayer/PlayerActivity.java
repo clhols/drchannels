@@ -164,7 +164,7 @@ public class PlayerActivity extends AppCompatActivity
 
     private boolean useExtensionRenderers = false;
     private CastContext castContext;
-    private PlayerControlView castControlView;
+    private PlayerControlView playerControlView;
     private PlayerManager playerManager;
     private MediaRouteButton mediaRouteButton;
 
@@ -243,7 +243,7 @@ public class PlayerActivity extends AppCompatActivity
         selectTracksButton.setOnClickListener(this);
 
         castContext = CastContext.getSharedInstance(this);
-        castControlView = (PlayerControlView) ((ViewGroup)findViewById(R.id.exo_controller_parent)).getChildAt(0);
+        playerControlView = (PlayerControlView) ((ViewGroup)findViewById(R.id.exo_controller_parent)).getChildAt(0);
 
         playerView = findViewById(R.id.player_view);
         playerView.setControllerVisibilityListener(this);
@@ -527,7 +527,7 @@ public class PlayerActivity extends AppCompatActivity
                                 Log.d("PlayerActivity", "onQueuePositionChanged");
                             },
                             playerView,
-                            castControlView,
+                            playerControlView,
                             /* context= */ this,
                             castContext);
 
