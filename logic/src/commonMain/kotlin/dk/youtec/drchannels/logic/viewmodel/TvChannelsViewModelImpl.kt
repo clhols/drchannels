@@ -52,7 +52,10 @@ open class TvChannelsViewModelImpl(
             val uri = muNowNext.now?.programCard?.primaryAsset?.uri
             if (uri != null) {
                 try {
-                    val manifest = withContext(Dispatchers.Default) { api.getManifest(uri) }
+                    //Change to Dispatchers.IO when available
+                    val manifest = withContext(Dispatchers.Default) {
+                        api.getManifest(uri)
+                    }
 
                     val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
                     if (playbackUri.isNotBlank()) {
