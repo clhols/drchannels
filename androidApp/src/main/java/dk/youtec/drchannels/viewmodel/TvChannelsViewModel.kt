@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModel
+import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
 import kotlinx.coroutines.flow.Flow
 
 @Keep
 class TvChannelsViewModel : ViewModel(), TvChannelsViewModel {
-    private val viewModel = dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl(viewModelScope)
+    private val viewModel = TvChannelsViewModelImpl(viewModelScope)
 
     override val channels: Flow<List<MuNowNext>> = viewModel.channels
     override val playbackUri: Flow<String> = viewModel.playbackUri

@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asFlow
 open class TvChannelsViewModelImpl(
         private val viewModelScope: CoroutineScope
 ) : TvChannelsViewModel {
-    private val api: DrMuRepository = DrMuRepository()
+    private val api = DrMuRepository()
 
     private val tvChannels = TvChannels(api, viewModelScope)
     private val playbackUriChannel = BroadcastChannel<String>(1)
@@ -25,6 +25,7 @@ open class TvChannelsViewModelImpl(
         viewModelScope.launch {
             try {
                 val name = muNowNext.channelSlug
+                //Change to Dispatchers.IO when available
                 val server = withContext(Dispatchers.Default) {
                     api.getAllActiveDrTvChannels()
                 }
