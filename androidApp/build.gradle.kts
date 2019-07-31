@@ -43,6 +43,7 @@ android {
         buildTypes {
             getByName("debug") {
                 manifestPlaceholders = mapOf("enableCrashReporting" to false)
+                applicationIdSuffix = ".debug"
             }
             getByName("release") {
                 isMinifyEnabled = true
