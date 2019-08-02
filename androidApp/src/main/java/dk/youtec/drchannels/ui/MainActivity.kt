@@ -87,7 +87,7 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
         if (savedInstanceState == null) {
             viewModel.reload()
 
-            if (!isTv()) {
+            if (!isTv() && !BuildConfig.DEBUG) {
                 updateApp(this@MainActivity,
                         BuildConfig.VERSION_CODE,
                         "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
@@ -126,18 +126,16 @@ open class MainActivity : AppCompatActivity(), TvChannelsAdapter.OnChannelClickL
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        return BuildConfig.DEBUG && isTv()
+        return !BuildConfig.DEBUG && isTv()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item?.itemId == R.id.menu_update) {
-            if (isTv()) {
-                updateApp(this@MainActivity,
-                        BuildConfig.VERSION_CODE,
-                        "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
-                        "https://www.dropbox.com/s/xs9qr72cgyh31r8/drchannels-tv-debug.apk?dl=1",
-                        "https://www.dropbox.com/s/8miqyro43qn71k0/drchannels.log?dl=1")
-            }
+            updateApp(this@MainActivity,
+                    BuildConfig.VERSION_CODE,
+                    "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
+                    "https://www.dropbox.com/s/a4oc5xmtl5naea7/drchannels-tv-release.apk?dl=1",
+                    "https://www.dropbox.com/s/8miqyro43qn71k0/drchannels.log?dl=1")
         }
 
         return true
