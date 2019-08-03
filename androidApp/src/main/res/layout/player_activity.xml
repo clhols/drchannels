@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:background="#88000000"
         android:orientation="vertical"
-        android:paddingTop="25dp">
+        android:layout_marginTop="25dp">
 
         <TextView
             android:id="@+id/debug_text_view"
