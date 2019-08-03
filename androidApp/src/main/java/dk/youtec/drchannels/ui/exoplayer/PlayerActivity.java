@@ -91,6 +91,7 @@ import androidx.mediarouter.media.MediaRouteSelector;
 import dk.youtec.drchannels.R;
 
 import static androidx.mediarouter.media.MediaControlIntent.CATEGORY_LIVE_VIDEO;
+import static dk.youtec.drchannels.util.ContextExtensionsKt.isTv;
 
 /** An activity that plays media using {@link SimpleExoPlayer}. */
 public class PlayerActivity extends AppCompatActivity
@@ -241,7 +242,9 @@ public class PlayerActivity extends AppCompatActivity
         selectTracksButton = findViewById(R.id.select_tracks_button);
         selectTracksButton.setOnClickListener(this);
 
-        castContext = CastContext.getSharedInstance(this);
+        if (!isTv(this)) {
+            castContext = CastContext.getSharedInstance(this);
+        }
         playerControlView = findViewById(R.id.cast_control_view);
 
         playerView = findViewById(R.id.player_view);
@@ -275,6 +278,7 @@ public class PlayerActivity extends AppCompatActivity
         }
 
         mediaRouteButton = findViewById(R.id.media_route_button);
+        mediaRouteButton.setVisibility(castContext == null ? View.GONE : View.VISIBLE);
         mediaRouteButton.setRouteSelector(new MediaRouteSelector.Builder()
                 .addControlCategory(CATEGORY_LIVE_VIDEO)
                 .build());
@@ -372,7 +376,8 @@ public class PlayerActivity extends AppCompatActivity
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         // See whether the player view wants to handle media or DPAD keys events.
-        return playerManager.dispatchKeyEvent(event) || super.dispatchKeyEvent(event);
+        boolean handled = playerManager != null ? playerManager.dispatchKeyEvent(event) : playerView.dispatchKeyEvent(event);
+        return handled || super.dispatchKeyEvent(event);
     }
 
     // OnClickListener methods
@@ -520,16 +525,18 @@ public class PlayerActivity extends AppCompatActivity
             debugViewHelper = new DebugTextViewHelper(player, debugTextView);
             debugViewHelper.start();
 
-            playerManager =
-                    PlayerManager.createPlayerManager(
-                            /* queuePositionListener= */ (previousIndex, newIndex) -> {
-                                Log.d("PlayerActivity", "onQueuePositionChanged");
-                            },
-                            playerView,
-                            playerControlView,
-                            /* context= */ this,
-                            castContext,
-                            trackSelector);
+            if (castContext != null) {
+                playerManager =
+                        PlayerManager.createPlayerManager(
+                                /* queuePositionListener= */ (previousIndex, newIndex) -> {
+                                    Log.d("PlayerActivity", "onQueuePositionChanged");
+                                },
+                                playerView,
+                                playerControlView,
+                                /* context= */ this,
+                                castContext,
+                                trackSelector);
+            }
 
             MediaSource[] mediaSources = new MediaSource[uris.length];
             for (int i = 0; i < uris.length; i++) {
@@ -554,16 +561,20 @@ public class PlayerActivity extends AppCompatActivity
                 releaseAdsLoader();
             }
 
-            playerManager.addItem(uris[0].toString());
+            if (playerManager != null) {
+                playerManager.addItem(uris[0].toString());
+            }
         }
-        /*
-        boolean haveStartPosition = startWindow != C.INDEX_UNSET;
-        if (haveStartPosition) {
-            player.seekTo(startWindow, startPosition);
+
+        if (playerManager == null) {
+            boolean haveStartPosition = startWindow != C.INDEX_UNSET;
+            if (haveStartPosition) {
+                player.seekTo(startWindow, startPosition);
+            }
+            player.prepare(mediaSource, !haveStartPosition, false);
+        } else {
+            playerManager.selectQueueItem(0);
         }
-        player.prepare(mediaSource, !haveStartPosition, false);
-        */
-        playerManager.selectQueueItem(0);
     }
 
     private MediaSource buildMediaSource(Uri uri) {
@@ -622,7 +633,9 @@ public class PlayerActivity extends AppCompatActivity
             updateStartPosition();
             debugViewHelper.stop();
             debugViewHelper = null;
-            playerManager.release();
+            if (playerManager != null) {
+                playerManager.release();
+            }
             player.release();
             player = null;
             mediaSource = null;
