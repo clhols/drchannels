@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (C) 2016 The Android Open Source Project
+<?xml version="1.0" encoding="UTF-8"?><!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,48 +13,74 @@
      limitations under the License.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true">
 
-    <com.google.android.exoplayer2.ui.PlayerView android:id="@+id/player_view"
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/player_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:use_controller="@bool/isNotTv"
-        app:hide_on_touch="true"
         app:fastforward_increment="10000"
-        app:rewind_increment="20000"/>
+        app:hide_on_touch="true"
+        app:rewind_increment="20000"
+        app:use_controller="@bool/isNotTv" />
+
+    <com.google.android.exoplayer2.ui.PlayerControlView
+        android:id="@+id/cast_control_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        app:repeat_toggle_modes="all|one"
+        app:show_timeout="-1"
+        tools:visibility="visible" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#88000000"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="25dp">
 
-        <TextView android:id="@+id/debug_text_view"
+        <TextView
+            android:id="@+id/debug_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:textSize="10sp"
             android:visibility="gone"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp" />
 
-        <LinearLayout android:id="@+id/controls_root"
+        <LinearLayout
+            android:id="@+id/controls_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="25dp"
-            android:visibility="gone">
+            android:visibility="gone"
+            tools:visibility="visible">
 
-            <Button android:id="@+id/select_tracks_button"
+            <Button
+                android:id="@+id/select_tracks_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/track_selection_title"
-                android:enabled="false"/>
+                android:enabled="false"
+                android:visibility="gone"
+                android:text="@string/track_selection_title" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <androidx.mediarouter.app.MediaRouteButton
+                android:id="@+id/media_route_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

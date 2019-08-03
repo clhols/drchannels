@@ -44,6 +44,7 @@ android {
         buildTypes {
             getByName("debug") {
                 manifestPlaceholders = mapOf("enableCrashReporting" to false)
+                applicationIdSuffix = ".debug"
             }
             getByName("release") {
                 isMinifyEnabled = true
@@ -119,6 +120,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-core:$exoPlayerVersion")
     implementation("com.google.android.exoplayer:exoplayer-hls:$exoPlayerVersion")
     implementation("com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion")
+    implementation("com.google.android.exoplayer:extension-cast:$exoPlayerVersion")
 
     implementation("com.facebook.fresco:fresco:2.0.0")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
