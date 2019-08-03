@@ -33,7 +33,7 @@ import com.google.android.exoplayer2.ext.cast.SessionAvailabilityListener;
 import com.google.android.exoplayer2.source.DynamicConcatenatingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
@@ -86,16 +86,18 @@ import java.util.ArrayList;
      * @param castControlView The {@link PlayerControlView} to control remote playback.
      * @param context A {@link Context}.
      * @param castContext The {@link CastContext}.
+     * @param trackSelector
      */
     public static PlayerManager createPlayerManager(
             QueuePositionListener queuePositionListener,
             PlayerView localPlayerView,
             PlayerControlView castControlView,
             Context context,
-            CastContext castContext) {
+            CastContext castContext,
+            TrackSelector trackSelector) {
         PlayerManager playerManager =
                 new PlayerManager(
-                        queuePositionListener, localPlayerView, castControlView, context, castContext);
+                        queuePositionListener, localPlayerView, castControlView, context, castContext, trackSelector);
         playerManager.init();
         return playerManager;
     }
@@ -105,14 +107,14 @@ import java.util.ArrayList;
             PlayerView localPlayerView,
             PlayerControlView castControlView,
             Context context,
-            CastContext castContext) {
+            CastContext castContext,
+            TrackSelector trackSelector) {
         this.queuePositionListener = queuePositionListener;
         this.localPlayerView = localPlayerView;
         this.castControlView = castControlView;
         mediaQueue = new ArrayList<>();
         currentItemIndex = C.INDEX_UNSET;
 
-        DefaultTrackSelector trackSelector = new DefaultTrackSelector(BANDWIDTH_METER);
         exoPlayer = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
         exoPlayer.addListener(this);
         localPlayerView.setPlayer(exoPlayer);

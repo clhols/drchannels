@@ -70,7 +70,6 @@ import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -529,7 +528,8 @@ public class PlayerActivity extends AppCompatActivity
                             playerView,
                             playerControlView,
                             /* context= */ this,
-                            castContext);
+                            castContext,
+                            trackSelector);
 
             MediaSource[] mediaSources = new MediaSource[uris.length];
             for (int i = 0; i < uris.length; i++) {
@@ -564,7 +564,6 @@ public class PlayerActivity extends AppCompatActivity
         player.prepare(mediaSource, !haveStartPosition, false);
         */
         playerManager.selectQueueItem(0);
-        updateButtonVisibility();
     }
 
     private MediaSource buildMediaSource(Uri uri) {
