@@ -29,6 +29,16 @@
         app:rewind_increment="20000"
         app:use_controller="@bool/isNotTv" />
 
+    <com.google.android.exoplayer2.ui.PlayerControlView
+        android:id="@+id/cast_control_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        app:repeat_toggle_modes="all|one"
+        app:show_timeout="-1"
+        tools:visibility="visible" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -243,7 +243,7 @@ public class PlayerActivity extends AppCompatActivity
         selectTracksButton.setOnClickListener(this);
 
         castContext = CastContext.getSharedInstance(this);
-        playerControlView = (PlayerControlView) ((ViewGroup)findViewById(R.id.exo_controller_parent)).getChildAt(0);
+        playerControlView = findViewById(R.id.cast_control_view);
 
         playerView = findViewById(R.id.player_view);
         playerView.setControllerVisibilityListener(this);
