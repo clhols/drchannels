@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:visibility="gone"
-        app:repeat_toggle_modes="all|one"
+        app:repeat_toggle_modes="none"
         app:show_timeout="-1"
         tools:visibility="visible" />
 
@@ -43,8 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#88000000"
-        android:orientation="vertical"
-        android:layout_marginTop="25dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/debug_text_view"
@@ -61,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="25dp"
             android:visibility="gone"
             tools:visibility="visible">
 
@@ -69,8 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
-                android:visibility="gone"
-                android:text="@string/track_selection_title" />
+                android:text="@string/track_selection_title"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="0dp"
