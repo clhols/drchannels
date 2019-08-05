@@ -1,42 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    android:paddingTop="25dp"
     tools:context="dk.youtec.drchannels.ui.MainActivity">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
+    <FrameLayout
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="vertical"
-            android:visibility="gone"
-            android:paddingBottom="52dp"
-            android:clipToPadding="false"
-            tools:context="dk.youtec.drchannels.ui.MainActivity"
-            tools:showIn="@layout/activity_main" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <include layout="@layout/empty_state" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>

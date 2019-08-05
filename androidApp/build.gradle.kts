@@ -131,15 +131,16 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta2")
     implementation("androidx.core:core-ktx:1.0.2")
     implementation("androidx.activity:activity-ktx:1.1.0-alpha01")
-    implementation("org.koin:koin-android:2.0.1")
-
+    implementation("androidx.fragment:fragment-ktx:1.2.0-alpha01")
+    implementation("androidx.work:work-runtime-ktx:2.1.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$archComponentVersion")
+    implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
     implementation(platform("com.google.firebase:firebase-bom:20.1.0"))
     implementation("com.google.firebase:firebase-core")
     implementation("com.crashlytics.sdk.android:crashlytics")
+    implementation("org.koin:koin-android:2.0.1")
 
-    implementation("androidx.work:work-runtime-ktx:2.1.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
-    implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
     kapt("androidx.lifecycle:lifecycle-common-java8:$archComponentVersion")
 
     androidTestImplementation("androidx.test:core:1.2.0")
