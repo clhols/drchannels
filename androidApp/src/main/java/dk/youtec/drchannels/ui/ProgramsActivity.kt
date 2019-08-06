@@ -50,7 +50,6 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        recyclerView.requestFocus()
 
         val channelId = intent.extras?.getString(CHANNEL_ID) ?: intent.data?.pathSegments?.lastOrNull() ?: ""
 
@@ -116,6 +115,7 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
 
         programAdapter = ProgramAdapter(this, schedule)
         recyclerView.adapter = programAdapter
+        recyclerView.requestFocus()
         (recyclerView.layoutManager as LinearLayoutManager)
                 .scrollToPositionWithOffset(schedule.broadcasts.indexOfFirst {
                     it.endTime.time >= System.currentTimeMillis()
