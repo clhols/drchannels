@@ -11,7 +11,6 @@
     <string name="channels_configured">DR TV channels configured</string>
     <string name="loading">Loading…</string>
     <string name="cancel">Cancel</string>
-    <string name="ok">Ok</string>
     <string name="error_setup_channels">Unable to configure channels</string>
     <string name="channelSearch">Search</string>
     <string name="search_query_hint">Search query</string>

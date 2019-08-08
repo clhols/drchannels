@@ -43,7 +43,6 @@
     <string name="missingResponse">Manglende svar</string>
     <string name="invalid_country">Kanalen er ikke tilgængelig i dette land</string>
     <string name="channelSearch">Søg</string>
-    <string name="ok">Ok</string>
     <string name="search_query_hint">Søgetekst</string>
     <string name="track_selection_title">Vælg spor</string>
 </resources>
