@@ -1,7 +1,7 @@
 package dk.youtec.drchannels.util
 
 import android.content.Context
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import android.widget.Toast
 import androidx.annotation.StringRes
 

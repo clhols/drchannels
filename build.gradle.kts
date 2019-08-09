@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 buildscript {
     repositories {
         mavenCentral()
@@ -45,8 +47,17 @@ allprojects {
         }
     }
 
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java).all {
+    tasks.withType<Test> {
+        maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
+        reports.html.isEnabled = false
+        reports.junitXml.isEnabled = false
+    }
+    tasks.withType<JavaCompile> {
+        options.isFork = true
+    }
+    tasks.withType<KotlinCompile> {
         kotlinOptions {
+            jvmTarget = "1.8"
             freeCompilerArgs = listOf("-progressive")
         }
     }

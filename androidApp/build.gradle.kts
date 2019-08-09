@@ -95,10 +95,6 @@ android {
     }
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
 kapt {
     useBuildCache = true
     correctErrorTypes = true
@@ -129,6 +125,7 @@ dependencies {
     implementation("androidx.tvprovider:tvprovider:$androidxVersion")
     implementation("androidx.appcompat:appcompat:$appcompatVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta2")
+    implementation("androidx.preference:preference-ktx:1.1.0-rc01")
     implementation("androidx.core:core-ktx:1.0.2")
     implementation("androidx.activity:activity-ktx:1.1.0-alpha02")
     implementation("androidx.fragment:fragment-ktx:1.2.0-alpha02")
