@@ -1997,6 +1997,7 @@ __attribute__((swift_name("Ktor_httpHeadersBuilder")))
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("Ktor_client_coreHttpRequestData")))
 @interface DrapiKtor_client_coreHttpRequestData : KotlinBase
+- (NSString *)description __attribute__((swift_name("description()")));
 @property (readonly) id<DrapiKtor_utilsAttributes> attributes __attribute__((swift_name("attributes")));
 @property (readonly) DrapiKtor_httpOutgoingContent *body __attribute__((swift_name("body")));
 @property (readonly) id<DrapiKotlinx_coroutines_coreJob> executionContext __attribute__((swift_name("executionContext")));
