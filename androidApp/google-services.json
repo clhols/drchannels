@@ -98,6 +98,37 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608325609675:android:86bc13cf81a4c98f",
+        "android_client_info": {
+          "package_name": "dk.youtec.drchannels.tv.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608325609675-086dltmcmahb85ondl12gubgaeoidm6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcJDb0UTlGSHfMC-7P5qu4PVpQC4C64-8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"
