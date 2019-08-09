@@ -21,6 +21,10 @@ android {
     }
 }
 
+dependencies {
+    implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:$coroutinesVersion"))
+}
+
 kotlin {
     android {}
     iosX64("ios") {
@@ -47,7 +51,7 @@ kotlin {
             dependencies {
                 api(project(":drapi"))
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common")
             }
         }
         commonTest {
@@ -59,7 +63,7 @@ kotlin {
         named("androidMain") {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android")
             }
         }
         named("androidTest") {
@@ -69,7 +73,7 @@ kotlin {
 
         named("iosMain") {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native")
             }
         }
 
