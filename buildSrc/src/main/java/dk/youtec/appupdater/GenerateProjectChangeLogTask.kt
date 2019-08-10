@@ -19,6 +19,18 @@ open class GenerateProjectChangeLogTask : AppUpdaterGroupTask() {
         val log = "git log $tag..HEAD --oneline".execute(File("."))
         //println("Got log: $log")
 
-        project.file("${project.buildDir}/appupdater.log").writeText(log)
+        if (log.isNotBlank()) {
+            with(project.file("${project.buildDir}/appupdater.log")) {
+                //Ensure the file exists
+                createNewFile()
+
+                //Prepend new tag with log and limit size
+                val text = """|$tag:
+                              |$log
+                              |
+                              |${readText()}""".trimMargin().take(4096)
+                writeText(text)
+            }
+        }
     }
 }
