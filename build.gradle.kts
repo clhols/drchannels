@@ -8,6 +8,7 @@ buildscript {
         maven { setUrl("https://maven.fabric.io/public") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
+        maven { setUrl("https://github.com/clhols/mvn-repo/raw/master/") }
     }
 
     dependencies {
@@ -16,6 +17,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")
         classpath("com.google.gms:google-services:4.3.0")
         classpath("io.fabric.tools:gradle:1.31.0")
+        classpath("dk.youtec:appupdater:1.0")
     }
 }
 
