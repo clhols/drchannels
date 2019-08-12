@@ -25,8 +25,6 @@ android {
 dependencies {
     // Specify Kotlin/JVM stdlib dependency.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation(platform("io.ktor:ktor-bom:$ktorVersion"))
-    implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:$coroutinesVersion"))
 
     testImplementation("junit:junit:4.12")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
@@ -68,7 +66,6 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
-
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
             }
@@ -78,14 +75,14 @@ kotlin {
                 implementation("org.jetbrains.kotlin:kotlin-test-common")
                 implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
                 implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
             }
         }
 
         named("androidMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
-                implementation("io.ktor:ktor-client-okhttp")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
                 implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
             }
@@ -93,7 +90,7 @@ kotlin {
         named("androidTest") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serializationVersion")
-                implementation("io.ktor:ktor-client-okhttp")
+                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
                 implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
             }
@@ -108,14 +105,14 @@ kotlin {
         }
         named("iosTest") {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
             }
         }
 
         named("jsMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializationVersion")
-                implementation("io.ktor:ktor-client-js")
+                implementation("io.ktor:ktor-client-js:$ktorVersion")
             }
         }
     }
