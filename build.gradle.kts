@@ -30,7 +30,7 @@ allprojects {
         maven { setUrl("https://maven.fabric.io/public") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
-        jcenter()
+        //jcenter()
     }
 
     // Force all of the primary libraries to use the same version.
