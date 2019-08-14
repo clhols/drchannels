@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Keep
 class TvChannelsViewModel : ViewModel(), TvChannelsViewModel {
-    private val viewModel = TvChannelsViewModelImpl(viewModelScope)
+    private val viewModel = TvChannelsViewModelImpl()
 
     override val channels: Flow<List<MuNowNext>> = viewModel.channels
     override val playbackUri: Flow<String> = viewModel.playbackUri

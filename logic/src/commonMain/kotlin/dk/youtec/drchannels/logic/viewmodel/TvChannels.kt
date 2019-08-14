@@ -19,10 +19,7 @@ class TvChannels(val api: DrMuRepository, private val viewModelScope: CoroutineS
         job = viewModelScope.launch {
             while (true) {
                 channels.offer(try {
-                    //Change to Dispatchers.IO when available
-                    withContext(Dispatchers.Default) {
-                        api.getScheduleNowNext().filter { it.now != null }
-                    }
+                    api.getScheduleNowNext().filter { it.now != null }
                 } catch (e: Exception) {
                     emptyList<MuNowNext>()
                 })

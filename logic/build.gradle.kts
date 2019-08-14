@@ -26,10 +26,12 @@ kotlin {
     iosX64("ios") {
         binaries {
             framework {
+                baseName = "DrLogic"
                 // Disable bitcode embedding for the simulator build.
                 embedBitcode("disable")
                 isStatic = true
                 freeCompilerArgs.add("-Xobjc-generics")
+                export(project(":drapi"))
             }
         }
     }
@@ -92,8 +94,8 @@ task("buildFramework") {
         copy {
             from(srcFile.parent)
             into(targetDir)
-            include("logic.framework/**")
-            include("logic.framework.dSYM")
+            include("DrLogic.framework/**")
+            include("DrLogic.framework.dSYM")
         }
     }
 }

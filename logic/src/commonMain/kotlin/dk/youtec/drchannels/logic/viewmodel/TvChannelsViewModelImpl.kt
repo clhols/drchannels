@@ -1,19 +1,24 @@
 package dk.youtec.drchannels.logic.viewmodel
 
 import dk.youtec.drapi.DrMuRepository
+import dk.youtec.drapi.MainDispatcher
 import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.collect
+import kotlin.coroutines.CoroutineContext
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-open class TvChannelsViewModelImpl(
-        private val viewModelScope: CoroutineScope
-) : TvChannelsViewModel {
+open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
+
+    private val job = SupervisorJob()
+    override val coroutineContext: CoroutineContext = job + MainDispatcher
+
     private val api = DrMuRepository()
 
-    private val tvChannels = TvChannels(api, viewModelScope)
+    private val tvChannels = TvChannels(api, this)
     private val playbackUriChannel = BroadcastChannel<String>(1)
     private val errorChannel = BroadcastChannel<String>(1)
 
@@ -21,8 +26,16 @@ open class TvChannelsViewModelImpl(
     override val playbackUri = playbackUriChannel.asFlow()
     override val error = errorChannel.asFlow()
 
+    fun observeChannels(callback: (List<MuNowNext>) -> Unit) {
+        launch {
+            channels.collect { channels ->
+                callback(channels)
+            }
+        }
+    }
+
     override fun playTvChannel(muNowNext: MuNowNext) {
-        viewModelScope.launch {
+        launch {
             try {
                 val name = muNowNext.channelSlug
                 //Change to Dispatchers.IO when available
@@ -48,7 +61,7 @@ open class TvChannelsViewModelImpl(
     }
 
     override fun playProgram(muNowNext: MuNowNext) {
-        viewModelScope.launch {
+        launch {
             val uri = muNowNext.now?.programCard?.primaryAsset?.uri
             if (uri != null) {
                 try {
@@ -83,6 +96,7 @@ open class TvChannelsViewModelImpl(
         tvChannels.channels.cancel()
         playbackUriChannel.cancel()
         errorChannel.cancel()
+        job.cancel()
     }
 }
 

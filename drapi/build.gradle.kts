@@ -43,6 +43,7 @@ kotlin {
     iosX64("ios") {
         binaries {
             framework {
+                baseName = "DrApi"
                 // Disable bitcode embedding for the simulator build.
                 embedBitcode("disable")
                 isStatic = true
@@ -130,8 +131,8 @@ task("buildFramework") {
         copy {
             from(srcFile.parent)
             into(targetDir)
-            include("drapi.framework/**")
-            include("drapi.framework.dSYM")
+            include("DrApi.framework/**")
+            include("DrApi.framework.dSYM")
         }
     }
 }

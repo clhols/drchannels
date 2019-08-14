@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 import AVFoundation
-import drapi
+import DrLogic
 
 class ChannelTableViewController: UITableViewController {
 
@@ -19,21 +19,21 @@ class ChannelTableViewController: UITableViewController {
         DrMuRepositoryCallback()
     }()
     
+    lazy var viewModel: TvChannelsViewModelImpl = {
+        TvChannelsViewModelImpl()
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadChannels()
+        viewModel.observeChannels { (schedules: [MuNowNext]) in
+            print("Got channels result, size=\(schedules.count)")
+            self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in nowNext.now != nil })
+            self.tableView.reloadData()
+        }
+        viewModel.reload()
     }
     
     //MARK: Private Methods
-    
-    private func loadChannels() {
-        repo.getScheduleNowNext(callback: {
-            (schedules: [MuNowNext]) -> Void in
-            print("Got channels result")
-            self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in nowNext.now != nil })
-            self.tableView.reloadData()
-        })
-    }
     
     func playVideo(uri: String) {
         

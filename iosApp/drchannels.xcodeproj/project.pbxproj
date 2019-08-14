@@ -13,8 +13,7 @@
 		EC82AA8321D3C04300E0651C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC82AA8221D3C04300E0651C /* AppDelegate.swift */; };
 		EC82AA8821D3C04300E0651C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC82AA8621D3C04300E0651C /* Main.storyboard */; };
 		EC82AA8A21D3C04400E0651C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC82AA8921D3C04400E0651C /* Assets.xcassets */; };
-		ECFD1FAA21D52FD300285D47 /* drapi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECFD1FA921D52FD300285D47 /* drapi.framework */; };
-		ECFD1FAB21D52FD300285D47 /* drapi.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECFD1FA921D52FD300285D47 /* drapi.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		ECD50D702304767D00D82AAE /* DrLogic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD50D6F2304767D00D82AAE /* DrLogic.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +23,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				ECFD1FAB21D52FD300285D47 /* drapi.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -40,7 +38,7 @@
 		EC82AA8721D3C04300E0651C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EC82AA8921D3C04400E0651C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC82AA8E21D3C04400E0651C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ECFD1FA921D52FD300285D47 /* drapi.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = drapi.framework; sourceTree = "<group>"; };
+		ECD50D6F2304767D00D82AAE /* DrLogic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DrLogic.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECFD1FAA21D52FD300285D47 /* drapi.framework in Frameworks */,
+				ECD50D702304767D00D82AAE /* DrLogic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +87,7 @@
 		EC82AA9421D3C09D00E0651C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ECFD1FA921D52FD300285D47 /* drapi.framework */,
+				ECD50D6F2304767D00D82AAE /* DrLogic.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

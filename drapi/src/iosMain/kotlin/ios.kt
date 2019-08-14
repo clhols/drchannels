@@ -12,8 +12,7 @@ actual object HttpClientFactory {
 
 @Suppress("unused")
 class DrMuRepositoryCallback : DrMuRepository(), CoroutineScope {
-    override val coroutineContext: CoroutineContext
-        get() = MainLoopDispatcher
+    override val coroutineContext: CoroutineContext = MainDispatcher
 
     fun getAllActiveDrTvChannels(callback: (List<Channel>) -> Unit) = launch {
         callback(getAllActiveDrTvChannels())
