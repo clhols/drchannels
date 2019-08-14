@@ -10,6 +10,7 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.exoplayer2.util.Util.isTv
@@ -23,13 +24,10 @@ import dk.youtec.drchannels.util.toast
 import dk.youtec.drchannels.viewmodel.TvChannelsViewModel
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.android.synthetic.main.fragment_channels.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener, CoroutineScope by MainScope() {
+class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener {
     private val viewModel: TvChannelsViewModel by viewModels()
 
     override fun onCreateView(
@@ -52,7 +50,7 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener, C
         progressBar.isVisible = true
 
         with(viewModel) {
-            launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 channels.collect { channels ->
                     Log.d(TAG, "Tv channels $this")
                     isEmptyState = channels.isNullOrEmpty()
@@ -62,7 +60,7 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener, C
                 }
             }
 
-            launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 playbackUri.collect { uri ->
                     Log.d(TAG, "Playback uri")
                     startActivity(Intent(activity, PlayerActivity::class.java).apply {
@@ -73,7 +71,7 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener, C
                 }
             }
 
-            launch {
+            viewLifecycleOwner.lifecycleScope.launch {
                 error.collect { message ->
                     context?.toast(message)
                 }
@@ -130,11 +128,6 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener, C
                         R.anim.slide_in_left,
                         R.anim.slide_out_left
                 ).toBundle())
-    }
-
-    override fun onDestroy() {
-        cancel()
-        super.onDestroy()
     }
 
     companion object {

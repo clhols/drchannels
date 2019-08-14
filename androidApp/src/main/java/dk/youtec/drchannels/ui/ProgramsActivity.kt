@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.drapi.DrMuRepository
@@ -21,7 +22,7 @@ import org.koin.android.ext.android.inject
 import java.lang.Exception
 import java.util.Calendar.*
 
-class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
+class ProgramsActivity : AppCompatActivity() {
     private val api: DrMuRepository by inject()
     private var selectedGenre: String = ""
     private var genres: Set<String> = setOf()
@@ -64,7 +65,7 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         progressBar.isVisible = true
 
         try {
-            launch {
+            lifecycleScope.launch {
                 val tomorrowDeferred    = async(Dispatchers.IO) { getSchedule(id, 1) }
                 val todayDeferred       = async(Dispatchers.IO) { getSchedule(id, 0) }
                 val yesterdayDeferred   = async(Dispatchers.IO) { getSchedule(id, -1) }
@@ -131,11 +132,6 @@ class ProgramsActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         super.onBackPressed()
 
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
-    }
-
-    override fun onDestroy() {
-        cancel()
-        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
