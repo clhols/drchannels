@@ -136,7 +136,7 @@ data class ProgramCard(
         @SerialName("SeriesUrn") val seriesUrn: String = "",
         @SerialName("HostName") val hostName: String = "",
         @SerialName("SeriesHostName") val seriesHostName: String = "",
-        @SerialName("PrimaryChannel") val primaryChannel: String,
+        @SerialName("PrimaryChannel") val primaryChannel: String = "",
         @SerialName("PrimaryChannelSlug") val primaryChannelSlug: String = "",
         @SerialName("SeasonEpisodeNumberingValid") val seasonEpisodeNumberingValid: Boolean = false,
         @SerialName("SeasonTitle") val seasonTitle: String? = null,
