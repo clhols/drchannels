@@ -86,13 +86,12 @@ class CurrentProgramsPreviewUpdater(
             Log.v(TAG, "Getting programs from Live Channels, channel id = $id")
             TvContractUtils.getPrograms(contentResolver, TvContract.buildChannelUri(id))
                     .asSequence()
-                    .filter { it.startTimeUtcMillis <= now && now < it.endTimeUtcMillis }
-                    .distinctBy { it.title }
-                    .forEach { program ->
+                    .firstOrNull { it.startTimeUtcMillis <= now && now < it.endTimeUtcMillis }
+                    ?.run {
                         //Find the next time to start updating previews
-                        nextProgramFinishTime = nextProgramFinishTime.coerceAtMost(program.endTimeUtcMillis)
+                        nextProgramFinishTime = nextProgramFinishTime.coerceAtMost(endTimeUtcMillis)
 
-                        updateProgram(program, previewChannelId, existingPreviewPrograms)
+                        updateProgram(this, previewChannelId, existingPreviewPrograms)
                     }
         }
 
