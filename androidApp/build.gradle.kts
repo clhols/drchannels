@@ -118,7 +118,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion")
     implementation("com.google.android.exoplayer:extension-cast:$exoPlayerVersion")
 
-    implementation("com.facebook.fresco:fresco:2.0.0")
+    implementation("io.coil-kt:coil:0.6.1")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.google.android.material:material:$androidxVersion")
     implementation("androidx.recyclerview:recyclerview:$androidxVersion")

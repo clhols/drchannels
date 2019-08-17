@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
@@ -78,10 +79,12 @@ class ProgramAdapter(
         holder.image.apply {
             if (program.programCard.primaryImageUri.isNotEmpty()) {
                 isVisible = true
-                setImageURI(program.programCard.primaryImageUri)
+                load(program.programCard.primaryImageUri) {
+                    crossfade(true)
+                }
             } else {
                 isVisible = false
-                setImageURI("")
+                load("")
             }
         }
 

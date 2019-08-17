@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.view.AspectImageView
@@ -69,12 +70,14 @@ class TvChannelsAdapter(
         //holder.mTimeLeft.text = "(" + (channel.now.endTime - System.currentTimeMillis()) / 60 + " min left)"
 
         holder.image.apply {
-            if (!now.programCard.primaryImageUri.isEmpty() && showDetails) {
+            if (now.programCard.primaryImageUri.isNotEmpty() && showDetails) {
                 visibility = View.VISIBLE
-                setImageURI(now.programCard.primaryImageUri)
+                load(now.programCard.primaryImageUri) {
+                    crossfade(true)
+                }
             } else {
                 visibility = View.GONE
-                setImageURI("")
+                load("")
             }
         }
 

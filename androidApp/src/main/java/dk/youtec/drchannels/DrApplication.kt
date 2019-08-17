@@ -1,7 +1,6 @@
 package dk.youtec.drchannels
 
 import android.app.Application
-import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.firebase.analytics.FirebaseAnalytics
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.backend.OkHttpClientFactory
@@ -26,7 +25,5 @@ class DrApplication : Application() {
                 single { FirebaseAnalytics.getInstance(get()) }
             })
         }
-
-        Fresco.initialize(this)
     }
 }
