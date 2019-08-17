@@ -53,17 +53,19 @@ class DrTvScheduleJobsReceiver : BroadcastReceiver() {
                 }
             }
 
-            scheduleCurrentProgramsPreviewUpdate()
-            schedulePreviewUpdate<MostViewedPreviewUpdater>()
-            schedulePreviewUpdate<SearchPreviewUpdater>()
-            schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Sport))
-            schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.NaturViden))
-            schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.NyhederAktualitet))
-            schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Drama))
-            schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Dokumentar))
-            schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Kultur))
-            schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Underholdning))
-            schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Livsstil))
+            with(context) {
+                scheduleCurrentProgramsPreviewUpdate()
+                schedulePreviewUpdate<MostViewedPreviewUpdater>()
+                schedulePreviewUpdate<SearchPreviewUpdater>()
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Sport))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.NaturViden))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.NyhederAktualitet))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Drama))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Dokumentar))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Kultur))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Underholdning))
+                schedulePreviewUpdate<GenrePreviewUpdater>(with(Genre.Livsstil))
+            }
         }
     }
 }

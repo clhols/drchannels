@@ -27,7 +27,7 @@ public interface TvPlayer {
     /**
      * Interface for alerting caller of major video events.
      */
-    public static abstract class Callback {
+    abstract class Callback {
         /**
          * Called when the current video starts playing.
          */

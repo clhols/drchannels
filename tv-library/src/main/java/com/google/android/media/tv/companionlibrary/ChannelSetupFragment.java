@@ -16,7 +16,6 @@
 package com.google.android.media.tv.companionlibrary;
 
 import android.animation.LayoutTransition;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -43,6 +42,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**

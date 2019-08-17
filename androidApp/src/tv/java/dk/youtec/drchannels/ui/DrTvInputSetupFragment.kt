@@ -21,10 +21,10 @@ class DrTvInputSetupFragment: ChannelSetupFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        extraInputId = arguments.getString(TvInputInfo.EXTRA_INPUT_ID)!!
+        extraInputId = arguments!!.getString(TvInputInfo.EXTRA_INPUT_ID)!!
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         setButtonText(R.string.cancel)
         setChannelListVisibility(true)
@@ -40,7 +40,7 @@ class DrTvInputSetupFragment: ChannelSetupFragment() {
                 activity,
                 inputId,
                 TimeUnit.DAYS.toMillis(6),
-                ComponentName(activity, DrTvEpgJobService::class.java)
+                ComponentName(activity!!, DrTvEpgJobService::class.java)
         )
     }
 
@@ -52,20 +52,20 @@ class DrTvInputSetupFragment: ChannelSetupFragment() {
         EpgSyncJobService.setUpPeriodicSync(
                 activity,
                 inputId,
-                ComponentName(activity, DrTvEpgJobService::class.java),
+                ComponentName(activity!!, DrTvEpgJobService::class.java),
                 TimeUnit.HOURS.toMillis(12),
                 TimeUnit.DAYS.toMillis(6))
 
         if (scanErrorReason != null) {
-            activity.setResult(Activity.RESULT_CANCELED)
-            activity.toast(R.string.error_setup_channels)
+            activity?.setResult(Activity.RESULT_CANCELED)
+            activity?.toast(R.string.error_setup_channels)
         } else {
-            activity.setResult(Activity.RESULT_OK)
+            activity?.setResult(Activity.RESULT_OK)
         }
-        activity.finish()
+        activity?.finish()
 
         //Start Live Channels app after channel scan
-        activity.packageManager.getLaunchIntentForPackage("com.google.android.tv")?.also {
+        activity?.packageManager?.getLaunchIntentForPackage("com.google.android.tv")?.also {
             startActivity(it)
         }
     }

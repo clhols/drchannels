@@ -241,11 +241,11 @@ abstract class BasePreviewUpdater(
 /**
  * Schedules a new task to update the preview channel if no other task is pending or running.
  */
-inline fun <reified W : CoroutineWorker> schedulePreviewUpdate(input: Data = Data.EMPTY) {
+inline fun <reified W : CoroutineWorker> Context.schedulePreviewUpdate(input: Data = Data.EMPTY) {
     val tag = "schedulePreviewUpdate" + W::class.java.simpleName
     lateinit var observer: Observer<MutableList<WorkInfo>>
 
-    val statuses = WorkManager.getInstance().getWorkInfosByTagLiveData(tag)
+    val statuses = WorkManager.getInstance(this).getWorkInfosByTagLiveData(tag)
     observer = Observer { workStatuses ->
         statuses.removeObserver(observer)
 
@@ -258,7 +258,7 @@ inline fun <reified W : CoroutineWorker> schedulePreviewUpdate(input: Data = Dat
                             .build())
                     .addTag(tag)
                     .build()
-            WorkManager.getInstance().enqueue(updatePreviewPrograms)
+            WorkManager.getInstance(this).enqueue(updatePreviewPrograms)
             Log.d("BasePreviewUpdater", "Work task enqueued")
         } else {
             Log.d("BasePreviewUpdater", "Work task already pending")

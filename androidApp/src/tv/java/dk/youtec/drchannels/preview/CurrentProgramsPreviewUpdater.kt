@@ -169,7 +169,7 @@ class CurrentProgramsPreviewUpdater(
         val timeString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(time))
         Log.d(TAG, "Scheduling next preview update at $timeString")
 
-        scheduleCurrentProgramsPreviewUpdate(delay)
+        context.scheduleCurrentProgramsPreviewUpdate(delay)
     }
 
     /**
@@ -201,14 +201,14 @@ class CurrentProgramsPreviewUpdater(
  * Schedules a new task to update the preview channel if no other task is pending or running.
  */
 @Synchronized
-fun scheduleCurrentProgramsPreviewUpdate(delay: Long = 0) {
+fun Context.scheduleCurrentProgramsPreviewUpdate(delay: Long = 0) {
     val tag = "scheduleCurrentProgramsPreviewUpdate"
 
-    WorkManager.getInstance().cancelAllWorkByTag(tag)
+    WorkManager.getInstance(this).cancelAllWorkByTag(tag)
 
     val updatePreviewPrograms = OneTimeWorkRequestBuilder<CurrentProgramsPreviewUpdater>()
             .addTag(tag)
             .setInitialDelay(delay, TimeUnit.MILLISECONDS)
             .build()
-    WorkManager.getInstance().enqueue(updatePreviewPrograms)
+    WorkManager.getInstance(this).enqueue(updatePreviewPrograms)
 }

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import androidx.fragment.app.commit
 import androidx.tvprovider.media.tv.Channel
 import androidx.tvprovider.media.tv.ChannelLogoUtils
 import androidx.tvprovider.media.tv.TvContractCompat
@@ -34,12 +35,14 @@ class DrTvInputSetupActivity : AppCompatActivity() {
         val inputId = getString(R.string.channelInputId)
 
         val fragment = DrTvInputSetupFragment().apply {
-            arguments = intent.extras ?: Bundle()
-            arguments.putString(TvInputInfo.EXTRA_INPUT_ID, inputId)
+            arguments = (intent.extras ?: Bundle()).apply {
+                putString(TvInputInfo.EXTRA_INPUT_ID, inputId)
+            }
         }
 
-        @Suppress("DEPRECATION")
-        fragmentManager.beginTransaction().add(android.R.id.content, fragment).commit()
+        supportFragmentManager.commit{
+            replace(android.R.id.content, fragment)
+        }
     }
 
     private fun setupCurrentProgramsPreviewChannel() {
@@ -50,7 +53,7 @@ class DrTvInputSetupActivity : AppCompatActivity() {
                 val channel = getChannel()
 
                 val channelUri = contentResolver.insert(
-                        TvContractCompat.Channels.CONTENT_URI, channel.toContentValues())
+                        TvContractCompat.Channels.CONTENT_URI, channel.toContentValues()) ?: return
 
                 val channelId = ContentUris.parseId(channelUri)
 

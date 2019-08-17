@@ -24,7 +24,7 @@ class SearchChannelQueryDialogFragment : DialogFragment() {
             queryEditText.setText(SharedPreferences.getString(it, SearchPreviewUpdater.searchChannelKey))
             queryEditText.setOnEditorActionListener { textView: TextView, _: Int, _: KeyEvent? ->
                 SharedPreferences.setString(it, SearchPreviewUpdater.searchChannelKey, textView.text.toString())
-                schedulePreviewUpdate<SearchPreviewUpdater>()
+                it.schedulePreviewUpdate<SearchPreviewUpdater>()
                 it.finish()
                 true
             }
