@@ -40,12 +40,17 @@ dependencies {
 
 kotlin {
     android {}
-    iosX64("ios") {
+
+    //select iOS target platform depending on the Xcode environment variables
+    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
+            if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
+                ::iosArm64
+            else
+                ::iosX64
+    iosTarget("ios") {
         binaries {
             framework {
                 baseName = "DrApi"
-                // Disable bitcode embedding for the simulator build.
-                embedBitcode("disable")
                 isStatic = true
                 freeCompilerArgs.add("-Xobjc-generics")
             }
@@ -115,24 +120,6 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializationVersion")
                 implementation("io.ktor:ktor-client-js:$ktorVersion")
             }
-        }
-    }
-}
-
-task("buildFramework") {
-    group = "ios"
-    val buildType: String = project.findProperty("kotlin.build.type")?.toString() ?: "DEBUG"
-    dependsOn("link${buildType.toLowerCase().capitalize()}FrameworkIos")
-
-    doLast {
-        val target = kotlin.targets.getByName("ios") as KotlinNativeTarget
-        val srcFile = target.binaries.getFramework(buildType).outputFile
-        val targetDir = project.property("configuration.build.dir").toString()
-        copy {
-            from(srcFile.parent)
-            into(targetDir)
-            include("DrApi.framework/**")
-            include("DrApi.framework.dSYM")
         }
     }
 }
