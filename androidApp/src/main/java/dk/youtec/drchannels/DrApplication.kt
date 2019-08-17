@@ -1,6 +1,8 @@
 package dk.youtec.drchannels
 
 import android.app.Application
+import coil.Coil
+import coil.ImageLoader
 import com.google.firebase.analytics.FirebaseAnalytics
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.backend.OkHttpClientFactory
@@ -25,5 +27,12 @@ class DrApplication : Application() {
                 single { FirebaseAnalytics.getInstance(get()) }
             })
         }
+
+        Coil.setDefaultImageLoader(
+                ImageLoader(this) {
+                    availableMemoryPercentage(0.3)
+                    crossfade(true)
+                }
+        )
     }
 }

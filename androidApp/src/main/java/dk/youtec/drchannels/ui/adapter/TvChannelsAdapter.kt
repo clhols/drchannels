@@ -72,9 +72,7 @@ class TvChannelsAdapter(
         holder.image.apply {
             if (now.programCard.primaryImageUri.isNotEmpty() && showDetails) {
                 visibility = View.VISIBLE
-                load(now.programCard.primaryImageUri) {
-                    crossfade(true)
-                }
+                load(now.programCard.primaryImageUri)
             } else {
                 visibility = View.GONE
                 load("")

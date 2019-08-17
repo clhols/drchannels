@@ -79,9 +79,7 @@ class ProgramAdapter(
         holder.image.apply {
             if (program.programCard.primaryImageUri.isNotEmpty()) {
                 isVisible = true
-                load(program.programCard.primaryImageUri) {
-                    crossfade(true)
-                }
+                load(program.programCard.primaryImageUri)
             } else {
                 isVisible = false
                 load("")
