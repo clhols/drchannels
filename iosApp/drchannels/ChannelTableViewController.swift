@@ -14,14 +14,8 @@ import DrLogic
 class ChannelTableViewController: UITableViewController {
 
     var channels = [MuNowNext]()
-    
-    lazy var repo: DrMuRepositoryCallback = {
-        DrMuRepositoryCallback()
-    }()
-    
-    lazy var viewModel: TvChannelsViewModelImpl = {
-        TvChannelsViewModelImpl()
-    }()
+    let repo = DrMuRepositoryCallback()
+    let viewModel = TvChannelsViewModelImpl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
