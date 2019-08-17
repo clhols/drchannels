@@ -18,7 +18,7 @@ import dk.youtec.drapi.Schedule
 import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
-import dk.youtec.drchannels.ui.view.FrescoAspectImageView
+import dk.youtec.drchannels.ui.view.AspectImageView
 import dk.youtec.drchannels.util.calendar
 import dk.youtec.drchannels.util.inflate
 import dk.youtec.drchannels.util.serverDateFormat
@@ -99,7 +99,7 @@ class ProgramAdapter(
         val header: View = itemView.programHeader
         val title: TextView = itemView.title
         val nowDescription: TextView = itemView.nowDescription
-        val image: FrescoAspectImageView = itemView.image
+        val image: AspectImageView = itemView.image
         val time: TextView = itemView.time
         val genre: ImageView = itemView.genre
         val live: TextView = itemView.live

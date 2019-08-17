@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import com.facebook.drawee.view.SimpleDraweeView
 
-class FrescoAspectImageView : SimpleDraweeView {
+class AspectImageView : SimpleDraweeView {
 
     private var measurer: ViewAspectRatioMeasurer? = null
 
