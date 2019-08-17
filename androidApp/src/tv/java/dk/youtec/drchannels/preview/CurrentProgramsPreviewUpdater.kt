@@ -83,9 +83,11 @@ class CurrentProgramsPreviewUpdater(
         val channels = TvContractUtils.buildChannelMap(contentResolver,
                 context.getString(dk.youtec.drchannels.R.string.channelInputId))
         channels.forEach { id, _ ->
+            Log.v(TAG, "Getting programs from Live Channels, channel id = $id")
             TvContractUtils.getPrograms(contentResolver, TvContract.buildChannelUri(id))
                     .asSequence()
                     .filter { it.startTimeUtcMillis <= now && now < it.endTimeUtcMillis }
+                    .distinctBy { it.title }
                     .forEach { program ->
                         //Find the next time to start updating previews
                         nextProgramFinishTime = nextProgramFinishTime.coerceAtMost(program.endTimeUtcMillis)
