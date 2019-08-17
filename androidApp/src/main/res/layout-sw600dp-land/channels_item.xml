@@ -136,7 +136,7 @@
             android:textSize="10sp" />
     </LinearLayout>
 
-    <dk.youtec.drchannels.ui.view.AspectImageView
+    <dk.youtec.drchannels.ui.view.FrescoAspectImageView
         android:id="@+id/image"
         android:layout_width="300dp"
         android:layout_height="wrap_content"

@@ -142,7 +142,7 @@
             tools:layout_conversion_absoluteHeight="37dp"
             tools:layout_conversion_absoluteWidth="188dp" />
 
-        <dk.youtec.drchannels.ui.view.AspectImageView
+        <dk.youtec.drchannels.ui.view.FrescoAspectImageView
             android:id="@+id/image"
             android:layout_width="180dp"
             android:layout_height="wrap_content"

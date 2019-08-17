@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
-import dk.youtec.drchannels.ui.view.AspectImageView
+import dk.youtec.drchannels.ui.view.FrescoAspectImageView
 import dk.youtec.drchannels.util.inflate
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.android.synthetic.main.channels_item.view.*
@@ -93,7 +93,7 @@ class TvChannelsAdapter(
         val title: TextView = itemView.title
         val progress: ProgressBar = itemView.progress
         val nowDescription: TextView = itemView.nowDescription
-        val image: AspectImageView = itemView.image
+        val image: FrescoAspectImageView = itemView.image
         val logo: ImageView = itemView.logo
         val time: TextView = itemView.time
         val genre: ImageView = itemView.genre
