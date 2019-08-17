@@ -1,6 +1,0 @@
-framework module DrLogic {
-    umbrella header "DrLogic.h"
-
-    export *
-    module * { export * }
-}

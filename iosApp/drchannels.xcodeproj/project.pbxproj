@@ -10,10 +10,11 @@
 		EC2CF98D22C7FB2A00F604BC /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CF98C22C7FB2A00F604BC /* UI.swift */; };
 		EC588A9421D3C1380010E814 /* ChannelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC588A9121D3C1370010E814 /* ChannelTableViewController.swift */; };
 		EC588A9521D3C1380010E814 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC588A9221D3C1370010E814 /* ChannelTableViewCell.swift */; };
+		EC5C23EB230880C900D2B7F3 /* DrLogic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC5C23EA230880C900D2B7F3 /* DrLogic.framework */; };
+		EC5C23EC230880C900D2B7F3 /* DrLogic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EC5C23EA230880C900D2B7F3 /* DrLogic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EC82AA8321D3C04300E0651C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC82AA8221D3C04300E0651C /* AppDelegate.swift */; };
 		EC82AA8821D3C04300E0651C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC82AA8621D3C04300E0651C /* Main.storyboard */; };
 		EC82AA8A21D3C04400E0651C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC82AA8921D3C04400E0651C /* Assets.xcassets */; };
-		ECD50D702304767D00D82AAE /* DrLogic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD50D6F2304767D00D82AAE /* DrLogic.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,6 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EC5C23EC230880C900D2B7F3 /* DrLogic.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -33,12 +35,12 @@
 		EC2CF98C22C7FB2A00F604BC /* UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		EC588A9121D3C1370010E814 /* ChannelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewController.swift; sourceTree = "<group>"; };
 		EC588A9221D3C1370010E814 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
+		EC5C23EA230880C900D2B7F3 /* DrLogic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DrLogic.framework; path = "../logic/build/xcode-frameworks/DrLogic.framework"; sourceTree = "<group>"; };
 		EC82AA7F21D3C04300E0651C /* DR channels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DR channels.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC82AA8221D3C04300E0651C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC82AA8721D3C04300E0651C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EC82AA8921D3C04400E0651C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC82AA8E21D3C04400E0651C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ECD50D6F2304767D00D82AAE /* DrLogic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DrLogic.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECD50D702304767D00D82AAE /* DrLogic.framework in Frameworks */,
+				EC5C23EB230880C900D2B7F3 /* DrLogic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +89,7 @@
 		EC82AA9421D3C09D00E0651C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ECD50D6F2304767D00D82AAE /* DrLogic.framework */,
+				EC5C23EA230880C900D2B7F3 /* DrLogic.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,6 +101,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC82AA9121D3C04400E0651C /* Build configuration list for PBXNativeTarget "drchannels" */;
 			buildPhases = (
+				EC5C23ED230880D400D2B7F3 /* ShellScript */,
 				EC82AA7B21D3C04300E0651C /* Sources */,
 				EC82AA7C21D3C04300E0651C /* Frameworks */,
 				EC82AA7D21D3C04300E0651C /* Resources */,
@@ -158,6 +161,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EC5C23ED230880D400D2B7F3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/../logic/build/xcode-frameworks\"\n./gradlew :logic:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EC82AA7B21D3C04300E0651C /* Sources */ = {
@@ -311,6 +334,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(SRCROOT)/../logic/build/xcode-frameworks",
 				);
 				INFOPLIST_FILE = drchannels/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -332,6 +356,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(SRCROOT)/../logic/build/xcode-frameworks",
 				);
 				INFOPLIST_FILE = drchannels/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

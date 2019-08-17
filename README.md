@@ -19,5 +19,5 @@ _Linux/Mac:_
 _Windows:_
 `gradle.bat assembleDebug`
 
-_iOS drapi framework:_
-`./gradlew buildFramework`
+_Build iOS framework before opening XCode project:_
+`./gradlew :logic:packForXcode`
