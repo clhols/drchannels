@@ -6,6 +6,9 @@ import coil.ImageLoader
 import com.google.firebase.analytics.FirebaseAnalytics
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.backend.OkHttpClientFactory
+import dk.youtec.drchannels.coil.ProgramCardMapper
+import dk.youtec.drchannels.util.koined
+import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
@@ -32,6 +35,10 @@ class DrApplication : Application() {
                 ImageLoader(this) {
                     availableMemoryPercentage(0.3)
                     crossfade(true)
+                    componentRegistry {
+                        add(ProgramCardMapper())
+                    }
+                    okHttpClient(koined() as OkHttpClient)
                 }
         )
     }

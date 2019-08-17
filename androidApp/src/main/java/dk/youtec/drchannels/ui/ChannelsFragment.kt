@@ -52,7 +52,6 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener {
         with(viewModel) {
             viewLifecycleOwner.lifecycleScope.launch {
                 channels.collect { channels ->
-                    Log.d(TAG, "Tv channels $this")
                     isEmptyState = channels.isNullOrEmpty()
                     handleChannelsChanged(channels)
                     progressBar.isVisible = false

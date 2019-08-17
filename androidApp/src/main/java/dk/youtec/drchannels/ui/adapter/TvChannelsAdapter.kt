@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import coil.api.loadAny
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.view.AspectImageView
@@ -72,7 +73,7 @@ class TvChannelsAdapter(
         holder.image.apply {
             if (now.programCard.primaryImageUri.isNotEmpty() && showDetails) {
                 visibility = View.VISIBLE
-                load(now.programCard.primaryImageUri)
+                loadAny(now.programCard)
             } else {
                 visibility = View.GONE
                 load("")

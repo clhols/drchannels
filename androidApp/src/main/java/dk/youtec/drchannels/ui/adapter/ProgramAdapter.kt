@@ -13,6 +13,7 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import coil.api.loadAny
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
@@ -79,7 +80,7 @@ class ProgramAdapter(
         holder.image.apply {
             if (program.programCard.primaryImageUri.isNotEmpty()) {
                 isVisible = true
-                load(program.programCard.primaryImageUri)
+                loadAny(program.programCard)
             } else {
                 isVisible = false
                 load("")
