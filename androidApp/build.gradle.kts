@@ -120,7 +120,8 @@ dependencies {
 
     implementation("io.coil-kt:coil:0.6.1")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
-    implementation("com.google.android.material:material:$androidxVersion")
+    implementation("com.google.android.material:material:1.1+")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1+")
     implementation("androidx.recyclerview:recyclerview:$androidxVersion")
     implementation("androidx.tvprovider:tvprovider:$androidxVersion")
     implementation("androidx.appcompat:appcompat:$appcompatVersion")

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
@@ -16,15 +16,15 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
-    <style name="AppTheme.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.DayNight.Dialog" />
+    <style name="AppTheme.PopupOverlay" parent="Theme.MaterialComponents.DayNight.Dialog" />
 
-    <style name="AppTheme.Player" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.Player" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@android:color/black</item>
     </style>
 
-    <style name="TrackSelectionDialogThemeOverlay" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+    <style name="TrackSelectionDialogThemeOverlay" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="windowNoTitle">false</item>
     </style>
 
