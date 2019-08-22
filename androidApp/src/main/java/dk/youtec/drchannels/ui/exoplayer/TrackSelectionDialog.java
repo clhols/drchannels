@@ -222,7 +222,7 @@ public final class TrackSelectionDialog extends DialogFragment {
     // AlertDialog because it owns the view itself, so we use AppCompatDialog instead, themed using
     // the AlertDialog theme overlay with force-enabled title.
     AppCompatDialog dialog =
-        new AppCompatDialog(getActivity(), R.style.TrackSelectionDialogThemeOverlay);
+        new AppCompatDialog(getActivity(), R.style.ThemeOverlay_Dr_TrackSelection);
     dialog.setTitle(titleId);
     return dialog;
   }
