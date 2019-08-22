@@ -8,5 +8,5 @@ repositories {
 
 dependencies {
     compileOnly(gradleApi())
-    implementation(kotlin("stdlib", "1.3.41"))
+    implementation(kotlin("stdlib", "1.3.50"))
 }

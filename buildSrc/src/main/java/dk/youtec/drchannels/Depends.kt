@@ -1,7 +1,7 @@
 //Project dependency versions
 val isCiBuild = System.getenv("CI") == "true"
 const val androidGradlePlugin = "3.5.0"
-const val kotlinVersion = "1.3.41"
+const val kotlinVersion = "1.3.50"
 const val compileSdk = 29
 const val targetSdk = 29
 const val buildTools = "29.0.2"
