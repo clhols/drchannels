@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.collect
 import kotlin.coroutines.CoroutineContext
 
 @ExperimentalCoroutinesApi
-@FlowPreview
 open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
     private val job = SupervisorJob()
