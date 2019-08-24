@@ -10,6 +10,5 @@ interface TvChannelsViewModel {
 
     fun playTvChannel(muNowNext: MuNowNext)
     fun playProgram(muNowNext: MuNowNext)
-    fun reload()
     fun onCleared()
 }

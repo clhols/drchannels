@@ -5,8 +5,7 @@ import dk.youtec.drapi.MainDispatcher
 import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlin.coroutines.CoroutineContext
 
 @ExperimentalCoroutinesApi
@@ -17,14 +16,24 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
     private val api = DrMuRepository()
 
-    private val tvChannels = TvChannels(api, this)
     private val playbackUriChannel = BroadcastChannel<String>(1)
     private val errorChannel = BroadcastChannel<String>(1)
 
-    override val channels = tvChannels.channels.asFlow()
+    override val channels: Flow<List<MuNowNext>> = flow {
+        while (true) {
+            try {
+                emit(api.getScheduleNowNext().filter { it.now != null })
+            } catch (e: Exception) {
+                emit(emptyList())
+            }
+
+            delay(30000)
+        }
+    }.flowOn(Dispatchers.Default)
     override val playbackUri = playbackUriChannel.asFlow()
     override val error = errorChannel.asFlow()
 
+    @Suppress("unused")
     fun observeChannels(callback: (List<MuNowNext>) -> Unit) {
         launch {
             channels.collect { channels ->
@@ -86,13 +95,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
         }
     }
 
-    override fun reload() {
-        tvChannels.subscribe()
-    }
-
     override fun onCleared() {
-        tvChannels.dispose()
-        tvChannels.channels.cancel()
         playbackUriChannel.cancel()
         errorChannel.cancel()
         job.cancel()

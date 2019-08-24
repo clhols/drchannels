@@ -24,10 +24,12 @@ import dk.youtec.drchannels.util.toast
 import dk.youtec.drchannels.viewmodel.TvChannelsViewModel
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.android.synthetic.main.fragment_channels.*
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener {
+    private var channelsJob: Job? = null
     private val viewModel: TvChannelsViewModel by viewModels()
 
     override fun onCreateView(
@@ -44,21 +46,12 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener {
                 DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
         swipeRefresh.setOnRefreshListener {
-            viewModel.reload()
+            reload()
         }
 
         progressBar.isVisible = true
 
         with(viewModel) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                channels.collect { channels ->
-                    isEmptyState = channels.isNullOrEmpty()
-                    handleChannelsChanged(channels)
-                    progressBar.isVisible = false
-                    swipeRefresh.isRefreshing = false
-                }
-            }
-
             viewLifecycleOwner.lifecycleScope.launch {
                 playbackUri.collect { uri ->
                     Log.d(TAG, "Playback uri")
@@ -78,8 +71,6 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener {
         }
 
         if (savedInstanceState == null) {
-            viewModel.reload()
-
             if (!isTv(context) && !BuildConfig.DEBUG) {
                 activity?.let {
                     updateApp(it,
@@ -90,6 +81,28 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener {
                 }
             }
         }
+    }
+
+    private fun reload() {
+        channelsJob?.cancel()
+        channelsJob = viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.channels.collect { channels ->
+                isEmptyState = channels.isNullOrEmpty()
+                handleChannelsChanged(channels)
+                progressBar.isVisible = false
+                swipeRefresh.isRefreshing = false
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        reload()
+    }
+
+    override fun onStop() {
+        channelsJob?.cancel()
+        super.onStop()
     }
 
     /**
