@@ -204,11 +204,10 @@ class CurrentProgramsPreviewUpdater(
 fun Context.scheduleCurrentProgramsPreviewUpdate(delay: Long = 0) {
     val tag = "scheduleCurrentProgramsPreviewUpdate"
 
-    WorkManager.getInstance(this).cancelAllWorkByTag(tag)
-
     val updatePreviewPrograms = OneTimeWorkRequestBuilder<CurrentProgramsPreviewUpdater>()
             .addTag(tag)
             .setInitialDelay(delay, TimeUnit.MILLISECONDS)
             .build()
-    WorkManager.getInstance(this).enqueue(updatePreviewPrograms)
+    WorkManager.getInstance(this)
+            .enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, updatePreviewPrograms)
 }

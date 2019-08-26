@@ -243,28 +243,18 @@ abstract class BasePreviewUpdater(
  */
 inline fun <reified W : CoroutineWorker> Context.schedulePreviewUpdate(input: Data = Data.EMPTY) {
     val tag = "schedulePreviewUpdate" + W::class.java.simpleName
-    lateinit var observer: Observer<MutableList<WorkInfo>>
 
-    val statuses = WorkManager.getInstance(this).getWorkInfosByTagLiveData(tag)
-    observer = Observer { workStatuses ->
-        statuses.removeObserver(observer)
+    val updatePreviewPrograms = OneTimeWorkRequestBuilder<W>()
+            .setInputData(input)
+            .setConstraints(Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build())
+            .addTag(tag)
+            .build()
 
-        val pendingWork = workStatuses?.any { !it.state.isFinished } ?: false
-        if (!pendingWork) {
-            val updatePreviewPrograms = OneTimeWorkRequestBuilder<W>()
-                    .setInputData(input)
-                    .setConstraints(Constraints.Builder()
-                            .setRequiredNetworkType(NetworkType.CONNECTED)
-                            .build())
-                    .addTag(tag)
-                    .build()
-            WorkManager.getInstance(this).enqueue(updatePreviewPrograms)
-            Log.d("BasePreviewUpdater", "Work task enqueued")
-        } else {
-            Log.d("BasePreviewUpdater", "Work task already pending")
-        }
-    }
-    statuses.observeForever(observer)
+    WorkManager.getInstance(this)
+            .enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, updatePreviewPrograms)
+    Log.d("BasePreviewUpdater", "Work task $tag enqueued")
 }
 
 internal suspend inline fun <T, R> Iterable<T>.asyncAwaitMap(

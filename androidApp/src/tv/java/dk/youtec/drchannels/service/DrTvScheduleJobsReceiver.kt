@@ -22,6 +22,7 @@ class DrTvScheduleJobsReceiver : BroadcastReceiver() {
     private val tag = DrTvScheduleJobsReceiver::class.java.simpleName
 
     override fun onReceive(context: Context, intent: Intent?) {
+        Log.d(tag, "DrTvScheduleJobsReceiver onReceive")
         if (context.isTv()) {
             val inputId = context.getString(R.string.channelInputId)
             val jobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler?
