@@ -23,7 +23,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion(21)
+        minSdkVersion(minSdk)
         targetSdkVersion(targetSdk)
 
         applicationId = "dk.youtec.drchannels"

@@ -5,6 +5,7 @@ const val kotlinVersion = "1.3.50"
 const val coroutinesVersion = "1.3.0"
 const val compileSdk = 29
 const val targetSdk = 29
+const val minSdk = 21
 const val buildTools = "29.0.2"
 const val androidxVersion = "1.0.0"
 const val appcompatVersion = "1.1.0-rc01"

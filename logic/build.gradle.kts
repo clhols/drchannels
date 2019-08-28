@@ -8,7 +8,7 @@ plugins {
 android {
     compileSdkVersion(compileSdk)
     defaultConfig {
-        minSdkVersion(21)
+        minSdkVersion(minSdk)
     }
     buildTypes {
         getByName("release") {
