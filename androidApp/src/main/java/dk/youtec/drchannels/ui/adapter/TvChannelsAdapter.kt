@@ -1,6 +1,5 @@
 package dk.youtec.drchannels.ui.adapter
 
-import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
@@ -20,11 +19,23 @@ import dk.youtec.drchannels.ui.view.AspectImageView
 import dk.youtec.drchannels.util.inflate
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.android.synthetic.main.channels_item.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.launch
 import java.util.Date
 
 class TvChannelsAdapter(
-        val listener: OnChannelClickListener
+        val scope: CoroutineScope
 ) : ListAdapter<MuNowNext, TvChannelsAdapter.ViewHolder>(ChannelsDiffItemCallback()) {
+
+    private val moreClickedChannel = BroadcastChannel<MuNowNext>(1)
+    private val itemClickedChannel = BroadcastChannel<MuNowNext>(1)
+    private val startOverClickedChannel = BroadcastChannel<MuNowNext>(1)
+
+    val moreClicked = moreClickedChannel.asFlow()
+    val itemClicked = itemClickedChannel.asFlow()
+    val startOverClicked = startOverClickedChannel.asFlow()
 
     //Toggles if description and image should be shown
     private var showDetails = true
@@ -45,7 +56,7 @@ class TvChannelsAdapter(
 
         holder.time.text = buildString {
             append(startTime)
-            append(" - ")
+            append(" \u2023 ")
             append(endTime)
         }
 
@@ -104,14 +115,18 @@ class TvChannelsAdapter(
 
         init {
             more.setOnClickListener {
-                listener.showTvChannel(it.context, getItem(adapterPosition))
+                scope.launch {
+                    moreClickedChannel.offer(getItem(adapterPosition))
+                }
             }
 
             image.setAspectRatio(292, 189)
 
             itemView.setOnClickListener {
                 if (adapterPosition in 0 until itemCount) {
-                    listener.playTvChannel(getItem(adapterPosition))
+                    scope.launch {
+                        itemClickedChannel.offer(getItem(adapterPosition))
+                    }
                 }
             }
             itemView.setOnLongClickListener {
@@ -119,19 +134,13 @@ class TvChannelsAdapter(
                         .setTitle(R.string.channelAction)
                         .setItems(arrayOf(it.context.getString(R.string.startOverAction))) { _, _ ->
                             if (adapterPosition in 0 until itemCount) {
-                                listener.playProgram(getItem(adapterPosition))
+                                startOverClickedChannel.offer(getItem(adapterPosition))
                             }
                         }
                         .show()
                 true
             }
         }
-    }
-
-    interface OnChannelClickListener {
-        fun showTvChannel(context: Context, tvChannel: MuNowNext)
-        fun playTvChannel(muNowNext: MuNowNext)
-        fun playProgram(muNowNext: MuNowNext)
     }
 }
 

@@ -1,7 +1,6 @@
 package dk.youtec.drchannels.ui
 
 import android.app.ActivityOptions
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -28,7 +27,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener {
+class ChannelsFragment : Fragment() {
     private var channelsJob: Job? = null
     private val viewModel: TvChannelsViewModel by viewModels()
 
@@ -51,22 +50,47 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener {
 
         progressBar.isVisible = true
 
-        with(viewModel) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                playbackUri.collect { uri ->
-                    Log.d(TAG, "Playback uri")
-                    startActivity(Intent(activity, PlayerActivity::class.java).apply {
-                        action = PlayerActivity.ACTION_VIEW
-                        putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-                        data = uri.toUri()
-                    })
-                }
+        lifecycleScope.launch {
+            viewModel.playbackUri.collect { uri ->
+                Log.d(TAG, "Playback uri")
+                startActivity(Intent(activity, PlayerActivity::class.java).apply {
+                    action = PlayerActivity.ACTION_VIEW
+                    putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
+                    data = uri.toUri()
+                })
             }
+        }
 
-            viewLifecycleOwner.lifecycleScope.launch {
-                error.collect { message ->
-                    context?.toast(message)
-                }
+        lifecycleScope.launch {
+            viewModel.error.collect { message ->
+                context?.toast(message)
+            }
+        }
+
+        lifecycleScope.launch {
+            adapter.itemClicked.collect {
+                viewModel.playTvChannel(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            adapter.startOverClicked.collect {
+                viewModel.playProgram(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            adapter.moreClicked.collect {
+                context?.startActivity(
+                        Intent(context, ProgramsActivity::class.java).apply {
+                            putExtra(ProgramsActivity.CHANNEL_NAME, it.channelSlug.toUpperCase())
+                            putExtra(ProgramsActivity.CHANNEL_ID, it.channelSlug)
+                        },
+                        ActivityOptions.makeCustomAnimation(
+                                context,
+                                R.anim.slide_in_left,
+                                R.anim.slide_out_left
+                        ).toBundle())
             }
         }
 
@@ -109,14 +133,16 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener {
      * Called when a change has been observed on channels in ChannelsViewModel
      */
     private fun handleChannelsChanged(channels: List<MuNowNext>) {
-        getAdapter().submitList(channels)
+        adapter.submitList(channels)
     }
 
-    private fun getAdapter(): TvChannelsAdapter {
-        return (recyclerView.adapter as? TvChannelsAdapter) ?: TvChannelsAdapter(this).also {
-            recyclerView.adapter = it
+    private val adapter: TvChannelsAdapter
+        get() {
+            return (recyclerView.adapter as? TvChannelsAdapter)
+                    ?: TvChannelsAdapter(lifecycleScope).also {
+                        recyclerView.adapter = it
+                    }
         }
-    }
 
     private var isEmptyState: Boolean = false
         set(value) {
@@ -124,23 +150,6 @@ class ChannelsFragment : Fragment(), TvChannelsAdapter.OnChannelClickListener {
             recyclerView.isVisible = !value
             field = value
         }
-
-    override fun playTvChannel(muNowNext: MuNowNext) = viewModel.playTvChannel(muNowNext)
-
-    override fun playProgram(muNowNext: MuNowNext) = viewModel.playProgram(muNowNext)
-
-    override fun showTvChannel(context: Context, tvChannel: MuNowNext) {
-        context.startActivity(
-                Intent(context, ProgramsActivity::class.java).apply {
-                    putExtra(ProgramsActivity.CHANNEL_NAME, tvChannel.channelSlug.toUpperCase())
-                    putExtra(ProgramsActivity.CHANNEL_ID, tvChannel.channelSlug)
-                },
-                ActivityOptions.makeCustomAnimation(
-                        context,
-                        R.anim.slide_in_left,
-                        R.anim.slide_out_left
-                ).toBundle())
-    }
 
     companion object {
         const val TAG = "ChannelsFragment"
