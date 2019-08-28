@@ -38,11 +38,13 @@ class ProgramAdapter(
         private val schedule: Schedule
 ) : RecyclerView.Adapter<ProgramAdapter.ViewHolder>(), CoroutineScope by MainScope(), KoinComponent {
     private val api: DrMuRepository by inject()
+    private val datePattern = "dd/M"
+    private val timePattern = "HH:mm"
 
     private var colorMatrixColorFilter: ColorMatrixColorFilter
     private var resources: Resources
     private var genreFilter: String = ""
-    private val todaysDate: String = serverDateFormat("dd/MM").format(calendar().time)
+    private val todaysDate: String = serverDateFormat(datePattern).format(calendar().time)
     var broadcasts: List<MuScheduleBroadcast> = schedule.broadcasts
 
     init {
@@ -61,17 +63,17 @@ class ProgramAdapter(
         holder.nowDescription.text = program.description
 
         //Time
-        val localDateFormat = serverDateFormat("dd/MM")
+        val localDateFormat = serverDateFormat(datePattern)
         val startDate = localDateFormat.format(Date(program.startTime.time))
 
-        val localTimeFormat = serverDateFormat("HH:mm")
+        val localTimeFormat = serverDateFormat(timePattern)
         val startTime = localTimeFormat.format(Date(program.startTime.time))
         val endTime = localTimeFormat.format(Date(program.endTime.time))
 
         holder.time.text = if (startDate == todaysDate)
-            "$startTime - $endTime"
+            "$startTime \u2023 $endTime"
         else
-            "$startDate $startTime - $endTime"
+            "$startDate \u2043 $startTime \u2023 $endTime"
 
         //Header color
         holder.live.isVisible = System.currentTimeMillis() in
