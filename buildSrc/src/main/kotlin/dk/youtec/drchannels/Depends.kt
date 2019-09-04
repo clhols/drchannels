@@ -2,7 +2,7 @@
 val isCiBuild = System.getenv("CI") == "true"
 const val androidGradlePlugin = "3.5.0"
 const val kotlinVersion = "1.3.50"
-const val coroutinesVersion = "1.3.0"
+const val coroutinesVersion = "1.3.1"
 const val compileSdk = 29
 const val targetSdk = 29
 const val minSdk = 21
