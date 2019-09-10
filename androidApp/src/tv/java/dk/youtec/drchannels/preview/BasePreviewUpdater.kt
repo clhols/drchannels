@@ -64,6 +64,8 @@ abstract class BasePreviewUpdater(
                     "Updating programs for preview channel $channelKey with id $previewChannelId")
             //update channel's programs
             updatePrograms(previewChannelId)
+        } else {
+            Log.w(TAG, "No id for channelKey=$channelKey")
         }
         return Result.success()
     }
@@ -79,14 +81,14 @@ abstract class BasePreviewUpdater(
         //Get expired programs
         val expiredPrograms = existingPreviewPrograms.filterNot { existing ->
             newPreviewProgramCards.any {
-                existing.title == it.title && existing.description == it.onlineGenreText
+                existing.title == it.title && existing.description == getDescription(it)
             }
         }
 
         //Get new programs
         val newProgramCards = newPreviewProgramCards.filterNot { new ->
             existingPreviewPrograms.any {
-                new.title == it.title && new.onlineGenreText == it.description
+                new.title == it.title && getDescription(new) == it.description
             }
         }
 
@@ -98,7 +100,7 @@ abstract class BasePreviewUpdater(
                             null,
                             null) > 0) {
                 Log.d(TAG,
-                        "Deleted expired preview program ${program.title} with id ${program.id}")
+                        "Deleted expired preview program title=${program.title}, description=${program.description} with id ${program.id}")
             }
         }
 
@@ -114,7 +116,7 @@ abstract class BasePreviewUpdater(
         )
         Log.d(TAG, "Added $insertedRowCount programs in $previewChannelId")
         newPrograms.forEach {
-            Log.d(TAG, "Added new preview program ${it.title}")
+            Log.d(TAG, "Added new preview program title=${it.title}, description=${it.description}")
         }
     }
 
@@ -242,7 +244,7 @@ abstract class BasePreviewUpdater(
  * Schedules a new task to update the preview channel if no other task is pending or running.
  */
 inline fun <reified W : CoroutineWorker> Context.schedulePreviewUpdate(input: Data = Data.EMPTY) {
-    val tag = "schedulePreviewUpdate" + W::class.java.simpleName
+    val tag = "schedulePreviewUpdate${W::class.java.simpleName} genre=${input.getString("genre")}"
 
     val updatePreviewPrograms = OneTimeWorkRequestBuilder<W>()
             .setInputData(input)
