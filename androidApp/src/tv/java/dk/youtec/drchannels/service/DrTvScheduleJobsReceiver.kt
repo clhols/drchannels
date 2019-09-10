@@ -15,14 +15,24 @@ import dk.youtec.drapi.Genre
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.preview.*
 import dk.youtec.drchannels.util.isTv
+import java.util.*
 import java.util.concurrent.TimeUnit
+
+private var lastExecutionMs: Long = 0
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class DrTvScheduleJobsReceiver : BroadcastReceiver() {
     private val tag = DrTvScheduleJobsReceiver::class.java.simpleName
 
     override fun onReceive(context: Context, intent: Intent?) {
-        Log.d(tag, "DrTvScheduleJobsReceiver onReceive")
+        val now = Date()
+        if (now.time <= lastExecutionMs + 5000) {
+            Log.d(tag, "onReceive called ignore")
+            return
+        } else {
+            lastExecutionMs = now.time
+        }
+
         if (context.isTv()) {
             val inputId = context.getString(R.string.channelInputId)
             val jobScheduler = context.getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler?
