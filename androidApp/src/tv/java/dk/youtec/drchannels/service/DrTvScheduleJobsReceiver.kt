@@ -26,7 +26,7 @@ class DrTvScheduleJobsReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
         val now = Date()
-        if (now.time <= lastExecutionMs + 5000) {
+        if (now.time <= lastExecutionMs + TimeUnit.SECONDS.toMillis(5)) {
             Log.d(tag, "onReceive called ignore")
             return
         } else {
