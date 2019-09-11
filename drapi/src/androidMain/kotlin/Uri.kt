@@ -1,6 +1,5 @@
 package dk.youtec.drapi
 
-import kotlinx.io.core.toByteArray
 import java.security.MessageDigest
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
