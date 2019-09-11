@@ -21,11 +21,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
     override val channels: Flow<List<MuNowNext>> = flow {
         while (true) {
-            try {
-                emit(api.getScheduleNowNext().filter { it.now != null })
-            } catch (e: Exception) {
-                emit(emptyList())
-            }
+            emit(api.getScheduleNowNext().filter { it.now != null })
 
             delay(30000)
         }
