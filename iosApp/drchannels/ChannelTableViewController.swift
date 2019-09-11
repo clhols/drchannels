@@ -24,7 +24,6 @@ class ChannelTableViewController: UITableViewController {
             self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in nowNext.now != nil })
             self.tableView.reloadData()
         }
-        viewModel.reload()
     }
     
     //MARK: Private Methods

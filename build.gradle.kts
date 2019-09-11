@@ -26,6 +26,7 @@ allprojects {
         mavenCentral()
         google()
         maven { setUrl("https://kotlin.bintray.com/kotlinx") }
+        maven { setUrl("https://kotlin.bintray.com/ktor") }
         maven { setUrl("https://plugins.gradle.org/m2/") }
         maven { setUrl("https://maven.fabric.io/public") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }

@@ -29,7 +29,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
             delay(30000)
         }
-    }.flowOn(Dispatchers.Default)
+    }.flowOn(MainDispatcher)
     override val playbackUri = playbackUriChannel.asFlow()
     override val error = errorChannel.asFlow()
 
