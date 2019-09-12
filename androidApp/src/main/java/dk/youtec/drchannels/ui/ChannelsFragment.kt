@@ -17,10 +17,10 @@ import dk.youtec.appupdater.updateApp
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
+import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
 import dk.youtec.drchannels.ui.adapter.TvChannelsAdapter
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.toast
-import dk.youtec.drchannels.viewmodel.TvChannelsViewModel
 import kotlinx.android.synthetic.main.empty_state.*
 import kotlinx.android.synthetic.main.fragment_channels.*
 import kotlinx.coroutines.Job
@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 
 class ChannelsFragment : Fragment() {
     private var channelsJob: Job? = null
-    private val viewModel: TvChannelsViewModel by viewModels()
+    private val viewModel: AndroidTvChannelsViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater,

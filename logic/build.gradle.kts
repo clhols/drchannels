@@ -67,6 +67,7 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
             }
         }
         named("androidTest") {
