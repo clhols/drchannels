@@ -174,11 +174,14 @@ public class PlayerActivity extends AppCompatActivity
 
         switch (keyCode) {
             case KeyEvent.KEYCODE_BUTTON_Y:
-                playerView.setUseController(!playerView.getUseController());
-                playerView.showController();
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+                playerView.setUseController(true);
+                if (!playerView.isControllerVisible()) {
+                    playerView.showController();
+                }
                 break;
             case KeyEvent.KEYCODE_BUTTON_A:
-                if (!playerView.getUseController()) {
+                if (!playerView.isControllerVisible()) {
                     int playbackState = player.getPlaybackState();
                     if (playbackState == Player.STATE_IDLE) {
                         preparePlayback();
@@ -206,12 +209,12 @@ public class PlayerActivity extends AppCompatActivity
             case KeyEvent.KEYCODE_BUTTON_START:
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                if (!playerView.getUseController()) {
+                if (!playerView.isControllerVisible()) {
                     player.seekTo(player.getCurrentPosition() - 10000);
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                if (!playerView.getUseController()) {
+                if (!playerView.isControllerVisible()) {
                     player.seekTo(player.getCurrentPosition() + 10000);
                 }
                 break;
