@@ -120,7 +120,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion")
     implementation("com.google.android.exoplayer:extension-cast:$exoPlayerVersion")
 
-    implementation("io.coil-kt:coil:0.6.1")
+    implementation("io.coil-kt:coil:0.7.0")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.google.android.material:material:1.1+")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1+")
