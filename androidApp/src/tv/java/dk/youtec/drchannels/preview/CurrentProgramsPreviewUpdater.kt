@@ -62,7 +62,7 @@ class CurrentProgramsPreviewUpdater(
         val existingPreviewPrograms = getPreviewPrograms(previewChannelId)
 
         existingPreviewPrograms.forEach {
-            Log.d(TAG, "Existing program: ${it.title}, posterArtUri=${it.posterArtUri}")
+            Log.d(TAG, "Existing program: ${it.title}, channelId=${it.channelId}")
         }
 
         //Remove expired programs
@@ -149,14 +149,14 @@ class CurrentProgramsPreviewUpdater(
             )
             val newPreviewId = ContentUris.parseId(programUri!!)
 
-            Log.d(TAG, "Added program ${previewProgram.title} with preview id $newPreviewId")
+            Log.d(TAG, "Added program ${previewProgram.title} with channelId=${previewProgram.channelId}, preview id $newPreviewId")
         }
     }
 
     @SuppressLint("RestrictedApi")
     private fun isExistingPreviewProgram(program: PreviewProgram, existingPrograms: List<PreviewProgram>): Boolean {
         return existingPrograms.any {
-            it.posterArtUri == program.posterArtUri
+            it.channelId == program.channelId
                     && it.title == program.title
         }
     }
