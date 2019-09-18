@@ -156,8 +156,7 @@ class CurrentProgramsPreviewUpdater(
     @SuppressLint("RestrictedApi")
     private fun isExistingPreviewProgram(program: PreviewProgram, existingPrograms: List<PreviewProgram>): Boolean {
         return existingPrograms.any {
-            it.weight == program.weight
-                    && it.title == program.title
+            it.title == program.title
         }
     }
 
