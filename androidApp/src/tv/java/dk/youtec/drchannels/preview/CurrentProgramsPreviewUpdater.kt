@@ -62,7 +62,7 @@ class CurrentProgramsPreviewUpdater(
         val existingPreviewPrograms = getPreviewPrograms(previewChannelId)
 
         existingPreviewPrograms.forEach {
-            Log.d(TAG, "Existing program: ${it.title}, channelId=${it.channelId}")
+            Log.d(TAG, "Existing program: ${it.title}")
         }
 
         //Remove expired programs
