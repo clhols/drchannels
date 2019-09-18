@@ -149,14 +149,14 @@ class CurrentProgramsPreviewUpdater(
             )
             val newPreviewId = ContentUris.parseId(programUri!!)
 
-            Log.d(TAG, "Added program ${previewProgram.title} with channelId=${previewProgram.channelId}, preview id $newPreviewId")
+            Log.d(TAG, "Added program ${previewProgram.title} with preview id $newPreviewId")
         }
     }
 
     @SuppressLint("RestrictedApi")
     private fun isExistingPreviewProgram(program: PreviewProgram, existingPrograms: List<PreviewProgram>): Boolean {
         return existingPrograms.any {
-            it.channelId == program.channelId
+            it.weight == program.weight
                     && it.title == program.title
         }
     }
