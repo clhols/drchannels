@@ -64,11 +64,11 @@ class ProgramAdapter(
 
         //Time
         val localDateFormat = serverDateFormat(datePattern)
-        val startDate = localDateFormat.format(Date(program.startTime.time))
+        val startDate = localDateFormat.format(Date(program.startTime))
 
         val localTimeFormat = serverDateFormat(timePattern)
-        val startTime = localTimeFormat.format(Date(program.startTime.time))
-        val endTime = localTimeFormat.format(Date(program.endTime.time))
+        val startTime = localTimeFormat.format(Date(program.startTime))
+        val endTime = localTimeFormat.format(Date(program.endTime))
 
         holder.time.text = if (startDate == todaysDate)
             "$startTime \u2023 $endTime"
@@ -77,7 +77,7 @@ class ProgramAdapter(
 
         //Header color
         holder.live.isVisible = System.currentTimeMillis() in
-                ((program.startTime.time + 1)..program.endTime.time)
+                ((program.startTime + 1)..program.endTime)
 
         holder.image.apply {
             if (program.programCard.primaryImageUri.isNotEmpty()) {
@@ -132,7 +132,7 @@ class ProgramAdapter(
             val program = broadcasts[adapterPosition]
 
             when {
-                program.startTime.time < System.currentTimeMillis() -> playProgram(program)
+                program.startTime < System.currentTimeMillis() -> playProgram(program)
                 program.programCard.primaryAsset?.uri?.isNotEmpty() == true -> playProgram(program)
                 else -> it.context.toast(it.context.getString(R.string.upcomingTransmission))
             }

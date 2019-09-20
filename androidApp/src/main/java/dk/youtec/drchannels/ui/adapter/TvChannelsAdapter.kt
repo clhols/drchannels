@@ -51,8 +51,8 @@ class TvChannelsAdapter(
 
         //Show time interval
         val localDateFormat = serverDateFormat("HH:mm")
-        val startTime = localDateFormat.format(Date(now.startTime.time))
-        val endTime = localDateFormat.format(Date(now.endTime.time))
+        val startTime = localDateFormat.format(Date(now.startTime))
+        val endTime = localDateFormat.format(Date(now.endTime))
 
         holder.time.text = buildString {
             append(startTime)
@@ -61,8 +61,8 @@ class TvChannelsAdapter(
         }
 
         //Progress
-        val programDuration = now.endTime.time - now.startTime.time
-        val programTime = System.currentTimeMillis() - now.startTime.time
+        val programDuration = now.endTime - now.startTime
+        val programTime = System.currentTimeMillis() - now.startTime
         val percentage = 100 * programTime.toFloat() / programDuration
         holder.progress.progress = percentage.toInt()
 

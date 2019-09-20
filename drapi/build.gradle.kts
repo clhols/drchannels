@@ -106,7 +106,6 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
-                implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
             }
         }
         named("iosTest") {

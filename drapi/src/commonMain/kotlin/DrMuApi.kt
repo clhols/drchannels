@@ -54,7 +54,7 @@ data class MuPaging(
 @Serializable
 data class Schedule(
         @SerialName("Broadcasts") val broadcasts: List<MuScheduleBroadcast>,
-        @SerialName("BroadcastDate") @Serializable(with = DateSerializer::class) val broadcastDate: Date,
+        @SerialName("BroadcastDate") @Serializable(with = DateSerializer::class) val broadcastDate: Long,
         @SerialName("ChannelSlug") val channelSlug: String,
         @SerialName("Channel") val channel: String)
 
@@ -108,15 +108,15 @@ data class MuScheduleBroadcast(
         @SerialName("Title") val title: String,
         @SerialName("Description") val description: String,
         @SerialName("Subtitle") val subtitle: String = "",
-        @SerialName("StartTime") @Serializable(with = DateSerializer::class) val startTime: Date,
-        @SerialName("EndTime") @Serializable(with = DateSerializer::class) val endTime: Date,
+        @SerialName("StartTime") @Serializable(with = DateSerializer::class) val startTime: Long,
+        @SerialName("EndTime") @Serializable(with = DateSerializer::class) val endTime: Long,
         @SerialName("ProgramCard") val programCard: ProgramCard,
         @SerialName("OnlineGenreText") val onlineGenreText: String? = null,
         @SerialName("ProductionNumber") val productionNumber: String,
         @SerialName("ProgramCardHasPrimaryAsset") val programCardHasPrimaryAsset: Boolean,
         @SerialName("SeriesHasProgramCardWithPrimaryAsset") val seriesHasProgramCardWithPrimaryAsset: Boolean,
-        @SerialName("AnnouncedStartTime") @Serializable(with = DateSerializer::class) val announcedStartTime: Date,
-        @SerialName("AnnouncedEndTime") @Serializable(with = DateSerializer::class) val announcedEndTime: Date,
+        @SerialName("AnnouncedStartTime") @Serializable(with = DateSerializer::class) val announcedStartTime: Long,
+        @SerialName("AnnouncedEndTime") @Serializable(with = DateSerializer::class) val announcedEndTime: Long,
         @SerialName("ProductionCountry") val productionCountry: String,
         @SerialName("ProductionYear") val productionYear: Int = 0,
         @SerialName("VideoWidescreen") val videoWidescreen: Boolean = false,
@@ -149,8 +149,8 @@ data class ProgramCard(
         @SerialName("PrimaryAsset") val primaryAsset: PrimaryAsset? = null,
         @SerialName("HasPublicPrimaryAsset") val hasPublicPrimaryAsset: Boolean = false,
         @SerialName("AssetTargetTypes") val assetTargetTypes: String = "",
-        @SerialName("PrimaryBroadcastStartTime") @Serializable(with = DateSerializer::class) val primaryBroadcastStartTime: Date? = null,
-        @SerialName("SortDateTime") @Serializable(with = DateSerializer::class) val sortDateTime: Date = Date(),
+        @SerialName("PrimaryBroadcastStartTime") @Serializable(with = DateSerializer::class) val primaryBroadcastStartTime: Long? = null,
+        @SerialName("SortDateTime") @Serializable(with = DateSerializer::class) val sortDateTime: Long = 0L,
         @SerialName("OnDemandInfo") val onDemandInfo: Info? = null,
         @SerialName("Slug") val slug: String = "",
         @SerialName("Urn") val urn: String = "",
@@ -167,8 +167,8 @@ data class ProgramCard(
 
 @Serializable
 data class Info(
-        @SerialName("StartPublish") @Serializable(with = DateSerializer::class) val startPublish: Date,
-        @SerialName("EndPublish") @Serializable(with = DateSerializer::class) val endPublish: Date)
+        @SerialName("StartPublish") @Serializable(with = DateSerializer::class) val startPublish: Long,
+        @SerialName("EndPublish") @Serializable(with = DateSerializer::class) val endPublish: Long)
 
 @Serializable
 data class PrimaryAsset(
@@ -177,8 +177,8 @@ data class PrimaryAsset(
         @SerialName("DurationInMilliseconds") val durationInMilliseconds: Long,
         @SerialName("Downloadable") val downloadable: Boolean = false,
         @SerialName("RestrictedToDenmark") val restrictedToDenmark: Boolean = false,
-        @SerialName("StartPublish") @Serializable(with = DateSerializer::class) val startPublish: Date,
-        @SerialName("EndPublish") @Serializable(with = DateSerializer::class) val endPublish: Date,
+        @SerialName("StartPublish") @Serializable(with = DateSerializer::class) val startPublish: Long,
+        @SerialName("EndPublish") @Serializable(with = DateSerializer::class) val endPublish: Long,
         @SerialName("Target") val target: String,
         @SerialName("Encrypted") val encrypted: Boolean,
         @SerialName("IsLiveStream") val isLiveStream: Boolean = false)

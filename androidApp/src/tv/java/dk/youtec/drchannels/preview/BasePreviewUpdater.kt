@@ -147,10 +147,10 @@ abstract class BasePreviewUpdater(
                     .setDurationMillis(program.primaryAsset?.durationInMilliseconds?.toInt() ?: 0)
                     .setIntent(intent)
                     .setInternalProviderId(program.primaryAsset?.uri)
-                    .setStartTimeUtcMillis(program.primaryBroadcastStartTime?.time ?: 0)
+                    .setStartTimeUtcMillis(program.primaryBroadcastStartTime ?: 0)
                     .setPosterArtUri(program.primaryImageUri.toUri())
                     .setPosterArtAspectRatio(ASPECT_RATIO_16_9)
-                    .setWeight(((program.primaryBroadcastStartTime?.time ?: 1) / 1000).toInt())
+                    .setWeight(((program.primaryBroadcastStartTime ?: 1) / 1000).toInt())
                     .build()
         } catch (e: Exception) {
             Log.e(TAG, "Exception when adding program", e)
@@ -162,7 +162,7 @@ abstract class BasePreviewUpdater(
         var description = program.onlineGenreText
         if (description.isNotEmpty()) description += " - "
         description += if (program.primaryBroadcastStartTime != null) {
-            serverDateFormat("d/M HH:mm").format(Date(program.primaryBroadcastStartTime!!.time))
+            serverDateFormat("d/M HH:mm").format(Date(program.primaryBroadcastStartTime ?: 0))
         } else ""
         return description
     }

@@ -119,7 +119,7 @@ class ProgramsActivity : AppCompatActivity() {
         recyclerView.requestFocus()
         (recyclerView.layoutManager as LinearLayoutManager)
                 .scrollToPositionWithOffset(schedule.broadcasts.indexOfFirst {
-                    it.endTime.time >= System.currentTimeMillis()
+                    it.endTime >= System.currentTimeMillis()
                 }, displayMetrics.heightPixels / 6)
     }
 
@@ -177,7 +177,7 @@ class ProgramsActivity : AppCompatActivity() {
         programAdapter.setGenreFilter(genre)
         val broadcasts = programAdapter.broadcasts
         val index = broadcasts.indexOfFirst {
-            it.endTime.time >= System.currentTimeMillis()
+            it.endTime >= System.currentTimeMillis()
         }
         if (index >= 0) {
             recyclerView.smoothScrollToPosition(index)

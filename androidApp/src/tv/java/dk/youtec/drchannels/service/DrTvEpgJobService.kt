@@ -106,7 +106,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
         alignPrograms(todaysBroadcasts, tomorrowsBroadcasts)
 
         (todaysBroadcasts + tomorrowsBroadcasts).forEach { broadcast ->
-            if (broadcast.endTime.time < endMs) {
+            if (broadcast.endTime < endMs) {
                 programs += buildProgram(channel, broadcast)
             }
         }
@@ -120,8 +120,8 @@ class DrTvEpgJobService : EpgSyncJobService() {
             setTitle(broadcast.title)
             setDescription(broadcast.description)
 
-            setStartTimeUtcMillis(broadcast.startTime.time)
-            setEndTimeUtcMillis(broadcast.endTime.time)
+            setStartTimeUtcMillis(broadcast.startTime)
+            setEndTimeUtcMillis(broadcast.endTime)
 
             if (broadcast.onlineGenreText?.isNotBlank() == true) {
                 setBroadcastGenres(arrayOf(broadcast.onlineGenreText))
@@ -151,7 +151,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
                 val onDemandInfo = broadcast.programCard.onDemandInfo
                 if (onDemandInfo != null) {
-                    providerData.put("endPublish", onDemandInfo.endPublish.time)
+                    providerData.put("endPublish", onDemandInfo.endPublish)
                 }
 
                 providerData.put("assetUri", primaryAsset.uri)
@@ -186,12 +186,11 @@ class DrTvEpgJobService : EpgSyncJobService() {
      */
     private fun alignPrograms(todaysBroadcasts: MutableList<MuScheduleBroadcast>, tomorrowsBroadcasts: MutableList<MuScheduleBroadcast>) {
         if (todaysBroadcasts.isNotEmpty() && tomorrowsBroadcasts.isNotEmpty()) {
-            val lastBroadcast = todaysBroadcasts.last()
             val firstBroadcast = tomorrowsBroadcasts.first()
-            lastBroadcast.endTime.time = firstBroadcast.startTime.time
+            val lastBroadcast = todaysBroadcasts.last().copy(endTime = firstBroadcast.startTime)
 
             // If the first broadcast eliminates the last, then remove the last.
-            if (lastBroadcast.startTime.time >= lastBroadcast.endTime.time) {
+            if (lastBroadcast.startTime >= lastBroadcast.endTime) {
                 todaysBroadcasts.removeAt(todaysBroadcasts.lastIndex)
             }
         }
@@ -200,7 +199,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
     private fun getBroadcasts(channel: Channel, date: Date): MutableList<MuScheduleBroadcast> {
         val dateString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
         val schedule = runBlocking { api.getSchedule(channel.networkAffiliation, dateString) }
-        return schedule.broadcasts.filter { it.startTime.time < it.endTime.time }.toMutableList()
+        return schedule.broadcasts.filter { it.startTime < it.endTime }.toMutableList()
     }
 }
 
