@@ -109,6 +109,7 @@ kapt {
 dependencies {
     implementation(project(":logic"))
     implementation(project(":tv-library"))
+    implementation(project(":media"))
     implementation(project(":appupdater"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:$coroutinesVersion"))

@@ -23,6 +23,7 @@ import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
+import com.google.android.exoplayer2.ControlDispatcher
 import dk.youtec.drchannels.media.extensions.album
 import dk.youtec.drchannels.media.extensions.id
 import dk.youtec.drchannels.media.extensions.toMediaSource
@@ -55,7 +56,7 @@ class DrPlaybackPreparer(
                     PlaybackStateCompat.ACTION_PREPARE_FROM_SEARCH or
                     PlaybackStateCompat.ACTION_PLAY_FROM_SEARCH
 
-    override fun onPrepare() = Unit
+    override fun onPrepare(playWhenReady: Boolean) = Unit
 
     /**
      * Handles callbacks to both [MediaSessionCompat.Callback.onPrepareFromMediaId]
@@ -67,7 +68,7 @@ class DrPlaybackPreparer(
      * [MediaSessionCompat.Callback.onPlayFromMediaId], otherwise it's
      * [MediaSessionCompat.Callback.onPrepareFromMediaId].
      */
-    override fun onPrepareFromMediaId(mediaId: String?, extras: Bundle?) {
+    override fun onPrepareFromMediaId(mediaId: String?, playWhenReady: Boolean, extras: Bundle?) {
         musicSource.whenReady {
             val itemToPlay: MediaMetadataCompat? = musicSource.find { item ->
                 item.id == mediaId
@@ -91,19 +92,7 @@ class DrPlaybackPreparer(
         }
     }
 
-    /**
-     * Handles callbacks to both [MediaSessionCompat.Callback.onPrepareFromSearch]
-     * *AND* [MediaSessionCompat.Callback.onPlayFromSearch] when using [MediaSessionConnector].
-     * (See above for details.)
-     *
-     * This method is used by the Google Assistant to respond to requests such as:
-     * - Play Geisha from Wake Up on UAMP
-     * - Play electronic music on UAMP
-     * - Play music on UAMP
-     *
-     * For details on how search is handled, see [AbstractMusicSource.search].
-     */
-    override fun onPrepareFromSearch(query: String?, extras: Bundle?) {
+    override fun onPrepareFromSearch(query: String?, playWhenReady: Boolean, extras: Bundle?) {
         musicSource.whenReady {
             val metadataList = musicSource.search(query ?: "", extras ?: Bundle.EMPTY)
             if (metadataList.isNotEmpty()) {
@@ -113,16 +102,11 @@ class DrPlaybackPreparer(
         }
     }
 
-    override fun onPrepareFromUri(uri: Uri?, extras: Bundle?) = Unit
+    override fun onPrepareFromUri(uri: Uri?, playWhenReady: Boolean, extras: Bundle?) = Unit
 
-    override fun getCommands(): Array<String>? = null
-
-    override fun onCommand(
-            player: Player?,
-            command: String?,
-            extras: Bundle?,
-            cb: ResultReceiver?
-    ) = Unit
+    override fun onCommand(player: Player?, controlDispatcher: ControlDispatcher?, command: String?, extras: Bundle?, cb: ResultReceiver?): Boolean {
+        return false
+    }
 
     /**
      * Builds a playlist based on a [MediaMetadataCompat].

@@ -49,6 +49,7 @@ dependencies {
     api("androidx.media:media:$androidxVersion")
 
     implementation("com.google.code.gson:gson:+")
+    implementation("io.coil-kt:coil:0.7.0")
 
     // ExoPlayer dependencies
 

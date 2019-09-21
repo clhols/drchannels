@@ -150,7 +150,7 @@ class MusicService : androidx.media.MediaBrowserServiceCompat() {
                     exoPlayer,
                     dataSourceFactory)
 
-            it.setPlayer(exoPlayer, playbackPreparer)
+            it.setPlayer(exoPlayer)
             it.setQueueNavigator(UampQueueNavigator(mediaSession))
         }
 

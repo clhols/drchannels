@@ -22,6 +22,9 @@ import android.os.AsyncTask
 import android.support.v4.media.MediaBrowserCompat.MediaItem
 import android.support.v4.media.MediaDescriptionCompat.STATUS_NOT_DOWNLOADED
 import android.support.v4.media.MediaMetadataCompat
+import androidx.core.graphics.drawable.toBitmap
+import coil.Coil
+import coil.api.get
 import dk.youtec.drchannels.media.R
 import dk.youtec.drchannels.media.extensions.album
 import dk.youtec.drchannels.media.extensions.albumArt
@@ -41,7 +44,7 @@ import dk.youtec.drchannels.media.extensions.title
 import dk.youtec.drchannels.media.extensions.trackCount
 import dk.youtec.drchannels.media.extensions.trackNumber
 import com.google.gson.Gson
-import com.squareup.picasso.Picasso
+import kotlinx.coroutines.runBlocking
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -60,7 +63,7 @@ class JsonSource(context: Context, source: Uri) : AbstractMusicSource() {
     init {
         state = STATE_INITIALIZING
 
-        UpdateCatalogTask(Picasso.get()) { mediaItems ->
+        UpdateCatalogTask { mediaItems ->
             catalog = mediaItems
             state = STATE_INITIALIZED
         }.execute(source)
@@ -74,7 +77,6 @@ class JsonSource(context: Context, source: Uri) : AbstractMusicSource() {
  * [MediaMetadataCompat] objects.
  */
 private class UpdateCatalogTask(
-        val picasso: Picasso,
         val listener: (List<MediaMetadataCompat>) -> Unit
 ) : AsyncTask<Uri, Void, List<MediaMetadataCompat>>() {
 
@@ -85,24 +87,20 @@ private class UpdateCatalogTask(
             val musicCat = tryDownloadJson(catalogUri)
 
             // Get the base URI to fix up relative references later.
-            val baseUri = catalogUri.toString().removeSuffix(catalogUri.lastPathSegment)
+            val baseUri = catalogUri.toString().removeSuffix(catalogUri.lastPathSegment!!)
 
             mediaItems += musicCat.music.map { song ->
                 // The JSON may have paths that are relative to the source of the JSON
                 // itself. We need to fix them up here to turn them into absolute paths.
-                if (!song.source.startsWith(catalogUri.scheme)) {
+                if (!song.source.startsWith(catalogUri.scheme!!)) {
                     song.source = baseUri + song.source
                 }
-                if (!song.image.startsWith(catalogUri.scheme)) {
+                if (!song.image.startsWith(catalogUri.scheme!!)) {
                     song.image = baseUri + song.image
                 }
 
                 // Block on downloading artwork.
-                val art = picasso
-                        .load(song.image)
-                        .error(R.drawable.default_art)
-                        .resize(NOTIFICATION_LARGE_ICON_SIZE, NOTIFICATION_LARGE_ICON_SIZE)
-                        .get()
+                val art = runBlocking { Coil.get(song.image) }.toBitmap()
 
                 MediaMetadataCompat.Builder()
                         .from(song)
