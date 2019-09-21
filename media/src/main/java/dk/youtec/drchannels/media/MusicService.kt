@@ -150,6 +150,7 @@ class MusicService : androidx.media.MediaBrowserServiceCompat() {
                     exoPlayer,
                     dataSourceFactory)
 
+            it.setPlaybackPreparer(playbackPreparer)
             it.setPlayer(exoPlayer)
             it.setQueueNavigator(UampQueueNavigator(mediaSession))
         }
@@ -214,7 +215,7 @@ class MusicService : androidx.media.MediaBrowserServiceCompat() {
      */
     override fun onLoadChildren(
             parentMediaId: String,
-            result: androidx.media.MediaBrowserServiceCompat.Result<List<MediaItem>>) {
+            result: Result<List<MediaItem>>) {
 
         // If the media source is ready, the results will be set synchronously here.
         val resultsSent = mediaSource.whenReady { successfullyInitialized ->
