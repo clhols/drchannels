@@ -6,6 +6,12 @@ The input service adds EPG channel data to Live Channels and allows for live pla
 
 Also mobile apps for iOS and Android.
 
+Android:
+https://www.dropbox.com/s/tw9gpldrwicd3kj/drchannels.apk?dl=1
+
+Android TV:
+https://www.dropbox.com/s/a4oc5xmtl5naea7/drchannels-tv-release.apk?dl=1
+
 The DR MU-online API version 1.4 is implemented in its own "drapi" module as a Kotlin multiplatform library so that it can easily be used in other Android and iOS projects.
 
 Create local.properties and set Android SDK dir in it:
