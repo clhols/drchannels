@@ -16,7 +16,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
     private val api = DrMuRepository()
 
-    private val playbackUriChannel = BroadcastChannel<String>(1)
+    private val playbackChannel = BroadcastChannel<VideoItem>(1)
     private val errorChannel = BroadcastChannel<String>(1)
 
     override val channels: Flow<List<MuNowNext>> = flow {
@@ -26,7 +26,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
             delay(30000)
         }
     }.flowOn(MainDispatcher)
-    override val playbackUri = playbackUriChannel.asFlow()
+    override val playback = playbackChannel.asFlow()
     override val error = errorChannel.asFlow()
 
     @Suppress("unused")
@@ -41,19 +41,25 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
     override fun playTvChannel(muNowNext: MuNowNext) {
         launch {
             try {
-                val name = muNowNext.channelSlug
+                val title = muNowNext.now?.title ?: muNowNext.channelSlug.toUpperCase()
                 //Change to Dispatchers.IO when available
                 val server = withContext(Dispatchers.Default) {
                     api.getAllActiveDrTvChannels()
                 }
-                        .first { it.slug == name }
-                        .server() ?: throw Exception("Unable to get streaming server")
+                        .firstOrNull { it.slug == muNowNext.channelSlug }
+                        ?.server() ?: throw Exception("Unable to get streaming server")
 
                 val stream = server
                         .qualities.maxBy { it.kbps }!!
                         .streams.first().stream
 
-                playbackUriChannel.offer("${server.server}/$stream")
+                playbackChannel.offer(
+                        VideoItem(
+                                title,
+                                "${server.server}/$stream",
+                                muNowNext.now?.programCard?.primaryImageUri
+                        )
+                )
             } catch (e: Exception) {
                 errorChannel.offer(if (e.message != null && e.message != "Success") {
                     e.message!!
@@ -76,7 +82,13 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
                     val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
                     if (playbackUri.isNotBlank()) {
-                        this@TvChannelsViewModelImpl.playbackUriChannel.offer(playbackUri)
+                        this@TvChannelsViewModelImpl.playbackChannel.offer(
+                                VideoItem(
+                                        muNowNext.now?.title?.toUpperCase() ?: "",
+                                        playbackUri,
+                                        muNowNext.now?.programCard?.primaryImageUri
+                                )
+                        )
                     } else {
                         errorChannel.offer("No stream")
                     }
@@ -92,7 +104,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
     }
 
     override fun onCleared() {
-        playbackUriChannel.cancel()
+        playbackChannel.cancel()
         errorChannel.cancel()
         job.cancel()
     }

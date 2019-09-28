@@ -20,6 +20,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
@@ -44,6 +47,12 @@ import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.MediaQueueItem;
 import com.google.android.gms.cast.framework.CastContext;
 import java.util.ArrayList;
+
+import coil.Coil;
+import coil.ImageLoader;
+import coil.api.ImageLoaders;
+import coil.request.LoadRequest;
+import dk.youtec.drchannels.R;
 
 /**
  * Manages players and an internal media queue for the ExoPlayer/Cast demo app.
@@ -70,9 +79,10 @@ import java.util.ArrayList;
 
     private final PlayerView localPlayerView;
     private final PlayerControlView castControlView;
+    private final View castInfoView;
     private final SimpleExoPlayer exoPlayer;
     private final CastPlayer castPlayer;
-    private final ArrayList<String> mediaQueue;
+    private final ArrayList<MediaQueueItem> mediaQueue;
     private final QueuePositionListener queuePositionListener;
 
     private DynamicConcatenatingMediaSource dynamicConcatenatingMediaSource;
@@ -92,12 +102,13 @@ import java.util.ArrayList;
             QueuePositionListener queuePositionListener,
             PlayerView localPlayerView,
             PlayerControlView castControlView,
+            View castInfoView,
             Context context,
             CastContext castContext,
             TrackSelector trackSelector) {
         PlayerManager playerManager =
                 new PlayerManager(
-                        queuePositionListener, localPlayerView, castControlView, context, castContext, trackSelector);
+                        queuePositionListener, localPlayerView, castControlView, castInfoView, context, castContext, trackSelector);
         playerManager.init();
         return playerManager;
     }
@@ -106,12 +117,14 @@ import java.util.ArrayList;
             QueuePositionListener queuePositionListener,
             PlayerView localPlayerView,
             PlayerControlView castControlView,
+            View castInfoView,
             Context context,
             CastContext castContext,
             TrackSelector trackSelector) {
         this.queuePositionListener = queuePositionListener;
         this.localPlayerView = localPlayerView;
         this.castControlView = castControlView;
+        this.castInfoView = castInfoView;
         mediaQueue = new ArrayList<>();
         currentItemIndex = C.INDEX_UNSET;
 
@@ -148,12 +161,13 @@ import java.util.ArrayList;
      *
      * @param url The url to append.
      */
-    public void addItem(String url) {
-        mediaQueue.add(url);
+    public void addItem(String title, String url, String imageUrl) {
+        MediaQueueItem item = buildMediaQueueItem(title, url, imageUrl);
+        mediaQueue.add(item);
         if (currentPlayer == exoPlayer) {
             dynamicConcatenatingMediaSource.addMediaSource(buildMediaSource(url));
         } else {
-            castPlayer.addItems(buildMediaQueueItem(url));
+            castPlayer.addItems(item);
         }
     }
 
@@ -170,7 +184,7 @@ import java.util.ArrayList;
      * @param position The index of the item.
      * @return The item at the given index in the media queue.
      */
-    public String getItem(int position) {
+    public MediaQueueItem getItem(int position) {
         return mediaQueue.get(position);
     }
 
@@ -347,7 +361,7 @@ import java.util.ArrayList;
         if (currentPlayer == exoPlayer) {
             dynamicConcatenatingMediaSource = new DynamicConcatenatingMediaSource();
             for (int i = 0; i < mediaQueue.size(); i++) {
-                dynamicConcatenatingMediaSource.addMediaSource(buildMediaSource(mediaQueue.get(i)));
+                dynamicConcatenatingMediaSource.addMediaSource(buildMediaSource(mediaQueue.get(i).getMedia().getContentId()));
             }
             exoPlayer.prepare(dynamicConcatenatingMediaSource);
         }
@@ -370,14 +384,36 @@ import java.util.ArrayList;
         if (castMediaQueueCreationPending) {
             MediaQueueItem[] items = new MediaQueueItem[mediaQueue.size()];
             for (int i = 0; i < items.length; i++) {
-                items[i] = buildMediaQueueItem(mediaQueue.get(i));
+                items[i] = mediaQueue.get(i);
             }
             castMediaQueueCreationPending = false;
             castPlayer.loadItems(items, itemIndex, positionMs, Player.REPEAT_MODE_OFF);
+
+            loadCastInfoView(items[itemIndex]);
         } else {
             currentPlayer.seekTo(itemIndex, positionMs);
             currentPlayer.setPlayWhenReady(playWhenReady);
+            castInfoView.setVisibility(View.GONE);
         }
+    }
+
+    private void loadCastInfoView(MediaQueueItem item) {
+        castInfoView.setVisibility(View.VISIBLE);
+        TextView castInfoTitle = castInfoView.findViewById(R.id.cast_info_title);
+        ImageView castInfoImage = castInfoView.findViewById(R.id.cast_info_image);
+        MediaInfo media = item.getMedia();
+        String title = media.getMetadata().getString(MediaMetadata.KEY_TITLE);
+        String imageUrl = media.getMetadata().getString("image_url");
+
+        castInfoTitle.setText(title);
+
+        ImageLoader imageLoader = Coil.loader();
+        LoadRequest request = ImageLoaders.newLoadBuilder(imageLoader, castInfoImage.getContext())
+                .data(imageUrl)
+                .crossfade(true)
+                .target(castInfoImage)
+                .build();
+        imageLoader.load(request);
     }
 
     private void maybeSetCurrentItemAndNotify(int currentItemIndex) {
@@ -393,12 +429,15 @@ import java.util.ArrayList;
         return new HlsMediaSource.Factory(DATA_SOURCE_FACTORY).createMediaSource(uri);
     }
 
-    private static MediaQueueItem buildMediaQueueItem(String url) {
+    private static MediaQueueItem buildMediaQueueItem(String title, String url, String imageUrl) {
         MediaMetadata movieMetadata = new MediaMetadata(MediaMetadata.MEDIA_TYPE_MOVIE);
-        movieMetadata.putString(MediaMetadata.KEY_TITLE, "");
+        movieMetadata.putString(MediaMetadata.KEY_TITLE, title);
+        movieMetadata.putString("image_url", imageUrl);
         MediaInfo mediaInfo = new MediaInfo.Builder(url)
-                .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED).setContentType(MimeTypes.APPLICATION_M3U8)
-                .setMetadata(movieMetadata).build();
+                .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)
+                .setContentType(MimeTypes.APPLICATION_M3U8)
+                .setMetadata(movieMetadata)
+                .build();
         return new MediaQueueItem.Builder(mediaInfo).build();
     }
 

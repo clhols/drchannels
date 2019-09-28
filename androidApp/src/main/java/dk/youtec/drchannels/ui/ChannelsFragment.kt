@@ -51,12 +51,14 @@ class ChannelsFragment : Fragment() {
         progressBar.isVisible = true
 
         lifecycleScope.launch {
-            viewModel.playbackUri.collect { uri ->
-                Log.d(TAG, "Playback uri")
+            viewModel.playback.collect { videoItem ->
+                Log.d(TAG, "Playback video item")
                 startActivity(Intent(activity, PlayerActivity::class.java).apply {
                     action = PlayerActivity.ACTION_VIEW
                     putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
-                    data = uri.toUri()
+                    putExtra(PlayerActivity.TITLE_EXTRA, videoItem.title)
+                    putExtra(PlayerActivity.IMAGE_EXTRA, videoItem.imageUrl)
+                    data = videoItem.videoUrl.toUri()
                 })
             }
         }

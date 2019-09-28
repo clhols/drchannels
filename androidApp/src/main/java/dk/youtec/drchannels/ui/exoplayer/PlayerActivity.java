@@ -105,6 +105,8 @@ public class PlayerActivity extends AppCompatActivity
 
     public static final String ACTION_VIEW = "com.google.android.exoplayer.demo.action.VIEW";
     public static final String EXTENSION_EXTRA = "extension";
+    public static final String TITLE_EXTRA = "title";
+    public static final String IMAGE_EXTRA = "image_url";
 
     public static final String ACTION_VIEW_LIST =
             "com.google.android.exoplayer.demo.action.VIEW_LIST";
@@ -167,6 +169,7 @@ public class PlayerActivity extends AppCompatActivity
     private PlayerControlView playerControlView;
     private PlayerManager playerManager;
     private MediaRouteButton mediaRouteButton;
+    private View castInfoView;
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -248,7 +251,8 @@ public class PlayerActivity extends AppCompatActivity
         if (!isTv(this)) {
             castContext = CastContext.getSharedInstance(this);
         }
-        playerControlView = findViewById(R.id.cast_control_view);
+        playerControlView = findViewById(R.id.player_control_view);
+        castInfoView = findViewById(R.id.cast_info_view);
 
         playerView = findViewById(R.id.player_view);
         playerView.setControllerVisibilityListener(this);
@@ -427,10 +431,14 @@ public class PlayerActivity extends AppCompatActivity
             Intent intent = getIntent();
             String action = intent.getAction();
             Uri[] uris;
+            String title = "";
+            String imageUrl = "";
             String[] extensions;
             if (ACTION_VIEW.equals(action)) {
                 uris = new Uri[]{intent.getData()};
                 extensions = new String[]{intent.getStringExtra(EXTENSION_EXTRA)};
+                title = intent.getStringExtra(TITLE_EXTRA);
+                imageUrl = intent.getStringExtra(IMAGE_EXTRA);
             } else if (ACTION_VIEW_LIST.equals(action)) {
                 String[] uriStrings = intent.getStringArrayExtra(URI_LIST_EXTRA);
                 uris = new Uri[uriStrings.length];
@@ -536,6 +544,7 @@ public class PlayerActivity extends AppCompatActivity
                                 },
                                 playerView,
                                 playerControlView,
+                                castInfoView,
                                 /* context= */ this,
                                 castContext,
                                 trackSelector);
@@ -565,7 +574,7 @@ public class PlayerActivity extends AppCompatActivity
             }
 
             if (playerManager != null) {
-                playerManager.addItem(uris[0].toString());
+                playerManager.addItem(title, uris[0].toString(), imageUrl);
             }
         }
 

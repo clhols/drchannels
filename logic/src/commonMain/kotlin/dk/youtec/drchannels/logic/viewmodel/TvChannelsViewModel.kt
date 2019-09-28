@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface TvChannelsViewModel {
     val channels: Flow<List<MuNowNext>>
-    val playbackUri: Flow<String>
+    val playback: Flow<VideoItem>
     val error: Flow<String>
 
     fun playTvChannel(muNowNext: MuNowNext)
