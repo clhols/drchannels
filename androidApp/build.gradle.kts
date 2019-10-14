@@ -79,16 +79,7 @@ android {
     }
 
     packagingOptions {
-        exclude("META-INF/ktor-http.kotlin_module")
-        exclude("META-INF/kotlinx-serialization-runtime.kotlin_module")
-        exclude("META-INF/kotlinx-io.kotlin_module")
-        exclude("META-INF/atomicfu.kotlin_module")
-        exclude("META-INF/ktor-utils.kotlin_module")
-        exclude("META-INF/kotlinx-coroutines-io.kotlin_module")
-        exclude("META-INF/ktor-client-core.kotlin_module")
-        exclude("META-INF/kotlinx-coroutines-core.kotlin_module")
-        exclude("META-INF/ktor-http-cio.kotlin_module")
-        exclude("META-INF/ktor-io.kotlin_module")
+        exclude("META-INF/*.kotlin_module")
     }
 
     testOptions {
