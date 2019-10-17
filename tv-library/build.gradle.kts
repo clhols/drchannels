@@ -21,6 +21,6 @@ android {
 
 dependencies {
     implementation("androidx.annotation:annotation:1.1.0")
-    implementation("androidx.fragment:fragment-ktx:1.2.0-beta01")
+    implementation("androidx.fragment:fragment-ktx:1.2.0-beta02")
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:$androidxVersion")
 }
