@@ -9,12 +9,6 @@ import dk.youtec.drchannels.R
 
 open class MainActivity : AppCompatActivity() {
 
-    companion object {
-        init {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
