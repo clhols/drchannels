@@ -56,7 +56,10 @@ kotlin {
             }
         }
     }
-    js()
+    js {
+        browser
+        nodejs
+    }
 
     sourceSets {
         all {
@@ -116,8 +119,14 @@ kotlin {
 
         named("jsMain") {
             dependencies {
+                implementation(kotlin("stdlib-js"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serializationVersion")
                 implementation("io.ktor:ktor-client-js:$ktorVersion")
+            }
+        }
+        named("jsTest") {
+            dependencies {
+                implementation(kotlin("test-js"))
             }
         }
     }
