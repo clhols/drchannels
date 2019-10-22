@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.api.loadAny
+import coil.transform.RoundedCornersTransformation
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.view.AspectImageView
@@ -84,7 +85,9 @@ class TvChannelsAdapter(
         holder.image.apply {
             if (now.programCard.primaryImageUri.isNotEmpty() && showDetails) {
                 visibility = View.VISIBLE
-                loadAny(now.programCard)
+                loadAny(now.programCard) {
+                    transformations(RoundedCornersTransformation(40f))
+                }
             } else {
                 visibility = View.GONE
                 load("")

@@ -14,6 +14,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.api.loadAny
+import coil.transform.RoundedCornersTransformation
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
@@ -82,7 +83,9 @@ class ProgramAdapter(
         holder.image.apply {
             if (program.programCard.primaryImageUri.isNotEmpty()) {
                 isVisible = true
-                loadAny(program.programCard)
+                loadAny(program.programCard) {
+                    transformations(RoundedCornersTransformation(40f))
+                }
             } else {
                 isVisible = false
                 load("")
