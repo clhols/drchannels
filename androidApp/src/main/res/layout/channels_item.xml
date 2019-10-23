@@ -136,7 +136,7 @@
             android:textColor="@color/nextText"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_conversion_absoluteHeight="37dp"
             tools:layout_conversion_absoluteWidth="188dp" />
