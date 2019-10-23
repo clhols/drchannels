@@ -52,6 +52,7 @@ import coil.Coil;
 import coil.ImageLoader;
 import coil.api.ImageLoaders;
 import coil.request.LoadRequest;
+import coil.transform.RoundedCornersTransformation;
 import dk.youtec.drchannels.R;
 
 /**
@@ -412,6 +413,7 @@ import dk.youtec.drchannels.R;
                 .data(imageUrl)
                 .crossfade(true)
                 .target(castInfoImage)
+                .transformations(new RoundedCornersTransformation(40f))
                 .build();
         imageLoader.load(request);
     }
