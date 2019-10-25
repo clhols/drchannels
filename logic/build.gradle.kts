@@ -35,7 +35,7 @@ kotlin {
             framework {
                 baseName = "DrLogic"
                 isStatic = true
-                freeCompilerArgs.add("-Xobjc-generics")
+                freeCompilerArgs = mutableListOf("-Xobjc-generics")
                 export(project(":drapi"))
             }
         }

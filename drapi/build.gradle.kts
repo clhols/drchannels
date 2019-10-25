@@ -52,7 +52,7 @@ kotlin {
             framework {
                 baseName = "DrApi"
                 isStatic = true
-                freeCompilerArgs.add("-Xobjc-generics")
+                freeCompilerArgs = mutableListOf("-Xobjc-generics")
             }
         }
     }
