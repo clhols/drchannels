@@ -7,6 +7,7 @@ plugins {
     kotlin("kapt")
     id("kotlin-android-extensions")
     id("io.fabric")
+    id("com.google.firebase.firebase-perf")
     id("com.github.triplet.play") version "2.3.0"
     id("org.sonarqube") version "2.7.1"
     id("dk.youtec.appupdater")
