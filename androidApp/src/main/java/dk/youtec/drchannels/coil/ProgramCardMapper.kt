@@ -6,5 +6,5 @@ import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 
 class ProgramCardMapper : Mapper<ProgramCard, HttpUrl> {
-    override fun map(programCard: ProgramCard): HttpUrl = programCard.primaryImageUri.toHttpUrl()
+    override fun map(data: ProgramCard): HttpUrl = data.primaryImageUri.toHttpUrl()
 }
