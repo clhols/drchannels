@@ -1,3 +1,4 @@
+import com.google.firebase.perf.plugin.FirebasePerfExtension
 import groovy.lang.Closure
 import java.util.*
 
@@ -42,13 +43,14 @@ android {
         }
 
         buildTypes {
-            getByName("debug") {
+            getByName("debug") { this as ExtensionAware
+                applicationIdSuffix = ".debug"
                 manifestPlaceholders = mapOf(
                         "enableCrashReporting" to false,
                         "enablePerformanceMonitoring" to false
                 )
-                (this as ExtensionAware).extra["alwaysUpdateBuildId"] = false
-                applicationIdSuffix = ".debug"
+                extra["alwaysUpdateBuildId"] = false
+                (extensions["FirebasePerformance"] as FirebasePerfExtension).setInstrumentationEnabled(false)
             }
             getByName("release") {
                 isMinifyEnabled = true
