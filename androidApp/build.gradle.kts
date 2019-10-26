@@ -42,7 +42,10 @@ android {
 
         buildTypes {
             getByName("debug") {
-                manifestPlaceholders = mapOf("enableCrashReporting" to false)
+                manifestPlaceholders = mapOf(
+                        "enableCrashReporting" to false,
+                        "enablePerformanceMonitoring" to false
+                )
                 (this as ExtensionAware).extra["alwaysUpdateBuildId"] = false
                 applicationIdSuffix = ".debug"
             }
@@ -50,10 +53,16 @@ android {
                 isMinifyEnabled = true
                 isShrinkResources = true
                 isDebuggable = false
-                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+                proguardFiles(
+                        getDefaultProguardFile("proguard-android-optimize.txt"),
+                        "proguard-rules.pro"
+                )
 
                 signingConfig = signingConfigs["release"]
-                manifestPlaceholders = mapOf("enableCrashReporting" to true)
+                manifestPlaceholders = mapOf(
+                        "enableCrashReporting" to true,
+                        "enablePerformanceMonitoring" to true
+                )
             }
         }
 
@@ -129,6 +138,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:$archComponentVersion")
     implementation(platform("com.google.firebase:firebase-bom:20.1.0"))
     implementation("com.google.firebase:firebase-core")
+    implementation("com.google.firebase:firebase-perf")
     implementation("com.crashlytics.sdk.android:crashlytics")
     implementation("org.koin:koin-android:2.0.1")
 
