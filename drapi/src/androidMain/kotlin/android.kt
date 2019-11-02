@@ -7,8 +7,10 @@ import okhttp3.Cache
 import java.util.concurrent.TimeUnit
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.File
+import kotlin.time.ExperimentalTime
 
 actual object HttpClientFactory {
+    @UseExperimental(ExperimentalTime::class)
     actual fun create(cacheDir: String?, sizeBytes: Long) = HttpClient(OkHttp) {
         engine {
             // https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.Builder.html
@@ -24,7 +26,7 @@ actual object HttpClientFactory {
                     Log.v("http", message)
                 }
             }).apply { level = HttpLoggingInterceptor.Level.BASIC })
-            //addNetworkInterceptor(interceptor)
+            addInterceptor(StaleIfErrorInterceptor())
         }
     }
 }
