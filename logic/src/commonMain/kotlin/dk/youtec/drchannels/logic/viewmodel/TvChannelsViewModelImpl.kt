@@ -25,7 +25,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                 emit(api.getScheduleNowNext().filter { it.now != null })
                 delay(30000)
             } catch (e: CancellationException) {
-                //Ok
+                return@flow
             } catch (e: Exception) {
                 emit(emptyList())
                 errorChannel.send(e.message ?: "Unknown error")
