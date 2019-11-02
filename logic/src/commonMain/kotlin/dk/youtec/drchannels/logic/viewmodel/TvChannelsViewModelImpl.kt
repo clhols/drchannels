@@ -21,9 +21,14 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
     override val channels: Flow<List<MuNowNext>> = flow {
         while (true) {
-            emit(api.getScheduleNowNext().filter { it.now != null })
-
-            delay(30000)
+            try {
+                emit(api.getScheduleNowNext().filter { it.now != null })
+                delay(30000)
+            } catch (e: Exception) {
+                emit(emptyList())
+                errorChannel.send(e.message ?: "Unknown error")
+                delay(5000)
+            }
         }
     }.flowOn(MainDispatcher)
     override val playback = playbackChannel.asFlow()
