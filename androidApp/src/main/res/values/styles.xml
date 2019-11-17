@@ -32,6 +32,7 @@
 
     <style name="Theme.Dr.Player" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="ThemeOverlay.Dr.TrackSelection" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">

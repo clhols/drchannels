@@ -85,6 +85,7 @@ import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.mediarouter.app.MediaRouteButton;
 import androidx.mediarouter.media.MediaRouteSelector;
 
@@ -243,6 +244,17 @@ public class PlayerActivity extends AppCompatActivity
         }
 
         setContentView(R.layout.player_activity);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root), (v, insets) -> {
+            v.setPadding(
+                    v.getPaddingLeft(),
+                    v.getPaddingTop(),
+                    v.getPaddingRight(),
+                    insets.getSystemWindowInsetBottom()
+            );
+            return insets;
+        });
+
         debugRootView = findViewById(R.id.controls_root);
         debugTextView = findViewById(R.id.debug_text_view);
         selectTracksButton = findViewById(R.id.select_tracks_button);
@@ -418,9 +430,12 @@ public class PlayerActivity extends AppCompatActivity
 
         //Hide the statusbar together with controls
         getWindow().getDecorView().setSystemUiVisibility(
-                visibility == View.VISIBLE ?
-                        View.SYSTEM_UI_FLAG_VISIBLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN :
-                        View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                        (visibility == View.VISIBLE ?
+                                View.SYSTEM_UI_FLAG_VISIBLE :
+                                View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
         );
     }
 
