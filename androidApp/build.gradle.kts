@@ -125,9 +125,9 @@ dependencies {
 
     implementation("io.coil-kt:coil:0.8.0")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
-    implementation("com.google.android.material:material:1.1.0-beta01")
+    implementation("com.google.android.material:material:1.1.0-beta02")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03")
-    implementation("androidx.recyclerview:recyclerview:1.1.0-rc01")
+    implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
     implementation("androidx.appcompat:appcompat:$appcompatVersion")
     implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta3")
