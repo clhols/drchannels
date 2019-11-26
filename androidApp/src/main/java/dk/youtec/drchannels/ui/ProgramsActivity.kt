@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dk.youtec.drapi.DrMuRepository
+import dk.youtec.drapi.Logger
 import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.ui.adapter.ProgramAdapter
@@ -52,7 +53,8 @@ class ProgramsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
 
-        val channelId = intent.extras?.getString(CHANNEL_ID) ?: intent.data?.pathSegments?.lastOrNull() ?: ""
+        val channelId = intent.extras?.getString(CHANNEL_ID)
+                ?: intent.data?.pathSegments?.lastOrNull() ?: ""
 
         loadPrograms(channelId)
     }
@@ -64,33 +66,35 @@ class ProgramsActivity : AppCompatActivity() {
     private fun loadPrograms(id: String) {
         progressBar.isVisible = true
 
-        try {
-            lifecycleScope.launch {
-                val tomorrowDeferred    = async(Dispatchers.IO) { getSchedule(id, 1) }
-                val todayDeferred       = async(Dispatchers.IO) { getSchedule(id, 0) }
-                val yesterdayDeferred   = async(Dispatchers.IO) { getSchedule(id, -1) }
-                val twoDaysAgoDeferred  = async(Dispatchers.IO) { getSchedule(id, -2) }
+        lifecycleScope.launch {
+            try {
+                coroutineScope {
+                    val tomorrowDeferred = async(Dispatchers.IO) { getSchedule(id, 1) }
+                    val todayDeferred = async(Dispatchers.IO) { getSchedule(id, 0) }
+                    val yesterdayDeferred = async(Dispatchers.IO) { getSchedule(id, -1) }
+                    val twoDaysAgoDeferred = async(Dispatchers.IO) { getSchedule(id, -2) }
 
-                val tomorrow = tomorrowDeferred.await()
-                val today = todayDeferred.await()
-                val yesterday = yesterdayDeferred.await()
-                val twoDaysAgo = twoDaysAgoDeferred.await()
+                    val tomorrow = tomorrowDeferred.await()
+                    val today = todayDeferred.await()
+                    val yesterday = yesterdayDeferred.await()
+                    val twoDaysAgo = twoDaysAgoDeferred.await()
 
-                val allBroadcasts = twoDaysAgo.broadcasts +
-                        yesterday.broadcasts +
-                        today.broadcasts +
-                        tomorrow.broadcasts
+                    val allBroadcasts = twoDaysAgo.broadcasts +
+                            yesterday.broadcasts +
+                            today.broadcasts +
+                            tomorrow.broadcasts
 
-                onScheduleLoaded(
-                        Schedule(
-                                allBroadcasts,
-                                today.broadcastDate,
-                                today.channelSlug,
-                                today.channel
-                        ))
+                    onScheduleLoaded(
+                            Schedule(
+                                    allBroadcasts,
+                                    today.broadcastDate,
+                                    today.channelSlug,
+                                    today.channel
+                            ))
+                }
+            } catch (e: Exception) {
+                onScheduleError(e)
             }
-        } catch (e: Exception) {
-            onScheduleError(e)
         }
     }
 
@@ -98,10 +102,15 @@ class ProgramsActivity : AppCompatActivity() {
      * Gets the schedule of [channelId] with [daysOffset] relative to the current date.
      */
     private suspend fun getSchedule(channelId: String, daysOffset: Int): Schedule {
-        return api.getSchedule(channelId,
-                serverCalendar {
-                    set(SECOND, 0); set(MINUTE, 0); add(DATE, daysOffset)
-                }.time.format())
+        return try {
+            api.getSchedule(channelId,
+                    serverCalendar {
+                        set(SECOND, 0); set(MINUTE, 0); add(DATE, daysOffset)
+                    }.time.format())
+        } catch (e: Exception) {
+            Logger.e(e, e.message ?: "")
+            Schedule(emptyList(), 0, "", "")
+        }
     }
 
     private fun onScheduleLoaded(schedule: Schedule) {
@@ -126,6 +135,7 @@ class ProgramsActivity : AppCompatActivity() {
     private fun onScheduleError(e: Throwable) {
         toast(if (e.message != null && e.message != "Success") e.message!!
         else getString(R.string.cantChangeChannel))
+        finish()
     }
 
     override fun onBackPressed() {
