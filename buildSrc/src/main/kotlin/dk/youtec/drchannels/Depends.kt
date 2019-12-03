@@ -11,7 +11,7 @@ const val okhttpVersion = "4.2.2"
 const val exoPlayerVersion = "2.10.5"
 
 //Kotlin dependent versions
-const val kotlinVersion = "1.3.60"
+const val kotlinVersion = "1.3.61"
 const val coroutinesVersion = "1.3.2-1.3.60"
 const val serializationVersion = "0.14.0"
 const val klockVersion = "1.8.0"
