@@ -63,21 +63,29 @@ class ProgramsActivity : AppCompatActivity() {
         return serverDateFormat("yyyy-MM-dd HH:mm:ss").format(this)
     }
 
+    private suspend fun <T> Deferred<T>.awaitOrNull() : T? {
+        return try {
+            await()
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     private fun loadPrograms(id: String) {
         progressBar.isVisible = true
 
         lifecycleScope.launch {
             try {
-                coroutineScope {
-                    val tomorrowDeferred = async(Dispatchers.IO) { getSchedule(id, 1) }
-                    val todayDeferred = async(Dispatchers.IO) { getSchedule(id, 0) }
-                    val yesterdayDeferred = async(Dispatchers.IO) { getSchedule(id, -1) }
-                    val twoDaysAgoDeferred = async(Dispatchers.IO) { getSchedule(id, -2) }
+                supervisorScope {
+                    val tomorrowDeferred = async { getSchedule(id, 1) }
+                    val todayDeferred = async { getSchedule(id, 0) }
+                    val yesterdayDeferred = async { getSchedule(id, -1) }
+                    val twoDaysAgoDeferred = async { getSchedule(id, -2) }
 
-                    val tomorrow = tomorrowDeferred.await()
-                    val today = todayDeferred.await()
-                    val yesterday = yesterdayDeferred.await()
-                    val twoDaysAgo = twoDaysAgoDeferred.await()
+                    val tomorrow = tomorrowDeferred.awaitOrNull() ?: emptySchedule()
+                    val today = todayDeferred.awaitOrNull() ?: emptySchedule()
+                    val yesterday = yesterdayDeferred.awaitOrNull() ?: emptySchedule()
+                    val twoDaysAgo = twoDaysAgoDeferred.awaitOrNull() ?: emptySchedule()
 
                     val allBroadcasts = twoDaysAgo.broadcasts +
                             yesterday.broadcasts +
@@ -101,7 +109,10 @@ class ProgramsActivity : AppCompatActivity() {
     /**
      * Gets the schedule of [channelId] with [daysOffset] relative to the current date.
      */
-    private suspend fun getSchedule(channelId: String, daysOffset: Int): Schedule {
+    private suspend fun getSchedule(
+            channelId: String,
+            daysOffset: Int
+    ): Schedule {
         return try {
             api.getSchedule(channelId,
                     serverCalendar {
@@ -109,9 +120,11 @@ class ProgramsActivity : AppCompatActivity() {
                     }.time.format())
         } catch (e: Exception) {
             Logger.e(e, e.message ?: "")
-            Schedule(emptyList(), 0, "", "")
+            emptySchedule()
         }
     }
+
+    private fun emptySchedule() = Schedule(emptyList(), 0, "", "")
 
     private fun onScheduleLoaded(schedule: Schedule) {
         progressBar.isVisible = false
