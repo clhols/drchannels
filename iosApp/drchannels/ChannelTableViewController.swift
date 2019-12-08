@@ -13,17 +13,21 @@ import DrLogic
 
 class ChannelTableViewController: UITableViewController {
 
+    var job: Cancelable?
     var channels = [MuNowNext]()
     let repo = DrMuRepositoryCallback()
     let viewModel = TvChannelsViewModelImpl()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        viewModel.observeChannels { (schedules: [MuNowNext]) in
+    override func viewWillAppear(_ animated: Bool) {
+        job = viewModel.observeChannels { (schedules: [MuNowNext]) in
             print("Got channels result, size=\(schedules.count)")
             self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in nowNext.now != nil })
             self.tableView.reloadData()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        job?.cancel()
     }
     
     //MARK: Private Methods

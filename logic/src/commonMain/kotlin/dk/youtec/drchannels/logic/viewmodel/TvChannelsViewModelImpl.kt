@@ -37,10 +37,15 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
     override val error = errorChannel.asFlow()
 
     @Suppress("unused")
-    fun observeChannels(callback: (List<MuNowNext>) -> Unit) {
-        launch {
+    fun observeChannels(callback: (List<MuNowNext>) -> Unit) : Cancelable {
+        val job = launch {
             channels.collect { channels ->
                 callback(channels)
+            }
+        }
+        return object : Cancelable {
+            override fun cancel() {
+                job.cancel()
             }
         }
     }
