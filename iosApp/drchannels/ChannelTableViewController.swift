@@ -16,10 +16,12 @@ class ChannelTableViewController: UITableViewController {
     var job: Cancelable?
     var channels = [MuNowNext]()
     let repo = DrMuRepositoryCallback()
-    let viewModel = TvChannelsViewModelImpl()
+    var viewModel : TvChannelsViewModelImpl?
     
     override func viewWillAppear(_ animated: Bool) {
-        job = viewModel.observeChannels { (schedules: [MuNowNext]) in
+        super.viewWillAppear(animated)
+        viewModel = TvChannelsViewModelImpl()
+        job = viewModel?.observeChannels { (schedules: [MuNowNext]) in
             print("Got channels result, size=\(schedules.count)")
             self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in nowNext.now != nil })
             self.tableView.reloadData()
@@ -28,6 +30,8 @@ class ChannelTableViewController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         job?.cancel()
+        viewModel?.onCleared()
+        super.viewWillDisappear(animated)
     }
     
     //MARK: Private Methods
