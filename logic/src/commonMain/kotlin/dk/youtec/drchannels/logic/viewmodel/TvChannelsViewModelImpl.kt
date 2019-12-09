@@ -8,7 +8,6 @@ import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.CoroutineContext
 
-@ExperimentalCoroutinesApi
 open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
     private val job = SupervisorJob()

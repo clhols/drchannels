@@ -67,7 +67,9 @@ kotlin {
                 languageVersion = "1.3"
                 apiVersion = "1.3"
                 enableLanguageFeature("InlineClasses")
-                useExperimentalAnnotation("kotlin.ExperimentalUnsignedTypes")
+                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                useExperimentalAnnotation("kotlinx.serialization.UnstableDefault")
+                useExperimentalAnnotation("kotlin.Experimental")
                 progressiveMode = true
             }
         }
