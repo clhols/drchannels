@@ -70,7 +70,7 @@ kotlin {
                 progressiveMode = true
             }
         }
-        commonMain {
+        val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
@@ -78,7 +78,7 @@ kotlin {
                 implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
             }
         }
-        commonTest {
+        val commonTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test-common")
                 implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
@@ -105,12 +105,15 @@ kotlin {
         }
 
         create("iosMain") {
+            dependsOn(commonMain)
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
             }
         }
+
         create("iosTest") {
+            dependsOn(commonTest)
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
             }
@@ -135,6 +138,14 @@ kotlin {
 
         configure(listOf(iosX64Main, iosArm32Main, iosArm64Main)) {
             dependsOn(getByName("iosMain"))
+        }
+
+        val iosArm32Test by getting
+        val iosArm64Test by getting
+        val iosX64Test by getting
+
+        configure(listOf(iosX64Test, iosArm32Test, iosArm64Test)) {
+            dependsOn(getByName("iosTest"))
         }
     }
 }
