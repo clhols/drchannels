@@ -23,21 +23,24 @@ android {
 
 kotlin {
     android {}
+    val iosArm32 = iosArm32("iosArm32")
+    val iosArm64 = iosArm64("iosArm64")
+    val frameworkName = "DrLogic"
 
     //select iOS target platform depending on the Xcode environment variables
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
+    val iosTarget: (String) -> KotlinNativeTarget =
             if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
                 ::iosArm64
             else
                 ::iosX64
-    iosTarget("ios") {
-        binaries {
-            framework {
-                baseName = "DrLogic"
-                isStatic = true
-                freeCompilerArgs = mutableListOf("-Xobjc-generics")
-                export(project(":drapi"))
-            }
+    val iosXcode = iosTarget("iosXcode")
+
+    configure(listOf(iosXcode, iosArm32, iosArm64)) {
+        binaries.framework {
+            baseName = frameworkName
+            isStatic = true
+            freeCompilerArgs = mutableListOf("-Xobjc-generics")
+            export(project(":drapi"))
         }
     }
 
@@ -79,19 +82,44 @@ kotlin {
             }
         }
 
-        named("iosMain") {
+        create("iosMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
             }
         }
 
-        named("iosTest") {
+        create("iosTest") {
             dependencies {
             }
         }
+
+        val iosArm32Main by getting
+        val iosArm64Main by getting
+        val iosXcodeMain by getting
+
+        configure(listOf(iosXcodeMain, iosArm32Main, iosArm64Main)) {
+            dependsOn(getByName("iosMain"))
+        }
+    }
+
+    tasks.register<org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask>("debugFatFramework") {
+        group = "ios"
+        baseName = frameworkName
+        description = "Builds a universal (fat) debug framework"
+
+        from(iosXcode.binaries.getFramework("DEBUG"))
+    }
+
+    tasks.register<org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask>("releaseFatFramework") {
+        group = "ios"
+        baseName = frameworkName
+        description = "Builds a universal (fat) release framework"
+
+        from(iosArm64.binaries.getFramework("RELEASE"), iosArm32.binaries.getFramework("RELEASE"))
     }
 }
 
+//Called by XCode build script
 val packForXcode by tasks.creating(Sync::class) {
     group = "ios"
     val targetDir = File(buildDir, "xcode-frameworks")
@@ -101,7 +129,7 @@ val packForXcode by tasks.creating(Sync::class) {
     /// variables set by Xcode build
     val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
     val framework = kotlin.targets
-            .getByName<KotlinNativeTarget>("ios")
+            .getByName<KotlinNativeTarget>("iosXcode")
             .binaries.getFramework(mode)
     inputs.property("mode", mode)
     dependsOn(framework.linkTask)
@@ -125,11 +153,11 @@ tasks.getByName("build").dependsOn(packForXcode)
 task("iosTest") {
     group = "ios"
     val device = "iPhone 8"
-    dependsOn("linkDebugTestIos")
+    dependsOn("linkDebugTestIosXcode")
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
-        val target = kotlin.targets.getByName("ios") as KotlinNativeTarget
+        val target = kotlin.targets.getByName("iosXcode") as KotlinNativeTarget
         val binary = target.binaries.getTest("DEBUG").outputFile
         exec {
             commandLine = listOf("xcrun", "simctl", "spawn", device, binary.absolutePath)

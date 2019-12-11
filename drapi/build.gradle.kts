@@ -40,20 +40,17 @@ dependencies {
 
 kotlin {
     android {}
+    val frameworkName = "DrApi"
+    val iosArm32 = iosArm32("iosArm32")
+    val iosArm64 = iosArm64("iosArm64")
+    val iosX64 = iosX64("iosX64")
 
-    //select iOS target platform depending on the Xcode environment variables
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-            if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-                ::iosArm64
-            else
-                ::iosX64
-    iosTarget("ios") {
-        binaries {
-            framework {
-                baseName = "DrApi"
-                isStatic = true
-                freeCompilerArgs = mutableListOf("-Xobjc-generics")
-            }
+    configure(listOf(iosX64, iosArm32, iosArm64)) {
+        binaries.framework {
+            baseName = frameworkName
+            isStatic = true
+            freeCompilerArgs = mutableListOf("-Xobjc-generics")
+            export("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion")
         }
     }
     js {
@@ -107,13 +104,13 @@ kotlin {
             }
         }
 
-        named("iosMain") {
+        create("iosMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
             }
         }
-        named("iosTest") {
+        create("iosTest") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
             }
@@ -131,17 +128,25 @@ kotlin {
                 implementation(kotlin("test-js"))
             }
         }
+
+        val iosArm32Main by getting
+        val iosArm64Main by getting
+        val iosX64Main by getting
+
+        configure(listOf(iosX64Main, iosArm32Main, iosArm64Main)) {
+            dependsOn(getByName("iosMain"))
+        }
     }
 }
 
 task("iosTest") {
     group = "ios"
     val device = "iPhone 8"
-    dependsOn("linkDebugTestIos")
+    dependsOn("linkDebugTestIosX64")
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
-        val target = kotlin.targets.getByName("ios") as KotlinNativeTarget
+        val target = kotlin.targets.getByName("iosX64") as KotlinNativeTarget
         val binary = target.binaries.getTest("DEBUG").outputFile
         exec {
             commandLine = listOf("xcrun", "simctl", "spawn", device, binary.absolutePath)
