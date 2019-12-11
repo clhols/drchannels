@@ -35,6 +35,10 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
     override val playback = playbackChannel.asFlow()
     override val error = errorChannel.asFlow()
 
+    /**
+     * Used by iOS to observe the channels Flow by having this VM collect and call [callback].
+     * @return a Cancelable that can cancel the coroutine launched.
+     */
     @Suppress("unused")
     fun observeChannels(callback: (List<MuNowNext>) -> Unit) : Cancelable {
         val job = launch {
