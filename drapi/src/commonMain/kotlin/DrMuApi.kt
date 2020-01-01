@@ -101,7 +101,7 @@ data class MuNowNext(
         @SerialName("ChannelSlug") val channelSlug: String,
         @SerialName("Channel") val channel: String,
         @SerialName("Now") val now: MuScheduleBroadcast? = null,
-        @SerialName("Next") val next: List<MuScheduleBroadcast>)
+        @SerialName("Next") val next: List<MuScheduleBroadcast> = emptyList())
 
 @Serializable
 data class MuScheduleBroadcast(
