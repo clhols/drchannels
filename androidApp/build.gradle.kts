@@ -123,7 +123,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:$exoPlayerVersion")
     implementation("com.google.android.exoplayer:extension-cast:$exoPlayerVersion")
 
-    implementation("io.coil-kt:coil:0.8.0")
+    implementation("io.coil-kt:coil:0.9.1")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.google.android.material:material:1.1.0-beta02")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03")
@@ -134,7 +134,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.1.0")
     implementation("androidx.core:core-ktx:1.1.0")
     implementation("androidx.activity:activity-ktx:1.1.0-rc03")
-    implementation("androidx.fragment:fragment-ktx:1.2.0-rc04")
+    implementation("androidx.fragment:fragment-ktx:1.2.0-rc05")
     implementation("androidx.work:work-runtime-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$archComponentVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$archComponentVersion")

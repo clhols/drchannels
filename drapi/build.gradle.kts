@@ -26,11 +26,11 @@ dependencies {
     // Specify Kotlin/JVM stdlib dependency.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    testImplementation("junit:junit:4.12")
+    testImplementation("junit:junit:4.13")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    androidTestImplementation("junit:junit:4.12")
+    androidTestImplementation("junit:junit:4.13")
     androidTestImplementation("org.jetbrains.kotlin:kotlin-test")
     androidTestImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 

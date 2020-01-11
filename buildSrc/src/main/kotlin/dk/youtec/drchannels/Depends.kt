@@ -7,7 +7,7 @@ const val buildTools = "29.0.2"
 const val appcompatVersion = "1.1.0"
 const val androidAnnotation = "1.1.0"
 const val archComponentVersion = "2.2.0-beta01"
-const val okhttpVersion = "4.2.2"
+const val okhttpVersion = "4.3.1"
 const val exoPlayerVersion = "2.10.5"
 
 //Kotlin dependent versions
