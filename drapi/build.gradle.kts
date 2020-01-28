@@ -41,11 +41,10 @@ dependencies {
 kotlin {
     android {}
     val frameworkName = "DrApi"
-    val iosArm32 = iosArm32("iosArm32")
     val iosArm64 = iosArm64("iosArm64")
     val iosX64 = iosX64("iosX64")
 
-    configure(listOf(iosX64, iosArm32, iosArm64)) {
+    configure(listOf(iosX64, iosArm64)) {
         binaries.framework {
             baseName = frameworkName
             isStatic = true
@@ -132,19 +131,17 @@ kotlin {
             }
         }
 
-        val iosArm32Main by getting
         val iosArm64Main by getting
         val iosX64Main by getting
 
-        configure(listOf(iosX64Main, iosArm32Main, iosArm64Main)) {
+        configure(listOf(iosX64Main, iosArm64Main)) {
             dependsOn(getByName("iosMain"))
         }
 
-        val iosArm32Test by getting
         val iosArm64Test by getting
         val iosX64Test by getting
 
-        configure(listOf(iosX64Test, iosArm32Test, iosArm64Test)) {
+        configure(listOf(iosX64Test, iosArm64Test)) {
             dependsOn(getByName("iosTest"))
         }
     }

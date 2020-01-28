@@ -23,7 +23,6 @@ android {
 
 kotlin {
     android {}
-    val iosArm32 = iosArm32("iosArm32")
     val iosArm64 = iosArm64("iosArm64")
     val frameworkName = "DrLogic"
 
@@ -35,7 +34,7 @@ kotlin {
                 ::iosX64
     val iosXcode = iosTarget("iosXcode")
 
-    configure(listOf(iosXcode, iosArm32, iosArm64)) {
+    configure(listOf(iosXcode, iosArm64)) {
         binaries.framework {
             baseName = frameworkName
             isStatic = true
@@ -93,11 +92,10 @@ kotlin {
             }
         }
 
-        val iosArm32Main by getting
         val iosArm64Main by getting
         val iosXcodeMain by getting
 
-        configure(listOf(iosXcodeMain, iosArm32Main, iosArm64Main)) {
+        configure(listOf(iosXcodeMain, iosArm64Main)) {
             dependsOn(getByName("iosMain"))
         }
     }
@@ -115,7 +113,7 @@ kotlin {
         baseName = frameworkName
         description = "Builds a universal (fat) release framework"
 
-        from(iosArm64.binaries.getFramework("RELEASE"), iosArm32.binaries.getFramework("RELEASE"))
+        from(iosArm64.binaries.getFramework("RELEASE"))
     }
 }
 
