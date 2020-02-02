@@ -28,7 +28,7 @@ pluginManagement {
 
 buildCache {
     remote(HttpBuildCache::class.java) {
-        url = uri("http://192.168.87.91:5071/cache/")
+        url = uri("http://svn.youtec.dk:5071/cache/")
         isPush = System.getenv("CI") == "true"
         credentials {
             username = "youtec"
