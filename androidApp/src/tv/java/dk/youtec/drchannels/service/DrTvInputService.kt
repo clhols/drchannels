@@ -23,6 +23,7 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.trackselection.TrackSelection
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.upstream.*
+import com.google.android.exoplayer2.util.EventLogger
 import com.google.android.exoplayer2.util.Util
 import com.google.android.media.tv.companionlibrary.BaseTvInputService
 import com.google.android.media.tv.companionlibrary.TvPlayer
@@ -33,7 +34,6 @@ import com.google.android.media.tv.companionlibrary.model.RecordedProgram
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.decryptUri
-import dk.youtec.drchannels.log.EventLogger
 import dk.youtec.drchannels.player.TvExoPlayer
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.coroutines.*
@@ -252,16 +252,16 @@ class DrTvInputSessionImpl(
         Log.d(tag, "onSetCaptionEnabled $enabled")
     }
 
-    override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters?) {
+    override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
         Log.d(tag, "onPlaybackParametersChanged $playbackParameters")
     }
 
-    override fun onTracksChanged(trackGroups: TrackGroupArray?, trackSelections: TrackSelectionArray?) {
+    override fun onTracksChanged(trackGroups: TrackGroupArray, trackSelections: TrackSelectionArray) {
         Log.d(tag, "onTracksChanged $trackSelections")
     }
 
-    override fun onPlayerError(error: ExoPlaybackException?) {
-        Log.e(tag, error?.message ?: "Unknown error", error)
+    override fun onPlayerError(error: ExoPlaybackException) {
+        Log.e(tag, error.message ?: "Unknown error", error)
 
         notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_UNKNOWN)
     }
@@ -278,7 +278,7 @@ class DrTvInputSessionImpl(
         Log.i(tag, "onRepeatModeChanged $repeatMode")
     }
 
-    override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
+    override fun onTimelineChanged(timeline: Timeline, manifest: Any?, reason: Int) {
         Log.d(tag, "onTimelineChanged $timeline $manifest $reason")
     }
 

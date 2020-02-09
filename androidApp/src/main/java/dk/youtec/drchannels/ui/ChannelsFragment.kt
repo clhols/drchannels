@@ -97,7 +97,7 @@ class ChannelsFragment : Fragment() {
         }
 
         if (savedInstanceState == null) {
-            if (!isTv(context) && !BuildConfig.DEBUG) {
+            if (!isTv(requireContext()) && !BuildConfig.DEBUG) {
                 activity?.let {
                     updateApp(it,
                             BuildConfig.VERSION_CODE,

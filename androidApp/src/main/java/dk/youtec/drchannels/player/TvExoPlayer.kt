@@ -10,8 +10,10 @@ import com.google.android.exoplayer2.LoadControl
 import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.RenderersFactory
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.analytics.AnalyticsCollector
 import com.google.android.exoplayer2.trackselection.TrackSelector
 import com.google.android.exoplayer2.upstream.BandwidthMeter
+import com.google.android.exoplayer2.util.Clock
 import com.google.android.media.tv.companionlibrary.TvPlayer
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -29,7 +31,8 @@ open class TvExoPlayer(
         trackSelector,
         loadControl,
         bandwidthMeter,
-        null,
+        AnalyticsCollector(Clock.DEFAULT),
+        Clock.DEFAULT,
         Looper.getMainLooper()), TvPlayer {
     private var seekJob: Job? = null
 
@@ -62,7 +65,7 @@ open class TvExoPlayer(
                 }
             }
         } else {
-            playbackParameters = PlaybackParameters(speed, 1f)
+            setPlaybackParameters(PlaybackParameters(speed, 1f))
             play()
         }
     }
