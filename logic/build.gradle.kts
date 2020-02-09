@@ -48,7 +48,6 @@ kotlin {
             languageSettings.apply {
                 languageVersion = "1.3"
                 apiVersion = "1.3"
-                enableLanguageFeature("InlineClasses")
                 useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 useExperimentalAnnotation("kotlinx.coroutines.FlowPreview")
                 useExperimentalAnnotation("kotlinx.serialization.UnstableDefault")
