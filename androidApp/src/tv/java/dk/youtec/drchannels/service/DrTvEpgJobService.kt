@@ -197,9 +197,14 @@ class DrTvEpgJobService : EpgSyncJobService() {
     }
 
     private fun getBroadcasts(channel: Channel, date: Date): MutableList<MuScheduleBroadcast> {
-        val dateString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
-        val schedule = runBlocking { api.getSchedule(channel.networkAffiliation, dateString) }
-        return schedule.broadcasts.filter { it.startTime < it.endTime }.toMutableList()
+        return try {
+            val dateString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
+            val schedule = runBlocking { api.getSchedule(channel.networkAffiliation, dateString) }
+            schedule.broadcasts.filter { it.startTime < it.endTime }.toMutableList()
+        } catch (e: Exception) {
+            Log.e("DrTvEpgJobService", e.message, e)
+            mutableListOf()
+        }
     }
 }
 
