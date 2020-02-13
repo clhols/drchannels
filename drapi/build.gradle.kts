@@ -41,10 +41,8 @@ dependencies {
 kotlin {
     android {}
     val frameworkName = "DrApi"
-    val iosArm64 = iosArm64("iosArm64")
-    val iosX64 = iosX64("iosX64")
 
-    configure(listOf(iosX64, iosArm64)) {
+    ios {
         binaries.framework {
             baseName = frameworkName
             isStatic = true
@@ -68,7 +66,8 @@ kotlin {
                 progressiveMode = true
             }
         }
-        val commonMain by getting {
+
+        commonMain {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
@@ -76,7 +75,7 @@ kotlin {
                 implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test-common")
                 implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
@@ -102,16 +101,14 @@ kotlin {
             }
         }
 
-        create("iosMain") {
-            dependsOn(commonMain)
+        named("iosMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
             }
         }
 
-        create("iosTest") {
-            dependsOn(commonTest)
+        named("iosTest") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
             }
