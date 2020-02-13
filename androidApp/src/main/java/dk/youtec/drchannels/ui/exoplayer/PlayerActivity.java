@@ -428,7 +428,9 @@ public class PlayerActivity extends AppCompatActivity
                 uris = new Uri[]{intent.getData()};
                 extensions = new String[]{intent.getStringExtra(EXTENSION_EXTRA)};
                 title = intent.getStringExtra(TITLE_EXTRA);
-                imageUrl = intent.getStringExtra(IMAGE_EXTRA);
+                if (intent.hasExtra(IMAGE_EXTRA)) {
+                    imageUrl = intent.getStringExtra(IMAGE_EXTRA);
+                }
             } else if (ACTION_VIEW_LIST.equals(action)) {
                 String[] uriStrings = intent.getStringArrayExtra(URI_LIST_EXTRA);
                 uris = new Uri[uriStrings.length];

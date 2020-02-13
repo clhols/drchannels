@@ -149,7 +149,9 @@ class ProgramAdapter(
                         val manifest = withContext(IO) { api.getManifest(uri) }
                         val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
                         if (playbackUri.isNotBlank()) {
-                            context.startActivity(buildIntent(context, playbackUri))
+                            context.startActivity(
+                                    buildIntent(context, playbackUri, program.programCard.primaryImageUri)
+                            )
                         } else {
                             context.toast("No stream")
                         }
@@ -166,12 +168,13 @@ class ProgramAdapter(
         }
     }
 
-    fun buildIntent(context: Context, uri: String): Intent {
+    fun buildIntent(context: Context, uri: String, imageUri: String): Intent {
         val preferExtensionDecoders = false
 
         return Intent(context, PlayerActivity::class.java).apply {
             action = PlayerActivity.ACTION_VIEW
             putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, preferExtensionDecoders)
+            putExtra(PlayerActivity.IMAGE_EXTRA, imageUri)
             data = uri.toUri()
         }
     }
