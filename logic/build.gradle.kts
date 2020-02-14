@@ -112,23 +112,14 @@ kotlin {
     }
 
     //Build task for XCode build script
-    tasks.register<Sync>("packForXcode") {
+    task("packForXcode") {
         group = "ios"
-        val targetDir = File(buildDir, "xcode-frameworks")
 
-        /// selecting the right configuration for the iOS
-        /// framework depending on the environment
-        /// variables set by Xcode build
-        val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-        val framework = iosX64.binaries.getFramework(mode)
-        inputs.property("mode", mode)
-        dependsOn(framework.linkTask)
-
-        from({ framework.outputDirectory })
-        into(targetDir)
+        dependsOn("debugFatFramework")
 
         /// generate a helpful ./gradlew wrapper with embedded Java path
         doLast {
+            val targetDir = File(buildDir, "fat-framework")
             val gradlew = File(targetDir, "gradlew")
             gradlew.writeText("#!/bin/bash\n"
                     + "export 'JAVA_HOME=${System.getProperty("java.home")}'\n"
