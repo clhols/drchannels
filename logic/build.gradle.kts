@@ -145,7 +145,7 @@ kotlin {
         description = "Runs tests for target 'ios' on an iOS simulator"
 
         doLast {
-            val binary = iosArm64.binaries.getTest("DEBUG").outputFile
+            val binary = iosX64.binaries.getTest("DEBUG").outputFile
             exec {
                 commandLine = listOf("xcrun", "simctl", "spawn", device, binary.absolutePath)
             }
