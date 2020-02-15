@@ -22,7 +22,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
         while (true) {
             try {
                 emit(api.getScheduleNowNext().filter { it.now != null })
-                delay(1000)
+                delay(30000)
             } catch (e: CancellationException) {
                 return@flow
             } catch (e: Exception) {
