@@ -3,7 +3,6 @@ package dk.youtec.drchannels.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.commit
 import dk.youtec.drchannels.R
 
