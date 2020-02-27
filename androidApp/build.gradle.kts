@@ -32,7 +32,6 @@ android {
         versionCode = (project.ext.get("getVersionCodeTimestamp") as Closure<Int>).invoke()
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArguments["clearPackageData"] = "true"
 
         vectorDrawables.useSupportLibrary = true
 
