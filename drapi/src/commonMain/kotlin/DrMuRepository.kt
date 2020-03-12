@@ -27,13 +27,13 @@ open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCac
     override suspend fun getScheduleNowNext(id: String): MuNowNext {
         val url = "$API_URL/schedule/nownext/$id"
         val json = client.get<String>(url)
-        return Json.nonstrict.parse(MuNowNext.serializer(), json)
+        return Json.parse(MuNowNext.serializer(), json)
     }
 
     override suspend fun getScheduleNowNext(): List<MuNowNext> {
         val url = "$API_URL/schedule/nownext-for-all-active-dr-tv-channels"
         val json = client.get<String>(url)
-        return Json.nonstrict.parse(MuNowNext.serializer().list, json)
+        return Json.parse(MuNowNext.serializer().list, json)
     }
 
     override suspend fun search(query: String): SearchResult {
