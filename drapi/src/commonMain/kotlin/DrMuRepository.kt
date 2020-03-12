@@ -10,18 +10,18 @@ open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCac
     override suspend fun getAllActiveDrTvChannels(): List<Channel> {
         val url = "$API_URL/channel/all-active-dr-tv-channels"
         val json = client.get<String>(url)
-        return Json.nonstrict.parse(Channel.serializer().list, json)
+        return Json.parse(Channel.serializer().list, json)
     }
 
     override suspend fun getManifest(uri: String): Manifest {
         val json = client.get<String>(uri)
-        return Json.nonstrict.parse(Manifest.serializer(), json)
+        return Json.parse(Manifest.serializer(), json)
     }
 
     override suspend fun getSchedule(id: String, date: String): Schedule {
         val url = "$API_URL/schedule/$id?broadcastdate=$date"
         val json = client.get<String>(url)
-        return Json.nonstrict.parse(Schedule.serializer(), json)
+        return Json.parse(Schedule.serializer(), json)
     }
 
     override suspend fun getScheduleNowNext(id: String): MuNowNext {
@@ -39,13 +39,13 @@ open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCac
     override suspend fun search(query: String): SearchResult {
         val url = "$API_URL/search/tv/programcards-with-asset/title/$query"
         val json = client.get<String>(url)
-        return Json.nonstrict.parse(SearchResult.serializer(), json)
+        return Json.parse(SearchResult.serializer(), json)
     }
 
     override suspend fun getMostViewed(channel: String, channelType: String, limit: Int): MostViewed {
         val url = "$API_URL/list/view/mostviewed?channel=$channel&channelType=$channelType&limit=$limit"
         val json = client.get<String>(url)
-        return Json.nonstrict.parse(MostViewed.serializer(), json)
+        return Json.parse(MostViewed.serializer(), json)
     }
 
     override suspend fun getPageTvPrograms(genre: Genre): Page {
@@ -54,7 +54,7 @@ open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCac
                 .replace("&", "%26")
         val url = "$API_URL/page/tv/programs?onlinegenretexts=$encodedGenre&orderBy=LastPrimaryBroadcastWithPublicAsset&orderDescending=True"
         val json = client.get<String>(url)
-        return Json.nonstrict.parse(Page.serializer(), json)
+        return Json.parse(Page.serializer(), json)
     }
 }
 
