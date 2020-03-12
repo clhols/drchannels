@@ -1,8 +1,8 @@
 package dk.youtec.drapi
 
 import io.ktor.client.request.get
+import kotlinx.serialization.builtins.list
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.list
 
 open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCacheSize): IDrMuApi {
     private val client = HttpClientFactory.create(cacheDir, sizeBytes)

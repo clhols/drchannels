@@ -2,12 +2,11 @@ package dk.youtec.drapi
 
 import com.soywiz.klock.*
 import kotlinx.serialization.*
-import kotlinx.serialization.internal.StringDescriptor
 
 @Serializer(forClass = Long::class)
 object DateSerializer : KSerializer<Long> {
     override val descriptor: SerialDescriptor
-        get() = StringDescriptor.withName("DateSerializer")
+        get() = PrimitiveDescriptor("DateSerializer", PrimitiveKind.STRING)
 
     private val dateFormat = PatternDateFormat("yyyy-MM-dd'T'HH:mm:ss[.S]'Z'").withOptional()
 
