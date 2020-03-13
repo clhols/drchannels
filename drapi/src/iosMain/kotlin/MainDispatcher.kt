@@ -4,7 +4,7 @@ import kotlinx.coroutines.*
 import platform.darwin.*
 import kotlin.coroutines.CoroutineContext
 
-@UseExperimental(InternalCoroutinesApi::class)
+@OptIn(InternalCoroutinesApi::class)
 actual val MainDispatcher: CoroutineDispatcher = object : CoroutineDispatcher(), Delay {
 
     override fun dispatch(context: CoroutineContext, block: Runnable) {
@@ -13,7 +13,6 @@ actual val MainDispatcher: CoroutineDispatcher = object : CoroutineDispatcher(),
         }
     }
 
-    @InternalCoroutinesApi
     override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, timeMillis * 1_000_000), dispatch_get_main_queue()) {
             with(continuation) {
@@ -22,7 +21,6 @@ actual val MainDispatcher: CoroutineDispatcher = object : CoroutineDispatcher(),
         }
     }
 
-    @InternalCoroutinesApi
     override fun invokeOnTimeout(timeMillis: Long, block: Runnable): DisposableHandle {
         val handle = object : DisposableHandle {
             var disposed = false
