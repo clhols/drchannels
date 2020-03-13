@@ -5,7 +5,7 @@ const val targetSdk = 29
 const val minSdk = 21
 const val buildTools = "29.0.2"
 const val androidAnnotation = "1.1.0"
-const val okhttpVersion = "4.4.0"
+const val okhttpVersion = "4.4.1"
 const val exoPlayerVersion = "2.11.3"
 
 //Kotlin dependent versions
