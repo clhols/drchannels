@@ -1,7 +1,7 @@
 import dk.youtec.drapi.DrMuRepositoryCallback
 import dk.youtec.drapi.MuNowNext
+import kotlinx.serialization.builtins.list
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.list
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 
