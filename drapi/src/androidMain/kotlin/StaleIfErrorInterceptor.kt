@@ -9,7 +9,7 @@ import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 import kotlin.time.days
 
-@ExperimentalTime
+@OptIn(ExperimentalTime::class)
 open class StaleIfErrorInterceptor(
         private val staleDuration: Duration = 28.days
 ) : Interceptor {
