@@ -128,20 +128,6 @@ kotlin {
             gradlew.setExecutable(true)
         }
     }
-
-    task("iosTest") {
-        group = "ios"
-        val device = "iPhone 8"
-        dependsOn("linkDebugTestIosX64")
-        description = "Runs tests for target 'ios' on an iOS simulator"
-
-        doLast {
-            val binary = iosX64.binaries.getTest("DEBUG").outputFile
-            exec {
-                commandLine = listOf("xcrun", "simctl", "spawn", device, binary.absolutePath)
-            }
-        }
-    }
 }
 
 fun targets(type: String, vararg targets: KotlinNativeTarget): List<Framework> {

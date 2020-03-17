@@ -142,18 +142,3 @@ kotlin {
         }
     }
 }
-
-task("iosTest") {
-    group = "ios"
-    val device = "iPhone 8"
-    dependsOn("linkDebugTestIosX64")
-    description = "Runs tests for target 'ios' on an iOS simulator"
-
-    doLast {
-        val target = kotlin.targets.getByName("iosX64") as KotlinNativeTarget
-        val binary = target.binaries.getTest("DEBUG").outputFile
-        exec {
-            commandLine = listOf("xcrun", "simctl", "spawn", device, binary.absolutePath)
-        }
-    }
-}
