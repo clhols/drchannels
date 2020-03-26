@@ -1,7 +1,6 @@
 package dk.youtec.drchannels.logic.viewmodel
 
 import dk.youtec.drapi.DrMuRepository
-import dk.youtec.drapi.MainDispatcher
 import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
@@ -11,7 +10,7 @@ import kotlin.coroutines.CoroutineContext
 open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
     private val job = SupervisorJob()
-    override val coroutineContext: CoroutineContext = job + MainDispatcher
+    override val coroutineContext: CoroutineContext = job + Dispatchers.Main
 
     private val api = DrMuRepository()
 
@@ -31,7 +30,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                 delay(5000)
             }
         }
-    }.flowOn(MainDispatcher)
+    }.flowOn(Dispatchers.Main)
     override val playback = playbackChannel.asFlow()
     override val error = errorChannel.asFlow()
 
