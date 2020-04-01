@@ -48,6 +48,8 @@ kotlin {
             export("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion")
         }
     }
+    // Uncomment this to fix native dependency resolution in the IDE.
+    //iosX64("ios") // DO NOT COMMIT THIS UNCOMMENTED
     js {
         browser
         nodejs
