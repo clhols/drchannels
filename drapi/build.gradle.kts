@@ -50,6 +50,16 @@ kotlin {
     }
     // Uncomment this to fix native dependency resolution in the IDE.
     //iosX64("ios") // DO NOT COMMIT THIS UNCOMMENTED
+    macosX64 {
+        binaries {
+            executable {}
+        }
+    }
+    linuxX64 {
+        binaries {
+            executable {}
+        }
+    }
     js {
         browser
         nodejs
@@ -101,6 +111,19 @@ kotlin {
             }
         }
 
+        create("nativeMain") {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
+            }
+        }
+
+        create("desktopMain") {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+                implementation("io.ktor:ktor-client-curl:$ktorVersion")
+            }
+        }
+
         named("iosMain") {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
@@ -127,18 +150,28 @@ kotlin {
             }
         }
 
+        val commonMain by getting
+        val nativeMain by getting
+        val desktopMain by getting
+        val iosMain by getting
         val iosArm64Main by getting
         val iosX64Main by getting
+        val linuxX64Main by getting
+        val macosX64Main by getting
 
-        configure(listOf(iosX64Main, iosArm64Main)) {
-            dependsOn(getByName("iosMain"))
-        }
+        nativeMain.dependsOn(commonMain)
+        desktopMain.dependsOn(nativeMain)
+        iosMain.dependsOn(nativeMain)
+        iosX64Main.dependsOn(iosMain)
+        iosArm64Main.dependsOn(iosMain)
+        linuxX64Main.dependsOn(desktopMain)
+        macosX64Main.dependsOn(desktopMain)
 
         val iosArm64Test by getting
         val iosX64Test by getting
+        val iosTest by getting
 
-        configure(listOf(iosX64Test, iosArm64Test)) {
-            dependsOn(getByName("iosTest"))
-        }
+        iosX64Test.dependsOn(iosTest)
+        iosArm64Test.dependsOn(iosTest)
     }
 }
