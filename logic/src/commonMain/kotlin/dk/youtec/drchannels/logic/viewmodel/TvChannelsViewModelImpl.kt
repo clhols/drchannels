@@ -1,6 +1,7 @@
 package dk.youtec.drchannels.logic.viewmodel
 
 import dk.youtec.drapi.DrMuRepository
+import dk.youtec.drapi.Logger
 import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
@@ -26,6 +27,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                 return@flow
             } catch (e: Exception) {
                 emit(emptyList())
+                Logger.e(e, e.message ?: "")
                 errorChannel.send(e.message ?: "Unknown error")
                 delay(5000)
             }

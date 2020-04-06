@@ -11,5 +11,6 @@ actual object Logger {
 
     actual fun e(e: Exception, message: String) {
         println("E/ $message")
+        e.printStackTrace()
     }
 }
