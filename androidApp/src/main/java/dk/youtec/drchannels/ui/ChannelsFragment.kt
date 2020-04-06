@@ -42,8 +42,8 @@ class ChannelsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ViewCompat.setOnApplyWindowInsetsListener(view) { view, insets ->
-            view.updatePadding(top = insets.systemWindowInsetTop)
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
+            v.updatePadding(top = insets.systemWindowInsetTop)
 
             insets.replaceSystemWindowInsets(
                     insets.systemWindowInsetLeft,
