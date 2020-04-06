@@ -114,6 +114,7 @@ kotlin {
         val nativeMain by creating {
             dependsOn(commonMain)
             dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:$serializationVersion")
             }
         }
@@ -121,7 +122,6 @@ kotlin {
         val desktopMain by creating {
             dependsOn(nativeMain)
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
                 implementation("io.ktor:ktor-client-curl:$ktorVersion")
             }
         }
