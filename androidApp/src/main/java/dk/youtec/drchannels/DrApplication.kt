@@ -8,6 +8,8 @@ import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.backend.OkHttpClientFactory
 import dk.youtec.drchannels.coil.ProgramCardMapper
 import dk.youtec.drchannels.util.koined
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -24,6 +26,7 @@ class DrApplication : Application() {
             logger(PrintLogger(Level.DEBUG))
             androidContext(this@DrApplication)
             modules(module {
+                single { CoroutineScope(SupervisorJob()) }
                 single { DrMuRepository(cacheDir.absolutePath) }
                 single { this@DrApplication }
                 single { OkHttpClientFactory.getInstance(get()) }

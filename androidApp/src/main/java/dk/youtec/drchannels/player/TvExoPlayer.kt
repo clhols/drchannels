@@ -15,7 +15,8 @@ import com.google.android.exoplayer2.trackselection.TrackSelector
 import com.google.android.exoplayer2.upstream.BandwidthMeter
 import com.google.android.exoplayer2.util.Clock
 import com.google.android.media.tv.companionlibrary.TvPlayer
-import kotlinx.coroutines.GlobalScope
+import dk.youtec.drchannels.util.koined
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -35,6 +36,7 @@ open class TvExoPlayer(
         Clock.DEFAULT,
         Looper.getMainLooper()), TvPlayer {
     private var seekJob: Job? = null
+    private val applicationScope: CoroutineScope = koined()
 
     override fun setSurface(surface: Surface?) {
         setVideoSurface(surface)
@@ -56,7 +58,7 @@ open class TvExoPlayer(
         if (speed != 1f) {
             pause()
 
-            seekJob = GlobalScope.launch {
+            seekJob = applicationScope.launch {
                 while (true) {
                     val position = Math.max(0, (currentPosition + speed * 5000).toLong())
                     seekTo(position)

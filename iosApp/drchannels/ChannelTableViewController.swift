@@ -14,8 +14,8 @@ import DrLogic
 class ChannelTableViewController: UITableViewController {
 
     var job: Cancelable?
+    var playbackJob: Cancelable?
     var channels = [MuNowNext]()
-    let repo = DrMuRepositoryCallback()
     var viewModel : TvChannelsViewModelImpl?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,22 +63,12 @@ class ChannelTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let name = self.channels[indexPath.row].channelSlug
-        
-        repo.getAllActiveDrTvChannels(callback: {
-            (channels: [Channel]) -> Void in
-            
-            let channel = channels.first(where: { (channel: Channel) -> Bool in
-                channel.slug == name
-            })
-            
-            let server = channel?.server()
-            let stream = server?.qualities.first?.streams.first?.stream
-            let url = "\(server!.server)/\(stream!)"
-            
+        playbackJob = viewModel?.playTvChannel(muNowNext: self.channels[indexPath.row], callback: { (videoItem: VideoItem) in
+            let url = videoItem.videoUrl
             print("Playing url: \(url)")
             
             self.playVideo(uri: url)
+            self.playbackJob?.cancel()
         })
     }
 
