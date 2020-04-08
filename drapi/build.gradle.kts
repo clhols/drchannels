@@ -144,6 +144,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-js"))
                 implementation("io.ktor:ktor-client-js:$ktorVersion")
+                implementation("io.ktor:ktor-client-serialization-js:$ktorVersion")
             }
         }
         val jsTest by getting {
