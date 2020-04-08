@@ -119,12 +119,21 @@ kotlin {
                 implementation("io.ktor:ktor-client-serialization-native:$ktorVersion")
             }
         }
+        val nativeTest by creating {
+            dependsOn(commonTest)
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
+            }
+        }
 
         val desktopMain by creating {
             dependsOn(nativeMain)
             dependencies {
                 implementation("io.ktor:ktor-client-curl:$ktorVersion")
             }
+        }
+        val desktopTest by creating {
+            dependsOn(nativeTest)
         }
 
         val iosMain by getting {
@@ -135,6 +144,7 @@ kotlin {
         }
 
         val iosTest by getting {
+            dependsOn(nativeTest)
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
             }
@@ -170,9 +180,15 @@ kotlin {
         val linuxX64Main by getting {
             dependsOn(desktopMain)
         }
+        val linuxX64Test by getting {
+            dependsOn(desktopTest)
+        }
 
         val macosX64Main by getting {
             dependsOn(desktopMain)
+        }
+        val macosX64Test by getting {
+            dependsOn(desktopTest)
         }
     }
 }
