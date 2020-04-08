@@ -24,6 +24,10 @@ android {
         aaptOptions.cruncherEnabled = false
     }
 
+    buildFeatures {
+        compose = true
+    }
+
     defaultConfig {
         minSdkVersion(minSdk)
         targetSdkVersion(targetSdk)
@@ -44,10 +48,10 @@ android {
         buildTypes {
             getByName("debug") { this as ExtensionAware
                 applicationIdSuffix = ".debug"
-                manifestPlaceholders = mapOf(
+                addManifestPlaceholders(mapOf(
                         "enableCrashReporting" to false,
                         "enablePerformanceMonitoring" to false
-                )
+                ))
                 extra["alwaysUpdateBuildId"] = false
                 (extensions["FirebasePerformance"] as FirebasePerfExtension).setInstrumentationEnabled(false)
             }
@@ -61,10 +65,10 @@ android {
                 )
 
                 signingConfig = signingConfigs["release"]
-                manifestPlaceholders = mapOf(
+                addManifestPlaceholders(mapOf(
                         "enableCrashReporting" to true,
                         "enablePerformanceMonitoring" to true
-                )
+                ))
             }
         }
 
@@ -125,6 +129,9 @@ dependencies {
     implementation("io.coil-kt:coil:0.9.5")
     implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
     implementation("com.google.android.material:material:1.1.0")
+    implementation("androidx.ui:ui-tooling:0.1.0-SNAPSHOT")
+    implementation("androidx.ui:ui-layout:0.1.0-SNAPSHOT")
+    implementation("androidx.ui:ui-material:0.1.0-SNAPSHOT")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
@@ -133,7 +140,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.1.0")
     implementation("androidx.core:core-ktx:1.2.0")
     implementation("androidx.activity:activity-ktx:1.1.0")
-    implementation("androidx.fragment:fragment-ktx:1.2.3")
+    implementation("androidx.fragment:fragment-ktx:1.2.4")
     implementation("androidx.work:work-runtime-ktx:2.3.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
