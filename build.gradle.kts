@@ -12,9 +12,9 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:$androidGradlePlugin")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")
+        classpath("com.android.tools.build:gradle:${Versions.androidGradlePlugin}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
         classpath("com.google.gms:google-services:4.3.3")
         classpath("com.google.firebase:perf-plugin:1.3.1")
         classpath("io.fabric.tools:gradle:1.31.2")
@@ -40,11 +40,11 @@ allprojects {
         resolutionStrategy {
             eachDependency {
                 when (requested.group) {
-                    "org.jetbrains.kotlin" -> useVersion(kotlinVersion)
+                    "org.jetbrains.kotlin" -> useVersion(Versions.kotlin)
                     "org.jetbrains.kotlinx" -> when(requested.name) {
-                        "kotlinx-coroutines-core" -> useVersion(coroutinesVersion)
+                        "kotlinx-coroutines-core" -> useVersion(Versions.coroutines)
                     }
-                    "androidx.annotation" -> useVersion(androidAnnotation)
+                    "androidx.annotation" -> useVersion(Versions.androidAnnotation)
                     "androidx.exifinterface" -> useVersion("1.1.0")
                 }
             }

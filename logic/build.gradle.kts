@@ -8,9 +8,9 @@ plugins {
 }
 
 android {
-    compileSdkVersion(compileSdk)
+    compileSdkVersion(Versions.compileSdk)
     defaultConfig {
-        minSdkVersion(minSdk)
+        minSdkVersion(Versions.minSdk)
     }
     buildTypes {
         getByName("release") {
@@ -52,21 +52,21 @@ kotlin {
         commonMain {
             dependencies {
                 api(project(":drapi"))
-                implementation("org.jetbrains.kotlin:kotlin-stdlib-common:$kotlinVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion")
+                implementation("org.jetbrains.kotlin:kotlin-stdlib-common:${Versions.kotlin}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}")
             }
         }
         commonTest {
             dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-test-common:$kotlinVersion")
-                implementation("org.jetbrains.kotlin:kotlin-test-annotations-common:$kotlinVersion")
+                implementation("org.jetbrains.kotlin:kotlin-test-common:${Versions.kotlin}")
+                implementation("org.jetbrains.kotlin:kotlin-test-annotations-common:${Versions.kotlin}")
             }
         }
 
         named("androidMain") {
             dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+                implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
             }
         }
@@ -77,7 +77,7 @@ kotlin {
 
         named("iosMain") {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}")
             }
         }
         named("iosTest") {
