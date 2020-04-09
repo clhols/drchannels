@@ -129,6 +129,7 @@ kotlin {
         val desktopMain by creating {
             dependsOn(nativeMain)
             dependencies {
+                implementation(fileTree("src/desktopMain/libs") { include("*.klib") })
                 implementation("io.ktor:ktor-client-curl:${Versions.ktor}")
             }
         }
