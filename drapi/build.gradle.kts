@@ -129,7 +129,6 @@ kotlin {
         val desktopMain by creating {
             dependsOn(nativeMain)
             dependencies {
-                implementation(fileTree("src/desktopMain/libs") { include("*.klib") })
                 implementation("io.ktor:ktor-client-curl:${Versions.ktor}")
             }
         }
@@ -165,6 +164,9 @@ kotlin {
         }
 
         val linuxX64Main by getting {
+            dependencies {
+                implementation(fileTree("src/linuxX64Main/libs") { include("*.klib") })
+            }
             dependsOn(desktopMain)
         }
         val linuxX64Test by getting {
@@ -172,6 +174,9 @@ kotlin {
         }
 
         val macosX64Main by getting {
+            dependencies {
+                implementation(fileTree("src/macosX64Main/libs") { include("*.klib") })
+            }
             dependsOn(desktopMain)
         }
         val macosX64Test by getting {
