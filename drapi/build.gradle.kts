@@ -163,20 +163,6 @@ kotlin {
             }
         }
 
-        val iosArm64Main by getting {
-            dependsOn(iosMain)
-        }
-        val iosArm64Test by getting {
-            dependsOn(iosTest)
-        }
-
-        val iosX64Main by getting {
-            dependsOn(iosMain)
-        }
-        val iosX64Test by getting {
-            dependsOn(iosTest)
-        }
-
         val linuxX64Main by getting {
             dependsOn(desktopMain)
         }

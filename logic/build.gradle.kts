@@ -49,47 +49,38 @@ kotlin {
             }
         }
 
-        commonMain {
+        val commonMain by getting {
             dependencies {
                 api(project(":drapi"))
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common:${Versions.kotlin}")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}")
             }
         }
-        commonTest {
+        val commonTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test-common:${Versions.kotlin}")
                 implementation("org.jetbrains.kotlin:kotlin-test-annotations-common:${Versions.kotlin}")
             }
         }
 
-        named("androidMain") {
+        val androidMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
             }
         }
-        named("androidTest") {
-            dependencies {
-            }
+        val androidTest by getting {
+            dependencies {}
         }
 
-        named("iosMain") {
+        val iosMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}")
             }
         }
-        named("iosTest") {
-            dependencies {
-            }
-        }
-
-        val iosArm64Main by getting
-        val iosX64Main by getting
-
-        configure(listOf(iosX64Main, iosArm64Main)) {
-            dependsOn(getByName("iosMain"))
+        val iosTest by getting {
+            dependencies {}
         }
     }
 
