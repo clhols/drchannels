@@ -5,7 +5,6 @@ buildscript {
         mavenCentral()
         google()
         maven { setUrl("https://plugins.gradle.org/m2/") }
-        maven { setUrl("https://maven.fabric.io/public") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         maven { setUrl("https://github.com/clhols/mvn-repo/raw/master/") }
@@ -17,7 +16,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
         classpath("com.google.gms:google-services:4.3.3")
         classpath("com.google.firebase:perf-plugin:1.3.1")
-        classpath("io.fabric.tools:gradle:1.31.2")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.0.0-beta03")
         classpath("dk.youtec:appupdater:1.0.1")
     }
 }
@@ -29,7 +28,6 @@ allprojects {
         maven { setUrl("https://kotlin.bintray.com/kotlinx") }
         maven { setUrl("https://kotlin.bintray.com/ktor") }
         maven { setUrl("https://plugins.gradle.org/m2/") }
-        maven { setUrl("https://maven.fabric.io/public") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         //jcenter()
