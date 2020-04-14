@@ -10,7 +10,7 @@ object Versions {
     const val exoPlayer = "2.11.3"
 
     //Kotlin dependent versions
-    const val kotlin = "1.3.71"
+    const val kotlin = "1.3.72"
     const val coroutines = "1.3.5-native-mt"
     const val serialization = "0.20.0"
     const val klock = "1.10.3"
