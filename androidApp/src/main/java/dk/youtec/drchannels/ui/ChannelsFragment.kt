@@ -10,7 +10,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,10 +27,11 @@ import kotlinx.android.synthetic.main.fragment_channels.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.koin.android.viewmodel.compat.ViewModelCompat.viewModel
 
 class ChannelsFragment : Fragment() {
     private var channelsJob: Job? = null
-    private val viewModel: AndroidTvChannelsViewModel by viewModels()
+    private val tvChannelsViewModel: AndroidTvChannelsViewModel by viewModel(this, AndroidTvChannelsViewModel::class.java)
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -68,7 +68,7 @@ class ChannelsFragment : Fragment() {
         progressBar.isVisible = true
 
         lifecycleScope.launch {
-            viewModel.playback.collect { videoItem ->
+            tvChannelsViewModel.playback.collect { videoItem ->
                 Log.d(TAG, "Playback video item")
                 startActivity(Intent(activity, PlayerActivity::class.java).apply {
                     action = PlayerActivity.ACTION_VIEW
@@ -81,20 +81,20 @@ class ChannelsFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.error.collect { message ->
+            tvChannelsViewModel.error.collect { message ->
                 context?.toast(message)
             }
         }
 
         lifecycleScope.launch {
             adapter.itemClicked.collect {
-                viewModel.playTvChannel(it)
+                tvChannelsViewModel.playTvChannel(it)
             }
         }
 
         lifecycleScope.launch {
             adapter.startOverClicked.collect {
-                viewModel.playProgram(it)
+                tvChannelsViewModel.playProgram(it)
             }
         }
 
@@ -129,7 +129,7 @@ class ChannelsFragment : Fragment() {
     private fun reload() {
         channelsJob?.cancel()
         channelsJob = viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.channels.collect { channels ->
+            tvChannelsViewModel.channels.collect { channels ->
                 isEmptyState = channels.isNullOrEmpty()
                 handleChannelsChanged(channels)
                 progressBar.isVisible = false
