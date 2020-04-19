@@ -142,7 +142,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-perf")
     implementation("com.crashlytics.sdk.android:crashlytics")
-    implementation("org.koin:koin-android:2.0.1")
+    implementation("org.koin:koin-android:2.1.5")
 
     kapt("androidx.lifecycle:lifecycle-common-java8:2.2.0")
 
