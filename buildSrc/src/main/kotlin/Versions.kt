@@ -1,13 +1,13 @@
 object Versions {
     //Project dependency versions
-    const val androidGradlePlugin = "4.0.0-beta04"
+    const val androidGradlePlugin = "4.0.0-beta05"
     const val compileSdk = 29
     const val targetSdk = 29
     const val minSdk = 21
     const val buildTools = "29.0.3"
     const val androidAnnotation = "1.1.0"
     const val okhttp = "4.5.0"
-    const val exoPlayer = "2.11.3"
+    const val exoPlayer = "2.11.4"
 
     //Kotlin dependent versions
     const val kotlin = "1.3.72"
