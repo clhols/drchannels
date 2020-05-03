@@ -1,9 +1,9 @@
 import dk.youtec.drapi.Channel
 import dk.youtec.drapi.DrMuRepository
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 

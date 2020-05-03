@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(compileSdk)
-    buildToolsVersion(buildTools)
+    compileSdkVersion(Versions.compileSdk)
+    buildToolsVersion(Versions.buildTools)
 
     defaultConfig {
-        minSdkVersion(minSdk)
-        targetSdkVersion(targetSdk)
+        minSdkVersion(Versions.minSdk)
+        targetSdkVersion(Versions.targetSdk)
 
         buildTypes {
             getByName("release") {
@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.annotation:annotation:$androidAnnotation")
-    implementation("androidx.fragment:fragment-ktx:1.2.2")
+    implementation("androidx.annotation:annotation:${Versions.androidAnnotation}")
+    implementation("androidx.fragment:fragment-ktx:1.2.4")
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.0.0")
 }

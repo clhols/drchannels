@@ -5,19 +5,18 @@ buildscript {
         mavenCentral()
         google()
         maven { setUrl("https://plugins.gradle.org/m2/") }
-        maven { setUrl("https://maven.fabric.io/public") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         maven { setUrl("https://github.com/clhols/mvn-repo/raw/master/") }
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:$androidGradlePlugin")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        classpath("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")
+        classpath("com.android.tools.build:gradle:${Versions.androidGradlePlugin}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
         classpath("com.google.gms:google-services:4.3.3")
         classpath("com.google.firebase:perf-plugin:1.3.1")
-        classpath("io.fabric.tools:gradle:1.31.2")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.0.0")
         classpath("dk.youtec:appupdater:1.0.1")
     }
 }
@@ -29,7 +28,6 @@ allprojects {
         maven { setUrl("https://kotlin.bintray.com/kotlinx") }
         maven { setUrl("https://kotlin.bintray.com/ktor") }
         maven { setUrl("https://plugins.gradle.org/m2/") }
-        maven { setUrl("https://maven.fabric.io/public") }
         maven { setUrl("https://androidx.dev/snapshots/builds/6376544/artifacts/ui/repository") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
@@ -41,11 +39,11 @@ allprojects {
         resolutionStrategy {
             eachDependency {
                 when (requested.group) {
-                    "org.jetbrains.kotlin" -> useVersion(kotlinVersion)
+                    "org.jetbrains.kotlin" -> useVersion(Versions.kotlin)
                     "org.jetbrains.kotlinx" -> when(requested.name) {
-                        "kotlinx-coroutines-core" -> useVersion(coroutinesVersion)
+                        "kotlinx-coroutines-core" -> useVersion(Versions.coroutines)
                     }
-                    "androidx.annotation" -> useVersion(androidAnnotation)
+                    "androidx.annotation" -> useVersion(Versions.androidAnnotation)
                     "androidx.exifinterface" -> useVersion("1.1.0")
                 }
             }

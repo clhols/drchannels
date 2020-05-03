@@ -7,11 +7,13 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.backend.OkHttpClientFactory
 import dk.youtec.drchannels.coil.ProgramCardMapper
+import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
 import dk.youtec.drchannels.util.koined
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import org.koin.core.logger.PrintLogger
@@ -31,6 +33,7 @@ class DrApplication : Application() {
                 single { this@DrApplication }
                 single { OkHttpClientFactory.getInstance(get()) }
                 single { FirebaseAnalytics.getInstance(get()) }
+                viewModel { AndroidTvChannelsViewModel() }
             })
         }
 

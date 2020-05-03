@@ -5,9 +5,9 @@ plugins {
 }
 
 android {
-    compileSdkVersion(compileSdk)
+    compileSdkVersion(Versions.compileSdk)
     defaultConfig {
-        minSdkVersion(minSdk)
+        minSdkVersion(Versions.minSdk)
     }
     buildTypes {
         getByName("release") {
@@ -45,7 +45,7 @@ kotlin {
             baseName = frameworkName
             isStatic = true
             freeCompilerArgs = mutableListOf("-Xobjc-generics")
-            export("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion")
+            export("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}")
         }
     }
     // Uncomment this to fix native dependency resolution in the IDE.
@@ -80,70 +80,81 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-json:$ktorVersion")
-                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
-                implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${Versions.serialization}")
+                implementation("io.ktor:ktor-client-core:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-json:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-serialization:${Versions.ktor}")
+                implementation("com.soywiz.korlibs.klock:klock:${Versions.klock}")
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test-common")
                 implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-                implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+                implementation("com.soywiz.korlibs.klock:klock:${Versions.klock}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
             }
         }
 
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-                implementation("io.ktor:ktor-client-serialization-jvm:$ktorVersion")
-                implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
-                implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
+                implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-serialization-jvm:${Versions.ktor}")
+                implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
+                implementation("com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}")
             }
         }
         val androidTest by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-                implementation("com.squareup.okhttp3:okhttp:$okhttpVersion")
-                implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
+                implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
+                implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
+                implementation("com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}")
             }
         }
 
         val nativeMain by creating {
             dependsOn(commonMain)
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
-                implementation("io.ktor:ktor-client-serialization-native:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}")
+                implementation("io.ktor:ktor-client-serialization-native:${Versions.ktor}")
+            }
+        }
+        val nativeTest by creating {
+            dependsOn(commonTest)
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}")
             }
         }
 
         val desktopMain by creating {
             dependsOn(nativeMain)
             dependencies {
-                implementation("io.ktor:ktor-client-curl:$ktorVersion")
+                implementation("io.ktor:ktor-client-curl:${Versions.ktor}")
             }
+        }
+        val desktopTest by creating {
+            dependsOn(nativeTest)
         }
 
         val iosMain by getting {
             dependsOn(nativeMain)
             dependencies {
-                implementation("io.ktor:ktor-client-ios:$ktorVersion")
+                implementation("io.ktor:ktor-client-ios:${Versions.ktor}")
             }
         }
 
         val iosTest by getting {
+            dependsOn(nativeTest)
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}")
             }
         }
 
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation("io.ktor:ktor-client-js:$ktorVersion")
+                implementation("io.ktor:ktor-client-js:${Versions.ktor}")
+                implementation("io.ktor:ktor-client-serialization-js:${Versions.ktor}")
             }
         }
         val jsTest by getting {
@@ -152,26 +163,24 @@ kotlin {
             }
         }
 
-        val iosArm64Main by getting {
-            dependsOn(iosMain)
-        }
-        val iosArm64Test by getting {
-            dependsOn(iosTest)
-        }
-
-        val iosX64Main by getting {
-            dependsOn(iosMain)
-        }
-        val iosX64Test by getting {
-            dependsOn(iosTest)
-        }
-
         val linuxX64Main by getting {
+            dependencies {
+                implementation(fileTree("src/linuxX64Main/libs") { include("*.klib") })
+            }
             dependsOn(desktopMain)
+        }
+        val linuxX64Test by getting {
+            dependsOn(desktopTest)
         }
 
         val macosX64Main by getting {
+            dependencies {
+                implementation(fileTree("src/macosX64Main/libs") { include("*.klib") })
+            }
             dependsOn(desktopMain)
+        }
+        val macosX64Test by getting {
+            dependsOn(desktopTest)
         }
     }
 }
