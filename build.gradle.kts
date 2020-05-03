@@ -28,7 +28,6 @@ allprojects {
         maven { setUrl("https://kotlin.bintray.com/kotlinx") }
         maven { setUrl("https://kotlin.bintray.com/ktor") }
         maven { setUrl("https://plugins.gradle.org/m2/") }
-        maven { setUrl("https://androidx.dev/snapshots/builds/6376544/artifacts/ui/repository") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         //jcenter()

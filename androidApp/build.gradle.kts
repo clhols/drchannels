@@ -9,7 +9,6 @@ plugins {
     id("kotlin-android-extensions")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
-    id("com.github.triplet.play") version "2.3.0"
     id("org.sonarqube") version "2.7.1"
     id("dk.youtec.appupdater")
 }
@@ -26,6 +25,10 @@ android {
 
     buildFeatures {
         compose = true
+    }
+    composeOptions {
+        kotlinCompilerVersion = "1.3.70-dev-withExperimentalGoogleExtensions-20200424"
+        kotlinCompilerExtensionVersion = "0.1.0-dev10"
     }
 
     defaultConfig {
@@ -129,9 +132,10 @@ dependencies {
     implementation("io.coil-kt:coil:0.10.1")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.1.0")
-    implementation("androidx.ui:ui-tooling:0.1.0-SNAPSHOT")
-    implementation("androidx.ui:ui-layout:0.1.0-SNAPSHOT")
-    implementation("androidx.ui:ui-material:0.1.0-SNAPSHOT")
+    implementation("androidx.compose:compose-runtime:0.1.0-dev10")
+    implementation("androidx.ui:ui-tooling:0.1.0-dev10")
+    implementation("androidx.ui:ui-layout:0.1.0-dev10")
+    implementation("androidx.ui:ui-material:0.1.0-dev10")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
@@ -158,12 +162,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
     androidTestUtil("androidx.test:orchestrator:1.2.0")
-}
-
-play {
-    serviceAccountCredentials = project.file("youtec.json")
-
-    track = "alpha" // 'production', 'beta' or 'alpha'
 }
 
 val releasePropertiesFile: File = rootProject.file("release.properties")
