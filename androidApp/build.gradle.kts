@@ -129,13 +129,14 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
-    implementation("io.coil-kt:coil:0.10.1")
-    implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
-    implementation("com.google.android.material:material:1.1.0")
     implementation("androidx.compose:compose-runtime:0.1.0-dev10")
     implementation("androidx.ui:ui-tooling:0.1.0-dev10")
     implementation("androidx.ui:ui-layout:0.1.0-dev10")
     implementation("androidx.ui:ui-material:0.1.0-dev10")
+
+    implementation("io.coil-kt:coil:0.10.1")
+    implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
+    implementation("com.google.android.material:material:1.1.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
