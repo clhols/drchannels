@@ -133,6 +133,7 @@ dependencies {
     implementation("androidx.ui:ui-tooling:0.1.0-dev10")
     implementation("androidx.ui:ui-layout:0.1.0-dev10")
     implementation("androidx.ui:ui-material:0.1.0-dev10")
+    implementation("androidx.ui:ui-livedata:0.1.0-dev10")
 
     implementation("io.coil-kt:coil:0.10.1")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
@@ -146,6 +147,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.2.4")
     implementation("androidx.work:work-runtime-ktx:2.3.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation(platform("com.google.firebase:firebase-bom:25.3.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-perf")
