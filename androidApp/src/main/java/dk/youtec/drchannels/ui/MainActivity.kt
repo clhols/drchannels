@@ -35,7 +35,6 @@ open class MainActivity : AppCompatActivity() {
 
         setContent {
             MaterialTheme {
-                Spacer(modifier = LayoutHeight(25.dp))
                 ChannelsList(tvChannelsViewModel.channels.asLiveData())
             }
         }
@@ -49,7 +48,10 @@ fun ChannelsList(channels: LiveData<List<MuNowNext>>) {
     // AdapterList is a vertically scrolling list that only composes and lays out the currently
     // visible items. This is very similar to what RecylerView tries to do as it's more optimized
     // than the VerticalScroller.
-    AdapterList<MuNowNext>(data = channelsList) { channel ->
+    AdapterList<MuNowNext>(
+            data = channelsList,
+            modifier = Modifier.padding(top = 25.dp)
+    ) { channel ->
         // Card composable is a predefined composable that is meant to represent the
         // card surface as specified by the Material Design specification. We also
         // configure it to have rounded corners and apply a modifier.
@@ -91,8 +93,8 @@ fun ChannelsList(channels: LiveData<List<MuNowNext>>) {
 // built up of smaller composable functions.
 @Composable
 fun NetworkImageComponentCoil(url: String,
-                                 modifier: Modifier = Modifier.fillMaxWidth() +
-                                         Modifier.preferredHeightIn(maxHeight = 200.dp)) {
+                              modifier: Modifier = Modifier.fillMaxWidth() +
+                                      Modifier.preferredHeightIn(maxHeight = 200.dp)) {
     // Source code inspired from - https://kotlinlang.slack.com/archives/CJLTWPH7S/p1573002081371500.
     // Made some minor changes to the code Leland posted.
     var image by state<ImageAsset?> { null }
