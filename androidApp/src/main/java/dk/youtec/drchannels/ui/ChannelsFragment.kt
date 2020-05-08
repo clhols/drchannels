@@ -19,6 +19,7 @@ import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
 import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
+import dk.youtec.drchannels.logic.viewmodel.ChannelsError
 import dk.youtec.drchannels.ui.adapter.TvChannelsAdapter
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.toast
@@ -81,8 +82,18 @@ class ChannelsFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            tvChannelsViewModel.error.collect { message ->
-                context?.toast(message)
+            tvChannelsViewModel.error.collect { error ->
+                when(error) {
+                    ChannelsError.LoadingChannelsFailed -> {
+                        isEmptyState = true
+                    }
+                    is ChannelsError.LoadingChannelFailed -> {
+                        context?.toast(error.message ?: "Unknown error")
+                    }
+                    ChannelsError.NoStream -> {
+                        context?.toast("No stream")
+                    }
+                }
             }
         }
 
@@ -130,7 +141,7 @@ class ChannelsFragment : Fragment() {
         channelsJob?.cancel()
         channelsJob = viewLifecycleOwner.lifecycleScope.launch {
             tvChannelsViewModel.channels.collect { channels ->
-                isEmptyState = channels.isNullOrEmpty()
+                isEmptyState = false
                 handleChannelsChanged(channels)
                 progressBar.isVisible = false
                 swipeRefresh.isRefreshing = false
