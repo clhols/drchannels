@@ -16,32 +16,38 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
     private val api = DrMuRepository()
 
     private val playbackChannel = BroadcastChannel<VideoItem>(1)
-    private val errorChannel = BroadcastChannel<String>(1)
+    private val errorChannel = BroadcastChannel<ChannelsError>(1)
 
-    override val channels: Flow<List<MuNowNext>> = flow {
-        while (true) {
-            try {
-                emit(api.getScheduleNowNext().filter { it.now != null })
-                delay(30000)
-            } catch (e: CancellationException) {
-                return@flow
-            } catch (e: Exception) {
-                emit(emptyList())
-                Logger.e(e, e.message ?: "")
-                errorChannel.send(e.message ?: "Unknown error")
-                delay(5000)
-            }
-        }
-    }.flowOn(Dispatchers.Main)
+    private val _channels: MutableStateFlow<List<MuNowNext>> = MutableStateFlow(emptyList())
+    override val channels: StateFlow<List<MuNowNext>> get() = _channels
+
     override val playback = playbackChannel.asFlow()
     override val error = errorChannel.asFlow()
+
+    init {
+        launch {
+            //TODO Find a way to connect this coroutine to collecting from [channels]
+            while (true) {
+                try {
+                    _channels.value = api.getScheduleNowNext().filter { it.now != null }
+                    delay(30000)
+                } catch (e: CancellationException) {
+                    return@launch
+                } catch (e: Exception) {
+                    Logger.e(e, e.message ?: "")
+                    errorChannel.send(ChannelsError.LoadingChannelsFailed)
+                    delay(5000)
+                }
+            }
+        }
+    }
 
     /**
      * Used by iOS to observe the channels Flow by having this VM collect and call [callback].
      * @return a Cancelable that can cancel the coroutine launched.
      */
     @Suppress("unused")
-    fun observeChannels(callback: (List<MuNowNext>) -> Unit) : Cancelable {
+    fun observeChannels(callback: (List<MuNowNext>) -> Unit): Cancelable {
         val job = launch {
             channels.collect { channels ->
                 callback(channels)
@@ -55,7 +61,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
     }
 
     @Suppress("unused")
-    fun playTvChannel(muNowNext: MuNowNext, callback: (VideoItem) -> Unit) : Cancelable {
+    fun playTvChannel(muNowNext: MuNowNext, callback: (VideoItem) -> Unit): Cancelable {
         val job = launch {
             playback.collect { videoItem ->
                 callback(videoItem)
@@ -92,11 +98,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                         )
                 )
             } catch (e: Exception) {
-                errorChannel.offer(if (e.message != null && e.message != "Success") {
-                    e.message!!
-                } else {
-                    "Can't change channel"
-                })
+                handleException(e)
             }
         }
     }
@@ -121,15 +123,13 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                                 )
                         )
                     } else {
-                        errorChannel.offer("No stream")
+                        errorChannel.offer(ChannelsError.NoStream)
                     }
                 } catch (e: Exception) {
-                    errorChannel.offer(
-                            if (e.message != null && e.message != "Success") e.message!!
-                            else "Can't change channel")
+                    handleException(e)
                 }
             } else {
-                errorChannel.offer("No stream")
+                errorChannel.offer(ChannelsError.NoStream)
             }
         }
     }
@@ -138,6 +138,14 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
         playbackChannel.cancel()
         errorChannel.cancel()
         job.cancel()
+    }
+
+    private fun handleException(e: Exception) {
+        errorChannel.offer(if (e.message != null && e.message != "Success") {
+            ChannelsError.LoadingChannelFailed(e.message)
+        } else {
+            ChannelsError.LoadingChannelFailed("Can't change channel")
+        })
     }
 }
 

@@ -31,6 +31,7 @@ import androidx.ui.graphics.ImageAsset
 import androidx.ui.layout.*
 import androidx.ui.material.ripple.ripple
 import androidx.ui.tooling.preview.Preview
+import dk.youtec.drchannels.logic.viewmodel.ChannelsError
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.toast
 import kotlinx.coroutines.flow.collect
@@ -57,8 +58,12 @@ open class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            tvChannelsViewModel.error.collect { message ->
-                toast(message)
+            tvChannelsViewModel.error.collect { error ->
+                when(error) {
+                    is ChannelsError.NoStream -> toast("No stream")
+                    is ChannelsError.LoadingChannelsFailed -> toast("Unable to load channels")
+                    is ChannelsError.LoadingChannelFailed -> toast(error.message ?: "Unknown error")
+                }
             }
         }
 
