@@ -416,7 +416,7 @@ public class PlayerActivity extends AppCompatActivity
                                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
         );
 
-        if (visibility != View.VISIBLE) {
+        if (visibility != View.VISIBLE && getResources().getBoolean(R.bool.isTv)) {
             playerView.setUseController(false);
         }
     }
