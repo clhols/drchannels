@@ -1,41 +1,49 @@
 package dk.youtec.drchannels.ui
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.*
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
-import androidx.ui.core.Modifier
-import androidx.ui.core.setContent
-import androidx.ui.material.MaterialTheme
-import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.ui.core.Alignment
+import androidx.ui.core.Modifier
+import androidx.ui.core.setContent
+import androidx.ui.foundation.*
 import androidx.ui.foundation.shape.corner.RoundedCornerShape
 import androidx.ui.graphics.Color
+import androidx.ui.graphics.ImageAsset
+import androidx.ui.graphics.asImageAsset
+import androidx.ui.layout.*
+import androidx.ui.livedata.observeAsState
 import androidx.ui.material.Card
 import androidx.ui.material.ListItem
+import androidx.ui.material.MaterialTheme
+import androidx.ui.material.ripple.ripple
 import androidx.ui.text.TextStyle
 import androidx.ui.text.font.FontFamily
 import androidx.ui.text.font.FontWeight
+import androidx.ui.tooling.preview.Preview
 import androidx.ui.unit.dp
 import androidx.ui.unit.sp
+import coil.ImageLoader
+import coil.request.LoadRequest
 import dk.youtec.drapi.MuNowNext
-import dk.youtec.drapi.MuScheduleBroadcast
-import androidx.ui.livedata.observeAsState
-import androidx.ui.foundation.*
-import androidx.ui.graphics.ImageAsset
-import androidx.ui.layout.*
-import androidx.ui.material.ripple.ripple
-import androidx.ui.tooling.preview.Preview
+import dk.youtec.drapi.ProgramCard
+import dk.youtec.drchannels.R
+import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
 import dk.youtec.drchannels.logic.viewmodel.ChannelsError
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.toast
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.java.KoinJavaComponent.inject
 
 open class MainActivity : AppCompatActivity() {
 
@@ -59,7 +67,7 @@ open class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             tvChannelsViewModel.error.collect { error ->
-                when(error) {
+                when (error) {
                     is ChannelsError.NoStream -> toast("No stream")
                     is ChannelsError.LoadingChannelsFailed -> toast("Unable to load channels")
                     is ChannelsError.LoadingChannelFailed -> toast(error.message ?: "Unknown error")
@@ -90,7 +98,7 @@ fun ChannelsList(
             data = channelsList,
             modifier = Modifier.padding(top = 25.dp)
     ) { channel ->
-        Card(shape = RoundedCornerShape(4.dp),
+        Card(shape = RoundedCornerShape(8.dp),
                 color = Color.White,
                 modifier = Modifier.fillMaxWidth() + Modifier.padding(4.dp)
         ) {
@@ -115,6 +123,12 @@ fun ChannelsList(
                             ),
                             modifier = Modifier.padding(bottom = 8.dp)
                     )
+                }, icon = {
+                    NetworkImageComponentCoil(
+                            programCard = channel.now!!.programCard,
+                            modifier = Modifier.preferredWidth(120.dp)
+                                    + Modifier.wrapContentHeight(Alignment.Top)
+                    )
                 })
             }
         }
@@ -122,12 +136,32 @@ fun ChannelsList(
 }
 
 @Composable
-fun NetworkImageComponentCoil(url: String,
-                              modifier: Modifier = Modifier.fillMaxWidth() +
-                                      Modifier.preferredHeightIn(maxHeight = 200.dp)) {
+fun NetworkImageComponentCoil(programCard: ProgramCard,
+                              modifier: Modifier = Modifier) {
     var image by state<ImageAsset?> { null }
     var drawable by state<Drawable?> { null }
-    onCommit(url) {
+    onCommit(programCard) {
+        val context: Context by inject(Context::class.java)
+        val imageLoader: ImageLoader by inject(ImageLoader::class.java)
+        val request: LoadRequest = LoadRequest.Builder(context)
+                .data(programCard)
+                .crossfade(true)
+                .placeholder(R.drawable.image_placeholder)
+                .error(R.drawable.image_placeholder)
+                //.transformations(RoundedCornersTransformation(40f))
+                .target(
+                        onStart = { placeholder ->
+                            drawable = placeholder
+                        },
+                        onSuccess = { result ->
+                            image = result.toBitmap().asImageAsset()
+                        },
+                        onError = { error ->
+                            drawable = error
+                        }
+                )
+                .build()
+        imageLoader.execute(request)
 
         onDispose {
             image = null
@@ -138,9 +172,7 @@ fun NetworkImageComponentCoil(url: String,
     val theImage = image
     val theDrawable = drawable
     if (theImage != null) {
-        Box(modifier = modifier,
-                gravity = ContentGravity.Center
-        ) {
+        Box(modifier = modifier) {
             Image(asset = theImage)
         }
     } else if (theDrawable != null) {
