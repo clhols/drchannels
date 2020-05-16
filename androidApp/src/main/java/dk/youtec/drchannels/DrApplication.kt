@@ -34,18 +34,19 @@ class DrApplication : Application() {
                 single { OkHttpClientFactory.getInstance(get()) }
                 single { FirebaseAnalytics.getInstance(get()) }
                 viewModel { AndroidTvChannelsViewModel() }
+                single { Coil.imageLoader(get()) }
             })
         }
 
-        Coil.setDefaultImageLoader(
-                ImageLoader(this) {
-                    availableMemoryPercentage(0.3)
-                    crossfade(true)
-                    componentRegistry {
-                        add(ProgramCardMapper())
-                    }
-                    okHttpClient(koined() as OkHttpClient)
-                }
+        Coil.setImageLoader(
+                ImageLoader.Builder(koined())
+                        .availableMemoryPercentage(0.3)
+                        .crossfade(true)
+                        .componentRegistry {
+                            add(ProgramCardMapper())
+                        }
+                        .okHttpClient(koined() as OkHttpClient)
+                        .build()
         )
     }
 }

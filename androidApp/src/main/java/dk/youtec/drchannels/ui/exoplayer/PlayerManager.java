@@ -60,8 +60,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import coil.Coil;
-import coil.ImageLoader;
-import coil.api.ImageLoaders;
 import coil.request.LoadRequest;
 import coil.transform.RoundedCornersTransformation;
 import dk.youtec.drchannels.R;
@@ -452,14 +450,13 @@ import dk.youtec.drchannels.R;
 
         castInfoTitle.setText(title);
 
-        ImageLoader imageLoader = Coil.loader();
-        LoadRequest request = ImageLoaders.newLoadBuilder(imageLoader, castInfoImage.getContext())
+        LoadRequest request = LoadRequest.builder(castInfoImage.getContext())
                 .data(imageUrl)
                 .crossfade(true)
                 .target(castInfoImage)
                 .transformations(new RoundedCornersTransformation(40f))
                 .build();
-        imageLoader.load(request);
+        Coil.imageLoader(castInfoImage.getContext()).execute(request);
     }
 
     private void maybeSetCurrentItemAndNotify(int currentItemIndex) {
