@@ -2,23 +2,18 @@ package dk.youtec.drchannels.ui
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.*
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
-import androidx.ui.core.Alignment
 import androidx.ui.core.Modifier
 import androidx.ui.core.setContent
 import androidx.ui.foundation.*
 import androidx.ui.foundation.shape.corner.RoundedCornerShape
 import androidx.ui.graphics.Color
-import androidx.ui.graphics.ImageAsset
-import androidx.ui.graphics.asImageAsset
 import androidx.ui.layout.*
 import androidx.ui.livedata.observeAsState
 import androidx.ui.material.Card
@@ -31,11 +26,10 @@ import androidx.ui.text.font.FontWeight
 import androidx.ui.tooling.preview.Preview
 import androidx.ui.unit.dp
 import androidx.ui.unit.sp
-import coil.ImageLoader
-import coil.request.LoadRequest
+import coil.request.GetRequest
+import coil.transform.RoundedCornersTransformation
+import dev.chrisbanes.accompanist.coil.CoilImage
 import dk.youtec.drapi.MuNowNext
-import dk.youtec.drapi.ProgramCard
-import dk.youtec.drchannels.R
 import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
 import dk.youtec.drchannels.logic.viewmodel.ChannelsError
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
@@ -43,7 +37,6 @@ import dk.youtec.drchannels.util.toast
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
-import org.koin.java.KoinJavaComponent.inject
 
 open class MainActivity : AppCompatActivity() {
 
@@ -77,7 +70,7 @@ open class MainActivity : AppCompatActivity() {
 
         setContent {
             MaterialTheme {
-                ChannelsList(tvChannelsViewModel)
+                ChannelsList(this, tvChannelsViewModel)
             }
         }
     }
@@ -90,6 +83,7 @@ open class MainActivity : AppCompatActivity() {
 @Preview
 @Composable
 fun ChannelsList(
+        context: Context,
         viewModel: AndroidTvChannelsViewModel
 ) {
     val channelsList by viewModel.channels.asLiveData().observeAsState(initial = emptyList())
@@ -124,60 +118,16 @@ fun ChannelsList(
                             modifier = Modifier.padding(bottom = 8.dp)
                     )
                 }, icon = {
-                    NetworkImageComponentCoil(
-                            programCard = channel.now!!.programCard,
+                    CoilImage(
+                            request = GetRequest.Builder(context)
+                                    .data(channel.now!!.programCard)
+                                    .transformations(RoundedCornersTransformation(40f))
+                                    .build(),
                             modifier = Modifier.preferredWidth(120.dp)
-                                    + Modifier.wrapContentHeight(Alignment.Top)
+                                    + Modifier.preferredHeight(80.dp)
                     )
                 })
             }
-        }
-    }
-}
-
-@Composable
-fun NetworkImageComponentCoil(programCard: ProgramCard,
-                              modifier: Modifier = Modifier) {
-    var image by state<ImageAsset?> { null }
-    var drawable by state<Drawable?> { null }
-    onCommit(programCard) {
-        val context: Context by inject(Context::class.java)
-        val imageLoader: ImageLoader by inject(ImageLoader::class.java)
-        val request: LoadRequest = LoadRequest.Builder(context)
-                .data(programCard)
-                .crossfade(true)
-                .placeholder(R.drawable.image_placeholder)
-                .error(R.drawable.image_placeholder)
-                //.transformations(RoundedCornersTransformation(40f))
-                .target(
-                        onStart = { placeholder ->
-                            drawable = placeholder
-                        },
-                        onSuccess = { result ->
-                            image = result.toBitmap().asImageAsset()
-                        },
-                        onError = { error ->
-                            drawable = error
-                        }
-                )
-                .build()
-        imageLoader.execute(request)
-
-        onDispose {
-            image = null
-            drawable = null
-        }
-    }
-
-    val theImage = image
-    val theDrawable = drawable
-    if (theImage != null) {
-        Box(modifier = modifier) {
-            Image(asset = theImage)
-        }
-    } else if (theDrawable != null) {
-        Canvas(modifier = modifier) {
-            theDrawable.draw(this.nativeCanvas)
         }
     }
 }
