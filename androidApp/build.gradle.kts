@@ -129,7 +129,7 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
-    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.1.1")
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.1.2")
     implementation("androidx.compose:compose-runtime:0.1.0-dev11")
     implementation("androidx.ui:ui-tooling:0.1.0-dev11")
     implementation("androidx.ui:ui-layout:0.1.0-dev11")
@@ -143,7 +143,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
     implementation("androidx.appcompat:appcompat:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta5")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta6")
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.fragment:fragment-ktx:1.2.4")
     implementation("androidx.work:work-runtime-ktx:2.3.4")
