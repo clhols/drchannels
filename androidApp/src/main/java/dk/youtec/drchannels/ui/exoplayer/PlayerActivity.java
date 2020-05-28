@@ -158,7 +158,6 @@ public class PlayerActivity extends AppCompatActivity
         Log.v("PlayerActivity", "Key pressed: " + keyCode);
 
         switch (keyCode) {
-            case KeyEvent.KEYCODE_BUTTON_Y:
             case KeyEvent.KEYCODE_DPAD_CENTER:
                 playerView.setUseController(true);
                 if (!playerView.isControllerVisible()) {
@@ -178,9 +177,13 @@ public class PlayerActivity extends AppCompatActivity
                 }
                 break;
             case KeyEvent.KEYCODE_BUTTON_X:
-                break;
+                selectTracksButton.performClick();
+                return true;
             case KeyEvent.KEYCODE_BUTTON_B:
                 break;
+            case KeyEvent.KEYCODE_BUTTON_Y:
+                player.setPlayWhenReady(!player.getPlayWhenReady());
+                return true;
             case KeyEvent.KEYCODE_BUTTON_THUMBL:
                 break;
             case KeyEvent.KEYCODE_BUTTON_THUMBR:
@@ -412,6 +415,10 @@ public class PlayerActivity extends AppCompatActivity
                                 View.SYSTEM_UI_FLAG_VISIBLE :
                                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
         );
+
+        if (visibility != View.VISIBLE && getResources().getBoolean(R.bool.isTv)) {
+            playerView.setUseController(false);
+        }
     }
 
     // Internal methods
