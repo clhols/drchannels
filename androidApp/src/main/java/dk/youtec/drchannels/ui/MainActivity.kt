@@ -69,7 +69,14 @@ open class MainActivity : AppCompatActivity() {
         }
 
         setContent {
-            MaterialTheme {
+            val colorPalette = if (isSystemInDarkTheme()) {
+                darkThemeColors
+            } else {
+                lightThemeColors
+            }
+            MaterialTheme(
+                    colors = colorPalette
+            ) {
                 ChannelsList(this, tvChannelsViewModel)
             }
         }
