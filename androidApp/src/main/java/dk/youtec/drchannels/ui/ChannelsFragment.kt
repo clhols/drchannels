@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_channels.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.android.viewmodel.compat.ViewModelCompat.viewModel
+import org.koin.androidx.viewmodel.compat.ViewModelCompat.viewModel
 
 class ChannelsFragment : Fragment() {
     private var channelsJob: Job? = null
