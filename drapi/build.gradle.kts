@@ -32,8 +32,8 @@ dependencies {
     androidTestImplementation("org.jetbrains.kotlin:kotlin-test")
     androidTestImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    androidTestImplementation("com.android.support.test:runner:1.0.2")
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")
+    androidTestImplementation("androidx.test:runner:1.2.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
 }
 
 kotlin {
