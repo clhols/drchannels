@@ -43,7 +43,6 @@ allprojects {
                         "kotlinx-coroutines-core" -> useVersion(Versions.coroutines)
                     }
                     "androidx.annotation" -> useVersion(Versions.androidAnnotation)
-                    "androidx.exifinterface" -> useVersion("1.1.0")
                 }
             }
         }
