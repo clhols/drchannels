@@ -149,11 +149,11 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.3.4")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation(platform("com.google.firebase:firebase-bom:25.3.1"))
-    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-perf")
     implementation("com.crashlytics.sdk.android:crashlytics")
     implementation("org.koin:koin-android:2.1.5")
-    implementation("org.koin:koin-android-viewmodel:2.1.5")
+    implementation("org.koin:koin-androidx-viewmodel:2.1.5")
 
     kapt("androidx.lifecycle:lifecycle-common-java8:2.2.0")
 
