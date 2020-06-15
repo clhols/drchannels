@@ -28,7 +28,7 @@ android {
     }
     composeOptions {
         kotlinCompilerVersion = "1.3.70-dev-withExperimentalGoogleExtensions-20200424"
-        kotlinCompilerExtensionVersion = "0.1.0-dev10"
+        kotlinCompilerExtensionVersion = "0.1.0-dev13"
     }
 
     defaultConfig {
@@ -91,11 +91,6 @@ android {
         }
     }
 
-    compileOptions {
-        setSourceCompatibility("1.8")
-        setTargetCompatibility("1.8")
-    }
-
     packagingOptions {
         exclude("META-INF/*.kotlin_module")
     }
@@ -130,11 +125,11 @@ dependencies {
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
     implementation("dev.chrisbanes.accompanist:accompanist-coil:0.1.3")
-    implementation("androidx.compose:compose-runtime:0.1.0-dev12")
-    implementation("androidx.ui:ui-tooling:0.1.0-dev12")
-    implementation("androidx.ui:ui-layout:0.1.0-dev12")
-    implementation("androidx.ui:ui-material:0.1.0-dev12")
-    implementation("androidx.ui:ui-livedata:0.1.0-dev12")
+    implementation("androidx.compose:compose-runtime:0.1.0-dev13")
+    implementation("androidx.ui:ui-tooling:0.1.0-dev13")
+    implementation("androidx.ui:ui-layout:0.1.0-dev13")
+    implementation("androidx.ui:ui-material:0.1.0-dev13")
+    implementation("androidx.ui:ui-livedata:0.1.0-dev13")
 
     implementation("io.coil-kt:coil:0.11.0")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
