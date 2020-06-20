@@ -7,7 +7,7 @@ object Versions {
     const val buildTools = "29.0.3"
     const val androidAnnotation = "1.1.0"
     const val okhttp = "4.7.2"
-    const val exoPlayer = "2.11.4"
+    const val exoPlayer = "2.11.5"
 
     //Kotlin dependent versions
     const val kotlin = "1.3.72"
