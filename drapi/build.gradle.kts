@@ -45,7 +45,7 @@ kotlin {
             baseName = frameworkName
             isStatic = true
             freeCompilerArgs = mutableListOf("-Xobjc-generics")
-            export("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}")
+            export("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
         }
     }
     // Uncomment this to fix native dependency resolution in the IDE.
@@ -61,15 +61,15 @@ kotlin {
         }
     }
     js {
-        browser
-        nodejs
+        browser()
+        nodejs()
     }
 
     sourceSets {
         all {
             languageSettings.apply {
-                languageVersion = "1.3"
-                apiVersion = "1.3"
+                languageVersion = "1.4"
+                apiVersion = "1.4"
                 useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 useExperimentalAnnotation("kotlinx.serialization.UnstableDefault")
                 useExperimentalAnnotation("kotlin.Experimental")
@@ -80,7 +80,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${Versions.serialization}")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Versions.serialization}")
                 implementation("io.ktor:ktor-client-core:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-json:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-serialization:${Versions.ktor}")
@@ -115,14 +115,18 @@ kotlin {
         val nativeMain by creating {
             dependsOn(commonMain)
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}")
-                implementation("io.ktor:ktor-client-serialization-native:${Versions.ktor}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}") {
+                    version {
+                        strictly(Versions.coroutines)
+                    }
+                }
+                implementation("io.ktor:ktor-client-serialization:${Versions.ktor}")
             }
         }
         val nativeTest by creating {
             dependsOn(commonTest)
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
             }
         }
 
@@ -146,7 +150,7 @@ kotlin {
         val iosTest by getting {
             dependsOn(nativeTest)
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
             }
         }
 

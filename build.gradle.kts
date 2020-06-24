@@ -6,7 +6,7 @@ buildscript {
         google()
         maven { setUrl("https://plugins.gradle.org/m2/") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
-        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
+        maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         maven { setUrl("https://github.com/clhols/mvn-repo/raw/master/") }
     }
 
@@ -29,7 +29,7 @@ allprojects {
         maven { setUrl("https://kotlin.bintray.com/ktor") }
         maven { setUrl("https://plugins.gradle.org/m2/") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
-        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
+        maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         //jcenter()
     }
 
@@ -38,10 +38,6 @@ allprojects {
         resolutionStrategy {
             eachDependency {
                 when (requested.group) {
-                    "org.jetbrains.kotlin" -> useVersion(Versions.kotlin)
-                    "org.jetbrains.kotlinx" -> when(requested.name) {
-                        "kotlinx-coroutines-core" -> useVersion(Versions.coroutines)
-                    }
                     "androidx.annotation" -> useVersion(Versions.androidAnnotation)
                 }
             }
