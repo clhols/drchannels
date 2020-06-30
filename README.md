@@ -12,6 +12,10 @@ https://www.dropbox.com/s/tw9gpldrwicd3kj/drchannels.apk?dl=1
 Android TV:
 https://www.dropbox.com/s/a4oc5xmtl5naea7/drchannels-tv-release.apk?dl=1
 
+Screenshots:
+![Home screen screenshot](/androidApp/graphics/homescreen.png)
+![Live Channels screenshot](/androidApp/graphics/livechannels.png)
+
 The DR MU-online API version 1.4 is implemented in its own "drapi" module as a Kotlin multiplatform library so that it can easily be used in other Android and iOS projects.
 
 Create local.properties and set Android SDK dir in it:

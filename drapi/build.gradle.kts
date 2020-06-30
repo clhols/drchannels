@@ -84,14 +84,14 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-json:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-serialization:${Versions.ktor}")
-                implementation("com.soywiz.korlibs.klock:klock:${Versions.klock}")
+                implementation("io.ktor:ktor-utils:${Versions.ktor}")
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-test-common")
                 implementation("org.jetbrains.kotlin:kotlin-test-annotations-common")
-                implementation("com.soywiz.korlibs.klock:klock:${Versions.klock}")
+                implementation("io.ktor:ktor-utils:${Versions.ktor}")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
             }
         }
