@@ -134,7 +134,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.2.5")
     implementation("androidx.work:work-runtime-ktx:2.3.4")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
-    implementation(platform("com.google.firebase:firebase-bom:25.3.1"))
+    implementation(platform("com.google.firebase:firebase-bom:25.5.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-perf")
     implementation("com.crashlytics.sdk.android:crashlytics")
