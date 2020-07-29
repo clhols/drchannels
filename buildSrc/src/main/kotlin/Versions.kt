@@ -8,6 +8,7 @@ object Versions {
     const val androidAnnotation = "1.1.0"
     const val okhttp = "4.7.2"
     const val exoPlayer = "2.11.7"
+    const val fragmentKtx = "1.2.5"
 
     //Kotlin dependent versions
     const val kotlin = "1.3.72"
