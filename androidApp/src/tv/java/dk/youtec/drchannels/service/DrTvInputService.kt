@@ -209,10 +209,10 @@ class DrTvInputSessionImpl(
                     TvTrackInfo.TYPE_AUDIO -> {
                         builder.setAudioChannelCount(format.channelCount)
                         builder.setAudioSampleRate(format.sampleRate)
-                        builder.setLanguage(format.language)
+                        builder.setLanguage(format.language ?: "")
                     }
                     TvTrackInfo.TYPE_SUBTITLE -> {
-                        builder.setLanguage(format.language)
+                        builder.setLanguage(format.language ?: "")
                     }
                 }
 
