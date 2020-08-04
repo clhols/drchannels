@@ -42,7 +42,6 @@ allprojects {
                     "org.jetbrains.kotlinx" -> when(requested.name) {
                         "kotlinx-coroutines-core" -> useVersion(Versions.coroutines)
                     }
-                    "androidx.annotation" -> useVersion(Versions.androidAnnotation)
                 }
             }
         }
