@@ -1,6 +1,6 @@
 object Versions {
     //Project dependency versions
-    const val androidGradlePlugin = "4.0.0"
+    const val androidGradlePlugin = "4.0.1"
     const val compileSdk = 30
     const val targetSdk = 30
     const val minSdk = 21
