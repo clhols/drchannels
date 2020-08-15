@@ -71,7 +71,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
                 .asSequence()
                 .filter { it.server() != null }
                 .filter { !it.webChannel }
-                .filter { it.slug !in listOf("dr3", "dr-k", "dr-ultra") }
+                .filter { it.slug !in listOf("dr3", "dr-k", "dr-ultra", "eva", "evb", "evc") }
                 .sortedBy { it.title.replace(" ", "") }
                 .forEachIndexed { index, channel ->
                     channelList += Channel.Builder().apply {

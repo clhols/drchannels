@@ -43,7 +43,6 @@ kotlin {
                 apiVersion = "1.4"
                 useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 useExperimentalAnnotation("kotlinx.coroutines.FlowPreview")
-                useExperimentalAnnotation("kotlinx.serialization.UnstableDefault")
                 useExperimentalAnnotation("kotlin.Experimental")
                 progressiveMode = true
             }

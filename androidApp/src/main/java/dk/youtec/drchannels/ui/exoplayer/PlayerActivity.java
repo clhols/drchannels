@@ -52,6 +52,7 @@ import com.google.android.exoplayer2.util.EventLogger;
 import com.google.android.exoplayer2.util.Util;
 import com.google.android.gms.cast.framework.CastButtonFactory;
 import com.google.android.gms.cast.framework.CastContext;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -287,6 +288,8 @@ public class PlayerActivity extends AppCompatActivity
                 .addControlCategory(CATEGORY_LIVE_VIDEO)
                 .build());
         CastButtonFactory.setUpMediaRouteButton(this, mediaRouteButton);
+
+        FirebaseAnalytics.getInstance(this).logEvent("playback", null);
     }
 
     @Override

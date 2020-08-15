@@ -1,17 +1,18 @@
 object Versions {
     //Project dependency versions
-    const val androidGradlePlugin = "4.0.0"
-    const val compileSdk = 29
-    const val targetSdk = 29
+    const val androidGradlePlugin = "4.0.1"
+    const val compileSdk = 30
+    const val targetSdk = 30
     const val minSdk = 21
-    const val buildTools = "29.0.3"
+    const val buildTools = "30.0.1"
     const val androidAnnotation = "1.1.0"
-    const val okhttp = "4.7.2"
-    const val exoPlayer = "2.11.5"
+    const val okhttp = "4.8.0"
+    const val exoPlayer = "2.11.7"
+    const val fragmentKtx = "1.2.5"
 
     //Kotlin dependent versions
-    const val kotlin = "1.4-M2"
-    const val coroutines = "1.3.7-native-mt-1.4-M2"
-    const val serialization = "0.20.0-1.4-M2"
-    const val ktor = "1.3.2-1.4-M2"
+    const val kotlin = "1.4.0"
+    const val coroutines = "1.3.9"
+    const val serialization = "1.0-M1-1.4.0-rc"
+    const val ktor = "1.3.2-1.4.0-rc"
 }

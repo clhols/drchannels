@@ -6,7 +6,7 @@ buildscript {
         google()
         maven { setUrl("https://plugins.gradle.org/m2/") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
-        maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
+        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         maven { setUrl("https://github.com/clhols/mvn-repo/raw/master/") }
     }
 
@@ -29,7 +29,7 @@ allprojects {
         maven { setUrl("https://kotlin.bintray.com/ktor") }
         maven { setUrl("https://plugins.gradle.org/m2/") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
-        maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
+        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         //jcenter()
     }
 
