@@ -87,8 +87,8 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                         ?.server() ?: throw Exception("Unable to get streaming server")
 
                 val stream = server
-                        .qualities.maxBy { it.kbps }!!
-                        .streams.first().stream
+                        .qualities.maxByOrNull { it.kbps }
+                        ?.streams?.first()?.stream ?: ""
 
                 playbackChannel.offer(
                         VideoItem(

@@ -11,8 +11,8 @@ object Versions {
     const val fragmentKtx = "1.2.5"
 
     //Kotlin dependent versions
-    const val kotlin = "1.3.72"
-    const val coroutines = "1.3.8"
-    const val serialization = "0.20.0"
-    const val ktor = "1.3.2"
+    const val kotlin = "1.4.0"
+    const val coroutines = "1.3.9"
+    const val serialization = "1.0-M1-1.4.0-rc"
+    const val ktor = "1.3.2-1.4.0-rc"
 }

@@ -38,10 +38,7 @@ allprojects {
         resolutionStrategy {
             eachDependency {
                 when (requested.group) {
-                    "org.jetbrains.kotlin" -> useVersion(Versions.kotlin)
-                    "org.jetbrains.kotlinx" -> when(requested.name) {
-                        "kotlinx-coroutines-core" -> useVersion(Versions.coroutines)
-                    }
+                    "androidx.annotation" -> useVersion(Versions.androidAnnotation)
                 }
             }
         }

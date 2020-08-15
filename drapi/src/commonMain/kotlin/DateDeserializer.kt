@@ -2,14 +2,17 @@ package dk.youtec.drapi
 
 import io.ktor.util.date.InvalidDateStringException
 import kotlinx.serialization.*
+import kotlinx.serialization.encoding.*
+import kotlinx.serialization.internal.*
+import kotlinx.serialization.descriptors.*
 
 object DateDeserializer : KSerializer<Long> {
     override val descriptor: SerialDescriptor
-        get() = PrimitiveDescriptor("DateDeserializer", PrimitiveKind.STRING)
+        get() = PrimitiveSerialDescriptor("DateDeserializer", PrimitiveKind.STRING)
 
     private val dateFormat = DateParser("YYYY-MM-ddTHH:mm:ss*")
 
-    override fun serialize(encoder: Encoder, value: Long) {
+    override fun serialize(encoder: Encoder, value: Long): Unit {
         throw IllegalStateException("Only deserialize available in DateDeserializer")
     }
 

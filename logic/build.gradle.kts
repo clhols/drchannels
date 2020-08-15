@@ -31,7 +31,6 @@ kotlin {
         binaries.framework {
             baseName = frameworkName
             isStatic = true
-            freeCompilerArgs = mutableListOf("-Xobjc-generics")
             export(project(":drapi"))
         }
     }
@@ -39,11 +38,10 @@ kotlin {
     sourceSets {
         all {
             languageSettings.apply {
-                languageVersion = "1.3"
-                apiVersion = "1.3"
+                languageVersion = "1.4"
+                apiVersion = "1.4"
                 useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 useExperimentalAnnotation("kotlinx.coroutines.FlowPreview")
-                useExperimentalAnnotation("kotlinx.serialization.UnstableDefault")
                 useExperimentalAnnotation("kotlin.Experimental")
                 progressiveMode = true
             }
@@ -53,7 +51,7 @@ kotlin {
             dependencies {
                 api(project(":drapi"))
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-common:${Versions.kotlin}")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
             }
         }
         val commonTest by getting {
@@ -76,7 +74,11 @@ kotlin {
 
         val iosMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}") {
+                    version {
+                        strictly(Versions.coroutines)
+                    }
+                }
             }
         }
         val iosTest by getting {
