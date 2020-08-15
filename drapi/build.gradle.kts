@@ -44,7 +44,6 @@ kotlin {
         binaries.framework {
             baseName = frameworkName
             isStatic = true
-            freeCompilerArgs = mutableListOf("")
             export("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
         }
     }

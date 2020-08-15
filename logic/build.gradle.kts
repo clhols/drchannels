@@ -31,7 +31,6 @@ kotlin {
         binaries.framework {
             baseName = frameworkName
             isStatic = true
-            freeCompilerArgs = mutableListOf("")
             export(project(":drapi"))
         }
     }
