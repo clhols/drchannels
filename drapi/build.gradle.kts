@@ -44,7 +44,7 @@ kotlin {
         binaries.framework {
             baseName = frameworkName
             isStatic = true
-            freeCompilerArgs = mutableListOf("-Xobjc-generics")
+            freeCompilerArgs = mutableListOf("")
             export("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
         }
     }
