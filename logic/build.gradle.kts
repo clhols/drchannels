@@ -50,7 +50,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":drapi"))
-                implementation("org.jetbrains.kotlin:kotlin-stdlib-common:${Versions.kotlin}")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
             }
         }
@@ -63,7 +62,6 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
             }

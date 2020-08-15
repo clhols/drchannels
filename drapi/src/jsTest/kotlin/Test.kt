@@ -12,7 +12,7 @@ class Test {
     fun bar() {
         GlobalScope.promise {
             val channels = service.getAllActiveDrTvChannels()
-            assertEquals(3, channels.count())
+            assertTrue(channels.count() > 0)
         }
     }
 }

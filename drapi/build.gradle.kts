@@ -21,9 +21,6 @@ android {
 }
 
 dependencies {
-    // Specify Kotlin/JVM stdlib dependency.
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
     testImplementation("junit:junit:4.13")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
@@ -77,7 +74,6 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Versions.serialization}")
                 implementation("io.ktor:ktor-client-core:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-json:${Versions.ktor}")
@@ -97,7 +93,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
-                implementation("io.ktor:ktor-client-serialization-jvm:${Versions.ktor}")
                 implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
                 implementation("com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}")
             }
@@ -113,19 +108,11 @@ kotlin {
         val nativeMain by creating {
             dependsOn(commonMain)
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}") {
-                    version {
-                        strictly(Versions.coroutines)
-                    }
-                }
                 implementation("io.ktor:ktor-client-serialization:${Versions.ktor}")
             }
         }
         val nativeTest by creating {
             dependsOn(commonTest)
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
-            }
         }
 
         val desktopMain by creating {
@@ -147,14 +134,10 @@ kotlin {
 
         val iosTest by getting {
             dependsOn(nativeTest)
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
-            }
         }
 
         val jsMain by getting {
             dependencies {
-                implementation(kotlin("stdlib-js"))
                 implementation("io.ktor:ktor-client-js:${Versions.ktor}")
                 implementation("io.ktor:ktor-client-serialization-js:${Versions.ktor}")
             }
