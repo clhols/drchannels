@@ -29,7 +29,6 @@ android {
         targetSdkVersion(Versions.targetSdk)
 
         applicationId = "dk.youtec.drchannels"
-        versionCode = (project.ext.get("getVersionCodeTimestamp") as Closure<Int>).invoke()
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
