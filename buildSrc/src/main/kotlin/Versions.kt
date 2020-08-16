@@ -6,7 +6,7 @@ object Versions {
     const val minSdk = 21
     const val buildTools = "30.0.1"
     const val androidAnnotation = "1.1.0"
-    const val okhttp = "4.8.0"
+    const val okhttp = "4.8.1"
     const val exoPlayer = "2.11.7"
     const val fragmentKtx = "1.2.5"
 
