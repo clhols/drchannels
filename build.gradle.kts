@@ -33,17 +33,6 @@ allprojects {
         //jcenter()
     }
 
-    // Force all of the primary libraries to use the same version.
-    configurations.all {
-        resolutionStrategy {
-            eachDependency {
-                when (requested.group) {
-                    "androidx.annotation" -> useVersion(Versions.androidAnnotation)
-                }
-            }
-        }
-    }
-
     tasks.withType<Test> {
         maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
         reports.html.isEnabled = false
@@ -56,6 +45,7 @@ allprojects {
         kotlinOptions {
             jvmTarget = "1.8"
             freeCompilerArgs = listOf("-progressive", "-Xopt-in=kotlin.RequiresOptIn,kotlinx.coroutines.ExperimentalCoroutinesApi,kotlinx.coroutines.FlowPreview")
+            useIR = true
         }
     }
 }
