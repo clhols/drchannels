@@ -17,7 +17,7 @@ buildscript {
         classpath("com.google.gms:google-services:4.3.3")
         classpath("com.google.firebase:perf-plugin:1.3.1")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.2.0")
-        classpath("dk.youtec:appupdater:1.0.1")
+        classpath("dk.youtec:appupdater-plugin:1.0.4")
     }
 }
 
@@ -31,20 +31,6 @@ allprojects {
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         //jcenter()
-    }
-
-    // Force all of the primary libraries to use the same version.
-    configurations.all {
-        resolutionStrategy {
-            eachDependency {
-                when (requested.group) {
-                    "org.jetbrains.kotlinx" -> when(requested.name) {
-                        "kotlinx-coroutines-core" -> useVersion(Versions.coroutines)
-                    }
-                    "androidx.annotation" -> useVersion(Versions.androidAnnotation)
-                }
-            }
-        }
     }
 
     tasks.withType<Test> {

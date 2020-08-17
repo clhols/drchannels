@@ -4,14 +4,13 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 
 open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCacheSize) : IDrMuApi {
     private val client = HttpClientFactory
             .create(cacheDir, sizeBytes)
             .config {
                 install(JsonFeature) {
-                    serializer = KotlinxSerializer(Json(JsonConfiguration(ignoreUnknownKeys = true)))
+                    serializer = KotlinxSerializer(Json { ignoreUnknownKeys = true })
                 }
             }
 

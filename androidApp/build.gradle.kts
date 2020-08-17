@@ -36,7 +36,6 @@ android {
         targetSdkVersion(Versions.targetSdk)
 
         applicationId = "dk.youtec.drchannels"
-        versionCode = (project.ext.get("getVersionCodeTimestamp") as Closure<Int>).invoke()
         versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -119,7 +118,6 @@ dependencies {
     implementation(project(":logic"))
     implementation(project(":tv-library"))
     implementation(project(":appupdater"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}")
     implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:${Versions.coroutines}"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android")
@@ -138,17 +136,17 @@ dependencies {
 
     implementation("io.coil-kt:coil:0.11.0")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
-    implementation("com.google.android.material:material:1.1.0")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01")
+    implementation("com.google.android.material:material:1.2.0")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
-    implementation("androidx.appcompat:appcompat:1.1.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta7")
+    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0-rc1")
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("androidx.fragment:fragment-ktx:1.2.5")
-    implementation("androidx.work:work-runtime-ktx:2.3.4")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
-    implementation(platform("com.google.firebase:firebase-bom:25.3.1"))
+    implementation("androidx.fragment:fragment-ktx:${Versions.fragmentKtx}")
+    implementation("androidx.work:work-runtime-ktx:2.4.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
+    implementation(platform("com.google.firebase:firebase-bom:25.5.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-perf")
     implementation("com.crashlytics.sdk.android:crashlytics")

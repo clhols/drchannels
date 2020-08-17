@@ -25,7 +25,7 @@ class DrApplication : Application() {
         super.onCreate()
 
         startKoin {
-            logger(PrintLogger(Level.DEBUG))
+            logger(PrintLogger(Level.ERROR))
             androidContext(this@DrApplication)
             modules(module {
                 single { CoroutineScope(SupervisorJob()) }
