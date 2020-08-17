@@ -45,7 +45,6 @@ allprojects {
         kotlinOptions {
             jvmTarget = "1.8"
             freeCompilerArgs = listOf("-progressive", "-Xopt-in=kotlin.RequiresOptIn,kotlinx.coroutines.ExperimentalCoroutinesApi,kotlinx.coroutines.FlowPreview")
-            useIR = true
         }
     }
 }
