@@ -61,6 +61,20 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
     }
 
     @Suppress("unused")
+    fun observeError(callback: (ChannelsError) -> Unit): Cancelable {
+        val job = launch {
+            error.collect { error ->
+                callback(error)
+            }
+        }
+        return object : Cancelable {
+            override fun cancel() {
+                job.cancel()
+            }
+        }
+    }
+
+    @Suppress("unused")
     fun playTvChannel(muNowNext: MuNowNext, callback: (VideoItem) -> Unit): Cancelable {
         val job = launch {
             playback.collect { videoItem ->
