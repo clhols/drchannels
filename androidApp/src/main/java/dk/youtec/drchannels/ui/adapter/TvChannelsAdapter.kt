@@ -11,8 +11,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
-import coil.api.loadAny
+import coil.load
+import coil.loadAny
 import coil.transform.RoundedCornersTransformation
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.R
