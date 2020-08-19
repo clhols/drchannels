@@ -1,5 +1,4 @@
 import com.google.firebase.perf.plugin.FirebasePerfExtension
-import groovy.lang.Closure
 import java.util.*
 
 plugins {
