@@ -126,14 +126,15 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
-    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.1.8")
     implementation("androidx.compose.runtime:runtime:0.1.0-dev16")
     implementation("androidx.ui:ui-tooling:0.1.0-dev16")
     implementation("androidx.compose.foundation:foundation-layout:0.1.0-dev16")
     implementation("androidx.compose.material:material:0.1.0-dev16")
     implementation("androidx.compose.runtime:runtime-livedata:0.1.0-dev16")
 
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.1.9")
     implementation("io.coil-kt:coil:1.0.0-rc1")
+
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.2.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
