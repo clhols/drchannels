@@ -1,10 +1,9 @@
 package dk.youtec.drchannels.ui
 
-import androidx.ui.graphics.Color
-import androidx.ui.material.darkColorPalette
-import androidx.ui.material.lightColorPalette
+import androidx.compose.material.Colors
+import androidx.compose.ui.graphics.Color
 
-val lightThemeColors = lightColorPalette(
+val lightThemeColors = Colors(
         primary = Color(0xFF855446),
         primaryVariant = Color(0xFF9C684B),
         secondary = Color(0xFF03DAC5),
@@ -16,13 +15,15 @@ val lightThemeColors = lightColorPalette(
         onSecondary = Color.White,
         onBackground = Color.Black,
         onSurface = Color.Black,
-        onError = Color.White
+        onError = Color.White,
+        isLight = true
 )
 
-val darkThemeColors = darkColorPalette(
+val darkThemeColors = Colors(
         primary = Color(0xFF1F1F1F),
         primaryVariant = Color(0xFF3E2723),
         secondary = Color(0xFF03DAC5),
+        secondaryVariant = Color(0xFF0AC9F0),
         background = Color(0xFF121212),
         surface = Color.Black,
         error = Color(0xFFCF6679),
@@ -30,5 +31,6 @@ val darkThemeColors = darkColorPalette(
         onSecondary = Color.White,
         onBackground = Color.White,
         onSurface = Color.White,
-        onError = Color.Black
+        onError = Color.Black,
+        isLight = false
 )

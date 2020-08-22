@@ -27,7 +27,7 @@ android {
     }
     composeOptions {
         kotlinCompilerVersion = "1.4.0"
-        kotlinCompilerExtensionVersion = "0.1.0-dev16"
+        kotlinCompilerExtensionVersion = "0.1.0-dev17"
     }
 
     defaultConfig {
@@ -126,11 +126,11 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
-    implementation("androidx.compose.runtime:runtime:0.1.0-dev16")
-    implementation("androidx.ui:ui-tooling:0.1.0-dev16")
-    implementation("androidx.compose.foundation:foundation-layout:0.1.0-dev16")
-    implementation("androidx.compose.material:material:0.1.0-dev16")
-    implementation("androidx.compose.runtime:runtime-livedata:0.1.0-dev16")
+    implementation("androidx.compose.runtime:runtime:0.1.0-dev17")
+    implementation("androidx.compose.runtime:runtime-livedata:0.1.0-dev17")
+    implementation("androidx.ui:ui-tooling:0.1.0-dev17")
+    implementation("androidx.compose.foundation:foundation-layout:0.1.0-dev17")
+    implementation("androidx.compose.material:material:0.1.0-dev17")
 
     implementation("dev.chrisbanes.accompanist:accompanist-coil:0.1.9")
     implementation("io.coil-kt:coil:1.0.0-rc1")
@@ -145,6 +145,7 @@ dependencies {
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.fragment:fragment-ktx:${Versions.fragmentKtx}")
     implementation("androidx.work:work-runtime-ktx:2.4.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
     implementation(platform("com.google.firebase:firebase-bom:25.5.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
