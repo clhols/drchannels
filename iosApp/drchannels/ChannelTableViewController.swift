@@ -14,6 +14,7 @@ import DrLogic
 class ChannelTableViewController: UITableViewController {
 
     var job: Cancelable?
+    var errorJob: Cancelable?
     var playbackJob: Cancelable?
     var channels = [MuNowNext]()
     var viewModel : TvChannelsViewModelImpl?
@@ -26,10 +27,14 @@ class ChannelTableViewController: UITableViewController {
             self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in nowNext.now != nil })
             self.tableView.reloadData()
         }
+        errorJob = viewModel?.observeError { (error: ChannelsError) in
+            print("Error=\(error)")
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         job?.cancel()
+        errorJob?.cancel()
         viewModel?.onCleared()
         super.viewWillDisappear(animated)
     }

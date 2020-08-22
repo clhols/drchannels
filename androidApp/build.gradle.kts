@@ -1,5 +1,4 @@
 import com.google.firebase.perf.plugin.FirebasePerfExtension
-import groovy.lang.Closure
 import java.util.*
 
 plugins {
@@ -134,7 +133,7 @@ dependencies {
     implementation("androidx.compose.material:material:0.1.0-dev16")
     implementation("androidx.compose.runtime:runtime-livedata:0.1.0-dev16")
 
-    implementation("io.coil-kt:coil:0.11.0")
+    implementation("io.coil-kt:coil:1.0.0-rc1")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.2.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")

@@ -71,13 +71,7 @@ kotlin {
         }
 
         val iosMain by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}") {
-                    version {
-                        strictly(Versions.coroutines)
-                    }
-                }
-            }
+            dependencies {}
         }
         val iosTest by getting {
             dependencies {}

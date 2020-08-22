@@ -8,6 +8,7 @@ buildscript {
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         maven { setUrl("https://github.com/clhols/mvn-repo/raw/master/") }
+        //mavenLocal()
     }
 
     dependencies {
@@ -17,7 +18,7 @@ buildscript {
         classpath("com.google.gms:google-services:4.3.3")
         classpath("com.google.firebase:perf-plugin:1.3.1")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.2.0")
-        classpath("dk.youtec:appupdater-plugin:1.0.4")
+        classpath("dk.youtec:appupdater-plugin:1.0.5")
     }
 }
 
@@ -46,6 +47,7 @@ allprojects {
             jvmTarget = "1.8"
             freeCompilerArgs = listOf(
                     "-progressive",
+                    "-Xjvm-default=all",
                     "-Xopt-in=kotlin.RequiresOptIn,kotlinx.coroutines.ExperimentalCoroutinesApi,kotlinx.coroutines.FlowPreview",
                     "-Xallow-jvm-ir-dependencies",
                     "-Xskip-prerelease-check"
