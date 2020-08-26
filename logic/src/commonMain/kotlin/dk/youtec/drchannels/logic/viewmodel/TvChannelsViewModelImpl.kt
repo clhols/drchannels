@@ -18,8 +18,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
     private val playbackChannel = BroadcastChannel<VideoItem>(1)
     private val errorChannel = BroadcastChannel<ChannelsError>(1)
 
-    private val _channels: MutableStateFlow<List<MuNowNext>> = MutableStateFlow(emptyList())
-    override val channels: StateFlow<List<MuNowNext>> get() = _channels
+    override val channels: StateFlow<List<MuNowNext>> = MutableStateFlow(emptyList())
 
     override val playback = playbackChannel.asFlow()
     override val error = errorChannel.asFlow()
@@ -29,7 +28,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
             //TODO Find a way to connect this coroutine to collecting from [channels]
             while (true) {
                 try {
-                    _channels.value = api.getScheduleNowNext().filter { it.now != null }
+                    channels.state = api.getScheduleNowNext().filter { it.now != null }
                     delay(30000)
                 } catch (e: CancellationException) {
                     return@launch

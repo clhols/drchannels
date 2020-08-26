@@ -278,6 +278,7 @@ public class PlayerActivity extends AppCompatActivity
             startPosition = savedInstanceState.getLong(KEY_POSITION);
         } else {
             DefaultTrackSelector.ParametersBuilder builder = new DefaultTrackSelector.ParametersBuilder(/* context= */ this);
+            builder.setDisabledTextTrackSelectionFlags(C.SELECTION_FLAG_DEFAULT);
             trackSelectorParameters = builder.build();
             clearStartPosition();
         }

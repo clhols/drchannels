@@ -46,32 +46,18 @@ class DateParser(private val pattern: String) {
     }
 
     private fun DateBuilder.handleToken(
-            type: Char, chunk: String
+            type: Char,
+            chunk: String
     ): Unit = when (type) {
-        SECONDS -> {
-            seconds = chunk.toInt()
-        }
-        MINUTES -> {
-            minutes = chunk.toInt()
-        }
-        HOURS -> {
-            hours = chunk.toInt()
-        }
-        DAY_OF_MONTH -> {
-            dayOfMonth = chunk.toInt()
-        }
-        MONTH -> {
-            month = chunk.toInt()-1
-        }
-        YEAR -> {
-            year = chunk.toInt()
-        }
-        ZONE ->
-            check(chunk == "Z")
+        SECONDS -> seconds = chunk.toInt()
+        MINUTES -> minutes = chunk.toInt()
+        HOURS -> hours = chunk.toInt()
+        DAY_OF_MONTH -> dayOfMonth = chunk.toInt()
+        MONTH -> month = chunk.toInt() - 1
+        YEAR -> year = chunk.toInt()
+        ZONE -> check(chunk == "Z")
         ANY -> Unit
-        else -> {
-            check(chunk.all { it == type })
-        }
+        else -> check(chunk.all { it == type })
     }
 
     companion object {
