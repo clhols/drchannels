@@ -45,12 +45,11 @@ allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = "1.8"
+            useIR = true
             freeCompilerArgs = listOf(
                     "-progressive",
-                    "-Xjvm-default=all",
-                    "-Xopt-in=kotlin.RequiresOptIn,kotlinx.coroutines.ExperimentalCoroutinesApi,kotlinx.coroutines.FlowPreview",
-                    "-Xallow-jvm-ir-dependencies",
-                    "-Xskip-prerelease-check"
+                    "-Xjvm-default=enable",
+                    "-Xopt-in=kotlin.RequiresOptIn,kotlinx.coroutines.ExperimentalCoroutinesApi,kotlinx.coroutines.FlowPreview"
             )
         }
     }

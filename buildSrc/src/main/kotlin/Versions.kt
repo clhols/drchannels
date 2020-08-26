@@ -1,6 +1,6 @@
 object Versions {
     //Project dependency versions
-    const val androidGradlePlugin = "+"
+    const val androidGradlePlugin = "4.2.0-alpha07"
     const val compileSdk = 30
     const val targetSdk = 30
     const val minSdk = 21
@@ -9,6 +9,7 @@ object Versions {
     const val okhttp = "4.8.1"
     const val exoPlayer = "2.11.7"
     const val fragmentKtx = "1.2.5"
+    const val compose = "1.0.0-alpha01"
 
     //Kotlin dependent versions
     const val kotlin = "1.4.0"

@@ -22,13 +22,8 @@ android {
         aaptOptions.cruncherEnabled = false
     }
 
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerVersion = "1.4.0"
-        kotlinCompilerExtensionVersion = "0.1.0-dev17"
-    }
+    buildFeatures { compose = true }
+    composeOptions { kotlinCompilerExtensionVersion = Versions.compose }
 
     defaultConfig {
         minSdkVersion(Versions.minSdk)
@@ -126,13 +121,13 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
-    implementation("androidx.compose.runtime:runtime:0.1.0-dev17")
-    implementation("androidx.compose.runtime:runtime-livedata:0.1.0-dev17")
-    implementation("androidx.ui:ui-tooling:0.1.0-dev17")
-    implementation("androidx.compose.foundation:foundation-layout:0.1.0-dev17")
-    implementation("androidx.compose.material:material:0.1.0-dev17")
+    implementation("androidx.compose.runtime:runtime:${Versions.compose}")
+    implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
+    implementation("androidx.ui:ui-tooling:${Versions.compose}")
+    implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
+    implementation("androidx.compose.material:material:${Versions.compose}")
 
-    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.1.9")
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.2.0")
     implementation("io.coil-kt:coil:1.0.0-rc1")
 
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
@@ -141,7 +136,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
     implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0-rc1")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.0")
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.fragment:fragment-ktx:${Versions.fragmentKtx}")
     implementation("androidx.work:work-runtime-ktx:2.4.0")
