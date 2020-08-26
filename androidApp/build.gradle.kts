@@ -23,7 +23,10 @@ android {
     }
 
     buildFeatures { compose = true }
-    composeOptions { kotlinCompilerExtensionVersion = Versions.compose }
+    composeOptions {
+        kotlinCompilerVersion = Versions.kotlin
+        kotlinCompilerExtensionVersion = Versions.compose
+    }
 
     defaultConfig {
         minSdkVersion(Versions.minSdk)
