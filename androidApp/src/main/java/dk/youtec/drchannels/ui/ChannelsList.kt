@@ -3,17 +3,12 @@ package dk.youtec.drchannels.ui
 import android.content.Context
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
-import androidx.compose.foundation.layout.preferredWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.ListItem
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -26,8 +21,8 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import kotlinx.coroutines.flow.Flow
 
 @Preview
@@ -43,38 +38,58 @@ fun ChannelsList(
             items = channelsList,
             modifier = Modifier.padding(top = 25.dp)
     ) { channel ->
-        Card(shape = RoundedCornerShape(8.dp),
-                modifier = Modifier.fillMaxWidth()
-                        then Modifier.padding(4.dp)
-                        then Modifier.clickable(onClick = { onClick(channel) })
+        val now = channel.now!!
+        val programDuration = now.endTime - now.startTime
+        val programTime = System.currentTimeMillis() - now.startTime
+        val percentage = programTime.toFloat() / programDuration
+
+        Card(
+                Modifier.fillMaxWidth()
+                        .padding(4.dp)
+                        .clickable(onClick = { onClick(channel) }),
+                shape = RoundedCornerShape(4.dp),
         ) {
-            ListItem(text = {
-                Text(
-                        text = channel.now!!.title,
-                        style = TextStyle(
-                                fontFamily = FontFamily.Serif, fontSize = 25.sp,
-                                fontWeight = FontWeight.Bold, color = Color.Black
-                        )
+            Column(Modifier.padding(12.dp)) {
+                Row {
+                    CoilImage(
+                            request = ImageRequest.Builder(context)
+                                    .data(now.programCard)
+                                    .transformations(RoundedCornersTransformation(
+                                            topLeft = 40f,
+                                            bottomRight = 40f
+                                    ))
+                                    .build(),
+                            modifier = Modifier
+                                    .preferredWidth(120.dp)
+                                    .preferredHeight(80.dp)
+                                    .gravity(Alignment.CenterVertically)
+                    )
+                    Text(
+                            text = now.title,
+                            modifier = Modifier.padding(start = 16.dp),
+                            style = TextStyle(
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 22.sp,
+                            )
+                    )
+                }
+                LinearProgressIndicator(
+                        modifier = Modifier.padding(top = 8.dp),
+                        progress = percentage
                 )
-            }, secondaryText = {
-                Text(
-                        text = channel.now!!.description,
-                        style = TextStyle(
-                                fontFamily = FontFamily.Serif, fontSize = 15.sp,
-                                fontWeight = FontWeight.Light, color = Color.DarkGray
-                        ),
-                        modifier = Modifier.padding(bottom = 8.dp)
-                )
-            }, icon = {
-                CoilImage(
-                        request = ImageRequest.Builder(context)
-                                .data(channel.now!!.programCard)
-                                .transformations(RoundedCornersTransformation(40f))
-                                .build(),
-                        modifier = Modifier.preferredWidth(120.dp)
-                                + Modifier.preferredHeight(80.dp)
-                )
-            })
+                if (now.description.isNotBlank()) {
+                    Text(
+                            text = now.description,
+                            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+                            style = TextStyle(
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontWeight = FontWeight.Light,
+                                    fontSize = 16.sp,
+                            )
+                    )
+                }
+            }
         }
     }
 }
