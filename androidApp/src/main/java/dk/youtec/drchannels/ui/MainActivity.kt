@@ -54,10 +54,10 @@ open class MainActivity : AppCompatActivity() {
             } else {
                 lightThemeColors
             }
-            MaterialTheme(
-                    colors = colorPalette
-            ) {
-                ChannelsList(this, tvChannelsViewModel)
+            MaterialTheme(colors = colorPalette) {
+                ChannelsList(this, tvChannelsViewModel.channels) {
+                    tvChannelsViewModel.playTvChannel(it)
+                }
             }
         }
     }

@@ -125,7 +125,6 @@ dependencies {
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
     implementation("androidx.compose.runtime:runtime:${Versions.compose}")
-    implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose}")
     implementation("androidx.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")

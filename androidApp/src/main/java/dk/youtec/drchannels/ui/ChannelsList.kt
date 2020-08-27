@@ -25,27 +25,28 @@ import coil.transform.RoundedCornersTransformation
 import dev.chrisbanes.accompanist.coil.CoilImage
 import dk.youtec.drapi.MuNowNext
 import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
-import androidx.lifecycle.asLiveData
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import kotlinx.coroutines.flow.Flow
 
 @Preview
 @Composable
 fun ChannelsList(
         context: Context,
-        viewModel: AndroidTvChannelsViewModel
+        channels: Flow<List<MuNowNext>>,
+        onClick: (MuNowNext) -> Unit
 ) {
-    val channelsList by viewModel.channels.asLiveData().observeAsState(initial = emptyList())
+    val channelsList by channels.collectAsState(initial = emptyList())
 
-    LazyColumnFor<MuNowNext>(
+    LazyColumnFor(
             items = channelsList,
             modifier = Modifier.padding(top = 25.dp)
     ) { channel ->
         Card(shape = RoundedCornerShape(8.dp),
                 modifier = Modifier.fillMaxWidth()
                         then Modifier.padding(4.dp)
-                        then Modifier.clickable(onClick = { viewModel.playTvChannel(channel) })
+                        then Modifier.clickable(onClick = { onClick(channel) })
         ) {
             ListItem(text = {
                 Text(
