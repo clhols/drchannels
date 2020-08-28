@@ -5,8 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.core.net.toUri
+import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
@@ -46,12 +47,15 @@ class ChannelsFragment : Fragment() {
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
             v.updatePadding(top = insets.systemWindowInsetTop)
 
-            insets.replaceSystemWindowInsets(
-                    insets.systemWindowInsetLeft,
-                    0,
-                    insets.systemWindowInsetRight,
-                    insets.systemWindowInsetBottom
-            )
+            WindowInsetsCompat.Builder(insets)
+                    .setSystemWindowInsets(
+                            Insets.of(
+                                    insets.systemWindowInsetLeft,
+                                    0,
+                                    insets.systemWindowInsetRight,
+                                    insets.systemWindowInsetBottom
+                            )
+                    ).build()
         }
     }
 
@@ -83,7 +87,7 @@ class ChannelsFragment : Fragment() {
 
         lifecycleScope.launch {
             tvChannelsViewModel.error.collect { error ->
-                when(error) {
+                when (error) {
                     ChannelsError.LoadingChannelsFailed -> {
                         isEmptyState = true
                     }
