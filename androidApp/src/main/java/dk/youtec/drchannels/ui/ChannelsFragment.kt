@@ -34,7 +34,7 @@ import org.koin.androidx.viewmodel.compat.ViewModelCompat.viewModel
 
 class ChannelsFragment : Fragment() {
     private var channelsJob: Job? = null
-    private val tvChannelsViewModel: AndroidTvChannelsViewModel by viewModel(this, AndroidTvChannelsViewModel::class.java)
+    private val tvChannelsViewModel by viewModel(this, AndroidTvChannelsViewModel::class.java)
 
     override fun onCreateView(
             inflater: LayoutInflater,
