@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.annotation.Keep
 import androidx.core.net.toUri
 import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
@@ -32,6 +33,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.compat.ViewModelCompat.viewModel
 
+@Keep
 class ChannelsFragment : Fragment() {
     private var channelsJob: Job? = null
     private val tvChannelsViewModel by viewModel(this, AndroidTvChannelsViewModel::class.java)
