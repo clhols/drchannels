@@ -126,7 +126,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
     implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.fragment:fragment-ktx:${Versions.fragmentKtx}")
     implementation("androidx.work:work-runtime-ktx:2.4.0")
@@ -140,14 +140,14 @@ dependencies {
 
     kapt("androidx.lifecycle:lifecycle-common-java8:2.2.0")
 
-    androidTestImplementation("androidx.test:core:1.2.0")
-    androidTestImplementation("androidx.test:core-ktx:1.2.0")
-    androidTestImplementation("androidx.test:runner:1.2.0")
-    androidTestImplementation("androidx.test:rules:1.2.0")
-    androidTestImplementation("androidx.test.ext:junit:1.1.1")
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
-    androidTestUtil("androidx.test:orchestrator:1.2.0")
+    androidTestImplementation("androidx.test:core:1.3.0")
+    androidTestImplementation("androidx.test:core-ktx:1.3.0")
+    androidTestImplementation("androidx.test:runner:1.3.0")
+    androidTestImplementation("androidx.test:rules:1.3.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.2")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    androidTestUtil("androidx.test:orchestrator:1.3.0")
 }
 
 play {
