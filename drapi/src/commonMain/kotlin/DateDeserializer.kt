@@ -3,7 +3,6 @@ package dk.youtec.drapi
 import io.ktor.util.date.InvalidDateStringException
 import kotlinx.serialization.*
 import kotlinx.serialization.encoding.*
-import kotlinx.serialization.internal.*
 import kotlinx.serialization.descriptors.*
 
 object DateDeserializer : KSerializer<Long> {
