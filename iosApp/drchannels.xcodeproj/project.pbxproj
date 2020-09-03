@@ -35,7 +35,7 @@
 		EC2CF98C22C7FB2A00F604BC /* UI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		EC588A9121D3C1370010E814 /* ChannelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewController.swift; sourceTree = "<group>"; };
 		EC588A9221D3C1370010E814 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
-		EC5C23EA230880C900D2B7F3 /* DrLogic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DrLogic.framework; path = "../logic/build/fat-framework/DrLogic.framework"; sourceTree = "<group>"; };
+		EC5C23EA230880C900D2B7F3 /* DrLogic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DrLogic.framework; path = "../logic/build/xcode-frameworks/DrLogic.framework"; sourceTree = "<group>"; };
 		EC82AA7F21D3C04300E0651C /* DR channels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DR channels.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC82AA8221D3C04300E0651C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC82AA8721D3C04300E0651C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -178,7 +178,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$PROJECT_DIR/../logic/build/fat-framework\"\n./gradlew :logic:packForXCode\n";
+			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :logic:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -334,7 +334,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(SRCROOT)/../logic/build/fat-framework",
+					"$(SRCROOT)/../logic/build/xcode-frameworks",
 				);
 				INFOPLIST_FILE = drchannels/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -356,7 +356,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(SRCROOT)/../logic/build/fat-framework",
+					"$(SRCROOT)/../logic/build/xcode-frameworks",
 				);
 				INFOPLIST_FILE = drchannels/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
