@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.*
 import androidx.compose.foundation.*
 import androidx.compose.material.*
 import androidx.compose.ui.platform.setContent
@@ -17,11 +16,23 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.core.net.toUri
+import com.google.android.exoplayer2.util.Util
+import dk.youtec.appupdater.updateApp
+import dk.youtec.drchannels.BuildConfig
 
 open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) {
+            if (!Util.isTv(this) && !BuildConfig.DEBUG) {
+                updateApp(this,
+                        BuildConfig.VERSION_CODE,
+                        "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
+                        "https://www.dropbox.com/s/tw9gpldrwicd3kj/drchannels.apk?dl=1",
+                        "https://www.dropbox.com/s/6prmp1cnnsrhr4y/drchannels.log?dl=1")
+            }
+        }
 
         val tvChannelsViewModel: AndroidTvChannelsViewModel by viewModel()
 
