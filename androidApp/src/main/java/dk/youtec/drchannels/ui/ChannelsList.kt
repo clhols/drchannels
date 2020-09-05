@@ -19,7 +19,6 @@ import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import dev.chrisbanes.accompanist.coil.CoilImage
 import dk.youtec.drapi.MuNowNext
-import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
