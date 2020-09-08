@@ -129,11 +129,11 @@ dependencies {
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
 
-    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.2.0")
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.2.1")
     implementation("io.coil-kt:coil:1.0.0-rc2")
 
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
-    implementation("com.google.android.material:material:1.2.0")
+    implementation("com.google.android.material:material:1.2.1")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
