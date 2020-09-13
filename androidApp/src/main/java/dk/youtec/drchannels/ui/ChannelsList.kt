@@ -14,7 +14,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.ui.tooling.preview.Preview
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import dev.chrisbanes.accompanist.coil.CoilImage
@@ -22,15 +21,15 @@ import dk.youtec.drapi.MuNowNext
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.ContextAmbient
 import kotlinx.coroutines.flow.Flow
 
-@Preview
 @Composable
 fun ChannelsList(
-        context: Context,
         channels: Flow<List<MuNowNext>>,
         onClick: (MuNowNext) -> Unit
 ) {
+    val context: Context = ContextAmbient.current
     val channelsList by channels.collectAsState(initial = emptyList())
 
     LazyColumnFor(

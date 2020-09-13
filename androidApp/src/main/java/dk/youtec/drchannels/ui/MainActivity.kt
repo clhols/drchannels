@@ -66,9 +66,7 @@ open class MainActivity : AppCompatActivity() {
                 lightThemeColors
             }
             MaterialTheme(colors = colorPalette) {
-                ChannelsList(this, tvChannelsViewModel.channels) {
-                    tvChannelsViewModel.playTvChannel(it)
-                }
+                ChannelsScreen()
             }
         }
     }
