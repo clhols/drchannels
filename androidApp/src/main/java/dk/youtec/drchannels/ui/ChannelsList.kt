@@ -85,23 +85,24 @@ private fun ChannelCard(
                         modifier = Modifier
                                 .preferredWidth(120.dp)
                                 .preferredHeight(80.dp)
-                                .gravity(Alignment.CenterVertically)
                 )
-                Text(
-                        text = channel.title,
-                        modifier = Modifier.padding(start = 16.dp),
-                        style = TextStyle(
-                                fontFamily = FontFamily.SansSerif,
-                                fontWeight = FontWeight.Normal,
-                                fontSize = 22.sp,
-                        )
-                )
+                Column {
+                    Text(
+                            text = channel.title,
+                            modifier = Modifier.padding(start = 16.dp),
+                            style = TextStyle(
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 22.sp,
+                            )
+                    )
+                    LinearProgressIndicator(
+                            modifier = Modifier.padding(start = 8.dp, top = 12.dp)
+                                    .preferredWidth(800.dp),
+                            progress = percentage
+                    )
+                }
             }
-            LinearProgressIndicator(
-                    modifier = Modifier.padding(top = 8.dp)
-                            .preferredWidth(800.dp),
-                    progress = percentage
-            )
             if (channel.description.isNotBlank()) {
                 Text(
                         text = channel.description,
