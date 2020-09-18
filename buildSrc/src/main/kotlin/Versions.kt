@@ -7,7 +7,7 @@ object Versions {
     const val buildTools = "30.0.2"
     const val androidAnnotation = "1.1.0"
     const val okhttp = "4.8.1"
-    const val exoPlayer = "2.11.7"
+    const val exoPlayer = "2.11.8"
     const val fragmentKtx = "1.2.5"
     const val compose = "1.0.0-alpha02"
 
