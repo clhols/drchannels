@@ -92,10 +92,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
         launch {
             try {
                 val title = muNowNext.now?.title ?: muNowNext.channelSlug.toUpperCase()
-                //Change to Dispatchers.IO when available
-                val server = withContext(Dispatchers.Default) {
-                    api.getAllActiveDrTvChannels()
-                }
+                val server = api.getAllActiveDrTvChannels()
                         .firstOrNull { it.slug == muNowNext.channelSlug }
                         ?.server() ?: throw Exception("Unable to get streaming server")
 
@@ -121,10 +118,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
             val uri = muNowNext.now?.programCard?.primaryAsset?.uri
             if (uri != null) {
                 try {
-                    //Change to Dispatchers.IO when available
-                    val manifest = withContext(Dispatchers.Default) {
-                        api.getManifest(uri)
-                    }
+                    val manifest = api.getManifest(uri)
 
                     val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
                     if (playbackUri.isNotBlank()) {
