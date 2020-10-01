@@ -30,4 +30,4 @@ _Windows:_
 `gradle.bat assembleDebug`
 
 _Build iOS framework before opening XCode project:_
-`./gradlew :logic:packForXcode`
+`./gradlew :shared:packForXcode`
