@@ -24,4 +24,4 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Gradle
-      run: ./gradlew logic:packForXcode logic:iosX64Test assembleMobileDebug assembleTvDebug
+      run: ./gradlew shared:packForXcode shared:iosX64Test assembleMobileDebug assembleTvDebug
