@@ -16,7 +16,7 @@ actual object HttpClientFactory {
             // https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.Builder.html
             config {
                 // this: OkHttpClient.Builder ->
-                connectTimeout(10, TimeUnit.SECONDS)
+                connectTimeout(5, TimeUnit.SECONDS)
                 if (cacheDir != null) cache(Cache(File(cacheDir), sizeBytes))
             }
 
