@@ -8,7 +8,6 @@ plugins {
     id("kotlin-android-extensions")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
-    id("com.github.triplet.play") version "2.3.0"
     id("org.sonarqube") version "2.7.1"
     id("dk.youtec.appupdater")
 }
@@ -40,12 +39,13 @@ android {
         }
 
         buildTypes {
-            getByName("debug") { this as ExtensionAware
+            getByName("debug") {
+                this as ExtensionAware
                 applicationIdSuffix = ".debug"
-                manifestPlaceholders = mapOf(
+                addManifestPlaceholders(mapOf(
                         "enableCrashReporting" to false,
                         "enablePerformanceMonitoring" to false
-                )
+                ))
                 extra["alwaysUpdateBuildId"] = false
                 (extensions["FirebasePerformance"] as FirebasePerfExtension).setInstrumentationEnabled(false)
             }
@@ -59,10 +59,10 @@ android {
                 )
 
                 signingConfig = signingConfigs["release"]
-                manifestPlaceholders = mapOf(
+                addManifestPlaceholders(mapOf(
                         "enableCrashReporting" to true,
                         "enablePerformanceMonitoring" to true
-                )
+                ))
             }
         }
 
@@ -83,8 +83,8 @@ android {
     }
 
     compileOptions {
-        setSourceCompatibility("1.8")
-        setTargetCompatibility("1.8")
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     packagingOptions {
@@ -148,12 +148,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
     androidTestUtil("androidx.test:orchestrator:1.3.0")
-}
-
-play {
-    serviceAccountCredentials = project.file("youtec.json")
-
-    track = "alpha" // 'production', 'beta' or 'alpha'
 }
 
 val releasePropertiesFile: File = rootProject.file("release.properties")
