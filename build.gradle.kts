@@ -47,7 +47,7 @@ allprojects {
             jvmTarget = "1.8"
             freeCompilerArgs = listOf(
                     "-progressive",
-                    "-Xjvm-default=enable"
+                    "-Xjvm-default=all"
             )
         }
     }
