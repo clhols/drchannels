@@ -52,11 +52,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                 callback(channels)
             }
         }
-        return object : Cancelable {
-            override fun cancel() {
-                job.cancel()
-            }
-        }
+        return Cancelable { job.cancel() }
     }
 
     @Suppress("unused")
@@ -66,11 +62,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                 callback(error)
             }
         }
-        return object : Cancelable {
-            override fun cancel() {
-                job.cancel()
-            }
-        }
+        return Cancelable { job.cancel() }
     }
 
     @Suppress("unused")
@@ -81,11 +73,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
             }
         }
         playTvChannel(muNowNext)
-        return object : Cancelable {
-            override fun cancel() {
-                job.cancel()
-            }
-        }
+        return Cancelable { job.cancel() }
     }
 
     override fun playTvChannel(muNowNext: MuNowNext) {

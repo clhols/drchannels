@@ -1,5 +1,5 @@
 package dk.youtec.drchannels.logic.viewmodel
 
-interface Cancelable {
+fun interface Cancelable {
     fun cancel()
 }

@@ -45,7 +45,8 @@ android {
         }
 
         buildTypes {
-            getByName("debug") { this as ExtensionAware
+            getByName("debug") {
+                this as ExtensionAware
                 applicationIdSuffix = ".debug"
                 addManifestPlaceholders(mapOf(
                         "enableCrashReporting" to false,
@@ -138,7 +139,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
     implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.2")
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.fragment:fragment-ktx:${Versions.fragmentKtx}")
     implementation("androidx.work:work-runtime-ktx:2.4.0")
