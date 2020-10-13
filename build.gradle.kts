@@ -18,7 +18,7 @@ buildscript {
         classpath("com.google.gms:google-services:4.3.4")
         classpath("com.google.firebase:perf-plugin:1.3.2")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.3.0")
-        classpath("dk.youtec:appupdater-plugin:1.0.5")
+        classpath("dk.youtec:appupdater-plugin:1.1.0")
     }
 }
 
