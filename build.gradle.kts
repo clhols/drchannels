@@ -41,6 +41,8 @@ allprojects {
     }
     tasks.withType<JavaCompile> {
         options.isFork = true
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
     }
     tasks.withType<KotlinCompile> {
         kotlinOptions {
