@@ -41,6 +41,8 @@ allprojects {
     }
     tasks.withType<JavaCompile> {
         options.isFork = true
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
     }
     tasks.withType<KotlinCompile> {
         kotlinOptions {
@@ -48,6 +50,8 @@ allprojects {
             useIR = true
             freeCompilerArgs = listOf(
                     "-progressive",
+                    "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                    "-Xopt-in=kotlinx.coroutines.FlowPreview",
                     "-Xjvm-default=all"
             )
         }

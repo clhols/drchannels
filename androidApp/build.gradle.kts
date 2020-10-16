@@ -138,6 +138,7 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
+    implementation("androidx.mediarouter:mediarouter:1.2.0")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.2")
     implementation("androidx.preference:preference-ktx:1.1.1")

@@ -36,15 +36,6 @@ kotlin {
     }
 
     sourceSets {
-        all {
-            languageSettings.apply {
-                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
-                useExperimentalAnnotation("kotlinx.coroutines.FlowPreview")
-                useExperimentalAnnotation("kotlin.Experimental")
-                progressiveMode = true
-            }
-        }
-
         val commonMain by getting {
             dependencies {
                 api(project(":drapi"))

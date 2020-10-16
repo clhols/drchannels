@@ -62,14 +62,6 @@ kotlin {
     }
 
     sourceSets {
-        all {
-            languageSettings.apply {
-                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
-                useExperimentalAnnotation("kotlin.Experimental")
-                progressiveMode = true
-            }
-        }
-
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serialization}")
