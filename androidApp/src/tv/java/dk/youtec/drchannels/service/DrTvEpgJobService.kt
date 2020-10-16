@@ -211,7 +211,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
 
 private val dk.youtec.drapi.Channel.streamingUrl: String
     get() {
-        val stream = server()!!.qualities.maxBy { it.kbps }!!
+        val stream = server()!!.qualities.maxByOrNull { it.kbps }!!
                 .streams.first().stream
         return "${server()!!.server}/$stream"
     }
