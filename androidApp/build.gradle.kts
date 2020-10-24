@@ -132,7 +132,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:${Versions.fragmentKtx}")
     implementation("androidx.work:work-runtime-ktx:2.4.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
-    implementation(platform("com.google.firebase:firebase-bom:25.5.0"))
+    implementation(platform("com.google.firebase:firebase-bom:+"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-perf")
     implementation("com.crashlytics.sdk.android:crashlytics")
@@ -149,6 +149,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
     androidTestUtil("androidx.test:orchestrator:1.3.0")
+}
+
+configurations {
+    implementation.get().exclude(module = "protobuf-lite")
 }
 
 val releasePropertiesFile: File = rootProject.file("release.properties")
