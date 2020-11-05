@@ -129,10 +129,9 @@ dependencies {
     implementation("androidx.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
-
     implementation("dev.chrisbanes.accompanist:accompanist-coil:0.2.1")
-    implementation("io.coil-kt:coil:1.0.0-rc3")
 
+    implementation("io.coil-kt:coil:1.0.0")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.2.1")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
@@ -146,10 +145,10 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.4.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
-    implementation(platform("com.google.firebase:firebase-bom:25.5.0"))
+    implementation(platform("com.google.firebase:firebase-bom:+"))
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-perf")
-    implementation("com.crashlytics.sdk.android:crashlytics")
     implementation("org.koin:koin-android:2.1.6")
     implementation("org.koin:koin-androidx-viewmodel:2.1.6")
 
@@ -163,6 +162,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
     androidTestUtil("androidx.test:orchestrator:1.3.0")
+}
+
+configurations {
+    implementation.get().exclude(module = "protobuf-lite")
 }
 
 val releasePropertiesFile: File = rootProject.file("release.properties")

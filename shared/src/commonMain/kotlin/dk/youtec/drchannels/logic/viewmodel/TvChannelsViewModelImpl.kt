@@ -4,7 +4,6 @@ import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.Logger
 import dk.youtec.drapi.MuNowNext
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.CoroutineContext
 
@@ -15,13 +14,10 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
     private val api = DrMuRepository()
 
-    private val playbackChannel = BroadcastChannel<VideoItem>(1)
-    private val errorChannel = BroadcastChannel<ChannelsError>(1)
-
     override val channels: StateFlow<List<MuNowNext>> = MutableStateFlow(emptyList())
 
-    override val playback = playbackChannel.asFlow()
-    override val error = errorChannel.asFlow()
+    override val playback: SharedFlow<VideoItem> = MutableSharedFlow<VideoItem>()
+    override val error: SharedFlow<ChannelsError> = MutableSharedFlow<ChannelsError>()
 
     init {
         launch {
@@ -34,7 +30,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                     return@launch
                 } catch (e: Exception) {
                     Logger.e(e, e.message ?: "")
-                    errorChannel.send(ChannelsError.LoadingChannelsFailed)
+                    error.emit(ChannelsError.LoadingChannelsFailed)
                     delay(5000)
                 }
             }
@@ -88,7 +84,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                         .qualities.maxByOrNull { it.kbps }
                         ?.streams?.first()?.stream ?: ""
 
-                playbackChannel.offer(
+                playback.emit(
                         VideoItem(
                                 title,
                                 "${server.server}/$stream",
@@ -110,7 +106,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
 
                     val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
                     if (playbackUri.isNotBlank()) {
-                        this@TvChannelsViewModelImpl.playbackChannel.offer(
+                        this@TvChannelsViewModelImpl.playback.emit(
                                 VideoItem(
                                         muNowNext.now?.title?.toUpperCase() ?: "",
                                         playbackUri,
@@ -118,25 +114,23 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
                                 )
                         )
                     } else {
-                        errorChannel.offer(ChannelsError.NoStream)
+                        error.emit(ChannelsError.NoStream)
                     }
                 } catch (e: Exception) {
                     handleException(e)
                 }
             } else {
-                errorChannel.offer(ChannelsError.NoStream)
+                error.emit(ChannelsError.NoStream)
             }
         }
     }
 
     override fun onCleared() {
-        playbackChannel.cancel()
-        errorChannel.cancel()
         job.cancel()
     }
 
-    private fun handleException(e: Exception) {
-        errorChannel.offer(if (e.message != null && e.message != "Success") {
+    private suspend fun handleException(e: Exception) {
+        error.emit(if (e.message != null && e.message != "Success") {
             ChannelsError.LoadingChannelFailed(e.message)
         } else {
             ChannelsError.LoadingChannelFailed("Can't change channel")
