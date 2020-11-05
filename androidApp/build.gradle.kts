@@ -9,7 +9,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
     id("org.sonarqube") version "2.7.1"
-    id("dk.youtec.appupdater")
+    //id("dk.youtec.appupdater") //TODO Re-add when AGP 4.2.0 is released
 }
 
 android {
@@ -22,7 +22,14 @@ android {
         aaptOptions.cruncherEnabled = false
     }
 
-    buildFeatures { compose = true }
+    buildFeatures {
+        compose = true
+        // Disable unused AGP features
+        aidl = false
+        renderScript = false
+        resValues = false
+        shaders = false
+    }
     composeOptions {
         kotlinCompilerVersion = Versions.kotlin
         kotlinCompilerExtensionVersion = Versions.compose
@@ -34,6 +41,7 @@ android {
 
         applicationId = "dk.youtec.drchannels"
         versionName = "1.0.0"
+        versionCode = 1 //TODO Remove when appupdater plugin is readded
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
@@ -129,7 +137,7 @@ dependencies {
     implementation("androidx.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
-    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.2.1")
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.3.2")
 
     implementation("io.coil-kt:coil:1.0.0")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")

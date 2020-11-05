@@ -50,6 +50,8 @@ allprojects {
             useIR = true
             freeCompilerArgs = listOf(
                     "-progressive",
+                    "-Xallow-jvm-ir-dependencies",
+                    "-Xskip-prerelease-check",
                     "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                     "-Xopt-in=kotlinx.coroutines.FlowPreview",
                     "-Xjvm-default=all"
