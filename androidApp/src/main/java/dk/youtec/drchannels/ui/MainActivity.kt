@@ -1,6 +1,7 @@
 package dk.youtec.drchannels.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,6 @@ import dk.youtec.drchannels.util.toast
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import androidx.core.net.toUri
 import com.google.android.exoplayer2.util.Util
 import dk.youtec.appupdater.updateApp
 import dk.youtec.drchannels.BuildConfig
@@ -44,7 +44,7 @@ open class MainActivity : AppCompatActivity() {
                     putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
                     putExtra(PlayerActivity.TITLE_EXTRA, videoItem.title)
                     putExtra(PlayerActivity.IMAGE_EXTRA, videoItem.imageUrl)
-                    data = videoItem.videoUrl.toUri()
+                    data = Uri.parse(videoItem.videoUrl)
                 })
             }
         }
