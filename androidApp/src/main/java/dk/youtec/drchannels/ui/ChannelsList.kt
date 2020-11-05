@@ -20,7 +20,6 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 import dk.youtec.drapi.MuNowNext
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.ui.tooling.preview.Preview
 import kotlinx.coroutines.flow.Flow

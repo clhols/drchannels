@@ -4,7 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.*
 import androidx.compose.material.*
 import androidx.compose.ui.platform.setContent
@@ -20,7 +20,7 @@ import com.google.android.exoplayer2.util.Util
 import dk.youtec.appupdater.updateApp
 import dk.youtec.drchannels.BuildConfig
 
-open class MainActivity : AppCompatActivity() {
+open class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
