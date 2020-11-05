@@ -32,6 +32,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.compat.ViewModelCompat.viewModel
+import java.util.*
 
 @Keep
 class ChannelsFragment : Fragment() {
@@ -120,7 +121,7 @@ class ChannelsFragment : Fragment() {
             adapter.moreClicked.collect {
                 context?.startActivity(
                         Intent(context, ProgramsActivity::class.java).apply {
-                            putExtra(ProgramsActivity.CHANNEL_NAME, it.channelSlug.toUpperCase())
+                            putExtra(ProgramsActivity.CHANNEL_NAME, it.channelSlug.toUpperCase(Locale.ROOT))
                             putExtra(ProgramsActivity.CHANNEL_ID, it.channelSlug)
                         },
                         ActivityOptions.makeCustomAnimation(

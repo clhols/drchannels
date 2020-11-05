@@ -1,14 +1,15 @@
 package dk.youtec.drchannels.logic.viewmodel
 
 import dk.youtec.drapi.MuNowNext
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
 interface TvChannelsViewModel {
     val channels: StateFlow<List<MuNowNext>>
-    val playback: Flow<VideoItem>
-    val error: Flow<ChannelsError>
+    val playback: SharedFlow<VideoItem>
+    val error: SharedFlow<ChannelsError>
 
     fun playTvChannel(muNowNext: MuNowNext)
     fun playProgram(muNowNext: MuNowNext)
@@ -23,4 +24,12 @@ interface TvChannelsViewModel {
                 throw IllegalStateException("Not an instance of MutableStateFlow")
             }
         }
+
+    suspend fun <T> SharedFlow<T>.emit(value: T) {
+        if (this is MutableSharedFlow<T>) {
+            this.emit(value)
+        } else {
+            throw IllegalStateException("Not an instance of MutableSharedFlow")
+        }
+    }
 }
