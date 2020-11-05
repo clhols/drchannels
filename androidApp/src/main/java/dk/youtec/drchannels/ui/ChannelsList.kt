@@ -34,7 +34,7 @@ fun ChannelsList(
 
     LazyColumnFor(
             items = channelsList,
-            modifier = Modifier.padding(top = 25.dp)
+            modifier = Modifier.padding(top = 25.dp, bottom = 50.dp)
     ) { channel ->
         val now = channel.now!!
         val programDuration = now.endTime - now.startTime
