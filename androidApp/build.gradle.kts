@@ -137,7 +137,7 @@ dependencies {
     implementation("androidx.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
-    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.3.3.1")
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.3.2")
 
     implementation("io.coil-kt:coil:1.0.0")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
