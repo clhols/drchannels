@@ -54,6 +54,7 @@ allprojects {
                     "-Xskip-prerelease-check",
                     "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                     "-Xopt-in=kotlinx.coroutines.FlowPreview",
+                    "-Xopt-in=kotlin.time.ExperimentalTime",
                     "-Xjvm-default=all"
             )
         }

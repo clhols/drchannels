@@ -35,6 +35,7 @@ open class MainActivity : ComponentActivity() {
         }
 
         val tvChannelsViewModel: AndroidTvChannelsViewModel by viewModel()
+        //val programsViewModel: AndroidProgramsViewModel by viewModel()
 
         lifecycleScope.launch {
             tvChannelsViewModel.playback.collect { videoItem ->
@@ -67,6 +68,7 @@ open class MainActivity : ComponentActivity() {
             }
             MaterialTheme(colors = colorPalette) {
                 ChannelsScreen()
+                //ProgramsScreen("dr1")
             }
         }
     }
