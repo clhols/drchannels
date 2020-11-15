@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -21,13 +23,16 @@ import dk.youtec.drapi.MuNowNext
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ContextAmbient
+import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
 import androidx.ui.tooling.preview.Preview
 import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun ChannelsList(
+        navController: NavController,
         channels: Flow<List<MuNowNext>>,
-        onClick: (MuNowNext) -> Unit
+        onChannelClick: (MuNowNext) -> Unit,
 ) {
     val channelsList by channels.collectAsState(initial = emptyList())
 
@@ -48,10 +53,13 @@ fun ChannelsList(
                         now.programCard.primaryImageUri
                 ),
                 percentage = percentage,
-                onClick = { id ->
+                onChannelClick = { id ->
                     channelsList.firstOrNull { it.channelSlug == id }?.run {
-                        onClick(this)
+                        onChannelClick(this)
                     }
+                },
+                onProgramsClick = { id ->
+                    navController.navigate("programs/$id")
                 }
         )
     }
@@ -61,14 +69,15 @@ fun ChannelsList(
 private fun ChannelCard(
         channel: ChannelCardData,
         percentage: Float,
-        onClick: (String) -> Unit
+        onChannelClick: (String) -> Unit,
+        onProgramsClick: (String) -> Unit,
 ) {
     val context: Context = ContextAmbient.current
 
     Card(
             Modifier.fillMaxWidth()
                     .padding(4.dp)
-                    .clickable(onClick = { onClick(channel.id) }),
+                    .clickable(onClick = { onChannelClick(channel.id) }),
             shape = RoundedCornerShape(4.dp),
     ) {
         Column(Modifier.padding(12.dp)) {
@@ -85,7 +94,7 @@ private fun ChannelCard(
                                 .preferredWidth(120.dp)
                                 .preferredHeight(80.dp)
                 )
-                Column {
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
                             text = channel.title,
                             modifier = Modifier.padding(start = 16.dp),
@@ -96,9 +105,19 @@ private fun ChannelCard(
                             )
                     )
                     LinearProgressIndicator(
-                            modifier = Modifier.padding(start = 8.dp, top = 12.dp)
-                                    .preferredWidth(800.dp),
+                            modifier = Modifier
+                                    .padding(start = 8.dp, top = 12.dp)
+                                    .fillMaxWidth(),
                             progress = percentage
+                    )
+                }
+                Column {
+                    IconButton(
+                            onClick = { onProgramsClick(channel.id) },
+                            modifier = Modifier
+                                    .padding(start = 4.dp)
+                                    .width(40.dp),
+                            icon = { Icon(asset = Icons.Default.Menu) }
                     )
                 }
             }
@@ -128,7 +147,8 @@ private fun PreviewChannelCard() {
                     "https://asset.dr.dk/ImageScaler/?file=/mu-online/api/1.4/asset/5f394ae171401441844c2e2c%2525253Fraw=True&w=940&h=529&scaleAfter=crop&quality=75"
             ),
             percentage = 0.42f,
-            onClick = {}
+            onChannelClick = {},
+            onProgramsClick = {}
     )
 }
 

@@ -67,8 +67,7 @@ open class MainActivity : ComponentActivity() {
                 lightThemeColors
             }
             MaterialTheme(colors = colorPalette) {
-                ChannelsScreen()
-                //ProgramsScreen("dr1")
+                AppNavigation()
             }
         }
     }

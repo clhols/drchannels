@@ -137,6 +137,7 @@ dependencies {
     implementation("androidx.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
+    implementation("androidx.navigation:navigation-compose:1.0.0-alpha01")
     implementation("dev.chrisbanes.accompanist:accompanist-coil:0.3.2")
 
     implementation("io.coil-kt:coil:1.0.0")
