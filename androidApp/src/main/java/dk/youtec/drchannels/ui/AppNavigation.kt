@@ -5,12 +5,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dk.youtec.drchannels.logic.viewmodel.AndroidProgramsViewModel
 import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
 
 lateinit var navController: NavHostController
 
 @Composable
-fun AppNavigation(tvChannelsViewModel: AndroidTvChannelsViewModel) {
+fun AppNavigation(
+        tvChannelsViewModel: AndroidTvChannelsViewModel,
+        programsViewModel: AndroidProgramsViewModel,
+) {
     navController = rememberNavController()
 
     NavHost(navController, startDestination = "channels") {
@@ -18,7 +22,10 @@ fun AppNavigation(tvChannelsViewModel: AndroidTvChannelsViewModel) {
             ChannelsScreen(navController, tvChannelsViewModel)
         }
         composable("programs/{channelId}") { backStackEntry ->
-            ProgramsScreen(backStackEntry.arguments?.getString("channelId")!!)
+            ProgramsScreen(
+                    backStackEntry.arguments?.getString("channelId")!!,
+                    programsViewModel
+            )
         }
     }
 }

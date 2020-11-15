@@ -7,6 +7,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drchannels.backend.OkHttpClientFactory
 import dk.youtec.drchannels.coil.ProgramCardMapper
+import dk.youtec.drchannels.logic.viewmodel.AndroidProgramsViewModel
 import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
 import dk.youtec.drchannels.util.koined
 import kotlinx.coroutines.CoroutineScope
@@ -34,6 +35,7 @@ class DrApplication : Application() {
                 single { OkHttpClientFactory.getInstance(get()) }
                 single { FirebaseAnalytics.getInstance(get()) }
                 viewModel { AndroidTvChannelsViewModel() }
+                viewModel { AndroidProgramsViewModel() }
                 single { Coil.imageLoader(get()) }
             })
         }

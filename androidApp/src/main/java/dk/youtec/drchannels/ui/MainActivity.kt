@@ -19,6 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.google.android.exoplayer2.util.Util
 import dk.youtec.appupdater.updateApp
 import dk.youtec.drchannels.BuildConfig
+import dk.youtec.drchannels.logic.viewmodel.AndroidProgramsViewModel
 
 open class MainActivity : ComponentActivity() {
 
@@ -35,7 +36,7 @@ open class MainActivity : ComponentActivity() {
         }
 
         val tvChannelsViewModel: AndroidTvChannelsViewModel by viewModel()
-        //val programsViewModel: AndroidProgramsViewModel by viewModel()
+        val programsViewModel: AndroidProgramsViewModel by viewModel()
 
         lifecycleScope.launch {
             tvChannelsViewModel.playback.collect { videoItem ->
@@ -60,6 +61,25 @@ open class MainActivity : ComponentActivity() {
             }
         }
 
+        lifecycleScope.launch {
+            programsViewModel.playback.collect { videoItem ->
+                Log.d(TAG, "Playback video item")
+                startActivity(Intent(this@MainActivity, PlayerActivity::class.java).apply {
+                    action = PlayerActivity.ACTION_VIEW
+                    putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
+                    //putExtra(PlayerActivity.TITLE_EXTRA, videoItem.title)
+                    putExtra(PlayerActivity.IMAGE_EXTRA, videoItem.second)
+                    data = Uri.parse(videoItem.first)
+                })
+            }
+        }
+
+        lifecycleScope.launch {
+            programsViewModel.error.collect { error ->
+                toast(error.message ?: "Unknown error")
+            }
+        }
+
         setContent {
             val colorPalette = if (isSystemInDarkTheme()) {
                 darkThemeColors
@@ -67,7 +87,7 @@ open class MainActivity : ComponentActivity() {
                 lightThemeColors
             }
             MaterialTheme(colors = colorPalette) {
-                AppNavigation(tvChannelsViewModel)
+                AppNavigation(tvChannelsViewModel, programsViewModel)
             }
         }
     }

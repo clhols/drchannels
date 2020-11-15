@@ -18,6 +18,7 @@ open class ProgramsViewModelImpl : ProgramsViewModel, CoroutineScope {
     private val api = DrMuRepository()
 
     override val programs: StateFlow<List<MuScheduleBroadcast>> = MutableStateFlow(emptyList())
+    override val playback: SharedFlow<Pair<String, String>> = MutableSharedFlow()
     override val error: SharedFlow<Exception> = MutableSharedFlow()
 
     override fun loadPrograms(channelId: String) {
@@ -43,6 +44,27 @@ open class ProgramsViewModelImpl : ProgramsViewModel, CoroutineScope {
                 }
             } catch (e: Exception) {
                 error.emit(ChannelsError.LoadingChannelsFailed)
+            }
+        }
+    }
+
+    override fun playProgram(program: MuScheduleBroadcast) {
+        launch {
+            val uri = program.programCard.primaryAsset?.uri
+            if (uri != null) {
+                try {
+                    val manifest = api.getManifest(uri)
+                    val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
+                    if (playbackUri.isNotBlank()) {
+                        playback.emit(Pair(playbackUri, program.programCard.primaryImageUri))
+                    } else {
+                        error.emit(Exception("No stream"))
+                    }
+                } catch (e: Exception) {
+                    error.emit(e)
+                }
+            } else {
+                error.emit(Exception("No stream"))
             }
         }
     }

@@ -27,7 +27,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.*
 
 @Composable
-fun ProgramsList(programs: Flow<List<MuScheduleBroadcast>>) {
+fun ProgramsList(
+        programs: Flow<List<MuScheduleBroadcast>>,
+        playProgram: (MuScheduleBroadcast) -> Unit
+) {
     val programsList by programs.collectAsState(initial = emptyList())
 
     LazyColumnFor(
@@ -49,20 +52,22 @@ fun ProgramsList(programs: Flow<List<MuScheduleBroadcast>>) {
 
         ProgramCard(
                 ProgramCardData(
-                        program.title,
+                        program.title+program.startTime,
                         program.title,
                         program.description,
                         time,
                         program.programCard.primaryImageUri
                 ),
                 onClick = { id ->
-
+                    programsList.firstOrNull { it.title+it.startTime == id }?.run {
+                        playProgram(this)
+                    }
                 }
         )
     }
 }
 
-fun getTime(dateTime: LocalDateTime) : String {
+fun getTime(dateTime: LocalDateTime): String {
     val hour = dateTime.hour
     val minute = if (dateTime.minute < 10) {
         "0${dateTime.minute}"
