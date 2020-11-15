@@ -67,7 +67,7 @@ open class MainActivity : ComponentActivity() {
                 lightThemeColors
             }
             MaterialTheme(colors = colorPalette) {
-                AppNavigation()
+                AppNavigation(tvChannelsViewModel)
             }
         }
     }

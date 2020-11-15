@@ -8,7 +8,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlin.coroutines.CoroutineContext
-import kotlin.time.ExperimentalTime
 import kotlin.time.days
 
 open class ProgramsViewModelImpl : ProgramsViewModel, CoroutineScope {

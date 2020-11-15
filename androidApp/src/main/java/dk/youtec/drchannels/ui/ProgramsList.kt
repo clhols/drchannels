@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.ContextAmbient
 import androidx.ui.tooling.preview.Preview
 import dk.youtec.drapi.MuScheduleBroadcast
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.*
 
 @Composable
 fun ProgramsList(programs: Flow<List<MuScheduleBroadcast>>) {
@@ -33,18 +34,27 @@ fun ProgramsList(programs: Flow<List<MuScheduleBroadcast>>) {
             items = programsList,
             modifier = Modifier.padding(top = 25.dp, bottom = 50.dp)
     ) { program ->
-        val programDuration = program.announcedEndTime - program.announcedStartTime
-        val programTime = System.currentTimeMillis() - program.announcedStartTime
-        val percentage = programTime.toFloat() / programDuration
+        val timeZone = TimeZone.currentSystemDefault()
+        val nowLocalDateTime = Clock.System.todayAt(timeZone)
+        val startInstant = Instant.fromEpochMilliseconds(program.startTime)
+        val endInstant = Instant.fromEpochMilliseconds(program.endTime)
+        val startLocalDateTime = startInstant.toLocalDateTime(timeZone)
+        val endLocalDateTime = endInstant.toLocalDateTime(timeZone)
+
+        val time = if (startLocalDateTime.dayOfMonth == nowLocalDateTime.dayOfMonth) {
+            "${getTime(startLocalDateTime)} ‣ ${getTime(endLocalDateTime)}"
+        } else {
+            "${startLocalDateTime.dayOfMonth}/${startLocalDateTime.monthNumber} ⁃ ${getTime(startLocalDateTime)} ‣ ${getTime(endLocalDateTime)}"
+        }
 
         ProgramCard(
                 ProgramCardData(
                         program.title,
                         program.title,
                         program.description,
+                        time,
                         program.programCard.primaryImageUri
                 ),
-                percentage = percentage,
                 onClick = { id ->
 
                 }
@@ -52,17 +62,27 @@ fun ProgramsList(programs: Flow<List<MuScheduleBroadcast>>) {
     }
 }
 
+fun getTime(dateTime: LocalDateTime) : String {
+    val hour = dateTime.hour
+    val minute = if (dateTime.minute < 10) {
+        "0${dateTime.minute}"
+    } else {
+        dateTime.minute
+    }
+    return "$hour:$minute"
+}
+
 data class ProgramCardData(
         val id: String,
         val title: String,
         val description: String,
+        val time: String,
         val imageUrl: String
 )
 
 @Composable
 private fun ProgramCard(
         program: ProgramCardData,
-        percentage: Float,
         onClick: (String) -> Unit
 ) {
     val context: Context = ContextAmbient.current
@@ -97,10 +117,14 @@ private fun ProgramCard(
                                     fontSize = 22.sp,
                             )
                     )
-                    LinearProgressIndicator(
-                            modifier = Modifier.padding(start = 8.dp, top = 12.dp)
-                                    .preferredWidth(800.dp),
-                            progress = percentage
+                    Text(
+                            text = program.time,
+                            modifier = Modifier.padding(start = 16.dp),
+                            style = TextStyle(
+                                    fontFamily = FontFamily.SansSerif,
+                                    fontWeight = FontWeight.Normal,
+                                    fontSize = 18.sp,
+                            )
                     )
                 }
             }
@@ -127,9 +151,9 @@ private fun PreviewChannelCard() {
                     "id",
                     "Some program title",
                     "Some not too long description",
+                    "12:00 ‣ 13:00",
                     "https://asset.dr.dk/ImageScaler/?file=/mu-online/api/1.4/asset/5f394ae171401441844c2e2c%2525253Fraw=True&w=940&h=529&scaleAfter=crop&quality=75"
             ),
-            percentage = 0.42f,
             onClick = {}
     )
 }

@@ -127,6 +127,7 @@ dependencies {
     implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:${Versions.coroutines}"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.0")
 
     implementation("com.google.android.exoplayer:exoplayer-core:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:exoplayer-hls:${Versions.exoPlayer}")
