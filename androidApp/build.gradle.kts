@@ -138,8 +138,8 @@ dependencies {
     implementation("androidx.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
-    implementation("androidx.navigation:navigation-compose:1.0.0-alpha01")
-    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.3.2")
+    implementation("androidx.navigation:navigation-compose:1.0.0-alpha02")
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.3.3.1")
 
     implementation("io.coil-kt:coil:1.0.0")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
@@ -154,8 +154,9 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-perf")
-    implementation("org.koin:koin-android:2.1.6")
-    implementation("org.koin:koin-androidx-viewmodel:2.1.6")
+    implementation("org.koin:koin-android:2.2.1")
+    implementation("org.koin:koin-androidx-viewmodel:2.2.1")
+    //implementation("org.koin:koin-androidx-compose:2.2.1")
 
     androidTestImplementation("androidx.test:core:1.3.0")
     androidTestImplementation("androidx.test:core-ktx:1.3.0")

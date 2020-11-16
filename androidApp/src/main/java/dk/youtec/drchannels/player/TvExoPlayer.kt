@@ -15,11 +15,11 @@ import com.google.android.exoplayer2.trackselection.TrackSelector
 import com.google.android.exoplayer2.upstream.BandwidthMeter
 import com.google.android.exoplayer2.util.Clock
 import com.google.android.media.tv.companionlibrary.TvPlayer
-import dk.youtec.drchannels.util.koined
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.java.KoinJavaComponent.inject
 
 open class TvExoPlayer(
         context: Context,
@@ -36,7 +36,7 @@ open class TvExoPlayer(
         Clock.DEFAULT,
         Looper.getMainLooper()), TvPlayer {
     private var seekJob: Job? = null
-    private val applicationScope: CoroutineScope = koined()
+    private val applicationScope: CoroutineScope by inject(CoroutineScope::class.java)
 
     override fun setSurface(surface: Surface?) {
         setVideoSurface(surface)
