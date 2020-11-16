@@ -1,7 +1,6 @@
 package dk.youtec.drchannels.ui
 
 import android.content.Context
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumnFor
@@ -22,6 +21,7 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 import dk.youtec.drapi.MuNowNext
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
@@ -94,30 +94,35 @@ private fun ChannelCard(
                                 .preferredWidth(120.dp)
                                 .preferredHeight(80.dp)
                 )
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                            text = channel.title,
-                            modifier = Modifier.padding(start = 16.dp),
-                            style = TextStyle(
-                                    fontFamily = FontFamily.SansSerif,
-                                    fontWeight = FontWeight.Normal,
-                                    fontSize = 22.sp,
-                            )
-                    )
+                Column {
+                    Row {
+                        Text(
+                                text = channel.title,
+                                modifier = Modifier
+                                        .align(Alignment.CenterVertically)
+                                        .padding(start = 12.dp, end = 4.dp)
+                                        .weight(1f),
+                                style = TextStyle(
+                                        fontFamily = FontFamily.SansSerif,
+                                        fontWeight = FontWeight.Normal,
+                                        fontSize = 22.sp,
+                                )
+                        )
+                        IconButton(
+                                onClick = { onProgramsClick(channel.id) },
+                                modifier = Modifier
+                                        .align(Alignment.CenterVertically)
+                                        .padding(start = 4.dp)
+                                        .width(40.dp),
+                                icon = { Icon(asset = Icons.Default.Menu) }
+                        )
+                    }
                     LinearProgressIndicator(
                             modifier = Modifier
-                                    .padding(start = 8.dp, top = 12.dp)
+                                    .height(4.dp)
+                                    .padding(8.dp)
                                     .fillMaxWidth(),
                             progress = percentage
-                    )
-                }
-                Column {
-                    IconButton(
-                            onClick = { onProgramsClick(channel.id) },
-                            modifier = Modifier
-                                    .padding(start = 4.dp)
-                                    .width(40.dp),
-                            icon = { Icon(asset = Icons.Default.Menu) }
                     )
                 }
             }
@@ -142,7 +147,7 @@ private fun PreviewChannelCard() {
     ChannelCard(
             channel = ChannelCardData(
                     "id",
-                    "Some program title",
+                    "Some program title (1:4): Episode 10",
                     "Some not too long description",
                     "https://asset.dr.dk/ImageScaler/?file=/mu-online/api/1.4/asset/5f394ae171401441844c2e2c%2525253Fraw=True&w=940&h=529&scaleAfter=crop&quality=75"
             ),
