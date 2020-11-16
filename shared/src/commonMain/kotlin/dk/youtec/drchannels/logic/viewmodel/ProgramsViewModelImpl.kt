@@ -8,6 +8,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
 import kotlin.coroutines.CoroutineContext
+import kotlin.time.ExperimentalTime
 import kotlin.time.days
 
 open class ProgramsViewModelImpl : ProgramsViewModel, CoroutineScope {
@@ -72,6 +73,7 @@ open class ProgramsViewModelImpl : ProgramsViewModel, CoroutineScope {
     /**
      * Gets the schedule of [channelId] with [daysOffset] relative to the current date.
      */
+    @OptIn(ExperimentalTime::class)
     private suspend fun getSchedule(
             channelId: String,
             daysOffset: Int
