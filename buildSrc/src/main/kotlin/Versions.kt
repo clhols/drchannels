@@ -12,7 +12,7 @@ object Versions {
     const val compose = "1.0.0-alpha07"
 
     //Kotlin dependent versions
-    const val kotlin = "1.4.10"
+    const val kotlin = "1.4.20"
     const val coroutines = "1.4.1"
     const val serialization = "1.0.0"
     const val ktor = "1.4.2"
