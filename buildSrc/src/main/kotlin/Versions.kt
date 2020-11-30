@@ -12,7 +12,7 @@ object Versions {
 
     //Kotlin dependent versions
     const val kotlin = "1.4.10"
-    const val coroutines = "1.4.1-native-mt"
+    const val coroutines = "1.4.2-native-mt"
     const val serialization = "1.0.1"
     const val ktor = "1.4.2"
 }
