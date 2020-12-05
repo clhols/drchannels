@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.request.ImageRequest
@@ -25,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
-import androidx.ui.tooling.preview.Preview
 import kotlinx.coroutines.flow.Flow
 
 @Composable
@@ -114,7 +114,7 @@ private fun ChannelCard(
                                         .align(Alignment.CenterVertically)
                                         .padding(start = 4.dp)
                                         .width(40.dp),
-                                icon = { Icon(asset = Icons.Default.Menu) }
+                                content = { Icon(Icons.Default.Menu) }
                         )
                     }
                     LinearProgressIndicator(

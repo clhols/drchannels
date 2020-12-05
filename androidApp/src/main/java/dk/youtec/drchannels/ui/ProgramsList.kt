@@ -21,7 +21,7 @@ import androidx.compose.runtime.getValue
 import coil.transform.RoundedCornersTransformation
 import dev.chrisbanes.accompanist.coil.CoilImage
 import androidx.compose.ui.platform.ContextAmbient
-import androidx.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
 import dk.youtec.drapi.MuScheduleBroadcast
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.*

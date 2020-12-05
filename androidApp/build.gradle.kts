@@ -101,10 +101,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    packagingOptions {
-        exclude("META-INF/*.kotlin_module")
-    }
-
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
     }
@@ -134,14 +130,14 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
+    implementation("io.coil-kt:coil:1.1.0")
     implementation("androidx.compose.runtime:runtime:${Versions.compose}")
-    implementation("androidx.ui:ui-tooling:${Versions.compose}")
+    implementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
-    implementation("androidx.navigation:navigation-compose:1.0.0-alpha02")
-    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.3.3.1")
+    implementation("androidx.navigation:navigation-compose:1.0.0-alpha03")
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.4.0")
 
-    implementation("io.coil-kt:coil:1.0.0")
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.2.1")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
