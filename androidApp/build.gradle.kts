@@ -137,6 +137,7 @@ dependencies {
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.navigation:navigation-compose:1.0.0-alpha03")
     implementation("dev.chrisbanes.accompanist:accompanist-coil:0.4.0")
+    implementation("dev.chrisbanes.accompanist:accompanist-insets:0.4.0")
 
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.2.1")

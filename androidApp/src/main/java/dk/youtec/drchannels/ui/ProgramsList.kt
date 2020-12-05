@@ -21,6 +21,8 @@ import coil.transform.RoundedCornersTransformation
 import dev.chrisbanes.accompanist.coil.CoilImage
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.tooling.preview.Preview
+import dev.chrisbanes.accompanist.insets.AmbientWindowInsets
+import dev.chrisbanes.accompanist.insets.toPaddingValues
 import dk.youtec.drapi.MuScheduleBroadcast
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.*
@@ -34,7 +36,7 @@ fun ProgramsList(
 
     LazyColumnFor(
             items = programsList,
-            modifier = Modifier.padding(top = 25.dp, bottom = 50.dp)
+            contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues()
     ) { program ->
         val timeZone = TimeZone.currentSystemDefault()
         val nowLocalDateTime = Clock.System.todayAt(timeZone)

@@ -26,6 +26,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
+import dev.chrisbanes.accompanist.insets.AmbientWindowInsets
+import dev.chrisbanes.accompanist.insets.toPaddingValues
 import kotlinx.coroutines.flow.Flow
 
 @Composable
@@ -38,7 +40,7 @@ fun ChannelsList(
 
     LazyColumnFor(
             items = channelsList,
-            modifier = Modifier.padding(top = 25.dp, bottom = 50.dp)
+            contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues()
     ) { channel ->
         val now = channel.now!!
         val programDuration = now.endTime - now.startTime

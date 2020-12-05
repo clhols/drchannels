@@ -9,9 +9,9 @@ fun ChannelsScreen(
         navController: NavController,
         tvChannelsViewModel: AndroidTvChannelsViewModel
 ) {
-    ChannelsList(
-            navController,
-            tvChannelsViewModel.channels,
-            tvChannelsViewModel::playTvChannel
-    )
+        ChannelsList(
+                navController,
+                tvChannelsViewModel.channels,
+                tvChannelsViewModel::playTvChannel
+        )
 }

@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.*
 import androidx.compose.material.*
 import androidx.compose.ui.platform.setContent
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
 import dk.youtec.drchannels.logic.viewmodel.ChannelsError
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.google.android.exoplayer2.util.Util
+import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 import dk.youtec.appupdater.updateApp
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.logic.viewmodel.AndroidProgramsViewModel
@@ -80,6 +82,8 @@ open class MainActivity : ComponentActivity() {
             }
         }
 
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         setContent {
             val colorPalette = if (isSystemInDarkTheme()) {
                 darkThemeColors
@@ -87,7 +91,9 @@ open class MainActivity : ComponentActivity() {
                 lightThemeColors
             }
             MaterialTheme(colors = colorPalette) {
-                AppNavigation(tvChannelsViewModel, programsViewModel)
+                ProvideWindowInsets {
+                    AppNavigation(tvChannelsViewModel, programsViewModel)
+                }
             }
         }
     }
