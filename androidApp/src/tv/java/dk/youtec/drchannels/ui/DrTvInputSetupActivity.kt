@@ -13,9 +13,9 @@ import androidx.tvprovider.media.tv.Channel
 import androidx.tvprovider.media.tv.ChannelLogoUtils
 import androidx.tvprovider.media.tv.TvContractCompat
 import dk.youtec.drchannels.R
+import dk.youtec.drchannels.preview.getBitmapFromVectorDrawable
 import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.defaultSharedPreferences
-import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
 import dk.youtec.drchannels.util.isTv
 
 class DrTvInputSetupActivity : AppCompatActivity() {
