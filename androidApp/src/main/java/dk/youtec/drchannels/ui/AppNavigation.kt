@@ -22,10 +22,8 @@ fun AppNavigation(
             ChannelsScreen(navController, tvChannelsViewModel)
         }
         composable("programs/{channelId}") { backStackEntry ->
-            ProgramsScreen(
-                    backStackEntry.arguments?.getString("channelId")!!,
-                    programsViewModel
-            )
+            programsViewModel.loadPrograms(backStackEntry.arguments?.getString("channelId")!!)
+            ProgramsScreen(programsViewModel)
         }
     }
 }

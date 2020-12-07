@@ -26,6 +26,7 @@ open class ProgramsViewModelImpl : ProgramsViewModel, CoroutineScope {
         launch {
             try {
                 supervisorScope {
+                    programs.emit(emptyList())
                     val tomorrowDeferred = async { getSchedule(channelId, 1) }
                     val todayDeferred = async { getSchedule(channelId, 0) }
                     val yesterdayDeferred = async { getSchedule(channelId, -1) }

@@ -20,24 +20,19 @@ import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import dev.chrisbanes.accompanist.coil.CoilImage
 import dk.youtec.drapi.MuNowNext
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import dev.chrisbanes.accompanist.insets.AmbientWindowInsets
 import dev.chrisbanes.accompanist.insets.toPaddingValues
-import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun ChannelsList(
         navController: NavController,
-        channels: Flow<List<MuNowNext>>,
+        channelsList: List<MuNowNext>,
         onChannelClick: (MuNowNext) -> Unit,
 ) {
-    val channelsList by channels.collectAsState(initial = emptyList())
-
     LazyColumnFor(
             items = channelsList,
             contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues()

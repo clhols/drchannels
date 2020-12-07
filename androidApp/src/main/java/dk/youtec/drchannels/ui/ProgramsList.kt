@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -15,8 +14,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.request.ImageRequest
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import coil.transform.RoundedCornersTransformation
 import dev.chrisbanes.accompanist.coil.CoilImage
 import androidx.compose.ui.platform.ContextAmbient
@@ -24,16 +21,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import dev.chrisbanes.accompanist.insets.AmbientWindowInsets
 import dev.chrisbanes.accompanist.insets.toPaddingValues
 import dk.youtec.drapi.MuScheduleBroadcast
-import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.*
 
 @Composable
 fun ProgramsList(
-        programs: Flow<List<MuScheduleBroadcast>>,
+        programsList: List<MuScheduleBroadcast>,
         playProgram: (MuScheduleBroadcast) -> Unit
 ) {
-    val programsList by programs.collectAsState(initial = emptyList())
-
     LazyColumnFor(
             items = programsList,
             contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues()
