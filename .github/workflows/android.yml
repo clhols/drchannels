@@ -26,8 +26,13 @@ jobs:
         java-version: 12
     - name: Build with Gradle
       run: ./gradlew shared:packForXcode shared:iosX64Test assembleMobileDebug assembleTvDebug
-    - name: Upload a Build Artifact
+    - name: Upload a Mobile APK
       uses: actions/upload-artifact@v2.2.1
       with:
         name: mobile-debug.apk
         path: androidApp/build/outputs/apk/mobile/debug/androidApp-mobile-debug.apk
+    - name: Upload a TV APK
+      uses: actions/upload-artifact@v2.2.1
+      with:
+        name: tv-debug.apk
+        path: androidApp/build/outputs/apk/tv/debug/androidApp-tv-debug.apk
