@@ -21,7 +21,7 @@ import coil.transform.RoundedCornersTransformation
 import dev.chrisbanes.accompanist.coil.CoilImage
 import dk.youtec.drapi.MuNowNext
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.platform.AmbientContext
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import dev.chrisbanes.accompanist.insets.AmbientWindowInsets
@@ -69,7 +69,7 @@ private fun ChannelCard(
         onChannelClick: (String) -> Unit,
         onProgramsClick: (String) -> Unit,
 ) {
-    val context: Context = ContextAmbient.current
+    val context: Context = AmbientContext.current
 
     Card(
             Modifier.fillMaxWidth()

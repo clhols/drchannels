@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -16,7 +17,6 @@ import androidx.compose.ui.unit.sp
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import dev.chrisbanes.accompanist.coil.CoilImage
-import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.tooling.preview.Preview
 import dev.chrisbanes.accompanist.insets.AmbientWindowInsets
 import dev.chrisbanes.accompanist.insets.toPaddingValues
@@ -85,7 +85,7 @@ private fun ProgramCard(
         program: ProgramCardData,
         onClick: (String) -> Unit
 ) {
-    val context: Context = ContextAmbient.current
+    val context: Context = AmbientContext.current
 
     Card(
             Modifier.fillMaxWidth()
