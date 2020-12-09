@@ -6,7 +6,7 @@
     <color name="colorSelection">#4D01579B</color>
     <color name="toolbarTextColor">#ffffff</color>
     <color name="channelHeaderBackground">#eeeeee</color>
-    <color name="channelBodyBackground">#F9F9F9</color>
+    <color name="channelBodyBackground">#E4E4E4</color>
     <color name="liveText">@color/colorPrimary</color>
     <color name="programProgress">#6e8bc34a</color>
     <color name="nextText">#999999</color>
