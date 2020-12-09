@@ -29,5 +29,5 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.1
       with:
-        name: mobile.apk
-        path: androidApp/build/outputs/apk/mobile/release/androidApp-mobile-release.apk
+        name: mobile-debug.apk
+        path: androidApp/build/outputs/apk/mobile/debug/androidApp-mobile-debug.apk
