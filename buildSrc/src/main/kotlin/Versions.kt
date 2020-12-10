@@ -4,7 +4,7 @@ object Versions {
     const val compileSdk = 30
     const val targetSdk = 30
     const val minSdk = 21
-    const val buildTools = "30.0.2"
+    const val buildTools = "30.0.3"
     const val androidAnnotation = "1.1.0"
     const val okhttp = "4.9.0"
     const val exoPlayer = "2.11.8"
