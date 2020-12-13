@@ -5,15 +5,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import dk.youtec.drchannels.logic.viewmodel.AndroidProgramsViewModel
-import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
+import dk.youtec.drchannels.logic.viewmodel.ProgramsViewModel
+import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModel
 
 lateinit var navController: NavHostController
 
 @Composable
 fun AppNavigation(
-        tvChannelsViewModel: AndroidTvChannelsViewModel,
-        programsViewModel: AndroidProgramsViewModel,
+        tvChannelsViewModel: TvChannelsViewModel,
+        programsViewModel: ProgramsViewModel,
 ) {
     navController = rememberNavController()
 
