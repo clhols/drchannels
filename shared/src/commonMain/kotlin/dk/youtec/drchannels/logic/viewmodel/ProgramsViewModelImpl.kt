@@ -11,7 +11,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.time.ExperimentalTime
 import kotlin.time.days
 
-open class ProgramsViewModelImpl : ProgramsViewModel, CoroutineScope {
+open class ProgramsViewModelImpl : ProgramsViewModel, ViewModel, CoroutineScope {
 
     private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext = job + Dispatchers.Main
