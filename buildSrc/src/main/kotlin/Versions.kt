@@ -1,3 +1,4 @@
+@Suppress("unused")
 object Versions {
     //Project dependency versions
     const val androidGradlePlugin = "7+"
