@@ -9,6 +9,7 @@ buildscript {
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         maven { setUrl("https://github.com/clhols/mvn-repo/raw/master/") }
         //mavenLocal()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 
     dependencies {
@@ -19,6 +20,7 @@ buildscript {
         classpath("com.google.firebase:perf-plugin:1.3.4")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.4.1")
         classpath("dk.youtec:appupdater-plugin:1.1.0")
+        classpath("org.jetbrains.compose:compose-gradle-plugin:0.2.0-build132")
     }
 }
 
@@ -32,6 +34,7 @@ allprojects {
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         //jcenter()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 
     tasks.withType<Test> {

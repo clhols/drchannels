@@ -20,6 +20,6 @@ buildCache {
     }
 }
 
-include(":androidApp", ":tv-library", ":appupdater", ":drapi", ":shared")
+include(":androidApp", ":tv-library", ":appupdater", ":drapi", ":shared", ":desktop")
 
 rootProject.buildFileName = "build.gradle.kts"

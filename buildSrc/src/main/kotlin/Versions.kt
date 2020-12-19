@@ -1,7 +1,7 @@
 @Suppress("unused")
 object Versions {
     //Project dependency versions
-    const val androidGradlePlugin = "7+"
+    const val androidGradlePlugin = "7.0.0-alpha02"
     const val compileSdk = 30
     const val targetSdk = 30
     const val minSdk = 21
@@ -10,7 +10,7 @@ object Versions {
     const val okhttp = "4.9.0"
     const val exoPlayer = "2.11.8"
     const val fragmentKtx = "1.2.5"
-    const val compose = "1.0.0-alpha08"
+    const val compose = "1.0.0-alpha09"
 
     //Kotlin dependent versions
     const val kotlin = "1.4.21"
