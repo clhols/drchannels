@@ -1,5 +1,6 @@
 package dk.youtec.drchannels.ui
 
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.runtime.Composable
 import dk.youtec.drapi.MuNowNext
@@ -14,31 +15,31 @@ fun ChannelsList(
         channelsList: List<MuNowNext>,
         onChannelClick: (MuNowNext) -> Unit,
 ) {
-    LazyColumnFor(
-            items = channelsList,
-            contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues()
-    ) { channel ->
-        val now = channel.now!!
-        val programDuration = now.endTime - now.startTime
-        val programTime = System.currentTimeMillis() - now.startTime
-        val percentage = programTime.toFloat() / programDuration
+    LazyColumn(contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues()) {
+        items(items = channelsList,
+                itemContent = { channel ->
+                    val now = channel.now!!
+                    val programDuration = now.endTime - now.startTime
+                    val programTime = System.currentTimeMillis() - now.startTime
+                    val percentage = programTime.toFloat() / programDuration
 
-        ChannelCard(
-                channel = ChannelCardData(
-                        channel.channelSlug,
-                        now.title,
-                        now.description,
-                        now.programCard.primaryImageUri
-                ),
-                percentage = percentage,
-                onChannelClick = { id ->
-                    channelsList.firstOrNull { it.channelSlug == id }?.run {
-                        onChannelClick(this)
-                    }
-                },
-                onProgramsClick = { id ->
-                    navController.navigate("programs/$id")
-                }
-        )
+                    ChannelCard(
+                            channel = ChannelCardData(
+                                    channel.channelSlug,
+                                    now.title,
+                                    now.description,
+                                    now.programCard.primaryImageUri
+                            ),
+                            percentage = percentage,
+                            onChannelClick = { id ->
+                                channelsList.firstOrNull { it.channelSlug == id }?.run {
+                                    onChannelClick(this)
+                                }
+                            },
+                            onProgramsClick = { id ->
+                                navController.navigate("programs/$id")
+                            }
+                    )
+                })
     }
 }
