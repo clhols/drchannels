@@ -13,8 +13,7 @@ fun ProgramsList(
         programsList: List<MuScheduleBroadcast>,
         playProgram: (MuScheduleBroadcast) -> Unit
 ) {
-    LazyColumn(contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues()
-    ) {
+    LazyColumn(contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues()) {
         items(items = programsList,
                 itemContent = { program ->
                     val timeZone = TimeZone.currentSystemDefault()
@@ -32,14 +31,14 @@ fun ProgramsList(
 
                     ProgramCard(
                             ProgramCardData(
-                                    program.title+program.startTime,
+                                    program.title + program.startTime,
                                     program.title,
                                     program.description,
                                     time,
                                     program.programCard.primaryImageUri
                             ),
                             onClick = { id ->
-                                programsList.firstOrNull { it.title+it.startTime == id }?.run {
+                                programsList.firstOrNull { it.title + it.startTime == id }?.run {
                                     playProgram(this)
                                 }
                             }
