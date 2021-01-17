@@ -25,24 +25,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="dk.youtec.drchannels.ui.ProgramsActivity"
-            android:theme="@style/Theme.Dr.Toolbar">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="https"
-                    android:host="drchannels.youtec.dk"
-                    android:pathPattern="/programs/.*" />
-            </intent-filter>
-        </activity>
-
         <activity
             android:name="dk.youtec.drchannels.ui.exoplayer.PlayerActivity"
             android:icon="@mipmap/ic_launcher"

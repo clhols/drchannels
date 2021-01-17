@@ -6,11 +6,15 @@ import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.media.tv.TvContract
 import android.media.tv.TvContract.PreviewPrograms.ASPECT_RATIO_16_9
 import android.os.Build
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.core.content.edit
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.Observer
 import androidx.tvprovider.media.tv.Channel
@@ -28,11 +32,10 @@ import dk.youtec.drchannels.ui.MainActivity
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
 import dk.youtec.drchannels.util.defaultSharedPreferences
-import dk.youtec.drchannels.util.getBitmapFromVectorDrawable
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.coroutines.*
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -264,4 +267,21 @@ internal suspend inline fun <T, R> Iterable<T>.asyncAwaitMap(
         crossinline block: suspend (T) -> R
 ): List<R> = withContext(context) {
     map { async { block(it) } }.awaitAll()
+}
+
+internal fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap {
+    var drawable = ContextCompat.getDrawable(context, drawableId)!!
+    drawable = DrawableCompat.wrap(drawable).mutate()
+
+    val bitmap = Bitmap.createBitmap(
+            drawable.intrinsicWidth,
+            drawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888)
+
+    with(Canvas(bitmap)) {
+        drawable.setBounds(0, 0, width, height)
+        drawable.draw(this)
+    }
+
+    return bitmap
 }

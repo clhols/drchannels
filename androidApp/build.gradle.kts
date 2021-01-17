@@ -5,11 +5,10 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-    id("kotlin-android-extensions")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
     id("org.sonarqube") version "2.7.1"
-    id("dk.youtec.appupdater")
+    //id("dk.youtec.appupdater") //TODO Re-add when AGP 4.2.0 is released
 }
 
 android {
@@ -22,12 +21,26 @@ android {
         aaptOptions.cruncherEnabled = false
     }
 
+    buildFeatures {
+        compose = true
+        // Disable unused AGP features
+        aidl = false
+        renderScript = false
+        resValues = false
+        shaders = false
+    }
+    composeOptions {
+        kotlinCompilerVersion = Versions.kotlin
+        kotlinCompilerExtensionVersion = Versions.compose
+    }
+
     defaultConfig {
         minSdkVersion(Versions.minSdk)
         targetSdkVersion(Versions.targetSdk)
 
         applicationId = "dk.youtec.drchannels"
         versionName = "1.0.0"
+        versionCode = 1 //TODO Remove when appupdater plugin is readded
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true
@@ -83,12 +96,7 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    packagingOptions {
-        exclude("META-INF/*.kotlin_module")
+        isCoreLibraryDesugaringEnabled = true
     }
 
     testOptions {
@@ -113,33 +121,38 @@ dependencies {
     implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:${Versions.coroutines}"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.1")
 
     implementation("com.google.android.exoplayer:exoplayer-core:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:exoplayer-hls:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
-    implementation("io.coil-kt:coil:1.1.0")
+    implementation("io.coil-kt:coil:1.1.1")
+    implementation("androidx.compose.runtime:runtime:${Versions.compose}")
+    implementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
+    implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
+    implementation("androidx.compose.material:material:${Versions.compose}")
+    implementation("androidx.navigation:navigation-compose:1.0.0-alpha05")
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.4.2")
+    implementation("dev.chrisbanes.accompanist:accompanist-insets:0.4.2")
+
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.2.1")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
-    implementation("androidx.mediarouter:mediarouter:1.2.0")
+    implementation("androidx.mediarouter:mediarouter:1.2.1")
     implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("androidx.fragment:fragment-ktx:${Versions.fragmentKtx}")
     implementation("androidx.work:work-runtime-ktx:2.4.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
     implementation(platform("com.google.firebase:firebase-bom:+"))
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-perf")
-    implementation("org.koin:koin-android:2.1.6")
-    implementation("org.koin:koin-androidx-viewmodel:2.1.6")
-
-    kapt("androidx.lifecycle:lifecycle-common-java8:2.2.0")
+    implementation("org.koin:koin-android:2.2.1")
+    implementation("org.koin:koin-androidx-viewmodel:2.2.1")
+    //implementation("org.koin:koin-androidx-compose:2.2.1")
 
     androidTestImplementation("androidx.test:core:1.3.0")
     androidTestImplementation("androidx.test:core-ktx:1.3.0")

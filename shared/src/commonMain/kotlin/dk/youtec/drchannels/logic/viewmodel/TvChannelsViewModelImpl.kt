@@ -7,7 +7,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlin.coroutines.CoroutineContext
 
-open class TvChannelsViewModelImpl : TvChannelsViewModel, CoroutineScope {
+open class TvChannelsViewModelImpl : TvChannelsViewModel, ViewModel, CoroutineScope {
 
     private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext = job + Dispatchers.Main

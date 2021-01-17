@@ -3,10 +3,10 @@
 package dk.youtec.drchannels.backend
 
 import android.util.Log
-import dk.youtec.drchannels.util.koined
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
+import org.koin.java.KoinJavaComponent.inject
 import java.io.IOException
 
 const val TAG = "http"
@@ -25,7 +25,7 @@ fun getHttpResponse(urlAddress: String): Response {
                 .url(urlAddress)
                 .build()
 
-        val client: OkHttpClient = koined()
+        val client: OkHttpClient by inject(OkHttpClient::class.java)
 
         var response: Response? = null
         try {

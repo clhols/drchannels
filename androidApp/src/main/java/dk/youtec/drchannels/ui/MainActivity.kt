@@ -1,14 +1,104 @@
 package dk.youtec.drchannels.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import dk.youtec.drchannels.R
+import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.compose.foundation.*
+import androidx.compose.material.*
+import androidx.compose.ui.platform.setContent
+import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
+import dk.youtec.drchannels.logic.viewmodel.AndroidTvChannelsViewModel
+import dk.youtec.drchannels.logic.viewmodel.ChannelsError
+import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
+import dk.youtec.drchannels.util.toast
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.google.android.exoplayer2.util.Util
+import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
+import dk.youtec.appupdater.updateApp
+import dk.youtec.drchannels.BuildConfig
+import dk.youtec.drchannels.logic.viewmodel.AndroidProgramsViewModel
 
-open class MainActivity : AppCompatActivity() {
+open class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) {
+            if (!Util.isTv(this) && !BuildConfig.DEBUG) {
+                updateApp(this,
+                        BuildConfig.VERSION_CODE,
+                        "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
+                        "https://www.dropbox.com/s/tw9gpldrwicd3kj/drchannels.apk?dl=1",
+                        "https://www.dropbox.com/s/6prmp1cnnsrhr4y/drchannels.log?dl=1")
+            }
+        }
 
-        setContentView(R.layout.activity_main)
+        val tvChannelsViewModel: AndroidTvChannelsViewModel by viewModel()
+        val programsViewModel: AndroidProgramsViewModel by viewModel()
+
+        lifecycleScope.launch {
+            tvChannelsViewModel.playback.collect { videoItem ->
+                Log.d(TAG, "Playback video item")
+                startActivity(Intent(this@MainActivity, PlayerActivity::class.java).apply {
+                    action = PlayerActivity.ACTION_VIEW
+                    putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
+                    putExtra(PlayerActivity.TITLE_EXTRA, videoItem.title)
+                    putExtra(PlayerActivity.IMAGE_EXTRA, videoItem.imageUrl)
+                    data = Uri.parse(videoItem.videoUrl)
+                })
+            }
+        }
+
+        lifecycleScope.launch {
+            tvChannelsViewModel.error.collect { error ->
+                when (error) {
+                    is ChannelsError.NoStream -> toast("No stream")
+                    is ChannelsError.LoadingChannelsFailed -> toast("Unable to load channels")
+                    is ChannelsError.LoadingChannelFailed -> toast(error.message ?: "Unknown error")
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            programsViewModel.playback.collect { videoItem ->
+                Log.d(TAG, "Playback video item")
+                startActivity(Intent(this@MainActivity, PlayerActivity::class.java).apply {
+                    action = PlayerActivity.ACTION_VIEW
+                    putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)
+                    //putExtra(PlayerActivity.TITLE_EXTRA, videoItem.title)
+                    putExtra(PlayerActivity.IMAGE_EXTRA, videoItem.second)
+                    data = Uri.parse(videoItem.first)
+                })
+            }
+        }
+
+        lifecycleScope.launch {
+            programsViewModel.error.collect { error ->
+                toast(error.message ?: "Unknown error")
+            }
+        }
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        setContent {
+            val colorPalette = if (isSystemInDarkTheme()) {
+                darkThemeColors
+            } else {
+                lightThemeColors
+            }
+            MaterialTheme(colors = colorPalette) {
+                ProvideWindowInsets {
+                    AppNavigation(tvChannelsViewModel, programsViewModel)
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val TAG = "MainActivity"
     }
 }
