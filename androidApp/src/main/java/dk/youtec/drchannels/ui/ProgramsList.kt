@@ -1,19 +1,28 @@
 package dk.youtec.drchannels.ui
 
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import dev.chrisbanes.accompanist.insets.AmbientWindowInsets
 import dev.chrisbanes.accompanist.insets.toPaddingValues
 import dk.youtec.drapi.MuScheduleBroadcast
 import kotlinx.datetime.*
+import java.time.Instant.now
 
 @Composable
 fun ProgramsList(
         programsList: List<MuScheduleBroadcast>,
         playProgram: (MuScheduleBroadcast) -> Unit
 ) {
-    LazyColumn(contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues()) {
+    val nowIndex = programsList.indexOfFirst {
+        it.endTime >= now().toEpochMilli()
+    }.coerceAtLeast(0)
+    val programsListState = rememberLazyListState(nowIndex)
+
+    LazyColumn(
+            contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues(),
+            state = programsListState
+    ) {
         items(items = programsList,
                 itemContent = { program ->
                     val timeZone = TimeZone.currentSystemDefault()
