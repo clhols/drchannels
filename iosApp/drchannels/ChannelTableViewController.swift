@@ -33,8 +33,8 @@ class ChannelTableViewController: UITableViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        job?.cancel()
-        errorJob?.cancel()
+        //job?.cancel()
+        //errorJob?.cancel()
         viewModel?.onCleared()
         super.viewWillDisappear(animated)
     }
@@ -73,7 +73,7 @@ class ChannelTableViewController: UITableViewController {
             print("Playing url: \(url)")
             
             self.playVideo(uri: url)
-            self.playbackJob?.cancel()
+            //self.playbackJob?.cancel()
         })
     }
 

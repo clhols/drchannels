@@ -1,11 +1,11 @@
 package dk.youtec.drchannels.logic.viewmodel
 
 import dk.youtec.drapi.MuNowNext
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 
 interface TvChannelsViewModel {
-    val channels: StateFlow<List<MuNowNext>>
+    val channels: Flow<List<MuNowNext>>
     val playback: SharedFlow<VideoItem>
     val error: SharedFlow<ChannelsError>
 

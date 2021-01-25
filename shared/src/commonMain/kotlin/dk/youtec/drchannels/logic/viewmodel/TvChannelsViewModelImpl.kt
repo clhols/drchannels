@@ -14,28 +14,24 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, ViewModel, CoroutineSc
 
     private val api = DrMuRepository()
 
-    override val channels: StateFlow<List<MuNowNext>> = MutableStateFlow(emptyList())
+    override val playback: SharedFlow<VideoItem> = MutableSharedFlow()
+    override val error: SharedFlow<ChannelsError> = MutableSharedFlow()
 
-    override val playback: SharedFlow<VideoItem> = MutableSharedFlow<VideoItem>()
-    override val error: SharedFlow<ChannelsError> = MutableSharedFlow<ChannelsError>()
-
-    init {
-        launch {
-            //TODO Find a way to connect this coroutine to collecting from [channels]
-            while (true) {
-                try {
-                    channels.state = api.getScheduleNowNext().filter { it.now != null }
-                    delay(30000)
-                } catch (e: CancellationException) {
-                    return@launch
-                } catch (e: Exception) {
-                    Logger.e(e, e.message ?: "")
-                    error.emit(ChannelsError.LoadingChannelsFailed)
-                    delay(5000)
-                }
+    override val channels: Flow<List<MuNowNext>> = flow {
+        while (true) {
+            try {
+                emit(api.getScheduleNowNext().filter { it.now != null })
+                delay(30000)
+            } catch (e: CancellationException) {
+                return@flow
+            } catch (e: Exception) {
+                Logger.e(e, e.message ?: "")
+                error.emit(ChannelsError.LoadingChannelsFailed)
+                delay(5000)
             }
         }
     }
+
 
     /**
      * Used by iOS to observe the channels Flow by having this VM collect and call [callback].
