@@ -4,6 +4,7 @@ import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.Logger
 import dk.youtec.drapi.MuScheduleBroadcast
 import dk.youtec.drapi.Schedule
+import dk.youtec.drchannels.logic.decryptUri
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.datetime.Clock
