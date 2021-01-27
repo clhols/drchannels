@@ -73,13 +73,15 @@ fun ChannelCard(
                                 content = { Icon(Icons.Default.Menu) }
                         )
                     }
-                    LinearProgressIndicator(
-                            modifier = Modifier
-                                    .height(4.dp)
-                                    .padding(8.dp)
-                                    .fillMaxWidth(),
-                            progress = percentage
-                    )
+                    if (percentage <= 1.0f) {
+                        LinearProgressIndicator(
+                                modifier = Modifier
+                                        .height(4.dp)
+                                        .padding(8.dp)
+                                        .fillMaxWidth(),
+                                progress = percentage
+                        )
+                    }
                 }
             }
             if (channel.description.isNotBlank()) {
