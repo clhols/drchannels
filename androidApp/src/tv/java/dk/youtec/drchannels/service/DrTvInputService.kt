@@ -33,7 +33,7 @@ import com.google.android.media.tv.companionlibrary.model.Program
 import com.google.android.media.tv.companionlibrary.model.RecordedProgram
 import com.google.android.media.tv.companionlibrary.utils.TvContractUtils
 import dk.youtec.drapi.DrMuRepository
-import dk.youtec.drapi.decryptUri
+import dk.youtec.drchannels.logic.decryptUri
 import dk.youtec.drchannels.player.TvExoPlayer
 import dk.youtec.drchannels.util.serverDateFormat
 import kotlinx.coroutines.*

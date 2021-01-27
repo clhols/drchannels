@@ -64,6 +64,7 @@ kotlin {
             executable {}
         }
     }
+    jvm()
     js {
         browser()
         nodejs()
@@ -88,12 +89,16 @@ kotlin {
             }
         }
 
-        val androidMain by getting {
+        val jvmMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
                 implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
                 implementation("com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}")
             }
+        }
+
+        val androidMain by getting {
+            dependsOn(jvmMain)
         }
         val androidTest by getting {
             dependencies {

@@ -1,6 +1,5 @@
 package dk.youtec.drapi
 
-import android.util.Log
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import okhttp3.Cache
@@ -21,11 +20,7 @@ actual object HttpClientFactory {
             }
 
             // https://square.github.io/okhttp/3.x/okhttp/okhttp3/Interceptor.html
-            addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-                override fun log(message: String) {
-                    Log.v("http", message)
-                }
-            }).apply { level = HttpLoggingInterceptor.Level.BASIC })
+            addInterceptor(HttpLoggingInterceptor { message -> Logger.v(message) }.apply { level = HttpLoggingInterceptor.Level.BASIC })
             addInterceptor(StaleIfErrorInterceptor())
         }
     }

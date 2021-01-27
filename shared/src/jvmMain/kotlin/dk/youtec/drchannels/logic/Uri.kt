@@ -1,4 +1,4 @@
-package dk.youtec.drchannels.logic.viewmodel
+package dk.youtec.drchannels.logic
 
 import java.security.MessageDigest
 import javax.crypto.Cipher

@@ -1,19 +1,15 @@
 package dk.youtec.drapi
 
-import android.util.Log
-
 actual object Logger {
-    private const val tag = "drapi"
-
     actual fun v(message: String) {
-        Log.v(tag,  message)
+        println("V/ $message")
     }
 
     actual fun d(message: String) {
-        Log.d(tag,  message)
+        println("D/ $message")
     }
 
     actual fun e(e: Exception, message: String) {
-        Log.e(tag,  message, e)
+        println("E/ $message")
     }
 }

@@ -4,8 +4,14 @@ import androidx.compose.desktop.DesktopTheme
 import androidx.compose.desktop.Window
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.remember
+import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
 
 fun main() {
+    val vm = TvChannelsViewModelImpl()
+    vm.observeChannels {
+        println("Got list: $it")
+    }
+
     Window(
             title = "DR channels",
             size = getPreferredWindowSize(800, 1000),

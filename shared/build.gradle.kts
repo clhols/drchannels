@@ -34,7 +34,6 @@ android {
 kotlin {
     android {}
     val frameworkName = "Shared"
-
     ios {
         binaries.framework {
             baseName = frameworkName
@@ -42,6 +41,7 @@ kotlin {
             export(project(":drapi"))
         }
     }
+    jvm()
 
     sourceSets {
         val commonMain by getting {
@@ -58,7 +58,11 @@ kotlin {
             }
         }
 
+        val jvmMain by getting {
+        }
+
         val androidMain by getting {
+            dependsOn(jvmMain)
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")

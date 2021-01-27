@@ -30,7 +30,6 @@ android {
         shaders = false
     }
     composeOptions {
-        kotlinCompilerVersion = Versions.kotlin
         kotlinCompilerExtensionVersion = Versions.compose
     }
 

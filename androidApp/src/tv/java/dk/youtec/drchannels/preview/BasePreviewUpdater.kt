@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.net.toUri
-import androidx.lifecycle.Observer
 import androidx.tvprovider.media.tv.Channel
 import androidx.tvprovider.media.tv.ChannelLogoUtils
 import androidx.tvprovider.media.tv.PreviewProgram
@@ -25,9 +24,9 @@ import androidx.work.*
 import com.google.android.media.tv.companionlibrary.model.Program
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.ProgramCard
-import dk.youtec.drapi.decryptUri
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.R
+import dk.youtec.drchannels.logic.decryptUri
 import dk.youtec.drchannels.ui.MainActivity
 import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.SharedPreferences
