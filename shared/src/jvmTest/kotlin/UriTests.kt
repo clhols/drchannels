@@ -1,4 +1,4 @@
-import dk.youtec.drapi.decryptUri
+import dk.youtec.drchannels.logic.decryptUri
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

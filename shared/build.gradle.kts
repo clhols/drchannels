@@ -60,6 +60,12 @@ kotlin {
 
         val jvmMain by getting {
         }
+        val jvmTest by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlin:kotlin-test:${Versions.kotlin}")
+                implementation("org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}")
+            }
+        }
 
         val androidMain by getting {
             dependsOn(jvmMain)
@@ -69,6 +75,7 @@ kotlin {
             }
         }
         val androidTest by getting {
+            dependsOn(jvmTest)
             dependencies {}
         }
 
