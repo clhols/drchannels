@@ -16,15 +16,15 @@ class ChannelTableViewController: UITableViewController {
     var job: Cancelable?
     var errorJob: Cancelable?
     var playbackJob: Cancelable?
-    var channels = [MuNowNext]()
+    var channels = [Channel]()
     var viewModel : TvChannelsViewModelImpl?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel = TvChannelsViewModelImpl()
-        job = viewModel?.observeChannels { (schedules: [MuNowNext]) in
-            print("Got channels result, size=\(schedules.count)")
-            self.channels = schedules.filter({ (nowNext: MuNowNext) -> Bool in nowNext.now != nil })
+        job = viewModel?.observeChannels { (channels: [Channel]) in
+            print("Got channels result, size=\(channels.count)")
+            self.channels = channels
             self.tableView.reloadData()
         }
         errorJob = viewModel?.observeError { (error: ChannelsError) in
@@ -68,7 +68,7 @@ class ChannelTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        playbackJob = viewModel?.playTvChannel(muNowNext: self.channels[indexPath.row], callback: { (videoItem: VideoItem) in
+        playbackJob = viewModel?.playTvChannel(channel: self.channels[indexPath.row], callback: { (videoItem: VideoItem) in
             let url = videoItem.videoUrl
             print("Playing url: \(url)")
             
@@ -87,10 +87,10 @@ class ChannelTableViewController: UITableViewController {
         }
 
         let channel = channels[indexPath.row]
-        let imageUri = channel.now?.programCard.primaryImageUri ?? ""
+        let imageUri = channel.primaryImageUri
         
-        cell.titleLabel.text = channel.now?.title ?? "Unknown title"
-        cell.descriptionLabel.text = channel.now?.subtitle ?? "Unknown description"
+        cell.titleLabel.text = channel.title
+        cell.descriptionLabel.text = channel.subtitle
         cell.channelImageView.load(url: URL.init(string: imageUri)!, tableView: self.tableView)
 
         return cell

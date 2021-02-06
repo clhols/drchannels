@@ -11,10 +11,13 @@ internal interface IDrMuApi {
 
     suspend fun getManifest(uri: String): Manifest
 
+    @Deprecated("Broken")
     suspend fun getSchedule(id: String, date: String): Schedule
 
+    @Deprecated("Broken")
     suspend fun getScheduleNowNext(id: String): MuNowNext
 
+    @Deprecated("Broken")
     suspend fun getScheduleNowNext(): List<MuNowNext>
 
     suspend fun search(query: String): SearchResult

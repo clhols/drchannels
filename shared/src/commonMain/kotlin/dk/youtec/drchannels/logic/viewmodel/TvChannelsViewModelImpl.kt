@@ -1,5 +1,6 @@
 package dk.youtec.drchannels.logic.viewmodel
 
+import dk.youtec.drapi.Channel
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.Logger
 import dk.youtec.drapi.MuNowNext
@@ -18,10 +19,11 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, ViewModel, CoroutineSc
     override val playback: SharedFlow<VideoItem> = MutableSharedFlow()
     override val error: SharedFlow<ChannelsError> = MutableSharedFlow()
 
-    override val channels: Flow<List<MuNowNext>> = flow {
+    override val channels: Flow<List<Channel>> = flow {
         while (true) {
             try {
-                emit(api.getScheduleNowNext().filter { it.now != null })
+                emit(api.getAllActiveDrTvChannels().sortedBy { it.title.replace(" ", "") }
+                        .filter { it.slug in listOf("dr1", "dr2", "dr-ramasjang", "eva") })
                 delay(30000)
             } catch (e: CancellationException) {
                 return@flow
@@ -39,7 +41,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, ViewModel, CoroutineSc
      * @return a Cancelable that can cancel the coroutine launched.
      */
     @Suppress("unused")
-    fun observeChannels(callback: (List<MuNowNext>) -> Unit): Cancelable {
+    fun observeChannels(callback: (List<Channel>) -> Unit): Cancelable {
         val job = launch {
             channels.collect { channels ->
                 callback(channels)
@@ -59,33 +61,29 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, ViewModel, CoroutineSc
     }
 
     @Suppress("unused")
-    fun playTvChannel(muNowNext: MuNowNext, callback: (VideoItem) -> Unit): Cancelable {
+    fun playTvChannel(channel: Channel, callback: (VideoItem) -> Unit): Cancelable {
         val job = launch {
             playback.collect { videoItem ->
                 callback(videoItem)
             }
         }
-        playTvChannel(muNowNext)
+        playTvChannel(channel)
         return Cancelable { job.cancel() }
     }
 
-    override fun playTvChannel(muNowNext: MuNowNext) {
+    override fun playTvChannel(channel: Channel) {
         launch {
             try {
-                val title = muNowNext.now?.title ?: muNowNext.channelSlug.toUpperCase()
-                val server = api.getAllActiveDrTvChannels()
-                        .firstOrNull { it.slug == muNowNext.channelSlug }
-                        ?.server() ?: throw Exception("Unable to get streaming server")
-
-                val stream = server
-                        .qualities.maxByOrNull { it.kbps }
+                val title = channel.title
+                val stream = channel.server()
+                        ?.qualities?.maxByOrNull { it.kbps }
                         ?.streams?.first()?.stream ?: ""
 
                 playback.emit(
                         VideoItem(
                                 title,
-                                "${server.server}/$stream",
-                                muNowNext.now?.programCard?.primaryImageUri
+                                "${channel.server()?.server}/$stream",
+                                channel.primaryImageUri
                         )
                 )
             } catch (e: Exception) {
