@@ -6,12 +6,6 @@ The input service adds EPG channel data to Live Channels and allows for live pla
 
 Also mobile apps for iOS and Android.
 
-Android:
-https://www.dropbox.com/s/tw9gpldrwicd3kj/drchannels.apk?dl=1
-
-Android TV:
-https://www.dropbox.com/s/a4oc5xmtl5naea7/drchannels-tv-release.apk?dl=1
-
 Screenshots:
 ![Home screen screenshot](/androidApp/graphics/homescreen.png)
 ![Live Channels screenshot](/androidApp/graphics/livechannels.png)
