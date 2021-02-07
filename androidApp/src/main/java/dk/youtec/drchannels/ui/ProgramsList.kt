@@ -23,36 +23,36 @@ fun ProgramsList(
             contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues(),
             state = programsListState
     ) {
-        items(items = programsList,
-                itemContent = { program ->
-                    val timeZone = TimeZone.currentSystemDefault()
-                    val nowLocalDateTime = Clock.System.todayAt(timeZone)
-                    val startInstant = Instant.fromEpochMilliseconds(program.startTime)
-                    val endInstant = Instant.fromEpochMilliseconds(program.endTime)
-                    val startLocalDateTime = startInstant.toLocalDateTime(timeZone)
-                    val endLocalDateTime = endInstant.toLocalDateTime(timeZone)
+        items(programsList.size) { index ->
+            val program = programsList[index]
+            val timeZone = TimeZone.currentSystemDefault()
+            val nowLocalDateTime = Clock.System.todayAt(timeZone)
+            val startInstant = Instant.fromEpochMilliseconds(program.startTime)
+            val endInstant = Instant.fromEpochMilliseconds(program.endTime)
+            val startLocalDateTime = startInstant.toLocalDateTime(timeZone)
+            val endLocalDateTime = endInstant.toLocalDateTime(timeZone)
 
-                    val time = if (startLocalDateTime.dayOfMonth == nowLocalDateTime.dayOfMonth) {
-                        "${getTime(startLocalDateTime)} ‣ ${getTime(endLocalDateTime)}"
-                    } else {
-                        "${startLocalDateTime.dayOfMonth}/${startLocalDateTime.monthNumber} ⁃ ${getTime(startLocalDateTime)} ‣ ${getTime(endLocalDateTime)}"
+            val time = if (startLocalDateTime.dayOfMonth == nowLocalDateTime.dayOfMonth) {
+                "${getTime(startLocalDateTime)} ‣ ${getTime(endLocalDateTime)}"
+            } else {
+                "${startLocalDateTime.dayOfMonth}/${startLocalDateTime.monthNumber} ⁃ ${getTime(startLocalDateTime)} ‣ ${getTime(endLocalDateTime)}"
+            }
+
+            ProgramCard(
+                    ProgramCardData(
+                            program.title + program.startTime,
+                            program.title,
+                            program.description,
+                            time,
+                            program.programCard.primaryImageUri
+                    ),
+                    onClick = { id ->
+                        programsList.firstOrNull { it.title + it.startTime == id }?.run {
+                            playProgram(this)
+                        }
                     }
-
-                    ProgramCard(
-                            ProgramCardData(
-                                    program.title + program.startTime,
-                                    program.title,
-                                    program.description,
-                                    time,
-                                    program.programCard.primaryImageUri
-                            ),
-                            onClick = { id ->
-                                programsList.firstOrNull { it.title + it.startTime == id }?.run {
-                                    playProgram(this)
-                                }
-                            }
-                    )
-                })
+            )
+        }
     }
 }
 

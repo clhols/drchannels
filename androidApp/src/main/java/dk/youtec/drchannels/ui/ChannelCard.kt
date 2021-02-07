@@ -1,6 +1,7 @@
 package dk.youtec.drchannels.ui
 
 import android.content.Context
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -20,6 +22,8 @@ import androidx.compose.ui.unit.sp
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
 import dev.chrisbanes.accompanist.coil.CoilImage
+import dev.chrisbanes.accompanist.imageloading.ImageLoadState
+import dev.chrisbanes.accompanist.imageloading.MaterialLoadingImage
 
 @Composable
 fun ChannelCard(
@@ -31,7 +35,8 @@ fun ChannelCard(
     val context: Context = AmbientContext.current
 
     Card(
-            Modifier.fillMaxWidth()
+            Modifier
+                    .fillMaxWidth()
                     .padding(4.dp)
                     .clickable(onClick = { onChannelClick(channel.id) }),
             shape = RoundedCornerShape(4.dp),
@@ -49,7 +54,22 @@ fun ChannelCard(
                         modifier = Modifier
                                 .preferredWidth(120.dp)
                                 .preferredHeight(80.dp)
-                )
+                ) { imageLoadState ->
+                    when (imageLoadState) {
+                        is ImageLoadState.Success -> {
+                            MaterialLoadingImage(
+                                    result = imageLoadState,
+                                    contentDescription = "Logo",
+                                    fadeInEnabled = true,
+                                    fadeInDurationMs = 2000,
+                            )
+                        }
+                        is ImageLoadState.Error -> {
+                            Box(modifier = Modifier.background(Color.LightGray))
+                        }
+                        else -> Box(modifier = Modifier.background(Color.White))
+                    }
+                }
                 Column {
                     Row {
                         Text(
@@ -70,7 +90,7 @@ fun ChannelCard(
                                         .align(Alignment.CenterVertically)
                                         .padding(start = 4.dp)
                                         .width(40.dp),
-                                content = { Icon(Icons.Default.Menu) }
+                                content = { Icon(Icons.Default.Menu, "Menu") }
                         )
                     }
                     if (percentage <= 1.0f) {
