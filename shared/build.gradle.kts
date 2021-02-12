@@ -71,7 +71,7 @@ kotlin {
             dependsOn(jvmMain)
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0")
             }
         }
         val androidTest by getting {
