@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -32,7 +32,7 @@ fun ChannelCard(
         onChannelClick: (String) -> Unit,
         onProgramsClick: (String) -> Unit,
 ) {
-    val context: Context = AmbientContext.current
+    val context: Context = LocalContext.current
 
     Card(
             Modifier

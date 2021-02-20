@@ -4,7 +4,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
-import dev.chrisbanes.accompanist.insets.AmbientWindowInsets
+import dev.chrisbanes.accompanist.insets.LocalWindowInsets
 import dev.chrisbanes.accompanist.insets.toPaddingValues
 import dk.youtec.drapi.Channel
 
@@ -14,7 +14,7 @@ fun ChannelsList(
         channelsList: List<Channel>,
         onChannelClick: (Channel) -> Unit,
 ) {
-    LazyColumn(contentPadding = AmbientWindowInsets.current.systemBars.toPaddingValues()) {
+    LazyColumn(contentPadding = LocalWindowInsets.current.systemBars.toPaddingValues()) {
         items(channelsList.size) { index ->
             val channel = channelsList[index]
             //val programDuration = now.endTime - now.startTime
