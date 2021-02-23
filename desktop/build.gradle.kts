@@ -27,6 +27,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "DR channels"
+            packageVersion = "1.0.0"
             modules("jdk.crypto.ec")
 
             val iconsRoot = project.file("../common/src/desktopMain/resources/images")
