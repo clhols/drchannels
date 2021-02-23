@@ -33,7 +33,6 @@ allprojects {
         maven { setUrl("https://plugins.gradle.org/m2/") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
-        //jcenter()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 
