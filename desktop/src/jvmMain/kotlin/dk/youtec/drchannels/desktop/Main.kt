@@ -3,7 +3,6 @@ package dk.youtec.drchannels.desktop
 import androidx.compose.desktop.DesktopTheme
 import androidx.compose.desktop.Window
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.remember
 import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
 
 fun main() {
@@ -19,7 +18,7 @@ fun main() {
     ) {
         MaterialTheme {
             DesktopTheme {
-                Loader()
+                ChannelsScreen(vm)
             }
         }
     }
