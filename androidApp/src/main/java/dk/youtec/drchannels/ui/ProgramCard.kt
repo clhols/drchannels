@@ -48,8 +48,8 @@ fun ProgramCard(
                                 ))
                                 .build(),
                         modifier = Modifier
-                                .preferredWidth(120.dp)
-                                .preferredHeight(80.dp)
+                                .width(120.dp)
+                                .height(80.dp)
                 ) { imageLoadState ->
                     when (imageLoadState) {
                         is ImageLoadState.Success -> {
