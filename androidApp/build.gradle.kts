@@ -121,7 +121,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     implementation("com.google.android.exoplayer:exoplayer-core:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:exoplayer-hls:${Versions.exoPlayer}")
@@ -135,8 +135,8 @@ dependencies {
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.activity:activity-compose:1.3.0-alpha03")
     implementation("androidx.navigation:navigation-compose:1.0.0-alpha08")
-    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.6.0")
-    implementation("dev.chrisbanes.accompanist:accompanist-insets:0.6.0")
+    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.6.1")
+    implementation("dev.chrisbanes.accompanist:accompanist-insets:0.6.1")
 
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.3.0")
