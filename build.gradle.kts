@@ -52,7 +52,6 @@ allprojects {
             useIR = true
             freeCompilerArgs = listOf(
                     "-progressive",
-                    "-Xskip-prerelease-check",
                     "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                     "-Xopt-in=kotlinx.coroutines.FlowPreview",
                     "-Xopt-in=kotlin.RequiresOptIn",
