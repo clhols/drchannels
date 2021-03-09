@@ -1,7 +1,7 @@
 @Suppress("unused")
 object Versions {
     //Project dependency versions
-    const val androidGradlePlugin = "7+"
+    const val androidGradlePlugin = "7.0.0-alpha09"
     const val compileSdk = 30
     const val targetSdk = 30
     const val minSdk = 21
