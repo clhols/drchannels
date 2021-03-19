@@ -1,4 +1,4 @@
-package dk.youtec.drchannels.desktop
+package dk.youtec.drchannels.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 @Composable
 fun Loader() {
     Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxWidth().fillMaxHeight()
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxWidth().fillMaxHeight()
     ) {
         CircularProgressIndicator()
     }

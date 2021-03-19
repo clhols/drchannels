@@ -4,6 +4,7 @@ import androidx.compose.desktop.DesktopTheme
 import androidx.compose.desktop.Window
 import androidx.compose.material.MaterialTheme
 import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
+import dk.youtec.drchannels.ui.ChannelsScreen
 
 fun main() {
     val vm = TvChannelsViewModelImpl()

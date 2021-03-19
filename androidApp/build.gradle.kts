@@ -114,7 +114,7 @@ kapt {
 }
 
 dependencies {
-    implementation(project(":shared"))
+    implementation(project(":logic"))
     implementation(project(":tv-library"))
     implementation(project(":appupdater"))
     implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:${Versions.coroutines}"))

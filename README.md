@@ -24,4 +24,4 @@ _Windows:_
 `gradle.bat assembleDebug`
 
 _Build iOS framework before opening XCode project:_
-`./gradlew :shared:packForXcode`
+`./gradlew :logic:packForXcode`

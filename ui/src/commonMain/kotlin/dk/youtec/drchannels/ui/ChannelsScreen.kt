@@ -1,4 +1,4 @@
-package dk.youtec.drchannels.desktop
+package dk.youtec.drchannels.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
