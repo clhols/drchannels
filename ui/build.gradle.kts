@@ -1,10 +1,10 @@
 plugins {
-    kotlin("multiplatform") // kotlin("jvm") doesn't work well in IDEA/AndroidStudio (https://github.com/JetBrains/compose-jb/issues/22)
+    kotlin("multiplatform")
     id("org.jetbrains.compose")
 }
 
 kotlin {
-    jvm() {
+    jvm {
         withJava()
     }
 
@@ -13,6 +13,7 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 api(project(":logic"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
             }
         }
         val commonTest by getting {
