@@ -2,12 +2,12 @@ package dk.youtec.drchannels.ui
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import dk.youtec.drapi.Channel
 
 @Composable
 fun ChannelsList(
-        channelsList: List<Channel>,
-        onChannelClick: (Channel) -> Unit,
+    channelsList: List<Channel>,
+    onChannelClick: (Channel) -> Unit,
+        onProgramsClick: (String) -> Unit
 ) {
     LazyColumn {
         items(channelsList.size) { index ->
@@ -17,21 +17,19 @@ fun ChannelsList(
             //val percentage = programTime.toFloat() / programDuration
 
             ChannelCard(
-                    channel = ChannelCardData(
-                            channel.slug,
-                            channel.title,
-                            channel.subtitle,
-                            channel.primaryImageUri
-                    ),
-                    percentage = 2f,
-                    onChannelClick = { id ->
-                        channelsList.firstOrNull { it.slug == id }?.run {
-                            onChannelClick(this)
-                        }
-                    },
-                    onProgramsClick = { id ->
-                        //navController.navigate("programs/$id")
+                channel = ChannelCardData(
+                    channel.slug,
+                    channel.title,
+                    channel.subtitle,
+                    channel.primaryImageUri
+                ),
+                percentage = 2f,
+                onChannelClick = { id ->
+                    channelsList.firstOrNull { it.slug == id }?.run {
+                        onChannelClick(this)
                     }
+                },
+                    onProgramsClick = onProgramsClick
             )
         }
     }

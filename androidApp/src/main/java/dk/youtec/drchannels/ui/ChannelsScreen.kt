@@ -1,22 +1,21 @@
 package dk.youtec.drchannels.ui
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
-import androidx.navigation.NavController
-import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModel
 
 @Composable
 fun ChannelsScreen(
-        navController: NavController,
-        tvChannelsViewModel: TvChannelsViewModel
+    state: State<List<Channel>>,
+    playTvChannel: (channel: Channel) -> Unit,
+    onProgramsClick: (String) -> Unit
 ) {
-    val channelsList by tvChannelsViewModel.channels.collectAsState(initial = emptyList())
+    val channelsList by state
     if (channelsList.isNotEmpty()) {
         ChannelsList(
-                navController,
-                channelsList,
-                tvChannelsViewModel::playTvChannel
+            channelsList,
+            playTvChannel,
+            onProgramsClick
         )
     } else {
         Loader()

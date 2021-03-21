@@ -10,7 +10,7 @@ interface TvChannelsViewModel {
     val playback: SharedFlow<VideoItem>
     val error: SharedFlow<ChannelsError>
 
-    fun playTvChannel(channel: Channel)
+    fun playTvChannel(channel: VideoItem)
     fun playProgram(muNowNext: MuNowNext)
     fun onCleared()
 }

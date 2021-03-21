@@ -2,17 +2,14 @@ package dk.youtec.drchannels.ui
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
 import dev.chrisbanes.accompanist.insets.LocalWindowInsets
 import dev.chrisbanes.accompanist.insets.toPaddingValues
-import dk.youtec.drapi.Channel
 
 @Composable
 fun ChannelsList(
-        navController: NavController,
         channelsList: List<Channel>,
         onChannelClick: (Channel) -> Unit,
+        onProgramsClick: (String) -> Unit
 ) {
     LazyColumn(contentPadding = LocalWindowInsets.current.systemBars.toPaddingValues()) {
         items(channelsList.size) { index ->
@@ -34,9 +31,7 @@ fun ChannelsList(
                             onChannelClick(this)
                         }
                     },
-                    onProgramsClick = { id ->
-                        navController.navigate("programs/$id")
-                    }
+                    onProgramsClick = onProgramsClick
             )
         }
     }

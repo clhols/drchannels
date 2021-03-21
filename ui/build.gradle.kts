@@ -12,8 +12,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
-                api(project(":logic"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
             }
         }
         val commonTest by getting {

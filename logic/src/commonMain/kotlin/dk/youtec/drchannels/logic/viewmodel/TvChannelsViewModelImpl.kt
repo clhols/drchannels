@@ -23,7 +23,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, ViewModel, CoroutineSc
         while (true) {
             try {
                 emit(api.getAllActiveDrTvChannels().sortedBy { it.title.replace(" ", "") }
-                        .filter { it.slug in listOf("dr1", "dr2", "dr-ramasjang", "eva") })
+                    .filter { it.slug in listOf("dr1", "dr2", "dr-ramasjang", "eva") })
                 delay(30000)
             } catch (e: CancellationException) {
                 return@flow
@@ -61,31 +61,20 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, ViewModel, CoroutineSc
     }
 
     @Suppress("unused")
-    fun playTvChannel(channel: Channel, callback: (VideoItem) -> Unit): Cancelable {
+    fun playTvChannel(videoItem: VideoItem, callback: (VideoItem) -> Unit): Cancelable {
         val job = launch {
             playback.collect { videoItem ->
                 callback(videoItem)
             }
         }
-        playTvChannel(channel)
+        playTvChannel(videoItem)
         return Cancelable { job.cancel() }
     }
 
-    override fun playTvChannel(channel: Channel) {
+    override fun playTvChannel(videoItem: VideoItem) {
         launch {
             try {
-                val title = channel.title
-                val stream = channel.server()
-                        ?.qualities?.maxByOrNull { it.kbps }
-                        ?.streams?.first()?.stream ?: ""
-
-                playback.emit(
-                        VideoItem(
-                                title,
-                                "${channel.server()?.server}/$stream",
-                                channel.primaryImageUri
-                        )
-                )
+                playback.emit(videoItem)
             } catch (e: Exception) {
                 handleException(e)
             }
@@ -102,11 +91,11 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, ViewModel, CoroutineSc
                     val playbackUri = manifest.getUri() ?: decryptUri(manifest.getEncryptedUri())
                     if (playbackUri.isNotBlank()) {
                         this@TvChannelsViewModelImpl.playback.emit(
-                                VideoItem(
-                                        muNowNext.now?.title?.toUpperCase() ?: "",
-                                        playbackUri,
-                                        muNowNext.now?.programCard?.primaryImageUri
-                                )
+                            VideoItem(
+                                muNowNext.now?.title?.toUpperCase() ?: "",
+                                playbackUri,
+                                muNowNext.now?.programCard?.primaryImageUri
+                            )
                         )
                     } else {
                         error.emit(ChannelsError.NoStream)
@@ -125,11 +114,13 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, ViewModel, CoroutineSc
     }
 
     private suspend fun handleException(e: Exception) {
-        error.emit(if (e.message != null && e.message != "Success") {
-            ChannelsError.LoadingChannelFailed(e.message)
-        } else {
-            ChannelsError.LoadingChannelFailed("Can't change channel")
-        })
+        error.emit(
+            if (e.message != null && e.message != "Success") {
+                ChannelsError.LoadingChannelFailed(e.message)
+            } else {
+                ChannelsError.LoadingChannelFailed("Can't change channel")
+            }
+        )
     }
 }
 

@@ -15,6 +15,7 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(project(":ui"))
+                implementation(project(":logic"))
             }
         }
     }
