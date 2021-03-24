@@ -1,7 +1,5 @@
 package dk.youtec.drchannels.ui
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,7 +9,6 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -24,6 +21,7 @@ fun ChannelCard(
     percentage: Float,
     onChannelClick: (String) -> Unit,
     onProgramsClick: (String) -> Unit,
+    image: @Composable () -> Unit,
 ) {
     Card(
         Modifier
@@ -34,7 +32,7 @@ fun ChannelCard(
     ) {
         Column(Modifier.padding(12.dp)) {
             Row {
-                //Image {}
+                image()
                 Column {
                     Row {
                         Text(
@@ -91,17 +89,15 @@ private fun PreviewChannelCard() {
             "id",
             "Some program title (1:4): Episode 10",
             "Some not too long description",
-            "https://asset.dr.dk/ImageScaler/?file=/mu-online/api/1.4/asset/5f394ae171401441844c2e2c%2525253Fraw=True&w=940&h=529&scaleAfter=crop&quality=75"
         ),
         percentage = 0.42f,
         onChannelClick = {},
         onProgramsClick = {}
-    )
+    ) {}
 }
 
 data class ChannelCardData(
     val id: String,
     val title: String,
     val description: String,
-    val imageUrl: String
 )

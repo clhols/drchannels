@@ -8,14 +8,16 @@ import androidx.compose.runtime.getValue
 fun ChannelsScreen(
     state: State<List<Channel>>,
     playTvChannel: (channel: Channel) -> Unit,
-    onProgramsClick: (String) -> Unit
+    onProgramsClick: (String) -> Unit,
+    image: @Composable (String) -> Unit
 ) {
     val channelsList by state
     if (channelsList.isNotEmpty()) {
         ChannelsList(
             channelsList,
             playTvChannel,
-            onProgramsClick
+            onProgramsClick,
+            image
         )
     } else {
         Loader()

@@ -16,6 +16,8 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 implementation(project(":ui"))
                 implementation(project(":logic"))
+                implementation("io.ktor:ktor-client-core:${Versions.ktor}")
+                implementation("io.ktor:ktor-utils:${Versions.ktor}")
             }
         }
     }

@@ -3,6 +3,7 @@ package dk.youtec.drchannels.desktop
 import androidx.compose.desktop.DesktopTheme
 import androidx.compose.desktop.Window
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.collectAsState
 import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
 import dk.youtec.drchannels.logic.viewmodel.VideoItem
@@ -43,7 +44,9 @@ fun main() {
                             channel.videoItem.imageUrl
                         )
                     )
-                }, {})
+                }, {}, {
+                    Text("Image TODO")
+                })
             }
         }
     }

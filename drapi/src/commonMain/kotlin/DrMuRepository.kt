@@ -7,12 +7,12 @@ import kotlinx.serialization.json.Json
 
 open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCacheSize) : IDrMuApi {
     private val client = HttpClientFactory
-            .create(cacheDir, sizeBytes)
-            .config {
-                install(JsonFeature) {
-                    serializer = KotlinxSerializer(Json { ignoreUnknownKeys = true })
-                }
+        .create(cacheDir, sizeBytes)
+        .config {
+            install(JsonFeature) {
+                serializer = KotlinxSerializer(Json { ignoreUnknownKeys = true })
             }
+        }
 
     override suspend fun getAllActiveDrTvChannels(): List<Channel> {
         val url = "$API_URL/channel/all-active-dr-tv-channels"
@@ -43,16 +43,22 @@ open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCac
         return client.get(url)
     }
 
-    override suspend fun getMostViewed(channel: String, channelType: String, limit: Int): MostViewed {
-        val url = "$API_URL/list/view/mostviewed?channel=$channel&channelType=$channelType&limit=$limit"
+    override suspend fun getMostViewed(
+        channel: String,
+        channelType: String,
+        limit: Int
+    ): MostViewed {
+        val url =
+            "$API_URL/list/view/mostviewed?channel=$channel&channelType=$channelType&limit=$limit"
         return client.get(url)
     }
 
     override suspend fun getPageTvPrograms(genre: Genre): Page {
         val encodedGenre = genre.value
-                .replace(" ", "%20")
-                .replace("&", "%26")
-        val url = "$API_URL/page/tv/programs?onlinegenretexts=$encodedGenre&orderBy=LastPrimaryBroadcastWithPublicAsset&orderDescending=True"
+            .replace(" ", "%20")
+            .replace("&", "%26")
+        val url =
+            "$API_URL/page/tv/programs?onlinegenretexts=$encodedGenre&orderBy=LastPrimaryBroadcastWithPublicAsset&orderDescending=True"
         return client.get(url)
     }
 }

@@ -11,7 +11,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(compose.desktop.currentOs)
+                api(compose.desktop.currentOs)
             }
         }
         val commonTest by getting {

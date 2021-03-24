@@ -7,7 +7,8 @@ import androidx.compose.runtime.Composable
 fun ChannelsList(
     channelsList: List<Channel>,
     onChannelClick: (Channel) -> Unit,
-        onProgramsClick: (String) -> Unit
+    onProgramsClick: (String) -> Unit,
+    image: @Composable (String) -> Unit
 ) {
     LazyColumn {
         items(channelsList.size) { index ->
@@ -21,7 +22,6 @@ fun ChannelsList(
                     channel.slug,
                     channel.title,
                     channel.subtitle,
-                    channel.primaryImageUri
                 ),
                 percentage = 2f,
                 onChannelClick = { id ->
@@ -29,7 +29,8 @@ fun ChannelsList(
                         onChannelClick(this)
                     }
                 },
-                    onProgramsClick = onProgramsClick
+                onProgramsClick = onProgramsClick,
+                image = { image(channel.primaryImageUri) },
             )
         }
     }

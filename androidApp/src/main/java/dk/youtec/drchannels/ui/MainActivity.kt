@@ -92,7 +92,7 @@ open class MainActivity : ComponentActivity() {
             }
             MaterialTheme(colors = colorPalette) {
                 ProvideWindowInsets {
-                    AppNavigation(tvChannelsViewModel, programsViewModel)
+                    AppNavigation(this, tvChannelsViewModel, programsViewModel)
                 }
             }
         }

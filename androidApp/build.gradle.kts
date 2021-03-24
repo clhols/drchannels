@@ -4,6 +4,7 @@ import java.util.*
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("org.jetbrains.compose")
     kotlin("kapt")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
@@ -114,6 +115,7 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":ui"))
     implementation(project(":logic"))
     implementation(project(":tv-library"))
     implementation(project(":appupdater"))
@@ -129,9 +131,6 @@ dependencies {
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
     implementation("io.coil-kt:coil:1.1.1")
-    implementation("androidx.compose.runtime:runtime:${Versions.compose}")
-    implementation("androidx.compose.foundation:foundation-layout:${Versions.compose}")
-    implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.activity:activity-compose:1.3.0-alpha03")
     implementation("androidx.navigation:navigation-compose:1.0.0-alpha08")
