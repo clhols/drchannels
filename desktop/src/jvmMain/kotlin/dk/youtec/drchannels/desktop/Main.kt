@@ -2,9 +2,11 @@ package dk.youtec.drchannels.desktop
 
 import androidx.compose.desktop.DesktopTheme
 import androidx.compose.desktop.Window
+import androidx.compose.foundation.Image
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.vectorXmlResource
 import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
 import dk.youtec.drchannels.logic.viewmodel.VideoItem
 import dk.youtec.drchannels.ui.Channel
@@ -45,7 +47,10 @@ fun main() {
                         )
                     )
                 }, {}, {
-                    Text("Image TODO")
+                    Image(
+                        imageVector = vectorXmlResource("images/logo.xml"),
+                        "Channel logo"
+                    )
                 })
             }
         }
