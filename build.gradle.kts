@@ -9,7 +9,7 @@ buildscript {
         //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         maven { setUrl("https://github.com/clhols/mvn-repo/raw/master/") }
         //mavenLocal()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        maven { setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
     }
 
     dependencies {
