@@ -18,7 +18,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
         classpath("com.google.gms:google-services:4.3.5")
         classpath("com.google.firebase:perf-plugin:1.3.5")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.5.1")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.5.2")
         classpath("dk.youtec:appupdater-plugin:1.1.0")
         classpath("org.jetbrains.compose:compose-gradle-plugin:0.3.2")
     }
