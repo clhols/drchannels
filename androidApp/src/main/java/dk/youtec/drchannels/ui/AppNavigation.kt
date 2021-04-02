@@ -7,9 +7,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -35,10 +39,16 @@ fun AppNavigation(
 ) {
     navController = rememberNavController()
 
-    val channels = tvChannelsViewModel.channels.map { channels ->
-        channels.map { it.toChannel() }
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val channels = tvChannelsViewModel.channels
+    val channelsFlowLifecycleAware = remember(channels, lifecycleOwner) {
+        channels
+            .flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+            .map { channels ->
+                channels.map { it.toChannel() }
+            }
     }
-    val state = channels.collectAsState(initial = emptyList())
+    val state = channelsFlowLifecycleAware.collectAsState(initial = emptyList())
 
     NavHost(navController, startDestination = "channels") {
         composable("channels") {
@@ -58,9 +68,9 @@ fun AppNavigation(
                         .data(url)
                         .transformations(
                             RoundedCornersTransformation(
-                            topLeft = 40f,
-                            bottomRight = 40f
-                        )
+                                topLeft = 40f,
+                                bottomRight = 40f
+                            )
                         )
                         .build(),
                     modifier = Modifier
