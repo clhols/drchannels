@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
+    id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
 }
 
 android {
@@ -30,6 +31,16 @@ android {
         create("testReleaseApi")
     }
 }
+
+multiplatformSwiftPackage {
+    packageName("Shared")
+    swiftToolsVersion("5.3")
+    targetPlatforms {
+        iOS { v("11") }
+    }
+    outputDirectory(File(projectDir, "build/SharedSwiftPackage"))
+}
+
 
 kotlin {
     android {}
