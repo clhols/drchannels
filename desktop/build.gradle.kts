@@ -29,9 +29,8 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "DR channels"
             packageVersion = "1.0.0"
-            modules("jdk.crypto.ec")
 
-            val iconsRoot = project.file("../common/src/desktopMain/resources/images")
+            val iconsRoot = project.file("src/jvmMain/resources/images")
             macOS {
                 iconFile.set(iconsRoot.resolve("icon-mac.icns"))
             }
