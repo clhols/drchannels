@@ -47,7 +47,7 @@ open class MainActivity : ComponentActivity() {
         tvChannelsViewModel.playback
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach { videoItem ->
-                Log.d(TAG, "Playback video item")
+                Log.d(TAG, "Playback video item: $videoItem")
                 startActivity(Intent(this@MainActivity, PlayerActivity::class.java).apply {
                     action = PlayerActivity.ACTION_VIEW
                     putExtra(PlayerActivity.PREFER_EXTENSION_DECODERS_EXTRA, false)

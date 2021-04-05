@@ -4,17 +4,18 @@ import androidx.compose.desktop.DesktopTheme
 import androidx.compose.desktop.Window
 import androidx.compose.foundation.Image
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.vectorXmlResource
 import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
 import dk.youtec.drchannels.logic.viewmodel.VideoItem
 import dk.youtec.drchannels.ui.Channel
 import dk.youtec.drchannels.ui.ChannelsScreen
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 fun main() {
     val vm = TvChannelsViewModelImpl()
@@ -24,6 +25,10 @@ fun main() {
     GlobalScope.launch {
         vm.playback.collect {
             println("Playback of: $it")
+            withContext(Dispatchers.IO) {
+                Runtime.getRuntime()
+                    .exec("open ${it.videoUrl}")
+            }
         }
     }
     val channels = vm.channels.map { channels ->
