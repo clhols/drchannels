@@ -82,7 +82,7 @@ kotlin {
             dependsOn(jvmMain)
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0")
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
             }
         }
         val androidTest by getting {

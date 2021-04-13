@@ -130,9 +130,9 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
-    implementation("io.coil-kt:coil:1.1.1")
+    implementation("io.coil-kt:coil:1.2.0")
     implementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
-    implementation("androidx.activity:activity-compose:1.3.0-alpha05")
+    implementation("androidx.activity:activity-compose:1.3.0-alpha06")
     implementation("androidx.navigation:navigation-compose:1.0.0-alpha09")
     implementation("dev.chrisbanes.accompanist:accompanist-coil:0.6.1")
     implementation("dev.chrisbanes.accompanist:accompanist-insets:0.6.1")
