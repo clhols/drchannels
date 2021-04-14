@@ -50,6 +50,7 @@ kotlin {
             baseName = frameworkName
             isStatic = true
             export(project(":drapi"))
+            export("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
         }
     }
     jvm()

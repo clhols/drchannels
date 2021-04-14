@@ -49,21 +49,12 @@ kotlin {
         binaries.framework {
             baseName = frameworkName
             isStatic = true
-            export("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
         }
     }
     // Uncomment this to fix native dependency resolution in the IDE.
     //iosX64("ios") // DO NOT COMMIT THIS UNCOMMENTED
-    macosX64 {
-        binaries {
-            executable {}
-        }
-    }
-    linuxX64 {
-        binaries {
-            executable {}
-        }
-    }
+    macosX64()
+    linuxX64()
     jvm()
     js {
         browser()
@@ -152,9 +143,6 @@ kotlin {
         }
 
         val linuxX64Main by getting {
-            dependencies {
-                implementation(fileTree("src/linuxX64Main/libs") { include("*.klib") })
-            }
             dependsOn(desktopMain)
         }
         val linuxX64Test by getting {
@@ -162,9 +150,6 @@ kotlin {
         }
 
         val macosX64Main by getting {
-            dependencies {
-                implementation(fileTree("src/macosX64Main/libs") { include("*.klib") })
-            }
             dependsOn(desktopMain)
         }
         val macosX64Test by getting {
