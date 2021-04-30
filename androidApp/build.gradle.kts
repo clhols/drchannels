@@ -18,10 +18,6 @@ android {
 
     flavorDimensions("app")
 
-    if (project.hasProperty("devBuild")) {
-        aaptOptions.cruncherEnabled = false
-    }
-
     buildFeatures {
         compose = true
         // Disable unused AGP features
@@ -64,7 +60,6 @@ android {
             }
             getByName("release") {
                 isMinifyEnabled = true
-                isShrinkResources = true
                 isDebuggable = false
                 proguardFiles(
                         getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -130,9 +125,9 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
-    implementation("io.coil-kt:coil:1.2.0")
+    implementation("io.coil-kt:coil:1.2.1")
     implementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
-    implementation("androidx.activity:activity-compose:1.3.0-alpha06")
+    implementation("androidx.activity:activity-compose:1.3.0-alpha07")
     implementation("androidx.navigation:navigation-compose:1.0.0-alpha09")
     implementation("dev.chrisbanes.accompanist:accompanist-coil:0.6.1")
     implementation("dev.chrisbanes.accompanist:accompanist-insets:0.6.1")
