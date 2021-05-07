@@ -9,14 +9,14 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
     id("org.sonarqube") version "2.7.1"
-    //id("dk.youtec.appupdater") //TODO Re-add when AGP 4.2.0 is released
+    //id("dk.youtec.appupdater") //TODO Re-add when AGP 7.0.0 is released
 }
 
 android {
-    compileSdkVersion(Versions.compileSdk)
-    buildToolsVersion(Versions.buildTools)
+    compileSdk = Versions.compileSdk
+    buildToolsVersion = Versions.buildTools
 
-    flavorDimensions("app")
+    flavorDimensions += "app"
 
     buildFeatures {
         compose = true
@@ -31,8 +31,8 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion(Versions.minSdk)
-        targetSdkVersion(Versions.targetSdk)
+        minSdk = Versions.minSdk
+        targetSdk = Versions.targetSdk
 
         applicationId = "dk.youtec.drchannels"
         versionName = "1.0.0"
@@ -41,7 +41,7 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        resConfigs("en", "da")
+        resourceConfigurations += listOf("en", "da")
 
         signingConfigs {
             create("release")
@@ -83,7 +83,7 @@ android {
             }
         }
 
-        lintOptions {
+        lint {
             isCheckReleaseBuilds = false
             isCheckDependencies = true
             isAbortOnError = false
@@ -135,7 +135,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
-    implementation("androidx.mediarouter:mediarouter:1.2.2")
+    implementation("androidx.mediarouter:mediarouter:1.2.3")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.work:work-runtime-ktx:2.5.0")

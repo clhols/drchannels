@@ -48,11 +48,12 @@ fun AppNavigation(
                 channels.map { it.toChannel() }
             }
     }
-    val state = channelsFlowLifecycleAware.collectAsState(initial = emptyList())
 
     NavHost(navController, startDestination = "channels") {
         composable("channels") {
-            ChannelsScreen(state, {
+            ChannelsScreen(
+                channelsFlowLifecycleAware.collectAsState(initial = emptyList()),
+                {
                 tvChannelsViewModel.playTvChannel(
                     VideoItem(
                         it.videoItem.title,

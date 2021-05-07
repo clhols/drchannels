@@ -5,9 +5,9 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Versions.compileSdk)
+    compileSdk = Versions.compileSdk
     defaultConfig {
-        minSdkVersion(Versions.minSdk)
+        minSdk = Versions.minSdk
     }
     buildTypes {
         getByName("release") {
