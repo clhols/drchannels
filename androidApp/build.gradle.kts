@@ -117,7 +117,7 @@ dependencies {
     implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:${Versions.coroutines}"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.2.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:${Versions.datetime}")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     implementation("com.google.android.exoplayer:exoplayer-core:${Versions.exoPlayer}")

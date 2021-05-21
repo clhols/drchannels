@@ -15,6 +15,7 @@ object Versions {
     //Kotlin dependent versions
     const val kotlin = "1.4.31"
     const val coroutines = "1.4.3-native-mt"
+    const val datetime = "0.2.0"
     const val serialization = "1.2.0"
     const val ktor = "1.5.4"
 }
