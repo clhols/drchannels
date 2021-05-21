@@ -117,7 +117,7 @@ dependencies {
     implementation(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:${Versions.coroutines}"))
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android")
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.2.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     implementation("com.google.android.exoplayer:exoplayer-core:${Versions.exoPlayer}")
@@ -136,7 +136,7 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.tvprovider:tvprovider:1.0.0")
     implementation("androidx.mediarouter:mediarouter:1.2.3")
-    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("androidx.work:work-runtime-ktx:2.5.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha01")
