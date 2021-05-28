@@ -8,6 +8,7 @@ pluginManagement {
     }
 }
 
+/*
 buildCache {
     remote(HttpBuildCache::class.java) {
         url = uri("http://svn.youtec.dk:5071/cache/")
@@ -19,6 +20,7 @@ buildCache {
         }
     }
 }
+ */
 
 include(":androidApp", ":tv-library", ":appupdater", ":drapi", ":logic", ":desktop", ":ui")
 

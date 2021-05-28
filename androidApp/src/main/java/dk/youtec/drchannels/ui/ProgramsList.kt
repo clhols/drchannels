@@ -3,8 +3,6 @@ package dk.youtec.drchannels.ui
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import dev.chrisbanes.accompanist.insets.LocalWindowInsets
-import dev.chrisbanes.accompanist.insets.toPaddingValues
 import dk.youtec.drapi.MuScheduleBroadcast
 import kotlinx.datetime.*
 import java.time.Instant.now
@@ -20,7 +18,6 @@ fun ProgramsList(
     val programsListState = rememberLazyListState(nowIndex)
 
     LazyColumn(
-            contentPadding = LocalWindowInsets.current.systemBars.toPaddingValues(),
             state = programsListState
     ) {
         items(programsList.size) { index ->

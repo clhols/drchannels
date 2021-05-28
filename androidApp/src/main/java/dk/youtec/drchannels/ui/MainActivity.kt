@@ -18,7 +18,6 @@ import dk.youtec.drchannels.ui.exoplayer.PlayerActivity
 import dk.youtec.drchannels.util.toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.google.android.exoplayer2.util.Util
-import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 import dk.youtec.appupdater.updateApp
 import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.logic.viewmodel.AndroidProgramsViewModel
@@ -95,9 +94,7 @@ open class MainActivity : ComponentActivity() {
                 lightThemeColors
             }
             MaterialTheme(colors = colorPalette) {
-                ProvideWindowInsets {
-                    AppNavigation(this, tvChannelsViewModel, programsViewModel)
-                }
+                AppNavigation(this, tvChannelsViewModel, programsViewModel)
             }
         }
     }
