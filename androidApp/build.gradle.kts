@@ -26,9 +26,6 @@ android {
         resValues = false
         shaders = false
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose
-    }
 
     defaultConfig {
         minSdk = Versions.minSdk
@@ -127,8 +124,8 @@ dependencies {
 
     implementation("io.coil-kt:coil:1.2.1")
     implementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
-    implementation("androidx.navigation:navigation-compose:1.0.0-alpha10")
-    implementation("dev.chrisbanes.accompanist:accompanist-coil:0.6.2")
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha02")
+    implementation("com.google.accompanist:accompanist-coil:0.10.0")
 
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.3.0")

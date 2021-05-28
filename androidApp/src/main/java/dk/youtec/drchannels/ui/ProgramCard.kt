@@ -1,7 +1,7 @@
 package dk.youtec.drchannels.ui
 
 import android.content.Context
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,7 +9,6 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -19,9 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
-import dev.chrisbanes.accompanist.coil.CoilImage
-import dev.chrisbanes.accompanist.imageloading.ImageLoadState
-import dev.chrisbanes.accompanist.imageloading.MaterialLoadingImage
+import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
 fun ProgramCard(
@@ -39,7 +36,8 @@ fun ProgramCard(
     ) {
         Column(Modifier.padding(12.dp)) {
             Row {
-                CoilImage(
+                Image(
+                    painter = rememberCoilPainter(
                         request = ImageRequest.Builder(context)
                                 .data(program.imageUrl)
                                 .transformations(RoundedCornersTransformation(
@@ -47,25 +45,13 @@ fun ProgramCard(
                                         bottomRight = 40f
                                 ))
                                 .build(),
-                        modifier = Modifier
-                                .width(120.dp)
-                                .height(80.dp)
-                ) { imageLoadState ->
-                    when (imageLoadState) {
-                        is ImageLoadState.Success -> {
-                            MaterialLoadingImage(
-                                    result = imageLoadState,
-                                    contentDescription = "Logo",
-                                    fadeInEnabled = true,
-                                    fadeInDurationMs = 2000,
-                            )
-                        }
-                        is ImageLoadState.Error -> {
-                            Box(modifier = Modifier.background(Color.LightGray))
-                        }
-                        else -> Box(modifier = Modifier.background(Color.White))
-                    }
-                }
+                        shouldRefetchOnSizeChange = { _, _ -> false },
+                    ),
+                    contentDescription = null,
+                    modifier = Modifier
+                            .width(120.dp)
+                            .height(80.dp),
+                )
                 Column {
                     Text(
                             text = program.title,

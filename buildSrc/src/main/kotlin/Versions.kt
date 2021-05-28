@@ -13,9 +13,9 @@ object Versions {
     const val compose = "1.0.0-beta07"
 
     //Kotlin dependent versions
-    const val kotlin = "1.4.32"
+    const val kotlin = "1.5.10"
     const val coroutines = "1.4.3-native-mt"
     const val datetime = "0.2.0"
-    const val serialization = "1.2.0"
+    const val serialization = "1.2.1"
     const val ktor = "1.6.0"
 }
