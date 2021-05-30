@@ -9,8 +9,8 @@ import java.time.Instant.now
 
 @Composable
 fun ProgramsList(
-        programsList: List<MuScheduleBroadcast>,
-        playProgram: (MuScheduleBroadcast) -> Unit
+    programsList: List<MuScheduleBroadcast>,
+    playProgram: (MuScheduleBroadcast) -> Unit
 ) {
     val nowIndex = programsList.indexOfFirst {
         it.endTime >= now().toEpochMilli()
@@ -18,7 +18,7 @@ fun ProgramsList(
     val programsListState = rememberLazyListState(nowIndex)
 
     LazyColumn(
-            state = programsListState
+        state = programsListState
     ) {
         items(programsList.size) { index ->
             val program = programsList[index]
@@ -32,22 +32,26 @@ fun ProgramsList(
             val time = if (startLocalDateTime.dayOfMonth == nowLocalDateTime.dayOfMonth) {
                 "${getTime(startLocalDateTime)} ‣ ${getTime(endLocalDateTime)}"
             } else {
-                "${startLocalDateTime.dayOfMonth}/${startLocalDateTime.monthNumber} ⁃ ${getTime(startLocalDateTime)} ‣ ${getTime(endLocalDateTime)}"
+                "${startLocalDateTime.dayOfMonth}/${startLocalDateTime.monthNumber} ⁃ ${
+                    getTime(
+                        startLocalDateTime
+                    )
+                } ‣ ${getTime(endLocalDateTime)}"
             }
 
             ProgramCard(
-                    ProgramCardData(
-                            program.title + program.startTime,
-                            program.title,
-                            program.description,
-                            time,
-                            program.programCard.primaryImageUri
-                    ),
-                    onClick = { id ->
-                        programsList.firstOrNull { it.title + it.startTime == id }?.run {
-                            playProgram(this)
-                        }
+                ProgramCardData(
+                    program.title + program.startTime,
+                    program.title,
+                    program.description,
+                    time,
+                    program.programCard.primaryImageUri
+                ),
+                onClick = { id ->
+                    programsList.firstOrNull { it.title + it.startTime == id }?.run {
+                        playProgram(this)
                     }
+                }
             )
         }
     }

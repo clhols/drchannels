@@ -22,66 +22,68 @@ import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
 fun ProgramCard(
-        program: ProgramCardData,
-        onClick: (String) -> Unit
+    program: ProgramCardData,
+    onClick: (String) -> Unit
 ) {
     val context: Context = LocalContext.current
 
     Card(
-            Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp)
-                    .clickable(onClick = { onClick(program.id) }),
-            shape = RoundedCornerShape(4.dp),
+        Modifier
+            .fillMaxWidth()
+            .padding(4.dp)
+            .clickable(onClick = { onClick(program.id) }),
+        shape = RoundedCornerShape(4.dp),
     ) {
         Column(Modifier.padding(12.dp)) {
             Row {
                 Image(
                     painter = rememberCoilPainter(
                         request = ImageRequest.Builder(context)
-                                .data(program.imageUrl)
-                                .transformations(RoundedCornersTransformation(
-                                        topLeft = 40f,
-                                        bottomRight = 40f
-                                ))
-                                .build(),
+                            .data(program.imageUrl)
+                            .transformations(
+                                RoundedCornersTransformation(
+                                    topLeft = 40f,
+                                    bottomRight = 40f
+                                )
+                            )
+                            .build(),
                         shouldRefetchOnSizeChange = { _, _ -> false },
                     ),
                     contentDescription = null,
                     modifier = Modifier
-                            .width(120.dp)
-                            .height(80.dp),
+                        .width(120.dp)
+                        .height(80.dp),
                 )
                 Column {
                     Text(
-                            text = program.title,
-                            modifier = Modifier.padding(start = 16.dp),
-                            style = TextStyle(
-                                    fontFamily = FontFamily.SansSerif,
-                                    fontWeight = FontWeight.Normal,
-                                    fontSize = 22.sp,
-                            )
+                        text = program.title,
+                        modifier = Modifier.padding(start = 16.dp),
+                        style = TextStyle(
+                            fontFamily = FontFamily.SansSerif,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 22.sp,
+                        )
                     )
                     Text(
-                            text = program.time,
-                            modifier = Modifier.padding(start = 16.dp),
-                            style = TextStyle(
-                                    fontFamily = FontFamily.SansSerif,
-                                    fontWeight = FontWeight.Normal,
-                                    fontSize = 18.sp,
-                            )
+                        text = program.time,
+                        modifier = Modifier.padding(start = 16.dp),
+                        style = TextStyle(
+                            fontFamily = FontFamily.SansSerif,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 18.sp,
+                        )
                     )
                 }
             }
             if (program.description.isNotBlank()) {
                 Text(
-                        text = program.description,
-                        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
-                        style = TextStyle(
-                                fontFamily = FontFamily.SansSerif,
-                                fontWeight = FontWeight.Light,
-                                fontSize = 16.sp,
-                        )
+                    text = program.description,
+                    modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+                    style = TextStyle(
+                        fontFamily = FontFamily.SansSerif,
+                        fontWeight = FontWeight.Light,
+                        fontSize = 16.sp,
+                    )
                 )
             }
         }
@@ -89,24 +91,24 @@ fun ProgramCard(
 }
 
 data class ProgramCardData(
-        val id: String,
-        val title: String,
-        val description: String,
-        val time: String,
-        val imageUrl: String
+    val id: String,
+    val title: String,
+    val description: String,
+    val time: String,
+    val imageUrl: String
 )
 
 @Preview
 @Composable
 private fun PreviewProgramCard() {
     ProgramCard(
-            program = ProgramCardData(
-                    "id",
-                    "Some program title",
-                    "Some not too long description",
-                    "12:00 ‣ 13:00",
-                    "https://asset.dr.dk/ImageScaler/?file=/mu-online/api/1.4/asset/5f394ae171401441844c2e2c%2525253Fraw=True&w=940&h=529&scaleAfter=crop&quality=75"
-            ),
-            onClick = {}
+        program = ProgramCardData(
+            "id",
+            "Some program title",
+            "Some not too long description",
+            "12:00 ‣ 13:00",
+            "https://asset.dr.dk/ImageScaler/?file=/mu-online/api/1.4/asset/5f394ae171401441844c2e2c%2525253Fraw=True&w=940&h=529&scaleAfter=crop&quality=75"
+        ),
+        onClick = {}
     )
 }

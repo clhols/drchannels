@@ -49,16 +49,16 @@ fun AppNavigation(
             ChannelsScreen(
                 channelsFlowLifecycleAware.collectAsState(initial = emptyList()),
                 {
-                tvChannelsViewModel.playTvChannel(
-                    VideoItem(
-                        it.videoItem.title,
-                        it.videoItem.videoUrl,
-                        it.videoItem.imageUrl
+                    tvChannelsViewModel.playTvChannel(
+                        VideoItem(
+                            it.videoItem.title,
+                            it.videoItem.videoUrl,
+                            it.videoItem.imageUrl
+                        )
                     )
-                )
-            }, {
-                navController.navigate("programs/$it")
-            }) { url ->
+                }, {
+                    navController.navigate("programs/$it")
+                }) { url ->
                 Image(
                     painter = rememberCoilPainter(
                         request = ImageRequest.Builder(context)

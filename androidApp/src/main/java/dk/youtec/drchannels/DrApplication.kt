@@ -41,14 +41,14 @@ class DrApplication : Application() {
         }
 
         Coil.setImageLoader(
-                ImageLoader.Builder(this)
-                        .availableMemoryPercentage(0.3)
-                        .crossfade(true)
-                        .componentRegistry {
-                            add(ProgramCardMapper())
-                        }
-                        .okHttpClient(get() as OkHttpClient)
-                        .build()
+            ImageLoader.Builder(this)
+                .availableMemoryPercentage(0.3)
+                .crossfade(true)
+                .componentRegistry {
+                    add(ProgramCardMapper())
+                }
+                .okHttpClient(get() as OkHttpClient)
+                .build()
         )
     }
 }

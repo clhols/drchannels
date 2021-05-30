@@ -10,8 +10,8 @@ fun ProgramsScreen(programsViewModel: ProgramsViewModel) {
     val programsList by programsViewModel.programs.collectAsState(initial = emptyList())
     if (programsList.isNotEmpty()) {
         ProgramsList(
-                programsList,
-                programsViewModel::playProgram
+            programsList,
+            programsViewModel::playProgram
         )
     } else {
         Loader()
