@@ -2,15 +2,17 @@ package dk.youtec.drchannels.ui
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @Composable
 fun ChannelsList(
+    modifier: Modifier,
     channelsList: List<Channel>,
     onChannelClick: (Channel) -> Unit,
     onProgramsClick: (String) -> Unit,
     image: @Composable (String) -> Unit
 ) {
-    LazyColumn {
+    LazyColumn(modifier) {
         items(channelsList.size) { index ->
             val channel = channelsList[index]
             //val programDuration = now.endTime - now.startTime

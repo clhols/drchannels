@@ -3,6 +3,7 @@ package dk.youtec.drchannels.ui
 import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -47,6 +48,7 @@ fun AppNavigation(
     NavHost(navController, startDestination = "channels") {
         composable("channels") {
             ChannelsScreen(
+                Modifier.padding(top = 25.dp),
                 channelsFlowLifecycleAware.collectAsState(initial = emptyList()),
                 {
                     tvChannelsViewModel.playTvChannel(
