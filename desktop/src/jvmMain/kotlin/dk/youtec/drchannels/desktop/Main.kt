@@ -43,20 +43,24 @@ fun main() {
         MaterialTheme {
             DesktopTheme {
                 val state = channels.collectAsState(initial = emptyList())
-                ChannelsScreen(state, { channel ->
-                    vm.playTvChannel(
-                        VideoItem(
-                            channel.videoItem.title,
-                            channel.videoItem.videoUrl,
-                            channel.videoItem.imageUrl
+                ChannelsScreen(state = state,
+                    playTvChannel = { channel ->
+                        vm.playTvChannel(
+                            VideoItem(
+                                channel.videoItem.title,
+                                channel.videoItem.videoUrl,
+                                channel.videoItem.imageUrl
+                            )
                         )
-                    )
-                }, {}, {
-                    Image(
-                        imageVector = vectorXmlResource("images/logo.xml"),
-                        "Channel logo"
-                    )
-                })
+                    },
+                    onProgramsClick = {},
+                    image = {
+                        Image(
+                            imageVector = vectorXmlResource("images/logo.xml"),
+                            "Channel logo"
+                        )
+                    }
+                )
             }
         }
     }

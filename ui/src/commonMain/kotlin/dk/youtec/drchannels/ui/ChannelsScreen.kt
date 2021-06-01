@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun ChannelsScreen(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     state: State<List<Channel>>,
     playTvChannel: (channel: Channel) -> Unit,
     onProgramsClick: (String) -> Unit,
