@@ -92,7 +92,7 @@ open class TvChannelsViewModelImpl : TvChannelsViewModel, ViewModel, CoroutineSc
                     if (playbackUri.isNotBlank()) {
                         this@TvChannelsViewModelImpl.playback.emit(
                             VideoItem(
-                                muNowNext.now?.title?.toUpperCase() ?: "",
+                                muNowNext.now?.title?.uppercase() ?: "",
                                 playbackUri,
                                 muNowNext.now?.programCard?.primaryImageUri
                             )
