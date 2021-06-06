@@ -1,6 +1,4 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask
 
 plugins {
     id("com.android.library")
@@ -33,7 +31,7 @@ android {
 }
 
 multiplatformSwiftPackage {
-    packageName("Shared")
+    packageName("Logic")
     swiftToolsVersion("5.3")
     targetPlatforms {
         iOS { v("11") }
@@ -44,13 +42,20 @@ multiplatformSwiftPackage {
 
 kotlin {
     android {}
-    val frameworkName = "Shared"
-    ios {
-        binaries.framework {
-            baseName = frameworkName
-            isStatic = true
-            export(project(":drapi"))
-            export("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
+
+    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
+        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
+            ::iosArm64
+        else
+            ::iosX64
+
+    iosTarget("ios") {
+        binaries {
+            framework {
+                baseName = "Logic"
+                export(project(":drapi"))
+                export("org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}")
+            }
         }
     }
     jvm()
@@ -98,42 +103,19 @@ kotlin {
             dependencies {}
         }
     }
-
-    //Build tasks for fat frameworks
-    val iosArm64 = targets.getByName<KotlinNativeTarget>("iosArm64")
-    val iosX64 = targets.getByName<KotlinNativeTarget>("iosX64")
-    tasks.register<FatFrameworkTask>("debugFatFramework") {
-        group = "ios"
-        baseName = frameworkName
-        description = "Builds a universal (fat) debug framework"
-
-        from(targets("DEBUG", iosArm64, iosX64))
-    }
-    tasks.register<FatFrameworkTask>("releaseFatFramework") {
-        group = "ios"
-        baseName = frameworkName
-        description = "Builds a universal (fat) release framework"
-
-        from(targets("RELEASE", iosArm64, iosX64))
-    }
-}
-
-fun targets(type: String, vararg targets: KotlinNativeTarget): List<Framework> {
-    return targets.map {
-        it.binaries.getFramework(type)
-    }
 }
 
 val packForXcode by tasks.creating(Sync::class) {
-    group = "build"
     val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val sdkName = System.getenv("SDK_NAME") ?: "iphonesimulator"
-    val targetName = "ios" + if (sdkName.startsWith("iphoneos")) "Arm64" else "X64"
-    val framework = kotlin.targets.getByName<KotlinNativeTarget>(targetName).binaries.getFramework(mode)
-    inputs.property("mode", mode)
-    dependsOn(framework.linkTask)
+    val framework = kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getFramework(mode)
     val targetDir = File(buildDir, "xcode-frameworks")
+
+    group = "build"
+    dependsOn(framework.linkTask)
+    inputs.property("mode", mode)
+
     from({ framework.outputDirectory })
     into(targetDir)
 }
+
 tasks.getByName("build").dependsOn(packForXcode)

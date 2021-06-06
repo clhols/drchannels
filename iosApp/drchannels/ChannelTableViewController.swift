@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 import AVFoundation
-import Shared
+import Logic
 
 class ChannelTableViewController: UITableViewController {
 
@@ -68,13 +68,15 @@ class ChannelTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        playbackJob = viewModel?.playTvChannel(channel: self.channels[indexPath.row], callback: { (videoItem: VideoItem) in
+        /*
+        playbackJob = viewModel?.playTvChannel(channel: self.channels[indexPath.row], callback: { (videoItem:VideoItem) in
             let url = videoItem.videoUrl
             print("Playing url: \(url)")
             
             self.playVideo(uri: url)
             //self.playbackJob?.cancel()
         })
+ */
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
