@@ -20,14 +20,6 @@ android {
     testOptions {
         unitTests.isReturnDefaultValues = true
     }
-    configurations {
-        create("androidTestApi")
-        create("androidTestDebugApi")
-        create("androidTestReleaseApi")
-        create("testApi")
-        create("testDebugApi")
-        create("testReleaseApi")
-    }
 }
 
 multiplatformSwiftPackage {
