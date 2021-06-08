@@ -49,7 +49,6 @@ allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = "1.8"
-            useIR = true
             freeCompilerArgs = listOf(
                     "-progressive",
                     "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
