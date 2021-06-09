@@ -23,6 +23,7 @@ import dk.youtec.drchannels.BuildConfig
 import dk.youtec.drchannels.logic.viewmodel.AndroidProgramsViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 open class MainActivity : ComponentActivity() {
 
@@ -30,13 +31,14 @@ open class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             if (!Util.isTv(this) && !BuildConfig.DEBUG) {
-                updateApp(
-                    this,
-                    BuildConfig.VERSION_CODE,
-                    "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
-                    "https://www.dropbox.com/s/tw9gpldrwicd3kj/drchannels.apk?dl=1",
-                    "https://www.dropbox.com/s/6prmp1cnnsrhr4y/drchannels.log?dl=1"
-                )
+                lifecycleScope.launch {
+                    updateApp(
+                        BuildConfig.VERSION_CODE,
+                        "https://www.dropbox.com/s/ywgq3zyap9f2v7l/drchannels.json?dl=1",
+                        "https://www.dropbox.com/s/tw9gpldrwicd3kj/drchannels.apk?dl=1",
+                        "https://www.dropbox.com/s/6prmp1cnnsrhr4y/drchannels.log?dl=1"
+                    )
+                }
             }
         }
 
