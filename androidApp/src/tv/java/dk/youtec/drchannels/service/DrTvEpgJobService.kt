@@ -80,6 +80,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
                         setDescription(channel.subtitle)
                         setDisplayNumber("${index + 1}")
                         setChannelLogo(if (channel.webChannel) null else channel.primaryImageUri)
+                        setAppLinkPosterArtUri(if (channel.webChannel) null else channel.primaryImageUri)
                         setOriginalNetworkId(channel.slug.hashCode())
                         setInternalProviderData(InternalProviderData().apply {
                             videoUrl = channel.streamingUrl
@@ -99,6 +100,7 @@ class DrTvEpgJobService : EpgSyncJobService() {
     ): List<Program> {
         val programs = mutableListOf<Program>()
 
+        /*
         //Get two days of broadcasts
         val todaysBroadcasts = getBroadcasts(channel, Date(startMs))
         val tomorrowsBroadcasts = getBroadcasts(channel, Date(startMs + TimeUnit.DAYS.toMillis(1)))
@@ -111,6 +113,10 @@ class DrTvEpgJobService : EpgSyncJobService() {
                 programs += buildProgram(channel, broadcast)
             }
         }
+         */
+
+        //Just create a single program now that we don't have any EPG data.
+        programs += buildProgram(channel)
 
         return programs
     }
@@ -175,6 +181,30 @@ class DrTvEpgJobService : EpgSyncJobService() {
                         }
                         */
                 }
+            }
+
+            //Channel uri and downloadable url
+            setInternalProviderData(providerData)
+        }.build()
+    }
+
+    private fun buildProgram(channel: Channel): Program {
+        return Program.Builder().apply {
+            setChannelId(channel.id)
+            setTitle(channel.displayName)
+            setDescription(channel.description)
+
+            setStartTimeUtcMillis(System.currentTimeMillis())
+            setEndTimeUtcMillis(Long.MAX_VALUE)
+
+            setThumbnailUri(channel.appLinkPosterArtUri)
+            setVideoHeight(720)
+            setVideoWidth(1280)
+            setRecordingProhibited(true)
+
+            val providerData = InternalProviderData().apply {
+                videoType = TvContractUtils.SOURCE_TYPE_HLS
+                videoUrl = channel.internalProviderData.videoUrl
             }
 
             //Channel uri and downloadable url

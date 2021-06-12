@@ -131,12 +131,16 @@ class CurrentProgramsPreviewUpdater(
                         .setDescription(program.description)
                         .setIntent(intent)
                         .setInternalProviderId(program.internalProviderData.videoUrl)
-                        .setStartTimeUtcMillis(program.startTimeUtcMillis)
-                        .setEndTimeUtcMillis(program.endTimeUtcMillis)
-                        .setDurationMillis((program.endTimeUtcMillis - program.startTimeUtcMillis).toInt())
+                        //.setStartTimeUtcMillis(program.startTimeUtcMillis)
+                        //.setEndTimeUtcMillis(program.endTimeUtcMillis)
+                        //.setDurationMillis((program.endTimeUtcMillis - program.startTimeUtcMillis).toInt())
                         .setLive(true)
                         .setWeight((Int.MAX_VALUE - program.channelId).toInt())
-                        .setPosterArtUri(program.posterArtUri.toUri())
+                        .apply {
+                            if (program.thumbnailUri?.isNotEmpty() == true) {
+                                setPosterArtUri(program.thumbnailUri.toUri())
+                            }
+                        }
                         .setPosterArtAspectRatio(ASPECT_RATIO_16_9)
                         .build()
 
