@@ -23,21 +23,6 @@ open class DrMuRepository(cacheDir: String? = null, sizeBytes: Long = defaultCac
         return client.get(uri)
     }
 
-    override suspend fun getSchedule(id: String, date: String): Schedule {
-        val url = "$API_URL/schedule/$id?broadcastdate=$date"
-        return client.get(url)
-    }
-
-    override suspend fun getScheduleNowNext(id: String): MuNowNext {
-        val url = "$API_URL/schedule/nownext/$id"
-        return client.get(url)
-    }
-
-    override suspend fun getScheduleNowNext(): List<MuNowNext> {
-        val url = "$API_URL/schedule/nownext-for-all-active-dr-tv-channels"
-        return client.get(url)
-    }
-
     override suspend fun search(query: String): SearchResult {
         val url = "$API_URL/search/tv/programcards-with-asset/title/$query"
         return client.get(url)

@@ -1,8 +1,6 @@
 import dk.youtec.drapi.Channel
 import dk.youtec.drapi.DrMuRepository
 import kotlinx.coroutines.runBlocking
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -20,21 +18,6 @@ class DrMuRepoTests {
         assertTrue(
                 channelIds.containsAll(expectedChannelIds),
                 "Didn't find all the following channels $expectedChannelIds")
-    }
-
-    @Test
-    fun testScheduleNowNext() = runBlocking {
-        val schedules = service.getScheduleNowNext()
-
-        assertTrue(schedules.isNotEmpty())
-    }
-
-    @Test
-    fun testScheduleDr1() = runBlocking {
-        val date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
-        val schedule = service.getSchedule("dr1", date)
-
-        assertEquals("dr1", schedule.channelSlug)
     }
 
     @Test

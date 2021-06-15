@@ -3,7 +3,6 @@ package dk.youtec.drchannels.logic.viewmodel
 import dk.youtec.drapi.DrMuRepository
 import dk.youtec.drapi.Logger
 import dk.youtec.drapi.MuScheduleBroadcast
-import dk.youtec.drapi.Schedule
 import dk.youtec.drchannels.logic.decryptUri
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -28,22 +27,6 @@ open class ProgramsViewModelImpl : ProgramsViewModel, ViewModel, CoroutineScope 
             try {
                 supervisorScope {
                     programs.emit(emptyList())
-                    val tomorrowDeferred = async { getSchedule(channelId, 1) }
-                    val todayDeferred = async { getSchedule(channelId, 0) }
-                    val yesterdayDeferred = async { getSchedule(channelId, -1) }
-                    val twoDaysAgoDeferred = async { getSchedule(channelId, -2) }
-
-                    val tomorrow = tomorrowDeferred.awaitOrNull() ?: emptySchedule()
-                    val today = todayDeferred.awaitOrNull() ?: emptySchedule()
-                    val yesterday = yesterdayDeferred.awaitOrNull() ?: emptySchedule()
-                    val twoDaysAgo = twoDaysAgoDeferred.awaitOrNull() ?: emptySchedule()
-
-                    val allBroadcasts = twoDaysAgo.broadcasts +
-                            yesterday.broadcasts +
-                            today.broadcasts +
-                            tomorrow.broadcasts
-
-                    programs.emit(allBroadcasts)
                 }
             } catch (e: Exception) {
                 error.emit(ChannelsError.LoadingChannelsFailed)
@@ -72,28 +55,9 @@ open class ProgramsViewModelImpl : ProgramsViewModel, ViewModel, CoroutineScope 
         }
     }
 
-    /**
-     * Gets the schedule of [channelId] with [daysOffset] relative to the current date.
-     */
-    @OptIn(ExperimentalTime::class)
-    private suspend fun getSchedule(
-            channelId: String,
-            daysOffset: Int
-    ): Schedule {
-        val date = Clock.System.now().plus(daysOffset.days).toString()
-        return try {
-            api.getSchedule(channelId, date)
-        } catch (e: Exception) {
-            Logger.e(e, e.message ?: "")
-            emptySchedule()
-        }
-    }
-
     override fun onCleared() {
         job.cancel()
     }
-
-    private fun emptySchedule() = Schedule(emptyList(), 0, "", "")
 
     private suspend fun <T> Deferred<T>.awaitOrNull(): T? {
         return try {

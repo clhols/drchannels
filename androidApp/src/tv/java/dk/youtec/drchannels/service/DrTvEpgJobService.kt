@@ -226,17 +226,6 @@ class DrTvEpgJobService : EpgSyncJobService() {
             }
         }
     }
-
-    private fun getBroadcasts(channel: Channel, date: Date): MutableList<MuScheduleBroadcast> {
-        return try {
-            val dateString = serverDateFormat("yyyy-MM-dd HH:mm:ss").format(date)
-            val schedule = runBlocking { api.getSchedule(channel.networkAffiliation, dateString) }
-            schedule.broadcasts.filter { it.startTime < it.endTime }.toMutableList()
-        } catch (e: Exception) {
-            Log.e("DrTvEpgJobService", e.message, e)
-            mutableListOf()
-        }
-    }
 }
 
 private val dk.youtec.drapi.Channel.streamingUrl: String

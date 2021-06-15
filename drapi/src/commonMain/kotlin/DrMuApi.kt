@@ -11,15 +11,6 @@ internal interface IDrMuApi {
 
     suspend fun getManifest(uri: String): Manifest
 
-    @Deprecated("Broken")
-    suspend fun getSchedule(id: String, date: String): Schedule
-
-    @Deprecated("Broken")
-    suspend fun getScheduleNowNext(id: String): MuNowNext
-
-    @Deprecated("Broken")
-    suspend fun getScheduleNowNext(): List<MuNowNext>
-
     suspend fun search(query: String): SearchResult
 
     suspend fun getMostViewed(
@@ -53,13 +44,6 @@ data class MuPaging(
         @SerialName("Next") val next: String = "",
         @SerialName("Previous") val previous: String = "",
         @SerialName("TotalSize") val totalSize: Int = 0)
-
-@Serializable
-data class Schedule(
-        @SerialName("Broadcasts") val broadcasts: List<MuScheduleBroadcast>,
-        @SerialName("BroadcastDate") @Serializable(with = DateDeserializer::class) val broadcastDate: Long,
-        @SerialName("ChannelSlug") val channelSlug: String,
-        @SerialName("Channel") val channel: String)
 
 @Serializable
 data class Channel(

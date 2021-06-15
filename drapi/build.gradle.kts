@@ -21,11 +21,11 @@ android {
 }
 
 dependencies {
-    testImplementation("junit:junit:4.13.1")
+    testImplementation("junit:junit:4.13.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    androidTestImplementation("junit:junit:4.13.1")
+    androidTestImplementation("junit:junit:4.13.2")
     androidTestImplementation("org.jetbrains.kotlin:kotlin-test")
     androidTestImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 
