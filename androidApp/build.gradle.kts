@@ -133,7 +133,7 @@ dependencies {
     implementation("androidx.mediarouter:mediarouter:1.2.3")
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("androidx.preference:preference-ktx:1.1.1")
-    implementation("androidx.work:work-runtime-ktx:2.5.0")
+    implementation("androidx.work:work-runtime-ktx:2.6.0-beta01")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha01")
     implementation(platform("com.google.firebase:firebase-bom:+"))
     implementation("com.google.firebase:firebase-crashlytics-ktx")

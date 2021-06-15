@@ -1,22 +1,19 @@
 package dk.youtec.drchannels.desktop
 
-import androidx.compose.desktop.DesktopTheme
+import androidx.compose.desktop.DesktopMaterialTheme
 import androidx.compose.desktop.Window
 import androidx.compose.foundation.Image
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.vectorXmlResource
 import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModelImpl
 import dk.youtec.drchannels.logic.viewmodel.VideoItem
 import dk.youtec.drchannels.ui.Channel
 import dk.youtec.drchannels.ui.ChannelsScreen
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
+@OptIn(DelicateCoroutinesApi::class)
 fun main() {
     val vm = TvChannelsViewModelImpl()
     vm.observeChannels {
@@ -40,28 +37,26 @@ fun main() {
         size = getPreferredWindowSize(800, 1000),
         //icon = icAppRounded()
     ) {
-        MaterialTheme {
-            DesktopTheme {
-                val state = channels.collectAsState(initial = emptyList())
-                ChannelsScreen(state = state,
-                    playTvChannel = { channel ->
-                        vm.playTvChannel(
-                            VideoItem(
-                                channel.videoItem.title,
-                                channel.videoItem.videoUrl,
-                                channel.videoItem.imageUrl
-                            )
+        DesktopMaterialTheme {
+            val state = channels.collectAsState(initial = emptyList())
+            ChannelsScreen(state = state,
+                playTvChannel = { channel ->
+                    vm.playTvChannel(
+                        VideoItem(
+                            channel.videoItem.title,
+                            channel.videoItem.videoUrl,
+                            channel.videoItem.imageUrl
                         )
-                    },
-                    onProgramsClick = {},
-                    image = {
-                        Image(
-                            imageVector = vectorXmlResource("images/logo.xml"),
-                            "Channel logo"
-                        )
-                    }
-                )
-            }
+                    )
+                },
+                onProgramsClick = {},
+                image = {
+                    Image(
+                        imageVector = vectorXmlResource("images/logo.xml"),
+                        "Channel logo"
+                    )
+                }
+            )
         }
     }
 }
