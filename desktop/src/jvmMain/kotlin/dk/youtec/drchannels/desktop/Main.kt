@@ -12,6 +12,7 @@ import dk.youtec.drchannels.ui.ChannelsScreen
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
+import java.io.File
 
 @OptIn(DelicateCoroutinesApi::class)
 fun main() {
@@ -23,8 +24,13 @@ fun main() {
         vm.playback.collect {
             println("Playback of: $it")
             withContext(Dispatchers.IO) {
-                Runtime.getRuntime()
-                    .exec("open ${it.videoUrl}")
+                if (File("/Applications/VLC.app/Contents/MacOS/VLC").exists()) {
+                    Runtime.getRuntime()
+                        .exec("/Applications/VLC.app/Contents/MacOS/VLC ${it.videoUrl}")
+                } else {
+                    Runtime.getRuntime()
+                        .exec("open ${it.videoUrl}")
+                }
             }
         }
     }
