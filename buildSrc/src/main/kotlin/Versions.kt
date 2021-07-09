@@ -16,6 +16,6 @@ object Versions {
     const val kotlin = "1.5.10"
     const val coroutines = "1.5.0-native-mt"
     const val datetime = "0.2.1"
-    const val serialization = "1.2.1"
+    const val serialization = "1.2.2"
     const val ktor = "1.6.1"
 }
