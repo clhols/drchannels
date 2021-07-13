@@ -10,7 +10,7 @@ object Versions {
     const val okhttp = "4.9.1"
     const val exoPlayer = "2.11.8"
     const val fragmentKtx = "1.2.5"
-    const val compose = "1.0.0-beta08"
+    const val compose = "1.0.0-rc01" //Only ui-tooling
 
     //Kotlin dependent versions
     const val kotlin = "1.5.10"
