@@ -6,6 +6,7 @@ plugins {
     kotlin("android")
     id("org.jetbrains.compose")
     kotlin("kapt")
+    id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
     id("com.google.firebase.firebase-perf")
     id("org.sonarqube") version "2.7.1"
@@ -168,5 +169,3 @@ if (releasePropertiesFile.exists()) {
         keyPassword = props.getProperty("keyAliasPassword")
     }
 }
-
-apply(mapOf("plugin" to "com.google.gms.google-services"))
