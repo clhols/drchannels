@@ -27,6 +27,9 @@ fun main() {
                 if (File("/Applications/VLC.app/Contents/MacOS/VLC").exists()) {
                     Runtime.getRuntime()
                         .exec("/Applications/VLC.app/Contents/MacOS/VLC ${it.videoUrl}")
+                } else if (File("/usr/bin/vlc").exists()) {
+                    Runtime.getRuntime()
+                        .exec("/usr/bin/vlc ${it.videoUrl}")
                 } else {
                     Runtime.getRuntime()
                         .exec("open ${it.videoUrl}")
