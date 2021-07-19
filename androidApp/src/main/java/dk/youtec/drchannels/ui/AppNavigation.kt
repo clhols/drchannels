@@ -10,6 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -17,9 +18,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import coil.compose.LocalImageLoader
+import coil.compose.rememberImagePainter
 import coil.request.ImageRequest
 import coil.transform.RoundedCornersTransformation
-import com.google.accompanist.coil.rememberCoilPainter
 import dk.youtec.drchannels.logic.viewmodel.ProgramsViewModel
 import dk.youtec.drchannels.logic.viewmodel.TvChannelsViewModel
 import dk.youtec.drchannels.logic.viewmodel.VideoItem
@@ -29,7 +31,6 @@ lateinit var navController: NavHostController
 
 @Composable
 fun AppNavigation(
-    context: Context,
     tvChannelsViewModel: TvChannelsViewModel,
     programsViewModel: ProgramsViewModel,
 ) {
@@ -62,18 +63,16 @@ fun AppNavigation(
                     navController.navigate("programs/$it")
                 }) { url ->
                 Image(
-                    painter = rememberCoilPainter(
-                        request = ImageRequest.Builder(context)
-                            .data(url)
-                            .transformations(
+                    painter = rememberImagePainter(
+                        data = url,
+                        builder = {
+                            transformations(
                                 RoundedCornersTransformation(
                                     topLeft = 40f,
                                     bottomRight = 40f
                                 )
                             )
-                            .build(),
-                        shouldRefetchOnSizeChange = { _, _ -> false },
-                    ),
+                        }),
                     contentDescription = null,
                     modifier = Modifier
                         .width(120.dp)

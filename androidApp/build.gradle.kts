@@ -123,10 +123,9 @@ dependencies {
     implementation("com.google.android.exoplayer:exoplayer-ui:${Versions.exoPlayer}")
     implementation("com.google.android.exoplayer:extension-cast:${Versions.exoPlayer}")
 
-    implementation("io.coil-kt:coil:1.2.1")
+    implementation("io.coil-kt:coil-compose:1.3.0")
     implementation("androidx.compose.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.navigation:navigation-compose:2.4.0-alpha04")
-    implementation("com.google.accompanist:accompanist-coil:0.10.0")
 
     implementation("com.squareup.okhttp3:okhttp:${Versions.okhttp}")
     implementation("com.google.android.material:material:1.4.0")

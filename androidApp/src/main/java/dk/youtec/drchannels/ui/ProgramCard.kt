@@ -1,6 +1,5 @@
 package dk.youtec.drchannels.ui
 
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,24 +8,20 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.request.ImageRequest
+import coil.compose.rememberImagePainter
 import coil.transform.RoundedCornersTransformation
-import com.google.accompanist.coil.rememberCoilPainter
 
 @Composable
 fun ProgramCard(
     program: ProgramCardData,
     onClick: (String) -> Unit
 ) {
-    val context: Context = LocalContext.current
-
     Card(
         Modifier
             .fillMaxWidth()
@@ -37,17 +32,16 @@ fun ProgramCard(
         Column(Modifier.padding(12.dp)) {
             Row {
                 Image(
-                    painter = rememberCoilPainter(
-                        request = ImageRequest.Builder(context)
-                            .data(program.imageUrl)
-                            .transformations(
+                    painter = rememberImagePainter(
+                        data = program.imageUrl,
+                        builder = {
+                            transformations(
                                 RoundedCornersTransformation(
                                     topLeft = 40f,
                                     bottomRight = 40f
                                 )
                             )
-                            .build(),
-                        shouldRefetchOnSizeChange = { _, _ -> false },
+                        }
                     ),
                     contentDescription = null,
                     modifier = Modifier
