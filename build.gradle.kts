@@ -5,8 +5,6 @@ buildscript {
         mavenCentral()
         google()
         maven { setUrl("https://plugins.gradle.org/m2/") }
-        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
-        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         maven { setUrl("https://github.com/clhols/mvn-repo/raw/master/") }
         //mavenLocal()
         maven { setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
@@ -28,11 +26,7 @@ allprojects {
     repositories {
         mavenCentral()
         google()
-        maven { setUrl("https://kotlin.bintray.com/kotlinx") }
-        maven { setUrl("https://kotlin.bintray.com/ktor") }
         maven { setUrl("https://plugins.gradle.org/m2/") }
-        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-dev") }
-        //maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 
